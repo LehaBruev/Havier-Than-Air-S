@@ -19,6 +19,7 @@ namespace Havier_Than_Air_S
         static int menudelay = 50;
         static int podskazkaswitch = 1;
 
+
         public Game(GameController gameController)
         {
 
