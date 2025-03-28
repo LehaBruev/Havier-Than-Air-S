@@ -11,6 +11,7 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
+
         static void Main(string[] args)
         {
             VideoMode vMode = new VideoMode(800, 600);
