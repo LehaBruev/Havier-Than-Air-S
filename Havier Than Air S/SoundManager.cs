@@ -18,7 +18,7 @@ namespace Havier_Than_Air_S
 
          public void playSound()
         {
-            // rocket1 = new SFML.Audio.SoundBuffer("rocket1.wav");
+             rocket1 = new SFML.Audio.SoundBuffer("rocket1.wav");
             
             
            //// Sound s = new Sound(rocket1);
