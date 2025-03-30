@@ -11,9 +11,14 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
-
+        static SoundManager soundManager;
         static void Main(string[] args)
         {
+
+            soundManager = new SoundManager();
+            soundManager.playSound();
+
+
             VideoMode vMode = new VideoMode(800, 600);
             RenderWindow win = new SFML.Graphics.RenderWindow(vMode, "Havier Than Air SFML");
             win.Closed += Win_Closed;

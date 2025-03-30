@@ -11,13 +11,13 @@ namespace Havier_Than_Air_S
         GameController mGameController;
 
         //Меню
-        static int mainmenuSwitch = 1;
-        static int levelchoise = 0;
-        static int menuchoise2 = 0;
-        static int newgame = 0;
-        static int gameplaying = 0;
-        static int menudelay = 50;
-        static int podskazkaswitch = 1;
+         int mainmenuSwitch = 1;
+         int levelchoise = 0;
+         int menuchoise2 = 0;
+         int newgame = 0;
+         int gameplaying = 0;
+         int menudelay = 50;
+         int podskazkaswitch = 1;
 
 
         public Game(GameController gameController)

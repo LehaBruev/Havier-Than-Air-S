@@ -12,6 +12,7 @@ namespace Havier_Than_Air_S
     {
 
 
+        /*
         //ТЕКСТУРЫ
         static string backgroundLevel3 = LoadTexture("BackGroundLevel3.png");
         //static string backgroundLevel2 = LoadTexture("BackGroundLevel2.png");
@@ -22,7 +23,7 @@ namespace Havier_Than_Air_S
         static string scoresprite = LoadTexture("score1back.png");
 
 
-
+        */
 
 
 

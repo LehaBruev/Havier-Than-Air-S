@@ -3,15 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Audio;
 
 namespace Havier_Than_Air_S
 {
 
 
-    internal class SoundManager
+    public class SoundManager
     {
 
+        SoundBuffer rocket1 = new SoundBuffer("rocket1.wav");
+        Sound s = new Sound();
+       
 
+         public void playSound()
+        {
+            SoundBuffer rocket1 = new SoundBuffer("rocket1.wav");
+            Sound s = new Sound(rocket1);
+            Music m = new SFML.Audio.Music("rocket1.wav");
+
+        }
+
+        /*
 
         //ЗВУКИ
          int warningdelay = 0;
@@ -63,7 +76,7 @@ namespace Havier_Than_Air_S
          string radaractive = LoadSound("tu_active.wav"); // Бук поиск цели
          string collisionmet = LoadSound("ric_metal-2.wav"); // Столкновение с металлом
 
-
+        */
 
     }
 }

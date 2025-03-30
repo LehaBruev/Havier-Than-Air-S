@@ -16,13 +16,13 @@ namespace Havier_Than_Air_S
 
     public class GameController
     {
-        public GameMode mCurrentMode;
+        public GameMode CurrentMode;
         
 
         public GameController() 
         {
-            mCurrentMode = GameMode.MainMenu;
-            mMagnitola = new Magnitola();   
+            CurrentMode = GameMode.MainMenu;
+             
 
         }
 
