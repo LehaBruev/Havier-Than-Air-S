@@ -29,7 +29,7 @@ namespace Havier_Than_Air_S
          string helirotor2 = LoadSound("ap_rotor3down.wav"); //Вертолет падает
          string helirotor3 = LoadSound("ap_rotor2earth.wav"); //
          string helirotor4 = LoadSound("ap_rotorhigh.wav"); // Верталет ПЕРЕГРУЗКА
-        static string helisound = LoadSound("hw_spindown.wav");
+         string helisound = LoadSound("hw_spindown.wav");
          string proverupravlenie = LoadSound("FlightControls.wav");
          string rubejvozvrata = LoadSound("Bingo.wav");
          string sbrosoboroti = LoadSound("sbrosoboroti.wav");
