@@ -88,10 +88,95 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Havier Than Air 1.1\comic.ttf" />
+    <None Include="Havier Than Air 1.1\Havier Than Air 1.1.exe - Ярлык.lnk" />
+    <None Include="Havier Than Air 1.1\Havier Than Air 1.1.exe.config" />
+    <None Include="Havier Than Air 1.1\SHOWG.TTF" />
+    <None Include="Havier Than Air 1.1\STENCIL.TTF" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Havier Than Air 1.1\aim.png" />
+    <Content Include="Havier Than Air 1.1\airvolfbig.wav" />
+    <Content Include="Havier Than Air 1.1\ap_rotor2earth.wav" />
+    <Content Include="Havier Than Air 1.1\ap_rotor3down.wav" />
+    <Content Include="Havier Than Air 1.1\ap_rotor4on.wav" />
+    <Content Include="Havier Than Air 1.1\ap_rotorhigh.wav" />
+    <Content Include="Havier Than Air 1.1\BackGroundLevel1.png" />
+    <Content Include="Havier Than Air 1.1\BackGroundLevel3.png" />
+    <Content Include="Havier Than Air 1.1\Bingo.wav" />
+    <Content Include="Havier Than Air 1.1\button2.wav" />
+    <Content Include="Havier Than Air 1.1\buttonclick.wav" />
+    <Content Include="Havier Than Air 1.1\buttonclickrelease.wav" />
+    <Content Include="Havier Than Air 1.1\cansel.wav" />
+    <Content Include="Havier Than Air 1.1\cansel2.wav" />
+    <Content Include="Havier Than Air 1.1\csfml-audio-2.dll" />
+    <Content Include="Havier Than Air 1.1\csfml-graphics-2.dll" />
+    <Content Include="Havier Than Air 1.1\csfml-system-2.dll" />
+    <Content Include="Havier Than Air 1.1\csfml-window-2.dll" />
+    <Content Include="Havier Than Air 1.1\EngineFire.wav" />
+    <Content Include="Havier Than Air 1.1\explode4.wav" />
+    <Content Include="Havier Than Air 1.1\finalmusic.wav" />
+    <Content Include="Havier Than Air 1.1\FlightControls.wav" />
+    <Content Include="Havier Than Air 1.1\Fuel500.wav" />
+    <Content Include="Havier Than Air 1.1\Fuel800.wav" />
+    <Content Include="Havier Than Air 1.1\glass3.wav" />
+    <Content Include="Havier Than Air 1.1\glass4.wav" />
+    <Content Include="Havier Than Air 1.1\Havier Than Air 1.1.exe" />
+    <Content Include="Havier Than Air 1.1\hw_spindown.wav" />
+    <Content Include="Havier Than Air 1.1\hw_spinup.wav" />
+    <Content Include="Havier Than Air 1.1\Hydro.wav" />
+    <Content Include="Havier Than Air 1.1\ico1.ico" />
+    <Content Include="Havier Than Air 1.1\Level1Music.wav" />
+    <Content Include="Havier Than Air 1.1\mainmenu.png" />
+    <Content Include="Havier Than Air 1.1\mainmenu2.png" />
+    <Content Include="Havier Than Air 1.1\mainmenumusic.wav" />
+    <Content Include="Havier Than Air 1.1\MasterWarning.wav" />
+    <Content Include="Havier Than Air 1.1\metal1.wav" />
+    <Content Include="Havier Than Air 1.1\metal2.wav" />
+    <Content Include="Havier Than Air 1.1\mgun_burst3.wav" />
+    <Content Include="Havier Than Air 1.1\mine_deploy.wav" />
+    <Content Include="Havier Than Air 1.1\minus.wav" />
+    <Content Include="Havier Than Air 1.1\MissileMissile.wav" />
+    <Content Include="Havier Than Air 1.1\musicotkazsistem.wav" />
+    <Content Include="Havier Than Air 1.1\nrpusto.wav" />
+    <Content Include="Havier Than Air 1.1\OLS.wav" />
+    <Content Include="Havier Than Air 1.1\openal32.dll" />
+    <Content Include="Havier Than Air 1.1\OpenTK.dll" />
+    <Content Include="Havier Than Air 1.1\peregruzka.wav" />
+    <Content Include="Havier Than Air 1.1\pumper.wav" />
+    <Content Include="Havier Than Air 1.1\pvo1.wav" />
+    <Content Include="Havier Than Air 1.1\ric_metal-2.wav" />
+    <Content Include="Havier Than Air 1.1\rocket1.wav" />
+    <Content Include="Havier Than Air 1.1\rocketflame1.wav" />
+    <Content Include="Havier Than Air 1.1\rotormachine.wav" />
+    <Content Include="Havier Than Air 1.1\sbrosoboroti.wav" />
+    <Content Include="Havier Than Air 1.1\score1back.png" />
+    <Content Include="Havier Than Air 1.1\sfml-audio.dll" />
+    <Content Include="Havier Than Air 1.1\sfml-graphics.dll" />
+    <Content Include="Havier Than Air 1.1\sfml-learning.dll" />
+    <Content Include="Havier Than Air 1.1\sfml-system.dll" />
+    <Content Include="Havier Than Air 1.1\sfml-window.dll" />
+    <Content Include="Havier Than Air 1.1\shilka.png" />
+    <Content Include="Havier Than Air 1.1\ShootShoot.wav" />
+    <Content Include="Havier Than Air 1.1\signalgear1.wav" />
+    <Content Include="Havier Than Air 1.1\siren.wav" />
+    <Content Include="Havier Than Air 1.1\sxore.png" />
+    <Content Include="Havier Than Air 1.1\tankidle2.wav" />
+    <Content Include="Havier Than Air 1.1\topgun3.wav" />
+    <Content Include="Havier Than Air 1.1\topol.png" />
+    <Content Include="Havier Than Air 1.1\tu_active.wav" />
+    <Content Include="Havier Than Air 1.1\uh61.png" />
+    <Content Include="Havier Than Air 1.1\uh612.png" />
+    <Content Include="Havier Than Air 1.1\uh61all.png" />
+    <Content Include="Havier Than Air 1.1\vty.2.png" />
+    <Content Include="Havier Than Air 1.1\warn3.wav" />
+    <Content Include="Havier Than Air 1.1\WarningWarning.wav" />
+    <Content Include="Havier Than Air 1.1\zapmachine.wav" />
+    <Content Include="Havier Than Air 1.1\zapusk2.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
