@@ -14,10 +14,9 @@ namespace Havier_Than_Air_S
         static SoundManager soundManager;
         static void Main(string[] args)
         {
-
+            
             soundManager = new SoundManager();
             soundManager.playSound();
-
 
             VideoMode vMode = new VideoMode(800, 600);
             RenderWindow win = new SFML.Graphics.RenderWindow(vMode, "Havier Than Air SFML");
@@ -34,8 +33,6 @@ namespace Havier_Than_Air_S
                 win.DispatchEvents();
 
                 mGame.Update();
-
-
                 win.Display();
             }
 
@@ -46,9 +43,7 @@ namespace Havier_Than_Air_S
 
         private static void Win_Closed(object sender, EventArgs e)
         {
-
             (sender as RenderWindow).Close();
-
         }
 
     }

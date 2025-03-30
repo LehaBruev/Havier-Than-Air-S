@@ -8,10 +8,6 @@ using SFML.Audio;
 namespace Havier_Than_Air_S
 {
 
-
-
-
-
     public class Magnitola
     {
         public Magnitola() 
@@ -30,8 +26,6 @@ namespace Havier_Than_Air_S
 
             */
         }
-
-
 
     }
 }
