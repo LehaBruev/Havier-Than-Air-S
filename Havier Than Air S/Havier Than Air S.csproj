@@ -55,6 +55,26 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="SFML.Audio, Version=2.6.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFML.Audio.2.6.1\lib\netstandard2.0\SFML.Audio.dll</HintPath>
@@ -90,7 +110,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="bin\x64\Debug\Havier Than Air S.exe.config" />
+    <None Include="bin\x86\Debug\comic.ttf" />
+    <None Include="bin\x86\Debug\Havier Than Air S.exe.config" />
     <None Include="Havier Than Air 1.1\comic.ttf" />
     <None Include="Havier Than Air 1.1\Havier Than Air 1.1.exe - Ярлык.lnk" />
     <None Include="Havier Than Air 1.1\Havier Than Air 1.1.exe.config" />
@@ -98,12 +119,60 @@
     <None Include="Havier Than Air 1.1\STENCIL.TTF" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="bin\Debug\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\x64\Debug\Havier Than Air S.exe" />
-    <Content Include="bin\x64\Debug\Havier Than Air S.pdb" />
+    <Content Include="bin\x86\Debug\aim.png" />
+    <Content Include="bin\x86\Debug\airvolfbig.wav" />
+    <Content Include="bin\x86\Debug\ap_rotor2earth.wav" />
+    <Content Include="bin\x86\Debug\ap_rotor3down.wav" />
+    <Content Include="bin\x86\Debug\ap_rotor4on.wav" />
+    <Content Include="bin\x86\Debug\ap_rotorhigh.wav" />
+    <Content Include="bin\x86\Debug\BackGroundLevel1.png" />
+    <Content Include="bin\x86\Debug\BackGroundLevel3.png" />
+    <Content Include="bin\x86\Debug\Bingo.wav" />
+    <Content Include="bin\x86\Debug\button2.wav" />
+    <Content Include="bin\x86\Debug\buttonclick.wav" />
+    <Content Include="bin\x86\Debug\buttonclickrelease.wav" />
+    <Content Include="bin\x86\Debug\cansel.wav" />
+    <Content Include="bin\x86\Debug\cansel2.wav" />
+    <Content Include="bin\x86\Debug\csfml-audio-2.dll" />
+    <Content Include="bin\x86\Debug\csfml-graphics-2.dll" />
+    <Content Include="bin\x86\Debug\csfml-system-2.dll" />
+    <Content Include="bin\x86\Debug\csfml-window-2.dll" />
+    <Content Include="bin\x86\Debug\EngineFire.wav" />
+    <Content Include="bin\x86\Debug\explode4.wav" />
+    <Content Include="bin\x86\Debug\finalmusic.wav" />
+    <Content Include="bin\x86\Debug\FlightControls.wav" />
+    <Content Include="bin\x86\Debug\Fuel500.wav" />
+    <Content Include="bin\x86\Debug\Fuel800.wav" />
+    <Content Include="bin\x86\Debug\glass3.wav" />
+    <Content Include="bin\x86\Debug\glass4.wav" />
+    <Content Include="bin\x86\Debug\Havier Than Air S.exe" />
+    <Content Include="bin\x86\Debug\Havier Than Air S.pdb" />
+    <Content Include="bin\x86\Debug\hw_spindown.wav" />
+    <Content Include="bin\x86\Debug\hw_spinup.wav" />
+    <Content Include="bin\x86\Debug\Hydro.wav" />
+    <Content Include="bin\x86\Debug\ico1.ico" />
+    <Content Include="bin\x86\Debug\Level1Music.wav" />
+    <Content Include="bin\x86\Debug\mainmenu.png" />
+    <Content Include="bin\x86\Debug\mainmenu2.png" />
+    <Content Include="bin\x86\Debug\mainmenumusic.wav" />
+    <Content Include="bin\x86\Debug\MasterWarning.wav" />
+    <Content Include="bin\x86\Debug\metal1.wav" />
+    <Content Include="bin\x86\Debug\metal2.wav" />
+    <Content Include="bin\x86\Debug\mgun_burst3.wav" />
+    <Content Include="bin\x86\Debug\mine_deploy.wav" />
+    <Content Include="bin\x86\Debug\minus.wav" />
+    <Content Include="bin\x86\Debug\MissileMissile.wav" />
+    <Content Include="bin\x86\Debug\musicotkazsistem.wav" />
+    <Content Include="bin\x86\Debug\nrpusto.wav" />
+    <Content Include="bin\x86\Debug\OLS.wav" />
+    <Content Include="bin\x86\Debug\openal32.dll" />
+    <Content Include="bin\x86\Debug\OpenTK.dll" />
+    <Content Include="bin\x86\Debug\sfml-audio.dll" />
+    <Content Include="bin\x86\Debug\sfml-graphics.dll" />
+    <Content Include="bin\x86\Debug\sfml-system.dll" />
+    <Content Include="bin\x86\Debug\sfml-window.dll" />
     <Content Include="Havier Than Air 1.1\aim.png" />
     <Content Include="Havier Than Air 1.1\airvolfbig.wav" />
     <Content Include="Havier Than Air 1.1\ap_rotor2earth.wav" />
