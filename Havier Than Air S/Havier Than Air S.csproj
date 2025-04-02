@@ -76,6 +76,22 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="sfml-audio, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x86\Debug\sfml-audio.dll</HintPath>
+    </Reference>
+    <Reference Include="sfml-graphics, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x86\Debug\sfml-graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="sfml-system, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x86\Debug\sfml-system.dll</HintPath>
+    </Reference>
+    <Reference Include="sfml-window, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x86\Debug\sfml-window.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -157,6 +173,7 @@
     <Content Include="bin\x86\Debug\OLS.wav" />
     <Content Include="bin\x86\Debug\openal32.dll" />
     <Content Include="bin\x86\Debug\OpenTK.dll" />
+    <Content Include="bin\x86\Debug\rocket1.wav" />
     <Content Include="bin\x86\Debug\sfml-audio.dll" />
     <Content Include="bin\x86\Debug\sfml-graphics.dll" />
     <Content Include="bin\x86\Debug\sfml-system.dll" />
