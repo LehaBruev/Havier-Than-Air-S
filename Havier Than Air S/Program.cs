@@ -12,11 +12,13 @@ namespace Havier_Than_Air_S
     internal class Program
     {
         static SoundManager soundManager;
+        static TextureManager mTextureManager;
         static void Main(string[] args)
         {
             
             soundManager = new SoundManager();
             soundManager.playSound();
+            mTextureManager = new TextureManager();
 
             VideoMode vMode = new VideoMode(800, 600);
             RenderWindow win = new SFML.Graphics.RenderWindow(vMode, "Havier Than Air SFML");
@@ -24,7 +26,7 @@ namespace Havier_Than_Air_S
 
             GameController mGameController = new GameController();
 
-            Game mGame = new Game(mGameController);
+            Game mGame = new Game(mGameController, mTextureManager);
             Magnitola mMagnitola = new Magnitola();
 
             while (win.IsOpen)

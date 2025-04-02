@@ -38,9 +38,6 @@ namespace Havier_Than_Air_S
              maimenutexture = new Texture("mainmenu.png");
              scoresprite = new Texture("score1back.png");
 
-
-
-
         }
 
         /*

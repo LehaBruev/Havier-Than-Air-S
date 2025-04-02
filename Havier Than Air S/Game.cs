@@ -9,6 +9,7 @@ namespace Havier_Than_Air_S
     public class Game 
     {
         GameController mGameController;
+        TextureManager mTextureManager;
 
         //Меню
          int mainmenuSwitch = 1;
@@ -20,11 +21,11 @@ namespace Havier_Than_Air_S
          int podskazkaswitch = 1;
 
 
-        public Game(GameController gameController)
+        public Game(GameController gameController, TextureManager textureManager)
         {
 
             mGameController = gameController;
-
+            mTextureManager = textureManager;
 
         }
 
