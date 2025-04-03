@@ -27,5 +27,77 @@ namespace Havier_Than_Air_S
             */
         }
 
+
+        static void magnitola()
+        {
+
+
+
+            if (mainmenuSwitch != 0 || resultsmenuswitch != 0) //меню
+            {
+                playlistmusic = mainmenumusic;
+
+            }
+
+            if (levelchoise == 1 && mainmenuSwitch == 0 && resultsmenuswitch == 0) // музыка левел1
+            {
+
+                if (winpobeda == 1) playlistmusic = finalmusic;
+                else
+                {
+                    playlistmusic = Level1Music;
+                    if (padstoreswitch == 1) playlistmusic = StoreMusic;
+                }
+
+
+            }
+            if (levelchoise == 3 && mainmenuSwitch == 0 && resultsmenuswitch == 0) // музыка левел3
+            {
+
+
+                if (winpobeda == 1) playlistmusic = finalmusic;
+                else
+                {
+                    if (padstoreswitch == 1) playlistmusic = StoreMusic;
+                    else playlistmusic = Music3Level;
+
+
+                }
+
+            }
+            //Напряженная обстановка
+            if ((otkazhydrosis == 1 && otkazols == 1) || (otkazhydrosis == 1 && helienginelife < 75) || helienginelife < 65 || helilife <= 0 || otkazpojardvig == 1)
+            {
+                playlistmusic = musicotkazsistem;
+            }
+
+
+
+            if (playingmusic != playlistmusic) // смена музыки
+            {
+                if (playingmusic != "")
+                {
+                    StopMusic(playingmusic);
+                    Delay(20);
+                    PlayMusic(playlistmusic, volume + 20);
+                    Delay(20);
+                    playingmusic = playlistmusic;
+                }
+                if (playingmusic == "")
+                {
+                    PlayMusic(mainmenumusic, volume + 20);
+                    playingmusic = mainmenumusic;
+
+                }
+
+            }
+
+
+        }
+
+
+
+
+
     }
 }
