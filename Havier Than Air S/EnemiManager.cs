@@ -12,8 +12,7 @@ namespace Havier_Than_Air_S
     {
 
 
-
-
+        /*
 
         //ПРОТИВНИКИ
         //Переменные БУК1
@@ -431,6 +430,6 @@ namespace Havier_Than_Air_S
 
 
         }
-
+        */
     }
 }

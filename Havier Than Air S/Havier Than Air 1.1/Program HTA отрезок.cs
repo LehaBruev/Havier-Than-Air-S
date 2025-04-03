@@ -4,7 +4,7 @@ using SFML.Graphics;
 
 
 
-class Program : Game
+class Program1 
 {
   
     /*

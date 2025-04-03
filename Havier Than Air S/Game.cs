@@ -13,6 +13,8 @@ namespace Havier_Than_Air_S
         GameController mGameController;
         TextureManager mTextureManager;
 
+
+
         //Меню
          int mainmenuSwitch = 1;
          int levelchoise = 0;
@@ -23,40 +25,133 @@ namespace Havier_Than_Air_S
          int podskazkaswitch = 1;
 
         //Миссии
-        static int checkdelay = 50;
-        static int missionswitch = 0;
-        static int volnadelay = 0;
-        static int volnadelay2 = 0;
-        static int basedurability = 10;
-        static int winpobeda = 0;
+         int checkdelay = 50;
+         int missionswitch = 0;
+         int volnadelay = 0;
+         int volnadelay2 = 0;
+         int basedurability = 10;
+         int winpobeda = 0;
 
 
 
         //результаты
-        static float resultsmenuswitch = 0; //меню результатов
-        static float resultmenuchoise = 0; //меню результатов ывбор кнопки
-        static float money = 0; //очки
-        static float hiscore = 0; //рекорд очков
-        static float flighttime = 0; //время нахождения в воздухе
-        static float flighttimerecord = 0; //рекорд нахождения в воздухе
-        static float landingquantity = 0; //количество посадок
-        static float NRrocketslaunched = 0; //выпущено NR ракет количество
-        static float targetbingos = 0; //попаданий по цели
-        static float buk1destroyes = 0; //уничтожено буков1
-        static float tank1destroyes = 0; //уничтожено танков1
-        static float fuelusedup = 0; //израсходовано топлива
-        static float repairings = 0; //Отремонтирован вертолет
-        static float getdamages = 0; //Получено повреждений
+         float resultsmenuswitch = 0; //меню результатов
+         float resultmenuchoise = 0; //меню результатов ывбор кнопки
+         float money = 0; //очки
+         float hiscore = 0; //рекорд очков
+         float flighttime = 0; //время нахождения в воздухе
+         float flighttimerecord = 0; //рекорд нахождения в воздухе
+         float landingquantity = 0; //количество посадок
+         float NRrocketslaunched = 0; //выпущено NR ракет количество
+         float targetbingos = 0; //попаданий по цели
+         float buk1destroyes = 0; //уничтожено буков1
+         float tank1destroyes = 0; //уничтожено танков1
+         float fuelusedup = 0; //израсходовано топлива
+         float repairings = 0; //Отремонтирован вертолет
+         float getdamages = 0; //Получено повреждений
+
+        public void Update()
+        {
 
 
+        }
 
         //награды
-        static float tank1reward = 10000; //Получено повреждений
-        static float buk1reward = 30000; //Получено повреждений
+         float tank1reward = 10000; //Получено повреждений
+         float buk1reward = 30000; //Получено повреждений
                                          //static float repairings = 0; //Отремонтирован вертолет
+/*
+                 while (mainmenuSwitch == 1 || mainmenuSwitch == 2) // ТОЛЬКО ГЛАВНОЕ МЕНЮ или ПОДМЕНЮ выбор мышью
+                {
+
+                
+                    mainmenuDraw();
+
+                     magnitola();
 
 
-        public Game(GameController gameController, TextureManager textureManager)
+
+        
+                    if (menudelay <= 0)
+                    {
+                        if (GetMouseButtonDown(Mouse.Button.Left) == true && levelchoise != 0)
+                        {
+                            if (mainmenuSwitch == 1)
+                            {
+                                mainmenuSwitch = 0;
+                                StopMusic(mainmenumusic);
+        newgame = 1;
+                                gameplaying = 1;
+                                Delay(500);
+    }
+
+*/
+    /*
+                            if (mainmenuSwitch == 2) // меню во время игры
+                            {
+                                if (menuchoise2 == 2) // выход
+                                {
+                                    mainmenuSwitch = 0;
+                                    resultsmenuswitch = 1;
+                                    gameplaying = 0;
+                                    Delay(500);
+                                }
+                                if (menuchoise2 == 1) //продолжаем
+                                {
+                                    mainmenuSwitch = 0;
+                                    resultsmenuswitch = 0;
+                                    Delay(500);
+                                    StopMusic(mainmenumusic);
+                                }
+                            }
+    */
+
+        /*/
+}
+
+
+                    }
+                    menudelay = menudelay - 1;
+DisplayWindow();
+Delay(15);
+
+                }
+
+                while (resultsmenuswitch == 1) //меню РЕЗУЛЬТАТОВ
+{
+
+
+
+    resultsDraw();
+
+    if (GetMouseButtonDown(Mouse.Button.Left) == true)
+    {
+        if (resultmenuchoise == 1) // в меню
+        {
+            mainmenuSwitch = 1;
+            resultmenuchoise = 0;
+            resultsmenuswitch = 0;
+            gameplaying = 0;
+        }
+        if (resultmenuchoise == 2) // переиграть
+        {
+            mainmenuSwitch = 0;
+            resultmenuchoise = 0;
+            resultsmenuswitch = 0;
+            newgame = 1;
+            gameplaying = 1;
+            break;
+        }
+
+    }
+
+
+    DisplayWindow();
+
+
+}
+
+public Game(GameController gameController, TextureManager textureManager)
         {
 
             mGameController = gameController;
@@ -2027,6 +2122,6 @@ if (levelchoise == 3 && mainmenuSwitch == 0 && gameplaying == 1) // Левел 3
 } // Левел 3 Свободный полет
 
 
-
+*/
     }
 }

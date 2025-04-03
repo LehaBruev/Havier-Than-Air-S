@@ -12,7 +12,7 @@ namespace Havier_Than_Air_S
     internal class Rita
     {
 
-
+        /*
 
         //Поломки
         static int otkazhydrosis = 0; // Гидросистема
@@ -79,7 +79,7 @@ namespace Havier_Than_Air_S
 
 
 
-
+        */
 
 
 

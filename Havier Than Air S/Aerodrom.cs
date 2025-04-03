@@ -11,11 +11,7 @@ namespace Havier_Than_Air_S
 
 
 
-
-
-
-
-
+        /*
 
         // Верталетная площадка PAD STORE   PAD STORE           PAD STORE       PAD STORE
         static float padx = 50;
@@ -29,5 +25,7 @@ namespace Havier_Than_Air_S
         static float paddelay = 100; //Время до загрузки следующей ракеты
         static int NRrocketchecklaunch = 0; //счетчик ракет
         static int donatswitch = 0; //счетчик ракет
+
+*/
     }
 }

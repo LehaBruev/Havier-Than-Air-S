@@ -11,7 +11,7 @@ namespace Havier_Than_Air_S
 
 
 
-
+        /*
 
 
         static Random rnd = new Random();
@@ -101,6 +101,6 @@ namespace Havier_Than_Air_S
 
         static float[] otkazcicle = new float[10]; //1= управляемость 2=шаг угла атаки 3=актив ошибка гидросист
 
-
+        */
     }
 }

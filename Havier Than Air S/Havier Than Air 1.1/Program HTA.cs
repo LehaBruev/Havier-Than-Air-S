@@ -1,18 +1,19 @@
-﻿using System;
+﻿
+using System;
 using SFML.Window;
-using SFML.Learning;
+//using SFML.Learning;
 using SFML.System;
 using SFML.Audio;
 using SFML.Graphics;
 
 
 
-class Program : Game
+class Program2 //: Game
 {
     //загрузка ресурсов
 
     //
-
+    /*
     //ТЕКСТУРЫ
     static string backgroundLevel3 = LoadTexture("BackGroundLevel3.png");
     //static string backgroundLevel2 = LoadTexture("BackGroundLevel2.png");
@@ -1131,7 +1132,7 @@ class Program : Game
         // FillCircle(bukx, buky, 10); //Бук
         // FillCircle(bukx+buk1sizex, buky+buk1sizey, 2); //Бук
           */
-
+    /*
 
         //Столкновение Ракет NR верталета МОДЕ 2 с Землей
         for (int i = 0; i < R.GetLongLength(1); i++)
@@ -4118,4 +4119,6 @@ class Program : Game
     } // Игра 
 }//Программа
 
+*/
 
+}

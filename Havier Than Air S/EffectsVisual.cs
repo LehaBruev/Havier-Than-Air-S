@@ -10,7 +10,7 @@ namespace Havier_Than_Air_S
     {
 
 
-
+        /*
 
         //Эффекты
         static float explosivepower = 8;
@@ -98,7 +98,7 @@ namespace Havier_Than_Air_S
 
 
 
-
+        */
 
 
     }

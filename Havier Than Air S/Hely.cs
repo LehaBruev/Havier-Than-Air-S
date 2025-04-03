@@ -9,7 +9,7 @@ namespace Havier_Than_Air_S
     internal class Hely
     {
 
-
+        /*
 
 
         //Настройки верталета
@@ -49,7 +49,7 @@ namespace Havier_Than_Air_S
         static void MoveNRrocket() // неуправляемая ракета НР движение и отрисовка
 
         {
-
+            
             for (int i = 0; i < R.GetLongLength(1); i++) //(1 = x ракеты, 2 = y ракеты, 3 = angle ракеты, 4 = fuel ракеты, 5 = ракета проявлена(1 в кассете, 2 в полете, 0 потрачено)
             {
                 //положение ракеты
@@ -101,7 +101,7 @@ namespace Havier_Than_Air_S
             }
 
         }
-
+        */
 
 
     }

@@ -10,7 +10,7 @@ namespace Havier_Than_Air_S
     internal class Player
     {
 
-
+        /*
 
         // ИГРОК
         static float startx = 50; //Начальная позиция игрока
@@ -352,7 +352,7 @@ namespace Havier_Than_Air_S
 
 
 
-
+        */
 
 
 

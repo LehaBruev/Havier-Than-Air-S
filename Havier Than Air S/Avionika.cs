@@ -12,7 +12,7 @@ namespace Havier_Than_Air_S
     {
 
 
-
+        /*
         static void PanelInstrument() // параметры приборной панели и отрисовка
         {
             SetFillColor(Color.Red);
@@ -73,7 +73,7 @@ namespace Havier_Than_Air_S
 
         }
 
-
+*/
 
     }
 }

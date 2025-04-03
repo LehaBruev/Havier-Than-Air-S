@@ -9,7 +9,7 @@ namespace Havier_Than_Air_S
 {
     internal class Collisions
     {
-
+        /*
         // СТОЛКНОВЕНИЯ СТОЛКНОВЕНИЯ СТОЛКНОВЕНИЯ
         static void SearchConflict() // Поиск столкновений и коллизий ( Bx1 < Ax2 && Bx 2> Ax1 ) формула
         {
@@ -224,7 +224,7 @@ namespace Havier_Than_Air_S
             // FillCircle(bukx, buky, 10); //Бук
             // FillCircle(bukx+buk1sizex, buky+buk1sizey, 2); //Бук
               */
-
+        /*
 
             //Столкновение Ракет NR верталета МОДЕ 2 с Землей
             for (int i = 0; i < R.GetLongLength(1); i++)
@@ -313,6 +313,6 @@ namespace Havier_Than_Air_S
             // FillCircle(padx+ padsizex, pady+ padsizey, 3);
 
         } 
-
+*/
     }
 }

@@ -119,8 +119,8 @@
     <Compile Include="obj\x64\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Prochee.cs" />
-    <Compile Include="Program HTA отрезок.cs" />
-    <Compile Include="Program HTA.cs" />
+    <Compile Include="Havier Than Air 1.1\Program HTA отрезок.cs" />
+    <Compile Include="Havier Than Air 1.1\Program HTA.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rita.cs" />
