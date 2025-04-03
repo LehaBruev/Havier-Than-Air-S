@@ -6,134 +6,7 @@ using SFML.Graphics;
 
 class Program : Game
 {
-    //загрузка ресурсов
-
-    //
-
-    //ТЕКСТУРЫ
-    static string backgroundLevel3 = LoadTexture("BackGroundLevel3.png");
-    //static string backgroundLevel2 = LoadTexture("BackGroundLevel2.png");
-    static string backgroundLevel1 = LoadTexture("BackGroundLevel1.png");
-    static string uh61 = LoadTexture("uh61all.png");
-    static string aiming = LoadTexture("aim.png");
-    static string maimenutexture = LoadTexture("mainmenu.png");
-    static string scoresprite = LoadTexture("score1back.png");
-
-
-    static Random rnd = new Random();
-
-    //ЗВУКИ
-    static int warningdelay = 0;
-    static int sounds = 1;
-    static int volume = 85;
-    static string rocketsound = LoadSound("rocket1.wav");
-    static string click = LoadSound("buttonclick.wav"); //щелчек кнопки
-    static string stopengine = LoadSound("hw_spindown.wav"); //щелчек кнопки
-    static string bangsound = LoadSound("explode4.wav"); //взрыв
-    //static string startengine = LoadSound("hw_spinup.wav"); //Запуск двигателя
-    static string startenginesound = LoadSound("zapusk2.wav"); //Запуск двигателя
-    static string helirotor1 = LoadSound("ap_rotor4on.wav"); //Вертолет включен
-    static string helirotor2 = LoadSound("ap_rotor3down.wav"); //Вертолет падает
-    static string helirotor3 = LoadSound("ap_rotor2earth.wav"); //
-    static string helirotor4 = LoadSound("ap_rotorhigh.wav"); // Верталет ПЕРЕГРУЗКА
-    static string helisound = LoadSound("hw_spindown.wav");
-    static string proverupravlenie = LoadSound("FlightControls.wav");
-    static string rubejvozvrata = LoadSound("Bingo.wav");
-    static string sbrosoboroti = LoadSound("sbrosoboroti.wav");
-    static string checkpointsound = LoadSound("mine_deploy.wav"); //чекпоинт, звук мины из хл
-    static string tank1motorsound = LoadSound("rotormachine.wav"); //чекпоинт, звук мины из хл
-    static string tank1motorsound2 = LoadSound("tankidle2.wav"); //чекпоинт, звук мины из хл
-    static string helionpadsound = LoadSound("warn3.wav"); // верталет на базе
-    static string metal1 = LoadSound("metal1.wav"); // касание земли
-    static string metal2 = LoadSound("metal2.wav"); // касание земли 2
-    static string pumper = LoadSound("pumper.wav"); // заправка
-    static string zapmachine = LoadSound("zapmachine.wav"); // заправка
-    static string cansel = LoadSound("button2.wav"); // заправка
-    static string grass1 = LoadSound("glass3.wav"); // стекло
-    static string grass2 = LoadSound("glass4.wav"); // стекло2
-    static string pvosound = LoadSound("pvo1.wav"); //пво ракета
-    static string minus = LoadSound("minus.wav"); //минус 1 на базе
-    static string MissileMissile = LoadSound("MissileMissile.wav"); //определи направление угрозу
-    static string MasterWarningsound = LoadSound("MasterWarning.wav"); //мастер предупреждение
-    static string soundotkazHydro = LoadSound("Hydro.wav"); //гидростистема
-    static string soundotkazols = LoadSound("OLS.wav"); //олс
-    static string soundotkazpojar = LoadSound("EngineFire.wav"); //пожар
-    static string enginerepairsound = LoadSound("signalgear1.wav"); //ремонт мотора
-
-    static string Music3Level = LoadMusic("airvolfbig.wav"); // Музыка аирвольв
-    static string Level1Music = LoadMusic("Level1Music.wav"); //Левел 1 музыка
-    static string StoreMusic = LoadMusic("topgun3.wav"); //Магазинчик
-    static string mainmenumusic = LoadMusic("mainmenumusic.wav"); //Вертолет рабочий режим звука
-    static string finalmusic = LoadMusic("finalmusic.wav"); //Вертолет рабочий режим звука
-    static string musicotkazsistem = LoadMusic("musicotkazsistem.wav"); //Музыка для напряженной обстановке
-
-    //Звуки2
-    static string kg500 = LoadSound("Fuel500.wav"); //500кг
-    static string kg800 = LoadSound("Fuel800.wav"); //800кг
-    static string puskrazreshen = LoadSound("ShootShoot.wav"); //Пуск разрешен
-    static string nrrocketreloadsound = LoadSound("nrpusto.wav"); // ракеты заряжены
-    static string proverpokazaniya = LoadSound("WarningWarning.wav"); // проверь показания приборов
-    static string radaractive = LoadSound("tu_active.wav"); // Бук поиск цели
-    static string collisionmet = LoadSound("ric_metal-2.wav"); // Столкновение с металлом
-    // Плейлист
-    static string playingmusic;// Текущая песня
-    static string playlistmusic;// Текущая песня
-
-    // Переменные доступные всем методам и функциям
-
-    //Меню
-    static int mainmenuSwitch = 1;
-    static int levelchoise = 0;
-    static int menuchoise2 = 0;
-    static int newgame = 0;
-    static int gameplaying = 0;
-    static int menudelay = 50;
-    static int podskazkaswitch = 1;
-
-
-
-    //Настройки прицеливания
-    static float aimlehght = 180;
-
-    //Вычисление угла ГЕОМЕТРИЯ
-    static float searchA = 0; //y
-    static float searchB = 0; //x
-    static float searchline = 0; // диагональ
-    static float searchangle = 0; // угол
-    static float x1 = 0; // координаты
-    static float x2 = 0; // координаты
-    static float y1 = 0; // координаты
-    static float y2 = 0; // координаты
-    static double d = 0; // расстояние между двумя точками
-    static float aimangle = 0; // угол до цели
-
-    //Параметры МИРА и ВЕРТАЛЕТА
-    static float wind = 0; //Сила ветра
-    static float ground = 700; //Уровень земли
-    static float gravityweight = 20000; //Сила притяжения
-    static float playerx = 50;
-    static float playery = 400;
-    static float speedx = 0;
-    static float speedxmax = 2.5f;
-    static float speedy = 0;
-    static float powery = 0;
-    static float enginespeed = 19500; //Обороты двигателя
-    static float maxenginespeed = 60000; //Максимальные обороты двигателя
-    static float enginespeedlimit = 45000; //Предельные обороты двигателя
-
-    static float angle = 0; //угол атаки верталета
-
-    static float airP = 0; //плотность воздуха
-    static float boostv = 0; //ускорение вертикальное
-    static float autopilotv = 0; // автопилот переменная, задает высоту полета
-    static float autopilotswitchX = 0; //автопилот вертикальный, удерживает высоту
-    static float autopilotzonax = 0; //Автопилот возврат в зону полета
-    static float autopilotzonaangle = 0; //Автопилот возврат в зону полета
-    static float autopilotzonaswitch = 0; //Автопилот возврат в зону полета
-    static int g = 0;
-    static int helidestroy = 0; // верталет разрушен
-    static int helistop = 0; // вертолет обесточен
-
+  
 
     //Настройки верталета
 
@@ -155,18 +28,6 @@ class Program : Game
     static float maxboost = 11250; // максимальное ускорение от двигателя
 
 
-    // ИГРОК
-    static float startx = 50; //Начальная позиция игрока
-    static float starty = 400; //Начальная позиция игрока
-    static float playerh = 35; // высота вертолета
-    static float playerl = 50; // длина вертолета
-    static float maxpowery = 300000; //Максимальная сила влияет на вертолет
-    static float maxpowerx = 30000; // 
-    static float shagengine = 75; // шаг увеличения мощности двигателя
-    static float shagAngle = 2; // шаг изменения угла атаки
-    static float maxspeedhor = 50;
-    static float maxspeedvert = 300;
-    static float maxheigh = 575; // потолок полета
 
 
     //ВООРУЖЕНИЕ ВЕРТАЛЕА
@@ -180,33 +41,9 @@ class Program : Game
     static int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
     static int nrfuel = 400; // запас хода NR неуправляемых ракет
 
-    // Верталетная площадка PAD STORE   PAD STORE           PAD STORE       PAD STORE
-    static float padx = 50;
-    static float pady = 700;
-    static float padsizex = 137;
-    static float padsizey = 66;
-    static float padswitch = 0;
-    static int padload = 0;
-    static int storechoise = 0;
-    static int padstoreswitch = 0;
-    static float paddelay = 100; //Время до загрузки следующей ракеты
-    static int NRrocketchecklaunch = 0; //счетчик ракет
-    static int donatswitch = 0; //счетчик ракет
-    //gita
-    static float gitadelay = 2000; //счетчик ракет
-    static float G = 0; //счетчик ракет
-    static int gitaswitch = 0; //счетчик ракет
+   
+   
 
-
-    //цены
-    static float fuelcost = 900; //цена топлива
-    static float rocketcost = 800; //цена ракет
-    static float partscost = 350; //цена запчастей
-
-    //корзина
-    static float fuelinbag = 100; //топливо на складе
-    static float nrrocketsinbag = 100; //ракеты на складе
-    static float partsinbag = 100; //Запчасти в корзине
 
 
     //ПРОТИВНИКИ

@@ -102,11 +102,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aerodrom.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameController.cs" />
+    <Compile Include="Gita.cs" />
+    <Compile Include="Magazin.cs" />
     <Compile Include="Magnitola.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="obj\x64\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Prochee.cs" />
     <Compile Include="Program HTA отрезок.cs" />
     <Compile Include="Program HTA.cs" />
     <Compile Include="Program.cs" />
