@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S
 {
-    internal class Hely
+    public class Hely: GameObject
     {
 
-        /*
+        
 
 
         //Настройки верталета
@@ -45,7 +45,7 @@ namespace Havier_Than_Air_S
         static int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
         static int nrfuel = 400; // запас хода NR неуправляемых ракет
 
-
+        /*
         static void MoveNRrocket() // неуправляемая ракета НР движение и отрисовка
 
         {

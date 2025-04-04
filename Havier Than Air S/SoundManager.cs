@@ -14,7 +14,12 @@ namespace Havier_Than_Air_S
 
         SoundBuffer rocket1;
 
-        
+        public SoundManager()
+        {
+
+            playSound();
+
+        }
 
          public void playSound()
         {

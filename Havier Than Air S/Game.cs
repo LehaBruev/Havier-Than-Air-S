@@ -25,20 +25,21 @@ namespace Havier_Than_Air_S
         static Magnitola mMagnitola = new Magnitola();
         private MissionSwitch mMissinSwitch;
 
+        private Sprite mBackgroundSprite;
+
         public Game()
         {
-            StartProgram();
-
+            StartGame();
         }
 
-        private void StartProgram()
+        private void StartGame()
         {
             mGameState = new GameState();
             soundManager = new SoundManager();
-            soundManager.playSound();
-            mTextureManager = new TextureManager();
+            
+            mTextureManager = new TextureManager(Program.mGameMode );
             mMissinSwitch = MissionSwitch.mis1;
-
+            ;
         }
 
 
@@ -83,6 +84,10 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
+            mTextureManager.DrawBackground();
+            
+
+
             if (mGameState.CurrentMode == GameMode.MainMenu)
             {
                 

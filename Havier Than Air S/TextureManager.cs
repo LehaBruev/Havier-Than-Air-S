@@ -12,7 +12,7 @@ namespace Havier_Than_Air_S
     {
 
         //Фон
-        Texture backgroundLevel1;
+        public Texture backgroundLevel1;
         Texture backgroundLevel3;
 
         //Техника
@@ -20,25 +20,65 @@ namespace Havier_Than_Air_S
         Texture aiming;
 
         //Меню
-        Texture maimenutexture;
+        private Texture mainmenutexture;
         Texture scoresprite;
-        
 
-        public TextureManager()
+        //Sprites
+        Sprite BackgroundSprite;
+
+        private GameMode _gameMode;
+
+        public bool ChangeBackground = true;
+
+
+        public TextureManager(GameMode gameMode)
         {
-
+            _gameMode = gameMode;
              backgroundLevel1 = new Texture("BackGroundLevel1.png");
-             backgroundLevel3 = new Texture("BackGroundLevel3.png"); 
+             backgroundLevel3 = new Texture("BackGroundLevel3.png");
+
+            BackgroundSprite = new Sprite();
 
             //Техника
              uh61 = new Texture("uh61all.png");
              aiming = new Texture("aim.png");
 
             //Меню
-             maimenutexture = new Texture("mainmenu.png");
+             mainmenutexture = new Texture("mainmenu.png");
              scoresprite = new Texture("score1back.png");
 
         }
+
+
+        public void DrawBackground()
+        {
+            ChangeBackgroundSprite();
+            Program.window.Draw(BackgroundSprite);
+
+
+        }
+
+        private void ChangeBackgroundSprite()
+        {
+            if(_gameMode == GameMode.MainMenu && ChangeBackground == true)
+            {
+                BackgroundSprite.Texture = mainmenutexture;
+                BackgroundSprite.Position = new Vector2f(50, 50);
+                BackgroundSprite.Scale = new Vector2f(1.2f, 1.2f);
+                ChangeBackground = false;
+            }
+
+        }
+
+
+
+        public void DrawObjectSprite(GameObject gameObject)
+        {
+
+
+
+        }
+
 
         /*
         //ТЕКСТУРЫ

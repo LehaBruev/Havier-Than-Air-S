@@ -108,6 +108,7 @@
     <Compile Include="EffectsVisual.cs" />
     <Compile Include="EnemiManager.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameObject.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Gita.cs" />
     <Compile Include="Hely.cs" />

@@ -11,24 +11,27 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
-       
+
+       public static GameMode mGameMode;
+       public static RenderWindow window;
         static void Main(string[] args)
         {
             Game mGame = new Game();
+            mGameMode = GameMode.MainMenu;
 
-            VideoMode vMode = new VideoMode(1024, 768);
-            RenderWindow win = new SFML.Graphics.RenderWindow(vMode, "Havier Than Air SFML");
-            win.Closed += Win_Closed;
+            VideoMode vMode = new VideoMode(1280, 768);
+            window = new SFML.Graphics.RenderWindow(vMode, "Havier Than Air SFML");
+            window.Closed += Win_Closed;
 
           
-            while (win.IsOpen)
+            while (window.IsOpen)
             {
-                win.Clear();
-                win.DispatchEvents();
+                window.Clear();
+                window.DispatchEvents();
 
                 mGame.Update();
 
-                win.Display();
+                window.Display();
             }
 
             
