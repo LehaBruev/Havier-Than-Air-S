@@ -11,31 +11,16 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
-        static SoundManager soundManager;
-        static TextureManager mTextureManager;
+       
         static void Main(string[] args)
         {
-            
-            soundManager = new SoundManager();
-            soundManager.playSound();
-            mTextureManager = new TextureManager();
+            Game mGame = new Game();
 
             VideoMode vMode = new VideoMode(1024, 768);
             RenderWindow win = new SFML.Graphics.RenderWindow(vMode, "Havier Than Air SFML");
-            
             win.Closed += Win_Closed;
 
-            GameController mGameController = new GameController();
-
-            Game mGame = new Game();
-            Magnitola mMagnitola = new Magnitola();
-
-           // SetFont("comic.ttf"); // Шрифт
-           // PlayMusic(mainmenumusic, volume);
-            //playingmusic = mainmenumusic;
-
-
-
+          
             while (win.IsOpen)
             {
                 win.Clear();
@@ -57,7 +42,6 @@ namespace Havier_Than_Air_S
         }
 
 
-      
 
 
     }

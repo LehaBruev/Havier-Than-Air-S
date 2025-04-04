@@ -8,15 +8,45 @@ using SFML.Window;
 
 namespace Havier_Than_Air_S
 {
+    public enum MissionSwitch
+    {
+        mis1,
+        mis2,
+        mis3
+
+    }
+   
     public class Game 
     {
-        GameController mGameController;
-        TextureManager mTextureManager;
+        GameState mGameState;
+        
+        public static SoundManager soundManager;
+        static TextureManager mTextureManager;
+        static Magnitola mMagnitola = new Magnitola();
+        private MissionSwitch mMissinSwitch;
+
+        public Game()
+        {
+            StartProgram();
+
+        }
+
+        private void StartProgram()
+        {
+            mGameState = new GameState();
+            soundManager = new SoundManager();
+            soundManager.playSound();
+            mTextureManager = new TextureManager();
+            mMissinSwitch = MissionSwitch.mis1;
+
+        }
 
 
-
+        // SetFont("comic.ttf"); // Шрифт
+        // PlayMusic(mainmenumusic, volume);
+        //playingmusic = mainmenumusic;
         //Меню
-         int mainmenuSwitch = 1;
+        int mainmenuSwitch = 1;
          int levelchoise = 0;
          int menuchoise2 = 0;
          int newgame = 0;
@@ -50,14 +80,38 @@ namespace Havier_Than_Air_S
          float repairings = 0; //Отремонтирован вертолет
          float getdamages = 0; //Получено повреждений
 
+
         public void Update()
         {
+            if (mGameState.CurrentMode == GameMode.MainMenu)
+            {
+                
 
+            }
+            else if (mGameState.CurrentMode == GameMode.Play)
+            {
+                MooveObjects();
+                DrawObjects();
+            }
 
         }
 
+
+        public void MooveObjects()
+        {
+            
+
+        }
+
+        public void DrawObjects()
+        {
+           
+
+        }
+
+
         //награды
-         float tank1reward = 10000; //Получено повреждений
+        float tank1reward = 10000; //Получено повреждений
          float buk1reward = 30000; //Получено повреждений
                                          //static float repairings = 0; //Отремонтирован вертолет
 /*

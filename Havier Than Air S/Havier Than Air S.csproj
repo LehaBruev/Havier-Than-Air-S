@@ -108,7 +108,7 @@
     <Compile Include="EffectsVisual.cs" />
     <Compile Include="EnemiManager.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameController.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Gita.cs" />
     <Compile Include="Hely.cs" />
     <Compile Include="Magazin.cs" />
