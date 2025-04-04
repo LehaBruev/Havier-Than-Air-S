@@ -16,6 +16,7 @@ namespace Havier_Than_Air_S
 
     }
    
+
     public class Game 
     {
         GameState mGameState;
@@ -24,6 +25,7 @@ namespace Havier_Than_Air_S
         static TextureManager mTextureManager;
         static Magnitola mMagnitola = new Magnitola();
         private MissionSwitch mMissinSwitch;
+        private MouseController mMouseController;
 
         private Sprite mBackgroundSprite;
 
@@ -34,6 +36,7 @@ namespace Havier_Than_Air_S
 
         private void StartGame()
         {
+            mMouseController = new MouseController();
             mGameState = new GameState();
             soundManager = new SoundManager();
             
@@ -86,7 +89,7 @@ namespace Havier_Than_Air_S
         {
             mTextureManager.DrawBackground();
             
-
+            mMouseController.CheckMousePress();
 
             if (mGameState.CurrentMode == GameMode.MainMenu)
             {

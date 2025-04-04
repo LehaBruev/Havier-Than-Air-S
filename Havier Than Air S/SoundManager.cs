@@ -8,7 +8,6 @@ using SFML.Audio;
 namespace Havier_Than_Air_S
 {
 
-
     public class SoundManager
     {
 
@@ -16,9 +15,7 @@ namespace Havier_Than_Air_S
 
         public SoundManager()
         {
-
             playSound();
-
         }
 
          public void playSound()
