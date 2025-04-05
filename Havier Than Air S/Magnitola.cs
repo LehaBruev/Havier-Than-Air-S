@@ -10,8 +10,24 @@ namespace Havier_Than_Air_S
 
     public class Magnitola
     {
+
+        Music _Music = new Music("airvolfbig.wav");
+
+        static string Music3Level = ("airvolfbig.wav"); // Музыка аирвольв
+        static string Level1Music = ("Level1Music.wav"); //Левел 1 музыка
+        static string StoreMusic = ("topgun3.wav"); //Магазинчик
+        static string mainmenumusic = ("mainmenumusic.wav"); //Вертолет рабочий режим звука
+        static string finalmusic = ("finalmusic.wav"); //Вертолет рабочий режим звука
+        static string musicotkazsistem = ("musicotkazsistem.wav"); //Музыка для напряженной обстановке
+
         public Magnitola() 
         {
+            _Music.Pitch=0.8F;
+            _Music.Volume = 50;
+            _Music.Position = new SFML.System.Vector3f(50, 50, 50);    
+            _Music.Play();
+
+
             /*
             static string Music3Level = LoadMusic("airvolfbig.wav"); // Музыка аирвольв
             static string Level1Music = LoadMusic("Level1Music.wav"); //Левел 1 музыка

@@ -16,5 +16,23 @@ namespace Havier_Than_Air_S
                 Console.WriteLine(Mouse.GetPosition(Program.window).X.ToString());
             }
         }
+
+        public int MousePositionX() 
+        {
+            int x = Mouse.GetPosition(Program.window).X;
+            
+           
+            return x;
+        }
+
+        public int MousePositionY()
+        {
+            int y = Mouse.GetPosition(Program.window).X;
+
+
+            return y;
+        }
+
+
     }
 }

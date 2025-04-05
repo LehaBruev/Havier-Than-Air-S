@@ -5,107 +5,156 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
 namespace Havier_Than_Air_S
 {
+   
+
     internal class MaiMenuController
     {
 
+        public enum menuButtons
+        {
+            none,
+            learning,
+            missions,
+            freeFlight
+
+
+        }
+
+        public menuButtons currentButton;
+
+        //Меню бэкграунд
+        private Texture mainmenutexture = new Texture("mainmenu.png");
+        private Sprite mainMenuSprite; //mainmenutexture);
+
+        //Тексты
+        Font font;
+        Text ObuchenieText;
+        Text MissionsText;
+        Text FreeFlightText;
+
+        //Звуки
+        SoundBuffer buttonActivate;
+        Sound ButtonActitateSound;
+
+        private void SetTextSettings(Text _text)
+        {
+            _text.Scale = new Vector2f(0.7f, 0.7f);
+            _text.FillColor = new Color(Color.Green);
+
+        }
+
+        public MaiMenuController()
+        {
+            buttonActivate = new SoundBuffer("buttonclick.wav");
+            ButtonActitateSound = new Sound(buttonActivate);
+            currentButton = menuButtons.none;
+
+            font = new Font("comic.ttf");
+            mainMenuSprite = new Sprite(mainmenutexture);
 
 
 
+            //Тексты
+            ObuchenieText = new Text("1. Get pilot license", font);
+            ObuchenieText.Position = new Vector2f(220, 330);
+            SetTextSettings(ObuchenieText);
+            
+
+            MissionsText = new Text("2. Missions", font);
+            MissionsText.Position = new Vector2f(222, 370);
+            SetTextSettings(MissionsText);
+
+            FreeFlightText = new Text("3. Free flight", font);
+            FreeFlightText.Position = new Vector2f(224, 410);
+            SetTextSettings(FreeFlightText);
+
+
+        }
+
+
+        private void ButtonMouseIn(Text text)
+        {
+            text.FillColor = new Color(Color.Red);
+            ButtonActitateSound.Play();
+
+        }
+
+        private void CheckMousePosition()
+        {
+            if (Mouse.GetPosition(Program.window).X > 217 && Mouse.GetPosition(Program.window).X < 423 && //1
+                Mouse.GetPosition(Program.window).Y > 332 && Mouse.GetPosition(Program.window).Y < 353)
+            {
+                if (currentButton != menuButtons.learning)
+                {
+                    ButtonMouseIn(ObuchenieText);
+                    currentButton = menuButtons.learning;
+                }
+                
+
+
+            }
+            else if (Mouse.GetPosition(Program.window).X > 221 && Mouse.GetPosition(Program.window).X < 341 && //2
+                Mouse.GetPosition(Program.window).Y > 369 && Mouse.GetPosition(Program.window).Y < 388)
+            {
+                if (currentButton != menuButtons.missions)
+                {
+                    ButtonMouseIn(MissionsText);
+                    currentButton = menuButtons.missions;
+                }
+
+
+
+            }
+
+            else if (Mouse.GetPosition(Program.window).X > 221 && Mouse.GetPosition(Program.window).X < 370 && //3
+                Mouse.GetPosition(Program.window).Y > 410 && Mouse.GetPosition(Program.window).Y < 430)
+            {
+                if (currentButton != menuButtons.freeFlight)
+                {
+                    ButtonMouseIn(FreeFlightText);
+                    currentButton = menuButtons.freeFlight;
+                }
+
+
+
+            }
+
+            else if(currentButton != menuButtons.none)
+            {
+                ObuchenieText.FillColor = new Color(Color.Green);
+                currentButton = menuButtons.none;
+                SetTextSettings(ObuchenieText);
+                SetTextSettings(MissionsText);
+                SetTextSettings(FreeFlightText);
+            }
+            
+            
+        }
+
+        public void Update()
+        {
+
+            CheckMousePosition();
+
+            Program.window.Draw(mainMenuSprite);
+            Program.window.Draw(ObuchenieText);
+            Program.window.Draw(MissionsText);
+            Program.window.Draw(FreeFlightText);
+
+
+        }
 
 
 
 
         /*
-        static void mainmenuDraw()
-        {
-
-            DrawSprite(maimenutexture, 0, 0);
-
-            if (mainmenuSwitch == 1) //switch 1
-
-            {
-
-                SetFillColor(Color.Green);
-                DrawText(220, 330, "1. Get pilot license", 18);
-                DrawText(222, 370, "2. Missions", 18);
-                DrawText(224, 410, "3. Free flight ", 18);
-
-                //Мышь на меню 1
-                if (MouseX > 217 && MouseX < 423 && MouseY > 332 && MouseY < 353)
-                {
-                    SetFillColor(Color.Red);
-                    DrawText(220, 330, "1. Get pilot license", 18);
-                    if (levelchoise != 1) PlaySound(click);
-                    levelchoise = 1;
-                    Delay(2);
-                }
-                else //Меню на 2
-                {
-                    if (MouseX > 221 && MouseX < 341 && MouseY > 369 && MouseY < 388)
-                    {
-                        SetFillColor(Color.Red);
-                        DrawText(222, 370, "2. Missions", 18);
-                        if (levelchoise != 2) PlaySound(click);
-                        levelchoise = 2;
-                        Delay(2);
-                    }
-                    else //Меню на 3
-                    {
-                        if (MouseX > 221 && MouseX < 370 && MouseY > 410 && MouseY < 430)
-                        {
-                            SetFillColor(Color.Red);
-                            DrawText(224, 410, "3. Free flight ", 18);
-                            if (levelchoise != 3) PlaySound(click);
-                            levelchoise = 3;
-                            Delay(2);
-                        }
-                        else
-                        {
-                            levelchoise = 0;
-                            Delay(2);
-                        }
-                    }
-                }
-            } // switch 1
-            if (mainmenuSwitch == 2)
-            {
-
-                SetFillColor(Color.Green);
-                DrawText(220, 330, "1. Continium", 18);
-                DrawText(232, 410, "2. Exit", 18);
-
-                if (MouseX > 217 && MouseX < 328 && MouseY > 327 && MouseY < 353) // contin
-                {
-                    SetFillColor(Color.Red);
-                    DrawText(220, 330, "1. Continium", 18);
-                    if (menuchoise2 != 1) PlaySound(click);
-                    menuchoise2 = 1;
-                    Delay(2);
-                }
-                else //Меню на exit
-                {
-                    if (MouseX > 223 && MouseX < 296 && MouseY > 407 && MouseY < 431) // exit
-                    {
-                        SetFillColor(Color.Red);
-                        DrawText(232, 410, "2. Exit", 18);
-                        if (menuchoise2 != 2) PlaySound(click);
-                        menuchoise2 = 2;
-                        Delay(2);
-                    }
-
-                }
-
-            }
-
-        }
-
-
 
         //РЕЗУЛЬТАТЫ РЕЗУЛЬТАТЫ РЕЗУЛЬТАТЫ
         static void resultsDraw()

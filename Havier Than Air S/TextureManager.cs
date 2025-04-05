@@ -19,12 +19,9 @@ namespace Havier_Than_Air_S
         Texture uh61;
         Texture aiming;
 
-        //Меню
-        private Texture mainmenutexture;
-        Texture scoresprite;
+       
 
-        //Sprites
-        Sprite BackgroundSprite;
+       
 
         private GameMode _gameMode;
 
@@ -37,15 +34,15 @@ namespace Havier_Than_Air_S
              backgroundLevel1 = new Texture("BackGroundLevel1.png");
              backgroundLevel3 = new Texture("BackGroundLevel3.png");
 
-            BackgroundSprite = new Sprite();
+           // BackgroundSprite = new Sprite();
 
             //Техника
              uh61 = new Texture("uh61all.png");
              aiming = new Texture("aim.png");
 
             //Меню
-             mainmenutexture = new Texture("mainmenu.png");
-             scoresprite = new Texture("score1back.png");
+            // mainmenutexture = new Texture("mainmenu.png");
+            // scoresprite = new Texture("score1back.png");
 
         }
 
@@ -53,7 +50,7 @@ namespace Havier_Than_Air_S
         public void DrawBackground()
         {
             ChangeBackgroundSprite();
-            Program.window.Draw(BackgroundSprite);
+           // Program.window.Draw(BackgroundSprite);
 
 
         }
@@ -62,9 +59,7 @@ namespace Havier_Than_Air_S
         {
             if(_gameMode == GameMode.MainMenu && ChangeBackground == true)
             {
-                BackgroundSprite.Texture = mainmenutexture;
-                BackgroundSprite.Position = new Vector2f(50, 50);
-                BackgroundSprite.Scale = new Vector2f(1.2f, 1.2f);
+                
                 ChangeBackground = false;
             }
 

@@ -13,17 +13,18 @@ namespace Havier_Than_Air_S
         mis1,
         mis2,
         mis3
-
     }
    
 
     public class Game 
     {
-        GameState mGameState;
+        private GameState mGameState;
         
-        public static SoundManager soundManager;
+        public static SoundManager soundManager = new SoundManager();
+        public static Magnitola mMagnitola = new Magnitola();
         static TextureManager mTextureManager;
-        static Magnitola mMagnitola = new Magnitola();
+        private MaiMenuController mMenuController;
+
         private MissionSwitch mMissinSwitch;
         private MouseController mMouseController;
 
@@ -38,11 +39,11 @@ namespace Havier_Than_Air_S
         {
             mMouseController = new MouseController();
             mGameState = new GameState();
-            soundManager = new SoundManager();
-            
+            mMenuController = new MaiMenuController();
+
             mTextureManager = new TextureManager(Program.mGameMode );
             mMissinSwitch = MissionSwitch.mis1;
-            ;
+            
         }
 
 
@@ -93,7 +94,7 @@ namespace Havier_Than_Air_S
 
             if (mGameState.CurrentMode == GameMode.MainMenu)
             {
-                
+                mMenuController.Update();
 
             }
             else if (mGameState.CurrentMode == GameMode.Play)

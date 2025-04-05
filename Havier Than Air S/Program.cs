@@ -19,8 +19,8 @@ namespace Havier_Than_Air_S
             Game mGame = new Game();
             mGameMode = GameMode.MainMenu;
 
-            VideoMode vMode = new VideoMode(1280, 768);
-            window = new SFML.Graphics.RenderWindow(vMode, "Havier Than Air SFML");
+            VideoMode vMode = new VideoMode(1024, 768);
+            window = new RenderWindow(vMode, "Havier Than Air SFML");
             window.Closed += Win_Closed;
 
           
@@ -28,9 +28,7 @@ namespace Havier_Than_Air_S
             {
                 window.Clear();
                 window.DispatchEvents();
-
                 mGame.Update();
-
                 window.Display();
             }
 
@@ -43,8 +41,6 @@ namespace Havier_Than_Air_S
         {
             (sender as RenderWindow).Close();
         }
-
-
 
 
     }
