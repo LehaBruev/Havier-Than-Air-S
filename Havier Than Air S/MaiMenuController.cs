@@ -23,15 +23,23 @@ namespace Havier_Than_Air_S
             learning,
             missions,
             freeFlight
-
-
         }
+
+        Game game;
 
         public menuButtons currentButton;
 
-        //Меню бэкграунд
+        //мышь
+        float x;
+        float y;
+
+        //Текстуры
         private Texture mainmenutexture = new Texture("mainmenu.png");
+        private Texture scoreTexture = new Texture("score1back.png");
+
+        //Спрайты
         private Sprite mainMenuSprite; //mainmenutexture);
+        private Sprite scoreSprite; 
 
         //Тексты
         Font font;
@@ -43,22 +51,19 @@ namespace Havier_Than_Air_S
         SoundBuffer buttonActivate;
         Sound ButtonActitateSound;
 
-        private void SetTextSettings(Text _text)
+        public MaiMenuController(Game _game)
         {
-            _text.Scale = new Vector2f(0.7f, 0.7f);
-            _text.FillColor = new Color(Color.Green);
+            game = _game;
 
-        }
-
-        public MaiMenuController()
-        {
             buttonActivate = new SoundBuffer("buttonclick.wav");
             ButtonActitateSound = new Sound(buttonActivate);
             currentButton = menuButtons.none;
 
             font = new Font("comic.ttf");
-            mainMenuSprite = new Sprite(mainmenutexture);
 
+            //Спрайты
+            mainMenuSprite = new Sprite(mainmenutexture);
+            scoreSprite = new Sprite(scoreTexture);
 
 
             //Тексты
@@ -86,47 +91,67 @@ namespace Havier_Than_Air_S
 
         }
 
+        public void Update()
+        {
+
+            if (game.GameState.currentGameMode == GameMode.MainMenu)
+            {
+                CheckMousePosition();
+                Program.window.Draw(mainMenuSprite);
+                Program.window.Draw(ObuchenieText);
+                Program.window.Draw(MissionsText);
+                Program.window.Draw(FreeFlightText);
+            }
+            else if(game.GameState.currentGameMode == GameMode.Result)
+            {
+                Program.window.Draw(scoreSprite);
+
+            }
+
+        }
+
+
+        private void SetTextSettings(Text _text)
+        {
+            _text.Scale = new Vector2f(0.7f, 0.7f);
+            _text.FillColor = new Color(Color.Green);
+
+        }
+
+
         private void CheckMousePosition()
         {
-            if (Mouse.GetPosition(Program.window).X > 217 && Mouse.GetPosition(Program.window).X < 423 && //1
-                Mouse.GetPosition(Program.window).Y > 332 && Mouse.GetPosition(Program.window).Y < 353)
+            float x = Mouse.GetPosition(Program.window).X;
+            float y = Mouse.GetPosition(Program.window).Y;
+
+            if (x > 217 && x < 423 && y > 332 && y < 353 ) //1
             {
                 if (currentButton != menuButtons.learning)
                 {
                     ButtonMouseIn(ObuchenieText);
                     currentButton = menuButtons.learning;
-                }
                 
-
-
+                }
             }
-            else if (Mouse.GetPosition(Program.window).X > 221 && Mouse.GetPosition(Program.window).X < 341 && //2
-                Mouse.GetPosition(Program.window).Y > 369 && Mouse.GetPosition(Program.window).Y < 388)
+            else if (x > 221 && x < 341 && y> 369 && y < 388) //2
             {
                 if (currentButton != menuButtons.missions)
                 {
                     ButtonMouseIn(MissionsText);
                     currentButton = menuButtons.missions;
                 }
-
-
-
             }
 
-            else if (Mouse.GetPosition(Program.window).X > 221 && Mouse.GetPosition(Program.window).X < 370 && //3
-                Mouse.GetPosition(Program.window).Y > 410 && Mouse.GetPosition(Program.window).Y < 430)
+            else if (x > 221 && x< 370 && y > 410 && y < 430) //3
             {
                 if (currentButton != menuButtons.freeFlight)
                 {
                     ButtonMouseIn(FreeFlightText);
                     currentButton = menuButtons.freeFlight;
                 }
-
-
-
             }
 
-            else if(currentButton != menuButtons.none)
+            else if (currentButton != menuButtons.none)
             {
                 ObuchenieText.FillColor = new Color(Color.Green);
                 currentButton = menuButtons.none;
@@ -134,32 +159,12 @@ namespace Havier_Than_Air_S
                 SetTextSettings(MissionsText);
                 SetTextSettings(FreeFlightText);
             }
-            
-            
         }
-
-        public void Update()
-        {
-
-            CheckMousePosition();
-
-            Program.window.Draw(mainMenuSprite);
-            Program.window.Draw(ObuchenieText);
-            Program.window.Draw(MissionsText);
-            Program.window.Draw(FreeFlightText);
-
-
-        }
-
-
 
 
         /*
 
-        //РЕЗУЛЬТАТЫ РЕЗУЛЬТАТЫ РЕЗУЛЬТАТЫ
-        static void resultsDraw()
-        {
-
+      
             DrawSprite(scoresprite, 0, 0);
             SetFillColor(Color.White);
 

@@ -1,4 +1,5 @@
-﻿using SFML.Window;
+﻿using SFML.System;
+using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,30 +10,31 @@ namespace Havier_Than_Air_S
 {
     public class MouseController
     {
-        public void CheckMousePress()
+        public int x;
+        public int y;
+        public bool LeftButton;
+        public bool RightButton;
+
+        public void CheckMouse()
         {
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) == true)
+            Console.Write("x " + x + " y");
+            Console.WriteLine(y);
+
+            LeftButton = Mouse.IsButtonPressed(Mouse.Button.Left);
+            RightButton = Mouse.IsButtonPressed(Mouse.Button.Left);
+
+            x = Mouse.GetPosition(Program.window).X;
+            y = Mouse.GetPosition(Program.window).Y;
+
+            if(x<0)
             {
-                Console.WriteLine(Mouse.GetPosition(Program.window).X.ToString());
+                Mouse.SetPosition(new Vector2i(Program.window.Position.X+8,
+                                            Program.window.Position.Y +31+ Mouse.GetPosition(Program.window).Y));
+
             }
         }
 
-        public int MousePositionX() 
-        {
-            int x = Mouse.GetPosition(Program.window).X;
-            
-           
-            return x;
-        }
-
-        public int MousePositionY()
-        {
-            int y = Mouse.GetPosition(Program.window).X;
-
-
-            return y;
-        }
-
+       
 
     }
 }

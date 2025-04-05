@@ -17,18 +17,18 @@ namespace Havier_Than_Air_S
 
     public class GameState
     {
-        private GameMode currentMode;
-        public GameMode CurrentMode => currentMode;
+        public GameMode currentGameMode;
+        public GameMode CurrentMode => currentGameMode;
 
         public GameState() 
         {
-            currentMode = GameMode.MainMenu;
+            currentGameMode = GameMode.Result;
 
         }
 
         public void SetGameMode(GameMode gameMode)
         {
-            currentMode = gameMode;
+            currentGameMode = gameMode;
 
         }
 

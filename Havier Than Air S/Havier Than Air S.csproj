@@ -209,7 +209,7 @@
     <Content Include="bin\x86\Debug\ShootShoot.wav" />
     <Content Include="bin\x86\Debug\signalgear1.wav" />
     <Content Include="bin\x86\Debug\siren.wav" />
-    <Content Include="bin\x86\Debug\sxore.png" />
+    <Content Include="bin\x86\Debug\score.png" />
     <Content Include="bin\x86\Debug\tankidle2.wav" />
     <Content Include="bin\x86\Debug\topgun3.wav" />
     <Content Include="bin\x86\Debug\topol.png" />
