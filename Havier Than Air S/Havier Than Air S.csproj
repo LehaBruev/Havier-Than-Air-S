@@ -116,6 +116,7 @@
     <Compile Include="Magnitola.cs" />
     <Compile Include="MaiMenuController.cs" />
     <Compile Include="Matematika.cs" />
+    <Compile Include="Missions\Mission1_Learning.cs" />
     <Compile Include="MouseController.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="obj\x64\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Rita.cs" />
     <Compile Include="SoundManager.cs" />
     <Compile Include="TextureManager.cs" />
+    <Compile Include="Timer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

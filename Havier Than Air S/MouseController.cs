@@ -14,11 +14,24 @@ namespace Havier_Than_Air_S
         public int y;
         public bool LeftButton;
         public bool RightButton;
+        private Timer timer;
+
+        public MouseController() 
+        {
+            timer = new Timer(200.0f);
+        }
 
         public void CheckMouse()
         {
-            Console.Write("x " + x + " y");
-            Console.WriteLine(y);
+            if (timer.timerOk == false)
+            {
+                timer.UpdateTimer();
+            }
+            else
+            {
+                Console.WriteLine("x " + x + " y" + y + ". WX " + Program.window.Position.X + " WY" + Program.window.Position.Y);
+                timer.Start(200.0f);
+            }
 
             LeftButton = Mouse.IsButtonPressed(Mouse.Button.Left);
             RightButton = Mouse.IsButtonPressed(Mouse.Button.Left);
@@ -29,12 +42,9 @@ namespace Havier_Than_Air_S
             if(x<0)
             {
                 Mouse.SetPosition(new Vector2i(Program.window.Position.X+8,
-                                            Program.window.Position.Y +31+ Mouse.GetPosition(Program.window).Y));
+                                    Program.window.Position.Y +31+ Mouse.GetPosition(Program.window).Y));
 
             }
         }
-
-       
-
     }
 }

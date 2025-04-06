@@ -9,9 +9,6 @@ namespace Havier_Than_Air_S
     public class Hely: GameObject
     {
 
-        
-
-
         //Настройки верталета
 
         static float helilife = 100;// жизни

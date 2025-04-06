@@ -22,8 +22,8 @@ namespace Havier_Than_Air_S
 
         public Magnitola() 
         {
-            _Music.Pitch=0.8F;
-            _Music.Volume = 50;
+            _Music.Pitch = 1.0f;
+            _Music.Volume = 60;
             _Music.Position = new SFML.System.Vector3f(50, 50, 50);    
             _Music.Play();
 

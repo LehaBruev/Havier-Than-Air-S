@@ -121,16 +121,24 @@ namespace Havier_Than_Air_S
 
         private void CheckMousePosition()
         {
-            float x = Mouse.GetPosition(Program.window).X;
-            float y = Mouse.GetPosition(Program.window).Y;
+            float x = game.MouseController.x;
+            float y = game.MouseController.y;
 
             if (x > 217 && x < 423 && y > 332 && y < 353 ) //1
             {
+
                 if (currentButton != menuButtons.learning)
                 {
                     ButtonMouseIn(ObuchenieText);
                     currentButton = menuButtons.learning;
                 
+                }
+
+                if(game.MouseController.LeftButton == true)
+                {
+                    game.GameState.currentGameMode = GameMode.Play;
+                    game.mMissinoSwitch = MissionSwitch.mis1; 
+
                 }
             }
             else if (x > 221 && x < 341 && y> 369 && y < 388) //2
@@ -160,6 +168,7 @@ namespace Havier_Than_Air_S
                 SetTextSettings(FreeFlightText);
             }
         }
+
 
 
         /*

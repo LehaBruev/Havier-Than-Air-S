@@ -22,7 +22,7 @@ namespace Havier_Than_Air_S
 
         public GameState() 
         {
-            currentGameMode = GameMode.Result;
+            currentGameMode = GameMode.MainMenu;
 
         }
 
