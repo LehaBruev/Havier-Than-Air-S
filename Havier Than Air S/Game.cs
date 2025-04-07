@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
@@ -22,16 +23,16 @@ namespace Havier_Than_Air_S
         public GameState GameState;
         
         public static SoundManager soundManager = new SoundManager();
-        public static Magnitola mMagnitola = new Magnitola();
+        public static Magnitola mMagnitola;
         static TextureManager mTextureManager;
         private MaiMenuController MenuController;
 
-        public MissionSwitch mMissinoSwitch;
+        public MissionSwitch missionSwitch;
         public MouseController MouseController;
 
         private Sprite mBackgroundSprite;
 
-        Mission1_Learning mission1 = new Mission1_Learning();
+        Mission1_Learning mission1;
 
         public Game()
         {
@@ -41,20 +42,26 @@ namespace Havier_Than_Air_S
 
         private void StartGame()
         {
+            missionSwitch = MissionSwitch.mis1;
+            
             MouseController = new MouseController();
             GameState = new GameState();
             MenuController = new MaiMenuController(this);
+            mMagnitola = new Magnitola();
+            mTextureManager = new TextureManager();
 
-            mTextureManager = new TextureManager(Program.mGameMode );
-            mMissinoSwitch = MissionSwitch.mis1;
-            
+            mission1 = new Mission1_Learning();
+
         }
 
 
 
         public void ChangeGameMode(GameMode mode, MissionSwitch mission)
         {
-            
+            GameState.currentGameMode = mode;
+            missionSwitch = MissionSwitch.mis1;
+            mission1.Start();
+            mMagnitola.PlayMusic();
 
         }
 
@@ -108,7 +115,7 @@ namespace Havier_Than_Air_S
             
             if (GameState.CurrentMode == GameMode.Play)
             {
-                if (mMissinoSwitch == MissionSwitch.mis1)
+                if (missionSwitch == MissionSwitch.mis1)
                 {
                     mission1.UpdateMission_1();  
                 }

@@ -53,7 +53,7 @@ namespace Havier_Than_Air_S
 
         public MaiMenuController(Game _game)
         {
-            game = _game;
+            
 
             buttonActivate = new SoundBuffer("buttonclick.wav");
             ButtonActitateSound = new Sound(buttonActivate);

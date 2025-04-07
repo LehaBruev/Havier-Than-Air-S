@@ -28,9 +28,9 @@ namespace Havier_Than_Air_S
         public bool ChangeBackground = true;
 
 
-        public TextureManager(GameMode gameMode)
+        public TextureManager()
         {
-            _gameMode = gameMode;
+            _gameMode = GameMode.MainMenu;
              backgroundLevel1 = new Texture("BackGroundLevel1.png");
              backgroundLevel3 = new Texture("BackGroundLevel3.png");
 

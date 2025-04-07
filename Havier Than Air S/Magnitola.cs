@@ -17,18 +17,30 @@ namespace Havier_Than_Air_S
         static string finalmusic = ("finalmusic.wav"); //Вертолет рабочий режим звука
 
         //Муз дорожки
-        private Music _Music = new Music(Music3Level);
+        private Music _Music;
         Music musicotkazsistem = new Music("musicotkazsistem.wav");
+
+        public void PlayMusic()
+        {
+            if (Program.Game.missionSwitch == MissionSwitch.mis1)
+            {
+                _Music.Stop();
+                _Music = new Music(Level1Music);
+                _Music.Pitch = 1.0f;
+                _Music.Volume = 60;
+                _Music.Play();
+            }
+
+        }
 
         public Magnitola() 
         {
-            if (Program.Game.mMissinoSwitch == MissionSwitch.mis1)
-            {
-                _Music.Pitch = 1.0f;
-                _Music.Volume = 60;
-                _Music.Position = new SFML.System.Vector3f(50, 50, 50);
-                _Music.Play();
-            }       
+            _Music = new Music(mainmenumusic);
+            _Music.Loop = true;
+            _Music.Pitch = 1.0f;
+            _Music.Volume = 75;
+            _Music.Play();
+
 
             /*
             static string Music3Level = LoadMusic("airvolfbig.wav"); // Музыка аирвольв
