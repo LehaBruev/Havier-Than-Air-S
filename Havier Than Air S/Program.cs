@@ -12,12 +12,12 @@ namespace Havier_Than_Air_S
     internal class Program
     {
 
-       public static GameMode mGameMode;
+       public static Game Game;
        public static RenderWindow window;
         static void Main(string[] args)
         {
             Game mGame = new Game();
-            mGameMode = GameMode.MainMenu;
+            
 
             VideoMode vMode = new VideoMode(1024, 768);
             window = new RenderWindow(vMode, "Havier Than Air SFML");

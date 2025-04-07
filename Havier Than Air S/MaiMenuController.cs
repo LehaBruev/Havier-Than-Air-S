@@ -25,7 +25,7 @@ namespace Havier_Than_Air_S
             freeFlight
         }
 
-        Game game;
+        
 
         public menuButtons currentButton;
 
@@ -94,7 +94,7 @@ namespace Havier_Than_Air_S
         public void Update()
         {
 
-            if (game.GameState.currentGameMode == GameMode.MainMenu)
+            if (Program.Game.GameState.currentGameMode == GameMode.MainMenu)
             {
                 CheckMousePosition();
                 Program.window.Draw(mainMenuSprite);
@@ -102,7 +102,7 @@ namespace Havier_Than_Air_S
                 Program.window.Draw(MissionsText);
                 Program.window.Draw(FreeFlightText);
             }
-            else if(game.GameState.currentGameMode == GameMode.Result)
+            else if(Program.Game.GameState.currentGameMode == GameMode.Result)
             {
                 Program.window.Draw(scoreSprite);
 
@@ -121,8 +121,8 @@ namespace Havier_Than_Air_S
 
         private void CheckMousePosition()
         {
-            float x = game.MouseController.x;
-            float y = game.MouseController.y;
+            float x = Program.Game.MouseController.x;
+            float y = Program.Game.MouseController.y;
 
             if (x > 217 && x < 423 && y > 332 && y < 353 ) //1
             {
@@ -134,11 +134,9 @@ namespace Havier_Than_Air_S
                 
                 }
 
-                if(game.MouseController.LeftButton == true)
+                if(Program.Game.MouseController.LeftButton == true)
                 {
-                    game.GameState.currentGameMode = GameMode.Play;
-                    game.mMissinoSwitch = MissionSwitch.mis1; 
-
+                    Program.Game.ChangeGameMode(GameMode.Play, MissionSwitch.mis1);
                 }
             }
             else if (x > 221 && x < 341 && y> 369 && y < 388) //2

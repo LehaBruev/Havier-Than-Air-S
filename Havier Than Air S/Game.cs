@@ -15,6 +15,7 @@ namespace Havier_Than_Air_S
         mis3
     }
    
+   
 
     public class Game 
     {
@@ -37,6 +38,7 @@ namespace Havier_Than_Air_S
             StartGame();
         }
 
+
         private void StartGame()
         {
             MouseController = new MouseController();
@@ -48,6 +50,13 @@ namespace Havier_Than_Air_S
             
         }
 
+
+
+        public void ChangeGameMode(GameMode mode, MissionSwitch mission)
+        {
+            
+
+        }
 
         // SetFont("comic.ttf"); // Шрифт
         // PlayMusic(mainmenumusic, volume);
