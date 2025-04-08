@@ -10,8 +10,6 @@ namespace Havier_Than_Air_S
     internal class Matematika
     {
 
-
-
         static float searchdistance(Vector2i point_1, Vector2i point_2) // Вычисление расстояния между двумя точками
         {
             float distance = (float)Math.Sqrt((point_1.X - point_2.X) * (point_1.X - point_2.X) + (point_1.Y - point_2.Y) * (point_1.Y - point_2.Y));
