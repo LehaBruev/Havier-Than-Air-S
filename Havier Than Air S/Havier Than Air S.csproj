@@ -114,7 +114,7 @@
     <Compile Include="Hely.cs" />
     <Compile Include="Magazin.cs" />
     <Compile Include="Magnitola.cs" />
-    <Compile Include="MaiMenuController.cs" />
+    <Compile Include="MainMenuController.cs" />
     <Compile Include="Matematika.cs" />
     <Compile Include="Missions\Mission1_Learning.cs" />
     <Compile Include="Missions\MissionTest.cs" />
@@ -193,6 +193,7 @@
     <Content Include="bin\x86\Debug\minus.wav" />
     <Content Include="bin\x86\Debug\MissileMissile.wav" />
     <Content Include="bin\x86\Debug\musicotkazsistem.wav" />
+    <Content Include="bin\x86\Debug\Nrocket_01.png" />
     <Content Include="bin\x86\Debug\nrpusto.wav" />
     <Content Include="bin\x86\Debug\OLS.wav" />
     <Content Include="bin\x86\Debug\openal32.dll" />

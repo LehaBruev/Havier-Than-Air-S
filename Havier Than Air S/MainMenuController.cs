@@ -14,7 +14,7 @@ namespace Havier_Than_Air_S
 {
    
 
-    internal class MaiMenuController
+    public class MainMenuController
     {
 
         public enum menuButtons
@@ -22,7 +22,8 @@ namespace Havier_Than_Air_S
             none,
             learning,
             missions,
-            freeFlight
+            freeFlight,
+            test
         }
 
         
@@ -51,7 +52,7 @@ namespace Havier_Than_Air_S
         SoundBuffer buttonActivate;
         Sound ButtonActitateSound;
 
-        public MaiMenuController(Game _game)
+        public MainMenuController(Game _game)
         {
             
 
@@ -145,6 +146,10 @@ namespace Havier_Than_Air_S
                 {
                     ButtonMouseIn(MissionsText);
                     currentButton = menuButtons.missions;
+                }
+                if (Program.Game.MouseController.LeftButton == true)
+                {
+                    Program.Game.ChangeGameMode(GameMode.Play, MissionSwitch.test);
                 }
             }
 

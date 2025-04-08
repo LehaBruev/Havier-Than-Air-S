@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Havier_Than_Air_S.Missions;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -13,7 +14,8 @@ namespace Havier_Than_Air_S
     {
         mis1,
         mis2,
-        mis3
+        mis3,
+        test
     }
    
    
@@ -25,7 +27,8 @@ namespace Havier_Than_Air_S
         public static SoundManager soundManager = new SoundManager();
         public static Magnitola mMagnitola;
         static TextureManager mTextureManager;
-        private MaiMenuController MenuController;
+        public MainMenuController MenuController;
+        public PullObjects Pull;
 
         public MissionSwitch missionSwitch;
         public MouseController MouseController;
@@ -33,6 +36,7 @@ namespace Havier_Than_Air_S
         private Sprite mBackgroundSprite;
 
         Mission1_Learning mission1;
+        MissionTest missionTest;
 
         public Game()
         {
@@ -42,15 +46,18 @@ namespace Havier_Than_Air_S
 
         private void StartGame()
         {
-            missionSwitch = MissionSwitch.mis1;
-            
             MouseController = new MouseController();
+            missionSwitch = MissionSwitch.mis1;
+            missionTest = new MissionTest();  
+
+            
             GameState = new GameState();
-            MenuController = new MaiMenuController(this);
+            MenuController = new MainMenuController(this);
             mMagnitola = new Magnitola();
             mTextureManager = new TextureManager();
 
             mission1 = new Mission1_Learning();
+            Pull = new PullObjects();
 
         }
 
@@ -59,7 +66,7 @@ namespace Havier_Than_Air_S
         public void ChangeGameMode(GameMode mode, MissionSwitch mission)
         {
             GameState.currentGameMode = mode;
-            missionSwitch = MissionSwitch.mis1;
+            missionSwitch = mission;
             mission1.Start();
             mMagnitola.PlayMusic();
 
@@ -119,9 +126,15 @@ namespace Havier_Than_Air_S
                 {
                     mission1.UpdateMission_1();  
                 }
+                if (missionSwitch == MissionSwitch.test)
+                {
+                    missionTest.Update();
+                }
                 MooveObjects();
                 DrawObjects();
             }
+
+            Pull.Update();
 
         }
 

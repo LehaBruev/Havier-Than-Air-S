@@ -20,62 +20,85 @@ namespace Havier_Than_Air_S
 
 
         // NR ракеты МОДЕ 2
-        static float NRrocketlenght = 20;
-        static float NRrocketpower = 47;
-        static float NRrocketweight = 100; //вес ракеты
-        static float NRrocketspeed = 4; // скорость NR неуправляемых ракет
-        static int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
-        static float nrfuel = 400.0f; // запас хода NR неуправляемых ракет
+         float NRrocketlenght = 20;
+         float NRrocketpower = 47;
+         float NRrocketweight = 100; //вес ракеты
+         float NRrocketspeed = 2; // скорость NR неуправляемых ракет
+         int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
+         float nrfuel = 1200.0f; // запас хода NR неуправляемых ракет
+        float NRrocketRashod = 1;
         private Color nrColor = new Color(255, 161, 0);
 
         //Переменные
-        private RocketStatus currentRocketStatus;
+        public RocketStatus currentRocketStatus;
         private float currentRocketfuel;
         private float currentRocketSpeed;
+        private Texture rocketTexture;
+        private Sprite rocketSprite;
 
-        private Vector2i currentRocketPosition;
+        private Vector2f currentRocketPosition;
         private float currentRocketAngle;
 
 
         public Rocket()
         {
+            rocketTexture = new Texture("Nrocket_01.png");
+            rocketSprite = new Sprite(rocketTexture);
             DeactivateRocket();
         }
 
         public void DeactivateRocket()
         {
+            
             currentRocketStatus = RocketStatus.inPool;
             currentRocketfuel = nrfuel;
             currentRocketSpeed = 0.0f;
-
+            
             
         }
 
-        public void StartRocket(Vector2i position, float angle)
+        public void StartRocket(Vector2f position, float angle)
         {
+            DeactivateRocket();
             currentRocketStatus = RocketStatus.inAir;
             currentRocketPosition = position;
             currentRocketAngle = angle;
-
+            currentRocketSpeed = NRrocketspeed;
 
         }
 
-        public void UpdateRocket()
+        public void MoveNRrocket()
         {
             if(currentRocketStatus == RocketStatus.inAir)
             {
+                currentRocketPosition = new Vector2f(currentRocketPosition.X +1.0f,
+                                                        currentRocketPosition.Y +1.0f);
+                // Перемещение
+                // точка цели - текущая точка = вектор на цель
+                // угол вектора = угол нр
+
+                rocketSprite.Position = currentRocketPosition;
 
 
+                // Отрисовка
+
+                //расход
+                if (currentRocketfuel > 0)
+                {
+                    currentRocketfuel -= NRrocketRashod;
+
+                }
+                else
+                {
+                    DeactivateRocket();
+                }
+
+
+                Program.window.Draw(rocketSprite);
             }
+ 
 
 
-        }
-
-
-        private void MoveNRrocket() // неуправляемая ракета НР движение и отрисовка
-
-        {
-               
                 //положение ракеты
 
                 //Угол наклона
@@ -131,14 +154,14 @@ namespace Havier_Than_Air_S
             */
 
                // }
-            }
+         }
 
-        }
+     }
         
 
 
 
 
 
-    }
+    
 }
