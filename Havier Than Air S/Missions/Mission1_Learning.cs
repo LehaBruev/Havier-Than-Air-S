@@ -18,7 +18,6 @@ namespace Havier_Than_Air_S
         public void Start()
         {
             backGroundSprite.Texture = backgroundLevel1;
-
         }
 
         public void UpdateMission_1()
