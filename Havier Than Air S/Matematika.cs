@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.System;
 
 namespace Havier_Than_Air_S
 {
@@ -11,19 +12,15 @@ namespace Havier_Than_Air_S
 
 
 
-        /*
-
-
-
-
-
-        static void searchdistance() // Вычисление расстояния между двумя точками
+        static float searchdistance(Vector2i point_1, Vector2i point_2) // Вычисление расстояния между двумя точками
         {
-            d = Math.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+            float distance = (float)Math.Sqrt((point_1.X - point_2.X) * (point_1.X - point_2.X) + (point_1.Y - point_2.Y) * (point_1.Y - point_2.Y));
 
+            return distance;
         }
+        
 
-        static void searchAB() //вычисляем поправки координат синусом и косинусом стороны А и Б прямоугольника (прицелы)
+        static Vector2f searchAB(float searchangle, float searchline) //вычисляем поправки координат синусом и косинусом стороны А и Б прямоугольника ()
         {
             // вычисление y
             const float pi = 3.14f;
@@ -32,35 +29,18 @@ namespace Havier_Than_Air_S
             double sin2 = Math.Sqrt(sin * sin);
             double g = searchline; //длина прицела, ракеты (расстояние без углов до крайней точки)
             double yside = g * sin2;
-            searchB = (float)yside;//перевод во float, горизонтальная поправка для Y
+            float searchB = (float)yside;//перевод во float, горизонтальная поправка для Y
 
             // вычисление x
             double cos = Math.Cos(rad); //косинус а
             double cos2 = Math.Sqrt(cos * cos);
             double xside = g * cos2;
-            searchA = (float)xside; // вертикальная поправка для X
+            float searchA = (float)xside; // вертикальная поправка для X
+
+            return new Vector2f(searchB, searchA);
 
         }
 
-
-
-        static void loterea()
-        {
-
-            int n = rnd1.Next(1, 8);
-
-            if (n == 1) otkazhydrosis = 1;
-            if (n == 2) otkazols = 1;
-            if (n == 3) otkazpojardvig = 1;
-            if (n == 4) helienginelife = helienginelife - rnd.Next(5, 10);
-            if (n == 5) helienginelife = helienginelife - rnd.Next(10, 15);
-
-
-
-        }
-
-
-        */
 
     }
 }

@@ -79,9 +79,23 @@ namespace Havier_Than_Air_S
 
 
 
+        
+
+
+        static void loterea()
+        {
+
+            int n = rnd1.Next(1, 8);
+
+            if (n == 1) otkazhydrosis = 1;
+            if (n == 2) otkazols = 1;
+            if (n == 3) otkazpojardvig = 1;
+            if (n == 4) helienginelife = helienginelife - rnd.Next(5, 10);
+            if (n == 5) helienginelife = helienginelife - rnd.Next(10, 15);
+
+
+
+        }
         */
-
-
-
     }
 }
