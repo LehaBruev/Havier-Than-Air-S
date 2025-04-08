@@ -21,8 +21,6 @@ namespace Havier_Than_Air_S
             {
                 NRrockets[i] = new Rocket();
             }
-
-
         }         
 
         public void SpawnNR_Rocket(Vector2f position, float angle)
@@ -38,14 +36,7 @@ namespace Havier_Than_Air_S
                 {
                     NRrockets[i].MoveNRrocket();
                 }
-
             }
-
-
         }
     }
-
-   
-
-
 }
