@@ -12,7 +12,7 @@ namespace Havier_Than_Air_S
     {
         inCase,
         inAir,
-        lose
+        inPool
     }
 
     internal class Rocket
@@ -25,32 +25,57 @@ namespace Havier_Than_Air_S
         static float NRrocketweight = 100; //вес ракеты
         static float NRrocketspeed = 4; // скорость NR неуправляемых ракет
         static int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
-        static int nrfuel = 400; // запас хода NR неуправляемых ракет
+        static float nrfuel = 400.0f; // запас хода NR неуправляемых ракет
         private Color nrColor = new Color(255, 161, 0);
 
         //Переменные
         private RocketStatus currentRocketStatus;
         private float currentRocketfuel;
-        private float currentRocketAngle;
         private float currentRocketSpeed;
+
         private Vector2i currentRocketPosition;
+        private float currentRocketAngle;
 
 
         public Rocket()
         {
-        
+            DeactivateRocket();
+        }
+
+        public void DeactivateRocket()
+        {
+            currentRocketStatus = RocketStatus.inPool;
+            currentRocketfuel = nrfuel;
+            currentRocketSpeed = 0.0f;
+
+            
+        }
+
+        public void StartRocket(Vector2i position, float angle)
+        {
+            currentRocketStatus = RocketStatus.inAir;
+            currentRocketPosition = position;
+            currentRocketAngle = angle;
 
 
+        }
+
+        public void UpdateRocket()
+        {
+            if(currentRocketStatus == RocketStatus.inAir)
+            {
+
+
+            }
 
 
         }
 
 
-
         private void MoveNRrocket() // неуправляемая ракета НР движение и отрисовка
 
         {
-          
+               
                 //положение ракеты
 
                 //Угол наклона
