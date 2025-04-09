@@ -24,9 +24,9 @@ namespace Havier_Than_Air_S
          float NRrocketlenght = 20;
          float NRrocketpower = 47;
          float NRrocketweight = 100; //вес ракеты
-         float NRrocketspeed = 2; // скорость NR неуправляемых ракет
+         float NRrocketspeed = 200; // скорость NR неуправляемых ракет
          int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
-         float nrfuel = 1200.0f; // запас хода NR неуправляемых ракет
+         float nrfuel = 3; // запас хода NR неуправляемых ракет
         float NRrocketRashod = 1;
         private Color nrColor = new Color(255, 161, 0);
 
@@ -48,6 +48,8 @@ namespace Havier_Than_Air_S
         {
             ProduceRocket();
             DeactivateRocket();
+
+            
         }
 
         private void ProduceRocket()
@@ -99,8 +101,7 @@ namespace Havier_Than_Air_S
             
             currentRocketPosition = position;
             currentRocketAngle = angle;
-            currentRocketSpeed = NRrocketspeed;
-
+            
         }
 
         public void MoveNRrocket()
@@ -110,7 +111,8 @@ namespace Havier_Than_Air_S
                 //currentRocketPosition = new Vector2f(currentRocketPosition.X +1.0f,
                 //                                        currentRocketPosition.Y +1.0f);
 
-
+                currentRocketSpeed = NRrocketspeed * (float)Program.deltaTimer.Delta();
+                Console.WriteLine(currentRocketSpeed);
                 currentRocketPosition  = currentRocketPosition + Matematika.searchAB(currentRocketAngle, currentRocketSpeed);
                 
                 //rocketSprite.Position = currentRocketPosition;
@@ -121,7 +123,7 @@ namespace Havier_Than_Air_S
                 //расход
                 if (currentRocketfuel > 0)
                 {
-                    currentRocketfuel -= NRrocketRashod;
+                    currentRocketfuel -= NRrocketRashod*(float)Program.deltaTimer.Delta();
                     Program.window.Draw(NR);
                 }
                 else

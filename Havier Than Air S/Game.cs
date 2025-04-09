@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Havier_Than_Air_S.Missions;
 using SFML.Graphics;
+using SFML.System;
 using SFML.Window;
 
 namespace Havier_Than_Air_S
@@ -115,9 +116,10 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
+            
             MouseController.CheckMouse();
             mTextureManager.DrawBackground();
-
+            
           
                MenuController.Update();
 
@@ -137,7 +139,7 @@ namespace Havier_Than_Air_S
             }
 
             Pull.Update();
-
+             
         }
 
 

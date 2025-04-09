@@ -15,11 +15,12 @@ namespace Havier_Than_Air_S
 
        public static Game Game;
        public static RenderWindow window;
+        public static DeltaTimer deltaTimer;
 
         static void Main(string[] args)
         {
             Game = new Game();
-            
+            deltaTimer = new DeltaTimer();
 
             VideoMode vMode = new VideoMode(1024, 768);
             window = new RenderWindow(vMode, "Havier Than Air SFML");
@@ -30,6 +31,7 @@ namespace Havier_Than_Air_S
             {
                 window.Clear();
                 window.DispatchEvents();
+                deltaTimer.CheckDelta();
                 Game.Update();
                 window.Display();
             }

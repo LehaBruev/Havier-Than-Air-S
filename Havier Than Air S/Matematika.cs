@@ -26,7 +26,8 @@ namespace Havier_Than_Air_S
         {
             const float pi = 3.14f;
             float rad = searchangle / 180 * pi; //Радиальный угол
-            
+            double g = searchline; //длина прицела, ракеты (расстояние без углов до крайней точки)
+
             // вычисление x
             double cos = Math.Cos(rad); //косинус а
             double cos2 = Math.Sqrt(cos * cos);
@@ -37,7 +38,6 @@ namespace Havier_Than_Air_S
             // вычисление y
             double sin = Math.Sin(rad); //синус а
             double sin2 = Math.Sqrt(sin * sin);
-            double g = searchline; //длина прицела, ракеты (расстояние без углов до крайней точки)
             double yside = g * sin2;
             float searchB = (float)yside;//перевод во float, горизонтальная поправка для Y
             if (360 > searchangle && searchangle > 180) searchB = -searchB;

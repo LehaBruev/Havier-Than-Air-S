@@ -29,8 +29,9 @@ namespace Havier_Than_Air_S
             }
             else
             {
-                Console.WriteLine("x " + x + " y" + y + ". WX " + Program.window.Position.X + " WY" + Program.window.Position.Y);
+               //Console.WriteLine("x " + x + " y" + y + ". WX " + Program.window.Position.X + " WY" + Program.window.Position.Y);
                 timer.Start(200.0f);
+
             }
 
             LeftButton = Mouse.IsButtonPressed(Mouse.Button.Left);
@@ -45,6 +46,13 @@ namespace Havier_Than_Air_S
                                     Program.window.Position.Y +31+ Mouse.GetPosition(Program.window).Y));
 
             }
+
+            if(LeftButton)
+            {
+                
+               // Console.WriteLine(Program.deltaTimer.Delta());
+            }
+
         }
     }
 }
