@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
@@ -39,28 +40,63 @@ namespace Havier_Than_Air_S
         private Vector2f currentRocketPosition;
         private float currentRocketAngle;
 
+        //Отрисовка
+        RectangleShape rectangleShape;
+        private Drawable NR;
 
         public Rocket()
         {
-            rocketTexture = new Texture("Nrocket_01.png");
-            rocketSprite = new Sprite(rocketTexture);
+            ProduceRocket();
             DeactivateRocket();
         }
 
+        private void ProduceRocket()
+        {
+            //sprite
+            rocketTexture = new Texture("Nrocket_01.png");
+            rocketSprite = new Sprite();
+            rocketSprite.Texture = rocketTexture;
+            rocketSprite.TextureRect = new IntRect(1, 1, 100, 100);
+            rocketSprite.Color = Color.Green;
+
+            //shape
+            rectangleShape = new RectangleShape();
+            //rectangleShape.Position = new Vector2f(0, 0);
+            //rectangleShape.Rotation = 70;
+            rectangleShape.Size = new Vector2f(100.0f,20);
+            rectangleShape.Origin = new Vector2f(10, 10);
+            rectangleShape.FillColor = Color.Red;
+            //rectangleShape.Position = 
+
+            
+
+
+
+            NR = rectangleShape;
+            //CircleShape
+
+            /*
+                 sf::Vertex line[] =
+             {
+                 sf::Vertex(sf::Vector2f(10, 10)),
+                 sf::Vertex(sf::Vector2f(150, 150))
+            };
+            */
+        }
+
+
         public void DeactivateRocket()
         {
-            
             currentRocketStatus = RocketStatus.inPool;
             currentRocketfuel = nrfuel;
             currentRocketSpeed = 0.0f;
-            
-            
         }
 
         public void StartRocket(Vector2f position, float angle)
         {
             DeactivateRocket();
             currentRocketStatus = RocketStatus.inAir;
+            
             currentRocketPosition = position;
             currentRocketAngle = angle;
             currentRocketSpeed = NRrocketspeed;
@@ -71,44 +107,46 @@ namespace Havier_Than_Air_S
         {
             if(currentRocketStatus == RocketStatus.inAir)
             {
-                currentRocketPosition = new Vector2f(currentRocketPosition.X +1.0f,
-                                                        currentRocketPosition.Y +1.0f);
-                // Перемещение
-                // точка цели - текущая точка = вектор на цель
-                // угол вектора = угол нр
-
-                rocketSprite.Position = currentRocketPosition;
+                //currentRocketPosition = new Vector2f(currentRocketPosition.X +1.0f,
+                //                                        currentRocketPosition.Y +1.0f);
 
 
+                currentRocketPosition  = currentRocketPosition + Matematika.searchAB(currentRocketAngle, currentRocketSpeed);
+                
+                //rocketSprite.Position = currentRocketPosition;
+                rectangleShape.Position = currentRocketPosition;
+                rectangleShape.Rotation = currentRocketAngle;
                 // Отрисовка
 
                 //расход
                 if (currentRocketfuel > 0)
                 {
                     currentRocketfuel -= NRrocketRashod;
-
+                    Program.window.Draw(NR);
                 }
                 else
                 {
                     DeactivateRocket();
                 }
 
-
-                Program.window.Draw(rocketSprite);
+                
             }
- 
 
+            //положение ракеты
 
-                //положение ракеты
+            //Угол наклона
 
-                //Угол наклона
+            //Отрисовка
 
-                //Отрисовка
+            //Проверка столкновений
 
-                //Проверка столкновений
+            //Расход топл
 
-                //Расход топл
-
+            ////  searchangle вычисляемый угол, угол наклона
+            //// searchline длина отрезка, пути
+            //// найти А и Б searchAB()
+            //// searchA
+            //// searchB
 
             /*
                 // вычисление х2 и у2 для отрисовки ракеты
@@ -153,10 +191,10 @@ namespace Havier_Than_Air_S
                     }
             */
 
-               // }
-         }
+            // }
+        }
 
-     }
+    }
         
 
 

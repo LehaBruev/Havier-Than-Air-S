@@ -11,7 +11,7 @@ namespace Havier_Than_Air_S.Missions
     {
         //установка для нр
         Vector2f positionNR;
-        float angleNR = 30.0f;
+        float angleNR = 280.0f;
 
         MouseController mouseController;
         PullObjects pull;

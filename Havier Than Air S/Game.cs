@@ -59,6 +59,8 @@ namespace Havier_Than_Air_S
             mission1 = new Mission1_Learning();
             Pull = new PullObjects();
 
+            //отладка
+            ChangeGameMode(GameMode.Play,MissionSwitch.test);
         }
 
 
@@ -68,7 +70,7 @@ namespace Havier_Than_Air_S
             GameState.currentGameMode = mode;
             missionSwitch = mission;
             mission1.Start();
-            mMagnitola.PlayMusic();
+            //mMagnitola.PlayMusic();
 
         }
 
