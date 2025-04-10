@@ -16,7 +16,7 @@ namespace Havier_Than_Air_S
         inPool
     }
 
-    internal class Rocket
+    public class Rocket
     {
 
 
@@ -49,7 +49,6 @@ namespace Havier_Than_Air_S
             ProduceRocket();
             DeactivateRocket();
 
-            
         }
 
         private void ProduceRocket()
