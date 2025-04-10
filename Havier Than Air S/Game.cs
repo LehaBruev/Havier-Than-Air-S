@@ -21,21 +21,21 @@ namespace Havier_Than_Air_S
 
     public class Game 
     {
-        public GameState GameState;
+        public static GameState GameState = new GameState();
         
         public static SoundManager soundManager = new SoundManager();
-        public static Magnitola mMagnitola;
-        static TextureManager mTextureManager;
-        public MainMenuController MenuController;
-        public PullObjects Pull;
+        public static Magnitola mMagnitola = new Magnitola();
+        public static TextureManager mTextureManager = new TextureManager();
+        public MainMenuController MenuController = new MainMenuController();
+        public PullObjects Pull = new PullObjects();
 
-        public MissionSwitch missionSwitch;
-        public MouseController MouseController;
+        public MissionSwitch missionSwitch = MissionSwitch.test;
+        public MouseController MouseController = new MouseController();
 
         private Sprite mBackgroundSprite;
 
         Mission1_Learning mission1;
-        MissionTest missionTest;
+        MissionTest missionTest = new MissionTest();
 
         public Game()
         {
@@ -45,18 +45,18 @@ namespace Havier_Than_Air_S
 
         private void StartGame()
         {
-            MouseController = new MouseController();
-            missionSwitch = MissionSwitch.mis1;
-            missionTest = new MissionTest();  
+            //MouseController = new MouseController();
+            //missionSwitch = MissionSwitch.mis1;
+            //missionTest = new MissionTest();  
 
             
-            GameState = new GameState();
-            MenuController = new MainMenuController(this);
-            mMagnitola = new Magnitola();
-            mTextureManager = new TextureManager();
+            //GameState = new GameState();
+            //MenuController = new MainMenuController();
+            //mMagnitola = new Magnitola();
+            //mTextureManager = new TextureManager();
 
-            mission1 = new Mission1_Learning();
-            Pull = new PullObjects();
+            //mission1 = new Mission1_Learning();
+            //Pull = new PullObjects();
 
             //отладка
             ChangeGameMode(GameMode.Play,MissionSwitch.test);
@@ -68,7 +68,7 @@ namespace Havier_Than_Air_S
         {
             GameState.currentGameMode = mode;
             missionSwitch = mission;
-            mission1.Start();
+            //mission1.Start();
             //mMagnitola.PlayMusic();
 
         }

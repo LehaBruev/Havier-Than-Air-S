@@ -104,6 +104,7 @@
   <ItemGroup>
     <Compile Include="Aerodrom.cs" />
     <Compile Include="Avionika.cs" />
+    <Compile Include="CameraController.cs" />
     <Compile Include="Collisions.cs" />
     <Compile Include="DeltaTimer.cs" />
     <Compile Include="EffectsVisual.cs" />

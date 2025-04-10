@@ -14,7 +14,7 @@ namespace Havier_Than_Air_S
 {
    
 
-    public class MainMenuController
+    public  class MainMenuController
     {
 
         public enum menuButtons
@@ -52,7 +52,7 @@ namespace Havier_Than_Air_S
         SoundBuffer buttonActivate;
         Sound ButtonActitateSound;
 
-        public MainMenuController(Game _game)
+        public MainMenuController()
         {
             
 
@@ -95,7 +95,7 @@ namespace Havier_Than_Air_S
         public void Update()
         {
 
-            if (Program.Game.GameState.currentGameMode == GameMode.MainMenu)
+            if (Game.GameState.currentGameMode == GameMode.MainMenu)
             {
                 CheckMousePosition();
                 Program.window.Draw(mainMenuSprite);
@@ -103,7 +103,7 @@ namespace Havier_Than_Air_S
                 Program.window.Draw(MissionsText);
                 Program.window.Draw(FreeFlightText);
             }
-            else if(Program.Game.GameState.currentGameMode == GameMode.Result)
+            else if(Game.GameState.currentGameMode == GameMode.Result)
             {
                 Program.window.Draw(scoreSprite);
 
