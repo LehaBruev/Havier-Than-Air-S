@@ -16,9 +16,12 @@ namespace Havier_Than_Air_S.Missions
         MouseController mouseController;
         PullObjects pull;
 
+        Clock clock;
+        float zaderjka = 0.08f;
+
         public MissionTest()
         {
-            
+            clock = new Clock();
         }
         
 
@@ -28,20 +31,20 @@ namespace Havier_Than_Air_S.Missions
             pull = Program.Game.Pull;
             if (mouseController.LeftButton == true)
             {
-               
                 SpawnRocket();
-
-
-
             }
 
         }
 
         private void SpawnRocket()
         {
-            positionNR = new Vector2f((float)mouseController.x, (float)mouseController.y);
+            if (zaderjka < clock.ElapsedTime.AsSeconds())
+            {
+                positionNR = new Vector2f((float)mouseController.x, (float)mouseController.y);
+                pull.SpawnNR_Rocket(positionNR, angleNR);
+                clock.Restart();
 
-            pull.SpawnNR_Rocket(positionNR, angleNR);
+            }
 
         }
 

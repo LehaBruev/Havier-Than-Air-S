@@ -9,7 +9,7 @@ namespace Havier_Than_Air_S
 {
     public class PullObjects
     {
-        private int NRroketsCount = 5;
+        private int NRroketsCount = 30;
 
         private Rocket[] NRrockets;
 
@@ -25,7 +25,15 @@ namespace Havier_Than_Air_S
 
         public void SpawnNR_Rocket(Vector2f position, float angle)
         {
-            NRrockets[0].StartRocket(position, angle);
+            for (int i = 0; i < NRrockets.Length; i++)
+            {
+                if (NRrockets[i].currentRocketStatus == RocketStatus.inPool)
+                {
+                    NRrockets[i].StartRocket(position, angle);
+                    return;
+                }
+                
+            }
         }
 
         public void Update()
