@@ -8,7 +8,6 @@ namespace Havier_Than_Air_S
 {
     public class Hely: GameObject
     {
-
         //Настройки верталета
 
         //Переменные
@@ -20,7 +19,6 @@ namespace Havier_Than_Air_S
         static int bang1 = 1;
         static int gunmode = 0;
 
-
         //Характеристики
         static float helilifemax = 300;// максимальные жизни Вертолета
         static float helienginelife = 100; //исправность двигателя Вертолета
@@ -29,11 +27,5 @@ namespace Havier_Than_Air_S
         static float maxangle = 65; // Максимальный угол атаки
         static float helifuelmax = 1300; // Максимальное топливо в баках
         static float maxboost = 11250; // максимальное ускорение от двигателя
-
-        
-        
-
-
-
     }
 }

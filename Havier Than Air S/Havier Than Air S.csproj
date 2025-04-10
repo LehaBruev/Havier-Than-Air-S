@@ -118,6 +118,7 @@
     <Compile Include="MainMenuController.cs" />
     <Compile Include="Matematika.cs" />
     <Compile Include="Missions\Mission1_Learning.cs" />
+    <Compile Include="Missions\Mission3_FreeFlight.cs" />
     <Compile Include="Missions\MissionTest.cs" />
     <Compile Include="MouseController.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
