@@ -16,6 +16,9 @@ namespace Havier_Than_Air_S
         public bool RightButton;
         private Timer timer;
 
+        public Vector2f currentMousePoint;
+
+
         public MouseController() 
         {
             timer = new Timer(200.0f);
@@ -39,6 +42,8 @@ namespace Havier_Than_Air_S
 
             x = Mouse.GetPosition(Program.window).X;
             y = Mouse.GetPosition(Program.window).Y;
+            currentMousePoint = new Vector2f(x, y);
+
 
             if(x<0)
             {
@@ -46,6 +51,8 @@ namespace Havier_Than_Air_S
                                     Program.window.Position.Y +31+ Mouse.GetPosition(Program.window).Y));
 
             }
+
+
 
             if(LeftButton)
             {

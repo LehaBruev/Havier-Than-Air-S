@@ -69,9 +69,7 @@ namespace Havier_Than_Air_S
             rectangleShape.FillColor = Color.Red;
             //rectangleShape.Position = 
 
-            
-
-
+        
 
             NR = rectangleShape;
             //CircleShape
@@ -111,9 +109,10 @@ namespace Havier_Than_Air_S
                 //                                        currentRocketPosition.Y +1.0f);
 
                 currentRocketSpeed = NRrocketspeed * (float)Program.deltaTimer.Delta();
-                Console.WriteLine(currentRocketSpeed);
                 currentRocketPosition  = currentRocketPosition + Matematika.searchAB(currentRocketAngle, currentRocketSpeed);
-                
+
+               
+
                 //rocketSprite.Position = currentRocketPosition;
                 rectangleShape.Position = currentRocketPosition;
                 rectangleShape.Rotation = currentRocketAngle;
