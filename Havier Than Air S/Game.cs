@@ -42,7 +42,6 @@ namespace Havier_Than_Air_S
             StartGame();
         }
 
-
         private void StartGame()
         {
             //MouseController = new MouseController();
@@ -59,10 +58,9 @@ namespace Havier_Than_Air_S
             //Pull = new PullObjects();
 
             //отладка
-            ChangeGameMode(GameMode.MainMenu,MissionSwitch.mis1);
+           // ChangeGameMode(GameMode.MainMenu,MissionSwitch.mis1);
+            ChangeGameMode(GameMode.Play,MissionSwitch.test);
         }
-
-
 
         public void ChangeGameMode(GameMode mode, MissionSwitch mission)
         {

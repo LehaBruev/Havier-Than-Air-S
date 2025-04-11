@@ -12,8 +12,8 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
-        public static DeltaTimer deltaTimer = new DeltaTimer();
-        public static Game Game = new Game();
+       public static DeltaTimer deltaTimer = new DeltaTimer();
+       public static Game Game = new Game();
        public static VideoMode vMode = new VideoMode(1024, 768);
        public static RenderWindow window = new RenderWindow(vMode, "Havier Than Air SFML");
        

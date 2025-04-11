@@ -54,13 +54,17 @@ namespace Havier_Than_Air_S
             float angle;
 
             double podval = (Math.Sqrt(vectorGeneral.X * vectorGeneral.X + vectorGeneral.Y * vectorGeneral.Y) *
-                Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y));
+            Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y));
 
             double cos = (vectorGeneral.X * vector.X + vectorGeneral.Y * vector.Y) / podval;
 
-
-
             angle = 180*(float)Math.Acos(cos)/3.14f;
+
+            if(Math.Sign(vector.Y)<0)
+            {
+                angle = 180 + (180 - angle);
+
+            }
 
             return angle;
         }
