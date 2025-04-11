@@ -34,7 +34,7 @@ namespace Havier_Than_Air_S
 
         private Sprite mBackgroundSprite;
 
-        Mission1_Learning mission1;
+        Mission1_Learning mission1 =  new Mission1_Learning();
         MissionTest missionTest = new MissionTest();
 
         public Game()
