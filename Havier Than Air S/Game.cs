@@ -29,7 +29,7 @@ namespace Havier_Than_Air_S
         public MainMenuController MenuController = new MainMenuController();
         public PullObjects Pull = new PullObjects();
 
-        public MissionSwitch missionSwitch = MissionSwitch.test;
+        public MissionSwitch missionSwitch = MissionSwitch.mis1;
         public MouseController MouseController = new MouseController();
 
         private Sprite mBackgroundSprite;
@@ -59,7 +59,7 @@ namespace Havier_Than_Air_S
             //Pull = new PullObjects();
 
             //отладка
-            ChangeGameMode(GameMode.Play,MissionSwitch.test);
+            ChangeGameMode(GameMode.MainMenu,MissionSwitch.mis1);
         }
 
 
@@ -128,7 +128,7 @@ namespace Havier_Than_Air_S
                 {
                     mission1.UpdateMission_1();  
                 }
-                if (missionSwitch == MissionSwitch.test)
+                else if (missionSwitch == MissionSwitch.test)
                 {
                     missionTest.Update();
                 }

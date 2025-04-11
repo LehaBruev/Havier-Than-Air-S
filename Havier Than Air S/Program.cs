@@ -12,16 +12,17 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
-        
-
-       public static Game Game = new Game();
+        public static DeltaTimer deltaTimer = new DeltaTimer();
+        public static Game Game = new Game();
        public static VideoMode vMode = new VideoMode(1024, 768);
-        public static RenderWindow window = new RenderWindow(vMode, "Havier Than Air SFML");;
-       public static DeltaTimer deltaTimer = new DeltaTimer();
-        public static View view = new View(new FloatRect(50, 50, 300, 100));
-        public static CameraController cameraController= new CameraController();
-        static void Main(string[] args)
-        {
+       public static RenderWindow window = new RenderWindow(vMode, "Havier Than Air SFML");
+       
+       public static View view = new View(new FloatRect(50, 50, 300, 100));
+       public static View view2 = new View(new FloatRect(50, 50, 300, 100));
+       public static CameraController cameraController= new CameraController();
+
+       static void Main(string[] args)
+       {
             //Game = new Game();
             //deltaTimer = new DeltaTimer();
 
@@ -29,21 +30,30 @@ namespace Havier_Than_Air_S
            // window = new RenderWindow(vMode, "Havier Than Air SFML");
             window.Closed += Win_Closed;
 
-          
+            
+            view.Reset(new FloatRect(0, 0, 1024, 768));// = new View(new FloatRect(50, 50, 300, 100));
+            view2.Reset(new FloatRect(0, 0, 1024, 768));// = new View(new FloatRect(50, 50, 300, 100));
+            view.Viewport = (new FloatRect(0f, 0f, 0.5f, 1.0f));
+            view2.Viewport = (new FloatRect(0.5f, 0f, 0.5f, 1f));
+            //view.Size = new Vector2f(50, 1000);
+            
+
             while (window.IsOpen)
             {
-                view.Viewport = (new FloatRect(0, 0, 0.5f, 1));
+                //window.SetView(view); // split
+                //window.SetView(view2); // split
                 
-                view.Size = new Vector2f(2000, 50);
-                window.SetView(view);
 
                 window.Clear();
+
                 window.DispatchEvents();
                 deltaTimer.CheckDelta();
                 Game.Update();
+
                 window.Display();
+
             }
-        }
+       }
 
         private static void Win_Closed(object sender, EventArgs e)
         {

@@ -55,7 +55,6 @@ namespace Havier_Than_Air_S
         public MainMenuController()
         {
             
-
             buttonActivate = new SoundBuffer("buttonclick.wav");
             ButtonActitateSound = new Sound(buttonActivate);
             currentButton = menuButtons.none;
@@ -80,8 +79,6 @@ namespace Havier_Than_Air_S
             FreeFlightText = new Text("3. Free flight", font);
             FreeFlightText.Position = new Vector2f(224, 410);
             SetTextSettings(FreeFlightText);
-
-
         }
 
 
@@ -106,9 +103,7 @@ namespace Havier_Than_Air_S
             else if(Game.GameState.currentGameMode == GameMode.Result)
             {
                 Program.window.Draw(scoreSprite);
-
             }
-
         }
 
 
@@ -132,7 +127,6 @@ namespace Havier_Than_Air_S
                 {
                     ButtonMouseIn(ObuchenieText);
                     currentButton = menuButtons.learning;
-                
                 }
 
                 if(Program.Game.MouseController.LeftButton == true)
