@@ -12,10 +12,8 @@ namespace Havier_Than_Air_S.Missions
         // Левел 3 Свободный полет
 if (levelchoise == 3 && mainmenuSwitch == 0 && gameplaying == 1) // Левел 3 Свободный полет
 {
-
     if (newgame == 1)
     {
-        
         money = 0;
         volnadelay = 0;
         basedurability = 12;
@@ -25,15 +23,11 @@ if (levelchoise == 3 && mainmenuSwitch == 0 && gameplaying == 1) // Левел 3
        
         winpobeda = 0;
 
-        
-
-
         //Начальное вооружение 8
         for (int i = 0; i < nrrocketsMaxquantity; i++) R[5, i] = 1; // 5. Моде 2 NR Ракеты готовы к пуску
                                                                     //Начальные задания
         for (int i = 0; i < checkpoints.GetLength(0); i++) checkpoints[i] = 1;
         for (int i = 0; i < checkpoints2.GetLength(0); i++) checkpoints2[i] = 1;
-
 
         for (int i = 0; i < Buk1cicles.GetLength(1); i++) { Buk1cicles[3, i] = 0; Buk1cicles[1, i] = 1200; }
         for (int i = 0; i < Tank1cicles.GetLength(1); i++) { Tank1cicles[3, i] = 0; Tank1cicles[1, i] = 1200; }
@@ -45,8 +39,6 @@ if (levelchoise == 3 && mainmenuSwitch == 0 && gameplaying == 1) // Левел 3
         fuelinbag = 2000; //топливо на складе
         nrrocketsinbag = 20; //ракеты на складе
         partsinbag = 500; //Запчасти в корзине
-
-
     }
 
     while (true)
@@ -87,13 +79,9 @@ if (levelchoise == 3 && mainmenuSwitch == 0 && gameplaying == 1) // Левел 3
 
         if (gitaswitch == 1 && gitadelay < 0)
         {
-
-
             if (G == 1)
             {
-
                 if (podskazkaswitch == 1)
-
                 {
                     DrawSprite(uh61, 850, 300, 484, 535, 205, 235);
                     DrawSprite(uh61, 892 - 610, 430 - 208, 308, 777, 610, 208);
@@ -101,9 +89,7 @@ if (levelchoise == 3 && mainmenuSwitch == 0 && gameplaying == 1) // Левел 3
                     DrawText(330, 265, "Знай же: то, чем пронизано материальное тело, неразрушимо.", 16);
                     DrawText(330, 290, "Никто не может уничтожить бессмертную душу. ", 16);
                     DrawText(330, 330, "(\"Y\" чтобы скрыть)", 16);
-
                 }
-
             }
             if (G == 2)
             {

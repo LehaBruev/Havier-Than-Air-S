@@ -1,4 +1,5 @@
-﻿using SFML.System;
+﻿using Havier_Than_Air_S.Missions;
+using SFML.System;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +24,13 @@ namespace Havier_Than_Air_S
             }
         }         
 
-        public void SpawnNR_Rocket(Vector2f position, float angle)
+        public void SpawnNR_Rocket(Vector2f position, float angle, MissionTest mission)
         {
             for (int i = 0; i < NRrockets.Length; i++)
             {
                 if (NRrockets[i].currentRocketStatus == RocketStatus.inPool)
                 {
-                    NRrockets[i].StartRocket(position, angle);
+                    NRrockets[i].StartRocket(position, angle, mission);
                     return;
                 }
                 

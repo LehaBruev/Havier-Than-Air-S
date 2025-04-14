@@ -14,6 +14,7 @@ namespace Havier_Than_Air_S
         // Массивы
 
         // NR неуправляемая ракета Верталета МОДЕ 2
+        /*
         static float[,] R = new float[6, nrrocketsMaxquantity]; // NR ракета верталета (1=x ракеты, 2=y ракеты, 3=angle ракеты, 4=fuel ракеты, 5=ракета проявлена)
 
         static float[,] R10 = new float[5, a10rocketquantity]; // Ракета А10 (1=x ракеты, 2=y ракеты, 3=fuel ракеты, 4=ракета проявлена)

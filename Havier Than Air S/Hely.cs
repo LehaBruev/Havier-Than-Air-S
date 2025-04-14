@@ -8,7 +8,7 @@ using SFML.Window;
 
 namespace Havier_Than_Air_S
 {
-    public class Hely: GameObject
+    public class Hely : GameObject
     {
         //Настройки верталета
 
@@ -63,6 +63,7 @@ namespace Havier_Than_Air_S
 
         public Hely()
         {
+            /*
             //Начальные настройки верталета
             playerx = 120;
             playery = 700;
@@ -87,10 +88,13 @@ namespace Havier_Than_Air_S
             otkazcicle[1] = manageability;
             otkazcicle[2] = shagAngle;
             otkazcicle[3] = 0;
+            */
         }
-
-        //Оружие и прицеливание
+    }
+}
 /*
+        //Оружие и прицеливание
+
 if (GetKeyDown(Keyboard.Key.Num1) == true) // Моде 1 ВЫБОР
 {
     gunmode = 1; // пулемет
@@ -163,6 +167,7 @@ if (GetMouseButtonDown(Mouse.Button.Left) == true) // ОГОНЬ!
     }
 
 }
-/*
+
 }
 }
+*/

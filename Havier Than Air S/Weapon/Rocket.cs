@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Havier_Than_Air_S.Missions;
 using SFML.Graphics;
 using SFML.System;
 
@@ -35,14 +36,18 @@ namespace Havier_Than_Air_S
         private float currentRocketfuel;
         private float currentRocketSpeed;
         private Texture rocketTexture;
-        private Sprite rocketSprite;
+       
 
         private Vector2f currentRocketPosition;
         private float currentRocketAngle;
 
         //Отрисовка
-        RectangleShape rectangleShape;
+        private Sprite rocketSprite;
+        private RectangleShape rectangleShape;
         private Drawable NR;
+
+        MissionTest missTest;
+        
 
         public Rocket()
         {
@@ -72,8 +77,6 @@ namespace Havier_Than_Air_S
             rectangleShape.FillColor = Color.Red;
             //rectangleShape.Position = 
 
-        
-
             NR = rectangleShape;
             //CircleShape
 
@@ -94,8 +97,9 @@ namespace Havier_Than_Air_S
             currentRocketSpeed = 0.0f;
         }
 
-        public void StartRocket(Vector2f position, float angle)
+        public void StartRocket(Vector2f position, float angle, MissionTest mission)
         {
+            missTest = mission;
             DeactivateRocket();
             currentRocketStatus = RocketStatus.inAir;
             
@@ -104,10 +108,17 @@ namespace Havier_Than_Air_S
             
         }
 
+        public void ChechRocketCollider()
+        {
+            missTest.CheckTargetCollider(rectangleShape.GetGlobalBounds());
+
+        }
+
         public void MoveNRrocket()
         {
             if(currentRocketStatus == RocketStatus.inAir)
             {
+                ChechRocketCollider();
                 //currentRocketPosition = new Vector2f(currentRocketPosition.X +1.0f,
                 //                                        currentRocketPosition.Y +1.0f);
 
