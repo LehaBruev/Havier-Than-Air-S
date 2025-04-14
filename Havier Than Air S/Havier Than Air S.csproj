@@ -124,6 +124,7 @@
     <Compile Include="MouseController.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="obj\x64\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
+    <Compile Include="PlanetSettings.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Prochee.cs" />
     <Compile Include="Havier Than Air 1.1\Program HTA отрезок.cs" />

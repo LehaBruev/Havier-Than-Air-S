@@ -59,9 +59,12 @@ namespace Havier_Than_Air_S
             rocketSprite.Texture = rocketTexture;
             rocketSprite.TextureRect = new IntRect(1, 1, 100, 100);
             rocketSprite.Color = Color.Green;
+            rocketSprite.GetGlobalBounds().Intersects(rocketSprite.GetGlobalBounds());
+
 
             //shape
             rectangleShape = new RectangleShape();
+            rectangleShape.GetGlobalBounds();
             //rectangleShape.Position = new Vector2f(0, 0);
             //rectangleShape.Rotation = 70;
             rectangleShape.Size = new Vector2f(100.0f,20);

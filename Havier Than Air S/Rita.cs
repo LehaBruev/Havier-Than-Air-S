@@ -96,6 +96,22 @@ namespace Havier_Than_Air_S
 
 
         }
+
+
+
+        //Поломки
+        helienginelife = 100;
+        otkazhydrosis = 0; // Гидросистема
+        otkazmasterwarning = 0; // Матерсвитч
+        otkazols = 0; // Оптико локационная станция
+        otkazraketasprava = 0; //ракета справа
+        otkazraketasleva = 0; //Ракета слева
+        otkazpojardvig = 0; // Пожар двигателя
+        otkazsbrosoboroti = 0; //Пожар двигателя
+
+        peregruzkamotora = 0; //Пожар двигателя начнется
+        ritarandom = 1; //рандом для прицела
+
         */
     }
 }

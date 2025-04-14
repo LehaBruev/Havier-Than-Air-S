@@ -8,72 +8,24 @@ namespace Havier_Than_Air_S.Missions
 {
     internal class Mission3_FreeFlight
     {
-
-
         /*
-         
-
         // Левел 3 Свободный полет
 if (levelchoise == 3 && mainmenuSwitch == 0 && gameplaying == 1) // Левел 3 Свободный полет
 {
 
     if (newgame == 1)
     {
-        //Начальные настройки верталета
-        playerx = 120;
-        playery = 700;
-        engineswitch = 0;
-        enginespeed = 0;
-        helistop = 1;
-        helifuel = 1000;
-        helifuelmax = 1300;
-        helilife = 300;
-        helilifemax = 300;
-        speedxmax = 3f;
-        manageability = 9; //управляемость
-        shagAngle = 1.7f; // угол атаки
-        nrrocketsMaxquantity = 8; //максимально ракет
-        padstoreswitch = 0;
-        helidestroy = 0;
+        
         money = 0;
         volnadelay = 0;
         basedurability = 12;
         missionswitch = 0;
         podskazkaswitch = 0;
         NRrocketslaunched = 0;
-        shagengine = 75; //шаг увелич мощности двигателя
-        enginespeedlimit = 35000; //лимит оборотов двигателя
-        fuelrashod = 1.7f; // расход топлива
-        otkazcicle[1] = manageability;
-        otkazcicle[2] = shagAngle;
-        otkazcicle[3] = 0;
+       
         winpobeda = 0;
 
-        //результаты
-        //Поломки
-        helienginelife = 100;
-        otkazhydrosis = 0; // Гидросистема
-        otkazmasterwarning = 0; // Матерсвитч
-        otkazols = 0; // Оптико локационная станция
-        otkazraketasprava = 0; //ракета справа
-        otkazraketasleva = 0; //Ракета слева
-        otkazpojardvig = 0; // Пожар двигателя
-        otkazsbrosoboroti = 0; //Пожар двигателя
-
-        peregruzkamotora = 0; //Пожар двигателя начнется
-        ritarandom = 1; //рандом для прицела
-
-
-        flighttime = 0; //время нахождения в воздухе
-
-        landingquantity = 0; //количество посадок
-        NRrocketslaunched = 0; //выпущено NR ракет количество
-        targetbingos = 0; //попаданий по цели
-        buk1destroyes = 0; //уничтожено буков1
-        tank1destroyes = 0; //уничтожено танков1
-        fuelusedup = 0; //израсходовано топлива
-        repairings = 0; //Отремонтирован вертолет
-        getdamages = 0; //Получено повреждений
+        
 
 
         //Начальное вооружение 8
@@ -97,106 +49,7 @@ if (levelchoise == 3 && mainmenuSwitch == 0 && gameplaying == 1) // Левел 3
 
     }
 
-
-
     while (true)
-    {
-
-        DispatchEvents();
-        //Расчеты 
-
-        //Очистка буфера
-
-        ClearWindow();
-        DrawSprite(backgroundLevel3, 0, 0);
-
-        //Музыка
-        magnitola();
-
-        PlayerMove();
-        PlayerDraw();
-
-
-        //Оружие и прицеливание
-
-
-        if (GetKeyDown(Keyboard.Key.Num1) == true) // Моде 1 ВЫБОР
-        {
-            gunmode = 1; // пулемет
-            PlaySound(click);
-        }
-
-        if (GetKeyDown(Keyboard.Key.Num2) == true) // Моде 2 ВЫБОР
-        {
-            gunmode = 2; // ракета
-            PlaySound(click);
-            int PRNR = 0; // Пуск Разрешен
-            for (int i = 0; i < R.GetLongLength(1); i++)
-            {
-                if (R[5, i] == 1)
-                {
-                    PlaySound(puskrazreshen);
-                    PRNR = 1;
-                    break;
-
-                }
-
-            }
-            if (PRNR == 0) PlaySound(proverpokazaniya);
-
-        }// Моде 2 ВЫБОР
-
-        if (GetKeyDown(Keyboard.Key.Num3) == true)
-        {
-            gunmode = 3; // самонаводящаяся ракета 
-            PlaySound(click);
-
-        }
-
-        // Выстрел
-        if (GetMouseButtonDown(Mouse.Button.Left) == true) // ОГОНЬ!
-        {
-            if (gunmode == 1)
-            {
-
-
-
-            }
-            if (gunmode == 2) //(1 = x ракеты, 2 = y ракеты, 3 = angle ракеты, 4 = fuel ракеты, 5 = ракета проявлена)
-            {
-                NRrocketchecklaunch = 0;
-                for (int i = 0; i < R.GetLongLength(1); i++)
-                {
-
-                    if (R[5, i] == 0 || R[5, i] == 2) continue;
-                    if (R[5, i] == 1)
-                    {
-                        R[1, i] = playerx;
-                        R[2, i] = playery;
-                        R[3, i] = angle;
-                        R[4, i] = nrfuel;
-                        R[5, i] = 2; // ракета отрисовывается
-                        NRrocketchecklaunch = 1;
-                        PlaySound(rocketsound);
-                        NRrocketslaunched = NRrocketslaunched + 1;
-                        break;
-                    }
-
-                }
-                if (NRrocketchecklaunch == 0)
-                {
-                    PlaySound(click);
-                    PlaySound(proverpokazaniya);
-                }
-            }//(1 = x ракеты, 2 = y ракеты, 3 = angle ракеты, 4 = fuel ракеты, 5 = ракета проявлена)
-            if (gunmode == 3)
-            {
-
-                PlaySound(rocketsound);
-
-            }
-
-        }
 
         MoveNRrocket();
 
@@ -208,9 +61,6 @@ if (levelchoise == 3 && mainmenuSwitch == 0 && gameplaying == 1) // Левел 3
 
         //Проверка соприкосновений
         SearchConflict();
-
-
-
 
         //Перезарядка
         if (GetKeyDown(Keyboard.Key.R) == true)

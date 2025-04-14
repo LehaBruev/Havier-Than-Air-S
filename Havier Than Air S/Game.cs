@@ -152,11 +152,7 @@ namespace Havier_Than_Air_S
         }
 
 
-        //награды
-        float tank1reward = 10000; //Получено повреждений
-         float buk1reward = 30000; //Получено повреждений
-         //static float repairings = 0; //Отремонтирован вертолет
-
+       
  
     }
 }
