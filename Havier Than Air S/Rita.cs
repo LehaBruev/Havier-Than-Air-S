@@ -30,9 +30,10 @@ namespace Havier_Than_Air_S
 
 
 
-
+        1
 
         static void rita()
+
         {
             delayrita = delayrita - 1;
             if (delayrita < 0) delayrita = 400;
