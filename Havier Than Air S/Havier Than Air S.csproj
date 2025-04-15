@@ -104,6 +104,7 @@
   <ItemGroup>
     <Compile Include="Aerodrom.cs" />
     <Compile Include="Avionika.cs" />
+    <Compile Include="Avtopilot.cs" />
     <Compile Include="CameraController.cs" />
     <Compile Include="Collisions.cs" />
     <Compile Include="DeltaTimer.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="GameState.cs" />
     <Compile Include="Gita.cs" />
     <Compile Include="Hely.cs" />
+    <Compile Include="HelyControl.cs" />
     <Compile Include="Magazin.cs" />
     <Compile Include="Magnitola.cs" />
     <Compile Include="MainMenuController.cs" />
