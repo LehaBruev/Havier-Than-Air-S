@@ -29,18 +29,29 @@ namespace Havier_Than_Air_S.Missions
         Image taergetImage;
         Texture targetTexture;
         Sprite targetSprite;
+        RectangleShape targetRect;
 
         public MissionTest()
         {
             clock = new Clock();
 
-             taergetImage = new Image("Nrocket_01.png");
+             taergetImage = new Image("uh612.png");
              targetTexture = new Texture(taergetImage);
+             //targetSprite = new Sprite(targetTexture);
              targetSprite = new Sprite(targetTexture);
+            //targetSprite.TextureRect = new IntRect(1, 1,1,1);
+
+            targetRect = new RectangleShape(new Vector2f(50,50));
+            targetRect.FillColor = Color.Yellow;
+            targetRect.Rotation = 37.0f;
+            targetRect.Position = new Vector2f(100,400);
 
             //
             targetSprite.Position = new Vector2f(350, 400);
             targetSprite.Rotation = 45.0f;
+
+
+            
 
         }
         
@@ -48,7 +59,7 @@ namespace Havier_Than_Air_S.Missions
         public void Update()
         {
 
-            Program.window.Draw(targetSprite);
+            Program.window.Draw(targetRect);
 
             if (mouseController == null)
             {
@@ -78,7 +89,7 @@ namespace Havier_Than_Air_S.Missions
         public void CheckTargetCollider(FloatRect incoming)
         {
            
-            if (targetSprite.GetGlobalBounds().Intersects(incoming) == true )
+            if (targetRect.GetGlobalBounds().Intersects(incoming) == true )
             {
                 Console.WriteLine("Касание");
             }

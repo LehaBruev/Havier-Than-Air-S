@@ -112,6 +112,8 @@ namespace Havier_Than_Air_S
         {
             missTest.CheckTargetCollider(rectangleShape.GetGlobalBounds());
 
+            //rectangleShape.GetGlobalBounds().Intersects
+
         }
 
         public void MoveNRrocket()
