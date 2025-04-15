@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
@@ -44,7 +45,7 @@ namespace Havier_Than_Air_S
          float speedx = 0;
          float speedxmax = 2.5f;
          float speedy = 0;
-         float powery = 0;
+         float powery = 200;
          float enginespeed = 19500; //Обороты двигателя
          float maxenginespeed = 60000; //Максимальные обороты двигателя
          float enginespeedlimit = 45000; //Предельные обороты двигателя
@@ -62,11 +63,18 @@ namespace Havier_Than_Air_S
 
         #endregion
 
+        // Картинка верталета
+        //Texture heliTexture = new Texture("uh61.png");
+        Texture heliTexture = new Texture("uh612.png");
+        Sprite helySprite;
 
 
         public Hely()
         {
+            SpawnHely();
             
+
+
             //Начальные настройки верталета
             playerx = 120;
             playery = 700;
@@ -95,7 +103,49 @@ namespace Havier_Than_Air_S
         }
     
 
+        public void Update()
+        {
+            CheckPosition();
 
+            Program.window.Draw(helySprite);
+        }
+
+        private void CheckPosition()
+        {
+           if (Keyboard.IsKeyPressed(Keyboard.Key.W))
+            {
+                helySprite.Position = new Vector2f(helySprite.Position.X, helySprite.Position.Y-powery*Program.deltaTimer.Delta());
+
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.S))
+            {
+                helySprite.Position = new Vector2f(helySprite.Position.X, helySprite.Position.Y + powery * Program.deltaTimer.Delta());
+
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.D))
+            {
+                helySprite.Position = new Vector2f(helySprite.Position.X + powery * Program.deltaTimer.Delta(), helySprite.Position.Y );
+
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.A))
+            {
+                helySprite.Position = new Vector2f(helySprite.Position.X - powery * Program.deltaTimer.Delta(), helySprite.Position.Y);
+
+            }
+        }
+
+        public void SpawnHely()
+        {
+            helySprite = new Sprite(heliTexture);
+            helySprite.Position = new Vector2f(300, 300);
+            //helySprite.Scale = new Vector2f(0.5f, 0.5f);
+            helySprite.Scale = new Vector2f(4, 4);
+            helySprite.Color = Color.White;
+        }
     
+
+
+
+
     }
 }

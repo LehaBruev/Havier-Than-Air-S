@@ -31,9 +31,13 @@ namespace Havier_Than_Air_S.Missions
         Sprite targetSprite;
         RectangleShape targetRect;
 
+        //Вертал
+        Hely Hely;
+
         public MissionTest()
         {
             clock = new Clock();
+            Hely = new Hely();
 
              taergetImage = new Image("uh612.png");
              targetTexture = new Texture(taergetImage);
@@ -58,6 +62,7 @@ namespace Havier_Than_Air_S.Missions
 
         public void Update()
         {
+            Hely.Update();
 
             Program.window.Draw(targetRect);
 
