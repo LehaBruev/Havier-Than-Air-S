@@ -34,7 +34,7 @@ namespace Havier_Than_Air_S
          int engineswitch = 1; // включение двигателя
          int autopilotswitch = 0; // автопилот горизонтальный, удерживает угол в точке 0 градусов
          float altitude = 200; // Высота
-         float helifuel = 950; // Топливо в баках
+         float helifuel = 850; // Топливо в баках
          int bang1 = 1;
          int gunmode = 0;
 
@@ -46,6 +46,7 @@ namespace Havier_Than_Air_S
          float maxangle = 65; // Максимальный угол атаки
          float helifuelmax = 1300; // Максимальное топливо в баках
          float maxboost = 11250; // максимальное ускорение от двигателя
+        float holdOborotMotora = 12000; // Холостые обороты мотора
 
 
          float playerx = 50;
@@ -77,11 +78,21 @@ namespace Havier_Than_Air_S
         Sprite helySprite;
 
 
+        //Мотор
         //SOUND
         SoundBuffer engineStartSoundBuffer = new SoundBuffer("zapusk2.wav"); //запуск
         //SoundBuffer engineStopSoundBuffer = new SoundBuffer("zapusk2.wav"); //остановка
         SoundBuffer engineStopSoundBuffer = new SoundBuffer("hw_spindown.wav"); //остановка
         Sound engineStartStopSound;
+        Sound channelSoundRita;
+        Clock keyPressClock = new Clock();
+        bool keyStartIsPressed = false;
+
+        SoundBuffer ostalos500kg = new SoundBuffer("Fuel500.wav"); // Осталось 500 кг звук
+        SoundBuffer ostalos800kg = new SoundBuffer("Fuel800.wav"); // Осталось 800 кг звук
+
+        // Статистика
+        float fuelusedup = 0; //израсходовано топлива
 
         public Hely()
         {
@@ -115,7 +126,22 @@ namespace Havier_Than_Air_S
             //otkazcicle[3] = 0;
             
         }
-    
+
+
+        public void SpawnHely()
+        {
+            helySprite = new Sprite(heliTexture);
+            helySprite.Position = new Vector2f(300, 300);
+            //helySprite.Scale = new Vector2f(0.5f, 0.5f);
+            helySprite.Scale = new Vector2f(2, 2);
+            helySprite.Color = Color.White;
+
+            //Sounds
+            engineStartStopSound = new Sound();
+            channelSoundRita = new Sound();
+
+        }
+
 
         public void Update()
         {
@@ -156,37 +182,36 @@ namespace Havier_Than_Air_S
             }
         }
 
-        public void SpawnHely()
-        {
-            helySprite = new Sprite(heliTexture);
-            helySprite.Position = new Vector2f(300, 300);
-            //helySprite.Scale = new Vector2f(0.5f, 0.5f);
-            helySprite.Scale = new Vector2f(2, 2);
-            helySprite.Color = Color.White;
-
-            //Sounds
-            engineStartStopSound = new Sound();
-
-        }
-
 
         private void EngineUpdate()
         {
             // вкл/выкл двигателя
-            if (Keyboard.IsKeyPressed(Keyboard.Key.I) == true)
+            if (Keyboard.IsKeyPressed(Keyboard.Key.I) == true  && keyStartIsPressed == false)
             {
-                int j = engineswitch;
-                if (j == 1) engineswitch = 0;
-                if (j == 0) engineswitch = 1;
-
-                if (engineswitch == 1 && helifuel > 0 && helidestroy != 1)
+                keyStartIsPressed = true;
+                if (keyPressClock.ElapsedTime.AsSeconds() > 0.5f)
                 {
-                    engineStartStopSound.SoundBuffer = engineStartSoundBuffer;
-                    engineStartStopSound.Play();
-                }
+                    int j = engineswitch;
+                    if (j == 1) engineswitch = 0;
+                    if (j == 0) engineswitch = 1;
 
+                    if (engineswitch == 1 && helifuel > 0 && helidestroy != 1)
+                    {
+                        PlaySound(engineStartStopSound, engineStartSoundBuffer);
+                    }
+                    keyPressClock.Restart();
+                }
             }
-            if (engineswitch == 0 || helifuel <= 0 || helidestroy == 1) //отключение двигателя
+            else if(keyStartIsPressed == true)
+            {
+                if (Keyboard.IsKeyPressed(Keyboard.Key.I) == false)
+                {
+                    keyStartIsPressed = false;
+                }
+            }
+
+            // Отключение двигателя
+            if (engineswitch == 0 || helifuel <= 0 || helidestroy == 1) 
             {
                 if (enginespeed > 0)
                 {
@@ -195,36 +220,42 @@ namespace Havier_Than_Air_S
                     if (helistop != 1)
                     {
                         helistop = 1;
-                        engineStartStopSound.Stop();
-                        engineStartStopSound.SoundBuffer = engineStopSoundBuffer;
-                        engineStartStopSound.Play();
+                        PlaySound(engineStartStopSound, engineStopSoundBuffer);
                     }
 
                 }
                 if (enginespeed < 0) enginespeed = 0;
             }
 
+            // Продолжение работы мотора
             if (engineswitch == 1 && helifuel > 0 && helidestroy != 1)
             {
-                if (enginespeed < 12000)
+                if (enginespeed < holdOborotMotora)
                 {
                     enginespeed = enginespeed + shagengine / 2;
                     if (helistop == 1)
                     {
                         helistop = 0;
-
                     }
                 }
 
             }
-            /*
+            
             //Расход топлива
             helifuel = helifuel - (enginespeed / 100) * (enginespeed / 100) / 1000000 * fuelrashod;
             fuelusedup = fuelusedup + (enginespeed / 100) * (enginespeed / 100) / 1000000 * fuelrashod;
             if (helifuel < 0) helifuel = 0;
-            if (helifuel < 510 && helifuel > 507) PlaySound(kg500);
-            if (helifuel < 810 && helifuel > 805) PlaySound(kg800);
-            */
+            if (helifuel < 510 && helifuel > 507) PlaySound(channelSoundRita, ostalos500kg);
+            if (helifuel < 810 && helifuel > 805) PlaySound(channelSoundRita, ostalos800kg);
+            
+        }
+
+        private void PlaySound(Sound channel, SoundBuffer sound)
+        {
+            channel.Stop();
+            channel.SoundBuffer = sound;
+            channel.Play();
+
         }
 
         /*
@@ -250,9 +281,6 @@ namespace Havier_Than_Air_S
             if (maxenginespeed < enginespeed) enginespeed = maxenginespeed;
 
          
-
-            
-
 
             //расчет вертикальной скорости
 

@@ -105,7 +105,7 @@ namespace Havier_Than_Air_S
          float targetbingos = 0; //попаданий по цели
          float buk1destroyes = 0; //уничтожено буков1
          float tank1destroyes = 0; //уничтожено танков1
-         float fuelusedup = 0; //израсходовано топлива
+         
          float repairings = 0; //Отремонтирован вертолет
          float getdamages = 0; //Получено повреждений
 
