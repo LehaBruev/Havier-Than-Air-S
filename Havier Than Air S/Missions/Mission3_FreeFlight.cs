@@ -22,7 +22,7 @@ if (levelchoise == 3 && mainmenuSwitch == 0 && gameplaying == 1) // Левел 3
         NRrocketslaunched = 0;
        
         winpobeda = 0;
-
+        ввввв
         //Начальное вооружение 8
         for (int i = 0; i < nrrocketsMaxquantity; i++) R[5, i] = 1; // 5. Моде 2 NR Ракеты готовы к пуску
                                                                     //Начальные задания
