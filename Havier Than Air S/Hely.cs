@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -17,9 +18,16 @@ namespace Havier_Than_Air_S
 
         //Настройки верталета
 
+        static float maxpowery = 300000; //Максимальная сила влияет на вертолет
+        static float maxpowerx = 30000; // 
+        static float shagengine = 75; // шаг увеличения мощности двигателя
+        static float shagAngle = 2; // шаг изменения угла атаки
+        static float maxspeedhor = 50;
+        static float maxspeedvert = 300;
+        static float maxheigh = 575; // потолок полета
+
         float currentHelilife;
-        float shagAngle;
-        float shagengine;
+        
 
         //Переменные
         float helilifeCurrent = 200;// жизни
@@ -69,6 +77,11 @@ namespace Havier_Than_Air_S
         Sprite helySprite;
 
 
+        //SOUND
+        SoundBuffer engineStartSoundBuffer = new SoundBuffer("zapusk2.wav"); //запуск
+        SoundBuffer engineStopSoundBuffer = new SoundBuffer("zapusk2.wav"); //остановка
+        Sound engineStartStopSound;
+
         public Hely()
         {
             SpawnHely();
@@ -106,13 +119,21 @@ namespace Havier_Than_Air_S
         public void Update()
         {
             CheckPosition();
-
+            EngineUpdate();
             Program.window.Draw(helySprite);
         }
 
         private void CheckPosition()
         {
-           if (Keyboard.IsKeyPressed(Keyboard.Key.W))
+            //ОСНОВНЫЕ ПАРАМЕТРЫ   ДВИЖЕНИЕ WSDA
+            /*
+            if (GetKey(Keyboard.Key.W) == true) enginespeed = (enginespeed + shagengine);
+            if (enginespeed > maxenginespeed) enginespeed = maxenginespeed;
+            if (GetKey(Keyboard.Key.S) == true) enginespeed = (enginespeed - shagengine * 1.5f);
+            if (enginespeed < 0) enginespeed = 0;
+            */
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.W))
             {
                 helySprite.Position = new Vector2f(helySprite.Position.X, helySprite.Position.Y-powery*Program.deltaTimer.Delta());
 
@@ -139,11 +160,180 @@ namespace Havier_Than_Air_S
             helySprite = new Sprite(heliTexture);
             helySprite.Position = new Vector2f(300, 300);
             //helySprite.Scale = new Vector2f(0.5f, 0.5f);
-            helySprite.Scale = new Vector2f(4, 4);
+            helySprite.Scale = new Vector2f(2, 2);
             helySprite.Color = Color.White;
-        }
-    
 
+            //Sounds
+            engineStartStopSound = new Sound();
+
+        }
+
+
+        private void EngineUpdate()
+        {
+            // вкл/выкл двигателя
+            if (Keyboard.IsKeyPressed(Keyboard.Key.I) == true)
+            {
+                int j = engineswitch;
+                if (j == 1) engineswitch = 0;
+                if (j == 0) engineswitch = 1;
+
+                if (engineswitch == 1 && helifuel > 0 && helidestroy != 1)
+                {
+                    engineStartStopSound.SoundBuffer = engineStartSoundBuffer;
+                    engineStartStopSound.Play();
+                }
+
+            }
+            if (engineswitch == 0 || helifuel <= 0 || helidestroy == 1) //отключение двигателя
+            {
+                if (enginespeed > 0)
+                {
+
+                    enginespeed = enginespeed - 200;
+                    if (helistop != 1)
+                    {
+                        helistop = 1;
+                        engineStartStopSound.Stop();
+                        engineStartStopSound.SoundBuffer = engineStopSoundBuffer;
+                        engineStartStopSound.Play();
+                    }
+
+                }
+                if (enginespeed < 0) enginespeed = 0;
+            }
+
+            if (engineswitch == 1 && helifuel > 0 && helidestroy != 1)
+            {
+                if (enginespeed < 12000)
+                {
+                    enginespeed = enginespeed + shagengine / 2;
+                    if (helistop == 1)
+                    {
+                        helistop = 0;
+
+                    }
+                }
+
+            }
+            /*
+            //Расход топлива
+            helifuel = helifuel - (enginespeed / 100) * (enginespeed / 100) / 1000000 * fuelrashod;
+            fuelusedup = fuelusedup + (enginespeed / 100) * (enginespeed / 100) / 1000000 * fuelrashod;
+            if (helifuel < 0) helifuel = 0;
+            if (helifuel < 510 && helifuel > 507) PlaySound(kg500);
+            if (helifuel < 810 && helifuel > 805) PlaySound(kg800);
+            */
+        }
+
+        /*
+         * static void PlayerMove() // расчет движений Верталета
+        {
+
+            ratioenginespeed = helienginelife * 1.25f / 100;
+            if (ratioenginespeed > 1) ratioenginespeed = 1;
+
+            //Данные для учета столкновения с землей
+            float s = speedy;
+
+            //расчет плотности воздуха, на выходе получаем =airP
+            altitude = (768 - playery) - (768 - ground);
+
+            airP = (float)Math.Sqrt(playery) * 2 * 3;
+
+            if (altitude > 0) flighttime = flighttime + 1;
+
+          
+
+
+            if (maxenginespeed < enginespeed) enginespeed = maxenginespeed;
+
+         
+
+            
+
+
+            //расчет вертикальной скорости
+
+            //расчет подъемной силы
+            //Масса ракет
+            int n = 0;
+            for (int i = 0; i < R.GetLength(1); i++)
+            {
+                if (R[5, i] == 1)
+                    n = n + 1;
+
+            }
+
+            //угол атаки уменьшает подъемную силу
+            powery = (enginespeed * ratioenginespeed / 114 * airP) - gravityweight - helifuel * 6 - n * NRrocketweight; // подъемная сила
+
+            boostv = powery / 200;       // вертиклаьное ускорение
+            if (boostv > (maxenginespeed / 100 * 75)) boostv = maxboost;
+
+            speedy = (boostv / 10); // вертикальная скорость
+
+            playery = (playery - speedy);
+
+            //ЗЕМЛЯ столкновение
+            if (playery >= ground)
+            {
+                g = 1;
+
+                playery = ground;
+                speedx = 0;
+                boostv = 0;
+                powery = 0;
+                speedy = 0;
+                angle = 0;
+
+            }
+            if (g == 1)
+            {
+                if (s < -1) { helilife = helilife - 19; PlaySound(metal1, volume); getdamages = getdamages - 19; }
+                if (s < -2) { helilife = helilife - 88; PlaySound(metal2); PlaySound(grass1); getdamages = getdamages - 89; loterea(); }
+                if (helilife <= 0)
+                {
+                    helidestroy = 1;
+                    if (bang1 == 1)
+                    {
+                        PlaySound(bangsound);
+                        bang1 = 0;
+                    }
+                }
+                g = 0;
+            }
+
+            // Расчет ГОРИЗОНТАЛЬНОГО ПОЛЕТА угол атаки
+            // Вылет за зону полётов
+            //Управление углом атаки
+            if (GetKey(Keyboard.Key.D) == true) angle = (angle + shagAngle);
+            if (angle > maxangle) angle = maxangle;
+            if (GetKey(Keyboard.Key.A) == true) angle = (angle - shagAngle);
+            if (angle < -maxangle) angle = -maxangle;
+
+            speedx = speedx + enginespeed / 114 * airP / 100 * angle * DeltaTime / gravityweight * manageability; // ФОРМУЛА РАСЧЕТА ГОРИЗОНТАЛЬНОЙ СКОРОСТИ (ПОМЕНЯТЬ)
+            if (speedx > speedxmax) speedx = speedxmax;
+            if (speedx < -speedxmax) speedx = -speedxmax;
+
+
+            playerx = playerx + speedx + wind;
+            if (GetKeyDown(Keyboard.Key.V) == true)
+            {
+                float v = autopilotswitchX;
+                if (v == 1) autopilotswitchX = 0;
+                if (v == 0) autopilotswitchX = 1;
+
+            }
+
+            if (autopilotswitchX == 1)
+            {
+                if (angle > 0) angle -= 1;
+                if (angle < 0) angle += 1;
+
+            }
+           
+*/
 
 
 

@@ -511,11 +511,7 @@ namespace Havier_Than_Air_S
 
                     magnitola();
 
-    DispatchEvents();
-    ClearWindow();
-    //mainmenuSwitch = 1;
-    DrawSprite(backgroundLevel1, 0, 0);
-
+   
     PlayerMove();
 
     PlayerDraw();
