@@ -79,7 +79,8 @@ namespace Havier_Than_Air_S
 
         //SOUND
         SoundBuffer engineStartSoundBuffer = new SoundBuffer("zapusk2.wav"); //запуск
-        SoundBuffer engineStopSoundBuffer = new SoundBuffer("zapusk2.wav"); //остановка
+        //SoundBuffer engineStopSoundBuffer = new SoundBuffer("zapusk2.wav"); //остановка
+        SoundBuffer engineStopSoundBuffer = new SoundBuffer("hw_spindown.wav"); //остановка
         Sound engineStartStopSound;
 
         public Hely()
