@@ -94,6 +94,9 @@ namespace Havier_Than_Air_S
 
             if (helilife <= 0 && playery + 10 >= ground) DrawSprite(uh61, playerx - 570, playery - 540, 1685, 4, 705, 568);
 
+
+
+
             //цветы
             DrawSprite(uh61, 170, 700, 455, 165, 43, 37);
             DrawSprite(uh61, 200, 710, 455, 165, 43, 37);
