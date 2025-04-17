@@ -460,7 +460,7 @@ namespace Havier_Than_Air_S
                     enginespeedlimit = 35000;
 
 
-                    flighttime = 0; //время нахождения в воздухе
+                    
 
 
                     //Поломки

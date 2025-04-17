@@ -85,6 +85,7 @@ namespace Havier_Than_Air_S
         SoundBuffer engineStopSoundBuffer = new SoundBuffer("hw_spindown.wav"); //остановка
         Sound engineStartStopSound;
         Sound channelSoundRita;
+        Sound channelSoundTex;
         Clock keyPressClock = new Clock();
         bool keyStartIsPressed = false;
 
@@ -139,6 +140,7 @@ namespace Havier_Than_Air_S
             //Sounds
             engineStartStopSound = new Sound();
             channelSoundRita = new Sound();
+            channelSoundTex = new Sound();
 
         }
 
@@ -258,44 +260,53 @@ namespace Havier_Than_Air_S
 
         }
 
-        /*
-         * static void PlayerMove() // расчет движений Верталета
+        float ratioenginespeed = 1; //Пожар двигателя
+        //Данные для учета столкновения с землей
+        float s;
+        float ground; // уровень земли
+        float airP = 0; //плотность воздуха
+
+        float flighttime = 0; //время нахождения в воздухе
+
+        static float gravityweight = 20000; //Сила притяжения
+        int NRrocketsInHely;
+        float NRrocketweight = 100.0f;
+
+        //земля
+        static int g = 0;
+        //звуки доп
+        SoundBuffer metal1Sound = new SoundBuffer("metal1.wav"); // касание земли
+        SoundBuffer metal2Sound = new SoundBuffer("metal2.wav"); // касание земли 2
+        SoundBuffer bangsound = new SoundBuffer("explode4.wav"); //взрыв
+        SoundBuffer grass1 = new SoundBuffer("glass3.wav"); // стекло
+
+        float getdamages = 0; //Получено повреждений
+
+        void PlayerMove() // коэффициент живучести двигателя
         {
 
             ratioenginespeed = helienginelife * 1.25f / 100;
             if (ratioenginespeed > 1) ratioenginespeed = 1;
 
-            //Данные для учета столкновения с землей
-            float s = speedy;
+            s = speedy;
 
-            //расчет плотности воздуха, на выходе получаем =airP
+            //расчет плотности воздуха, на выходе получаем = airP
             altitude = (768 - playery) - (768 - ground);
 
             airP = (float)Math.Sqrt(playery) * 2 * 3;
 
             if (altitude > 0) flighttime = flighttime + 1;
-
-          
-
-
             if (maxenginespeed < enginespeed) enginespeed = maxenginespeed;
 
-         
+
 
             //расчет вертикальной скорости
 
             //расчет подъемной силы
-            //Масса ракет
-            int n = 0;
-            for (int i = 0; i < R.GetLength(1); i++)
-            {
-                if (R[5, i] == 1)
-                    n = n + 1;
 
-            }
 
             //угол атаки уменьшает подъемную силу
-            powery = (enginespeed * ratioenginespeed / 114 * airP) - gravityweight - helifuel * 6 - n * NRrocketweight; // подъемная сила
+            powery = (enginespeed * ratioenginespeed / 114 * airP) - gravityweight - helifuel * 6 - NRrocketsInHely * NRrocketweight; // подъемная сила
 
             boostv = powery / 200;       // вертиклаьное ускорение
             if (boostv > (maxenginespeed / 100 * 75)) boostv = maxboost;
@@ -303,6 +314,8 @@ namespace Havier_Than_Air_S
             speedy = (boostv / 10); // вертикальная скорость
 
             playery = (playery - speedy);
+
+
 
             //ЗЕМЛЯ столкновение
             if (playery >= ground)
@@ -317,22 +330,38 @@ namespace Havier_Than_Air_S
                 angle = 0;
 
             }
+
+
             if (g == 1)
             {
-                if (s < -1) { helilife = helilife - 19; PlaySound(metal1, volume); getdamages = getdamages - 19; }
-                if (s < -2) { helilife = helilife - 88; PlaySound(metal2); PlaySound(grass1); getdamages = getdamages - 89; loterea(); }
-                if (helilife <= 0)
+                if (s < -1)
+                {
+                    currentHelilife = currentHelilife - 19;
+                    PlaySound(channelSoundTex, metal1Sound);
+                    getdamages = getdamages - 19;
+                }
+                if (s < -2)
+                {
+                    currentHelilife = currentHelilife - 88;
+                    PlaySound(channelSoundTex, metal2Sound);
+                    PlaySound(channelSoundTex, grass1);
+                    getdamages = getdamages - 89;
+                    //  loterea(); //TODO Повреждения рика КЛАСС
+                }
+
+                if (currentHelilife <= 0)
                 {
                     helidestroy = 1;
                     if (bang1 == 1)
                     {
-                        PlaySound(bangsound);
+                        PlaySound(channelSoundTex, bangsound);
                         bang1 = 0;
                     }
                 }
                 g = 0;
             }
-
+        }
+            /*
             // Расчет ГОРИЗОНТАЛЬНОГО ПОЛЕТА угол атаки
             // Вылет за зону полётов
             //Управление углом атаки

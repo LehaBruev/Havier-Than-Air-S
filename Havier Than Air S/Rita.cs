@@ -23,7 +23,7 @@ namespace Havier_Than_Air_S
         static int otkazpojardvig = 0; // Пожар двигателя
         static int otkazsbrosoboroti = 0; //Пожар двигателя
         static int delayrita = 350; //Пожар двигателя
-        static float ratioenginespeed = 1; //Пожар двигателя
+        
         static float pojardelay = 1000; //Пожар двигателя начнется
         static int peregruzkamotora = 0; //Пожар двигателя начнется
         static float ritarandom = 1; //рандом для прицела

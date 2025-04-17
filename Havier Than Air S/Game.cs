@@ -98,7 +98,7 @@ namespace Havier_Than_Air_S
          float resultmenuchoise = 0; //меню результатов ывбор кнопки
          float money = 0; //очки
          float hiscore = 0; //рекорд очков
-         float flighttime = 0; //время нахождения в воздухе
+         
          float flighttimerecord = 0; //рекорд нахождения в воздухе
          float landingquantity = 0; //количество посадок
          float NRrocketslaunched = 0; //выпущено NR ракет количество
@@ -107,7 +107,7 @@ namespace Havier_Than_Air_S
          float tank1destroyes = 0; //уничтожено танков1
          
          float repairings = 0; //Отремонтирован вертолет
-         float getdamages = 0; //Получено повреждений
+         
 
 
         public void Update()
