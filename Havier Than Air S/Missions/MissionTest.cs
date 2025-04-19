@@ -33,11 +33,22 @@ namespace Havier_Than_Air_S.Missions
 
         //Вертал
         Hely Hely;
+        Hely Hely_2;
+        //Hely Hely_3;
 
+        // Земля
+        RectangleShape groundRectShape;
         public MissionTest()
         {
+            //Земля
+            groundRectShape = new RectangleShape(new Vector2f(1200, 50));
+            groundRectShape.Position = new Vector2f(0,700);
+            groundRectShape.FillColor = new Color(Color.Green);
+
             clock = new Clock();
             Hely = new Hely();
+            Hely_2 = new Hely();
+            //Hely_3 = new Hely();
 
              taergetImage = new Image("uh612.png");
              targetTexture = new Texture(taergetImage);
@@ -62,9 +73,14 @@ namespace Havier_Than_Air_S.Missions
 
         public void Update()
         {
-            Hely.Update();
+            
 
             Program.window.Draw(targetRect);
+            Program.window.Draw(groundRectShape);
+
+            Hely.Update();
+            Hely_2.Update();
+           //Hely_3.Update();
 
             if (mouseController == null)
             {
@@ -100,7 +116,7 @@ namespace Havier_Than_Air_S.Missions
             }
             else
             {
-                Console.WriteLine(".");
+             //   Console.WriteLine(".");
             }
 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -96,6 +97,21 @@ namespace Havier_Than_Air_S
         // Статистика
         float fuelusedup = 0; //израсходовано топлива
 
+
+        //Точка крепления ротора
+        CircleShape CircleShape;
+
+
+        //Задний винт
+        Sprite rearVintSprite;
+        RectangleShape rearRotorRectShape;
+        float rearVintSpeed = 41;
+
+        //Верхний винт
+        RectangleShape topRotorRectShape;
+        float topVintSpeed = 1545;
+        
+
         public Hely()
         {
             SpawnHely();
@@ -103,7 +119,8 @@ namespace Havier_Than_Air_S
 
 
             //Начальные настройки верталета
-            playerx = 120;
+            int rnd = new Random().Next(300, 800);
+            playerx = rnd; //
             playery = 700;
             engineswitch = 0;
             enginespeed = 0;
@@ -126,22 +143,49 @@ namespace Havier_Than_Air_S
                                //otkazcicle[1] = manageability;
                                //otkazcicle[2] = shagAngle;
                                //otkazcicle[3] = 0;
-
         }
 
 
         public void SpawnHely()
         {
             helySprite = new Sprite(heliTexture);
-            helySprite.Position = new Vector2f(250, 650);
+            
+            
             //helySprite.Scale = new Vector2f(0.5f, 0.5f);
             helySprite.Scale = new Vector2f(2, 2);
             helySprite.Color = Color.White;
+            helySprite.Origin = new Vector2f(34, 6);
+            int rnd = new Random().Next(300, 800);
+            helySprite.Position = new Vector2f(rnd, 650);
+            Console.WriteLine(rnd);
 
             //Sounds
             engineStartStopSound = new Sound();
             channelSoundRita = new Sound();
             channelSoundTex = new Sound();
+
+
+            //Точка для ротора
+            CircleShape = new CircleShape(2);
+            CircleShape.FillColor = new Color(Color.Yellow);
+            CircleShape.Origin = new Vector2f(2, 2);
+
+            SpawnRotors();
+
+        }
+
+        private void SpawnRotors()
+        {
+            //rearVintSprite.
+            rearRotorRectShape = new RectangleShape();
+            rearRotorRectShape.Size = new Vector2f(2, 18);
+            rearRotorRectShape.FillColor = new Color(Color.Yellow);
+            rearRotorRectShape.Origin = new Vector2f(1,9f);
+
+            topRotorRectShape = new RectangleShape();
+            topRotorRectShape.Size = new Vector2f(90, 2);
+            topRotorRectShape.Origin = new Vector2f(45, 1);
+            topRotorRectShape.FillColor = new Color(Color.Yellow);
         }
 
 
@@ -152,6 +196,40 @@ namespace Havier_Than_Air_S
             EngineUpdate();
             PlayerDraw();
             Program.window.Draw(helySprite);
+
+            CircleShape.Position = new Vector2f( helySprite.Position.X,
+                                                 helySprite.Position.Y);
+
+            //роторы
+            Vector2f rotorNewVector = new Vector2f();
+            rotorNewVector = Matematika.searchAB(helySprite.Rotation,-58);
+            rearRotorRectShape.Position = new Vector2f((helySprite.Position.X)+rotorNewVector.X,
+                                                 (helySprite.Position.Y)+ rotorNewVector.Y);
+
+            topRotorRectShape.Position = helySprite.Position;
+
+            Program.window.Draw(CircleShape);
+
+            rearRotorRectShape.Rotation += rearVintSpeed*Program.deltaTimer.Delta()*100;
+            topRotorRectShape.Rotation = helySprite.Rotation;
+
+            float RotorX = topRotorRectShape.Scale.X + topVintSpeed * Program.deltaTimer.Delta()/100;
+            if (RotorX > 1)
+            {
+                RotorX = 1;
+                topVintSpeed *= -1;
+            }
+            if (RotorX < 0.08f)
+            {
+                RotorX = 0.08f;
+                topVintSpeed *= -1;
+            }
+
+            topRotorRectShape.Scale = new Vector2f(RotorX, topRotorRectShape.Scale.Y);
+
+
+            Program.window.Draw(rearRotorRectShape);
+            Program.window.Draw(topRotorRectShape);
         }
 
         private void CheckPosition()
@@ -221,7 +299,7 @@ namespace Havier_Than_Air_S
                 if (enginespeed > 0)
                 {
 
-                    enginespeed = enginespeed - 200;
+                    enginespeed = enginespeed - 200*Program.deltaTimer.Delta()*100;
                     if (helistop != 1)
                     {
                         helistop = 1;
@@ -237,13 +315,12 @@ namespace Havier_Than_Air_S
             {
                 if (enginespeed < holdOborotMotora)
                 {
-                    enginespeed = enginespeed + shagengine / 2;
+                    enginespeed = enginespeed + shagengine / 2 * Program.deltaTimer.Delta()*100;
                     if (helistop == 1)
                     {
                         helistop = 0;
                     }
                 }
-
             }
 
             //Расход топлива
@@ -260,7 +337,6 @@ namespace Havier_Than_Air_S
             channel.Stop();
             channel.SoundBuffer = sound;
             channel.Play();
-
         }
 
         float ratioenginespeed = 1; //Пожар двигателя
@@ -316,7 +392,7 @@ namespace Havier_Than_Air_S
 
             speedy = (boostv / 10); // вертикальная скорость
 
-            playery = (playery - speedy);
+            playery = (playery - speedy * Program.deltaTimer.Delta() * 100);
 
 
 
@@ -324,14 +400,12 @@ namespace Havier_Than_Air_S
             if (playery >= ground)
             {
                 g = 1;
-
                 playery = ground;
                 speedx = 0;
                 boostv = 0;
                 powery = 0;
                 speedy = 0;
                 angle = 0;
-
             }
 
 
@@ -377,8 +451,6 @@ namespace Havier_Than_Air_S
             if (speedx > speedxmax) speedx = speedxmax;
             if (speedx < -speedxmax) speedx = -speedxmax;
 
-
-
             playerx = playerx + speedx*Program.deltaTimer.Delta()*100; //wind
 
             helySprite.Position = new Vector2f(playerx, playery);
@@ -405,7 +477,6 @@ namespace Havier_Than_Air_S
 
         void PlayerDraw() // отрисовка Верталета
         {
-
             // DrawSprite(uh61, padx, pady, 147, 603, 137, 66); // Верталетная площадка
             //цветы
 

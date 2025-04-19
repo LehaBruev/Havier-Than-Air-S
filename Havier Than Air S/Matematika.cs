@@ -42,7 +42,7 @@ namespace Havier_Than_Air_S
             double sin2 = Math.Sqrt(sin * sin);
             double yside = searchline * sin2;
             float searchB = (float)yside;//перевод во float, горизонтальная поправка для Y
-            if (360 > searchangle && searchangle > 180) searchB = -searchB;
+            if ((360 > searchangle && searchangle > 180) || (0>searchangle && searchangle>-180)) searchB = -searchB;
 
            
             
