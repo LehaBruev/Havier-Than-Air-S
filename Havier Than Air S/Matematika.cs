@@ -44,8 +44,7 @@ namespace Havier_Than_Air_S
             float searchB = (float)yside;//перевод во float, горизонтальная поправка для Y
             if ((360 > searchangle && searchangle > 180) || (0>searchangle && searchangle>-180)) searchB = -searchB;
 
-           
-            
+         
             return new Vector2f(searchA, searchB);
         }
 

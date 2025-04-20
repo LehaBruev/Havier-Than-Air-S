@@ -38,12 +38,16 @@ namespace Havier_Than_Air_S.Missions
 
         // Земля
         RectangleShape groundRectShape;
+
+        //Авионика
+        Avionika avionika;
+
         public MissionTest()
         {
             //Земля
             groundRectShape = new RectangleShape(new Vector2f(1200, 50));
             groundRectShape.Position = new Vector2f(0,700);
-            groundRectShape.FillColor = new Color(Color.Green);
+            groundRectShape.FillColor = new Color(100,255,105);
 
             clock = new Clock();
             Hely = new Hely();
@@ -65,18 +69,16 @@ namespace Havier_Than_Air_S.Missions
             targetSprite.Position = new Vector2f(350, 400);
             targetSprite.Rotation = 45.0f;
 
-
-            
-
+            //avionika
+            avionika = new Avionika();
         }
         
 
         public void Update()
         {
-            
-
             Program.window.Draw(targetRect);
             Program.window.Draw(groundRectShape);
+            avionika.Update();
 
             Hely.Update();
             Hely_2.Update();
@@ -87,8 +89,6 @@ namespace Havier_Than_Air_S.Missions
                 mouseController = Program.Game.MouseController;
                 pull = Program.Game.Pull;
             }
-
-
 
             if (mouseController.LeftButton == true)
             {
@@ -118,10 +118,6 @@ namespace Havier_Than_Air_S.Missions
             {
              //   Console.WriteLine(".");
             }
-
-
-
-
         }
 
         private void SpawnRocket()
@@ -137,9 +133,6 @@ namespace Havier_Than_Air_S.Missions
                 pull.SpawnNR_Rocket(mousPoint1, angleNR, this);
                 clock.Restart();
             }
-
         }
-
-
     }
 }

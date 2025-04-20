@@ -329,6 +329,7 @@ namespace Havier_Than_Air_S
             if (helifuel < 0) helifuel = 0;
             if (helifuel < 510 && helifuel > 507) PlaySound(channelSoundRita, ostalos500kg);
             if (helifuel < 810 && helifuel > 805) PlaySound(channelSoundRita, ostalos800kg);
+            //if (helifuel < 150 && helifuel > 145) PlaySound(rubejvozvrata); //рубеж возврата предупреждение голосовое
 
         }
 

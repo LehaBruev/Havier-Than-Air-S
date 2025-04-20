@@ -14,7 +14,7 @@ namespace Havier_Than_Air_S
     {
        public static DeltaTimer deltaTimer = new DeltaTimer();
        public static Game Game = new Game();
-       public static VideoMode vMode = new VideoMode(1024, 768);
+       public static VideoMode vMode = new VideoMode(1600, 900);
        public static RenderWindow window = new RenderWindow(vMode, "Havier Than Air SFML");
        
        public static View view = new View(new FloatRect(50, 50, 300, 100));
@@ -29,8 +29,10 @@ namespace Havier_Than_Air_S
            // VideoMode vMode = new VideoMode(1024, 768);
            // window = new RenderWindow(vMode, "Havier Than Air SFML");
             window.Closed += Win_Closed;
+            window.Position = new Vector2i(50, 50);
 
-            
+
+
             view.Reset(new FloatRect(0, 0, 1024, 768));// = new View(new FloatRect(50, 50, 300, 100));
             view2.Reset(new FloatRect(0, 0, 1024, 768));// = new View(new FloatRect(50, 50, 300, 100));
             view.Viewport = (new FloatRect(0f, 0f, 0.5f, 1.0f));

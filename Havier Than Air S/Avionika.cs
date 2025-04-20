@@ -5,36 +5,84 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
+using SFML.System;
 
 namespace Havier_Than_Air_S
 {
     internal class Avionika
     {
+        Font font;
 
+        Image imageAll = new Image("uh61all.png");
+        Texture avionikaTexture;
+        Sprite panelAvionikaSprite;
+        Sprite panelAvionikaSprite2;
+        Text aText;
+
+        public Avionika()
+        {
+            font = new Font("comic.ttf");
+            avionikaTexture = new Texture(imageAll, new IntRect(new Vector2i(140, 679), new Vector2i(158, 131)));
+            panelAvionikaSprite = new Sprite(avionikaTexture);
+            panelAvionikaSprite.Position = new Vector2f(10.0f, 10.0f);
+
+            panelAvionikaSprite2 = new Sprite(avionikaTexture);
+            panelAvionikaSprite2.Position = new Vector2f(185.0f, 10.0f);
+
+            aText = new Text();
+            aText.FillColor = Color.White;
+
+        }
+
+        public void Update()
+        {
+            Program.window.Draw(panelAvionikaSprite);
+            Program.window.Draw(panelAvionikaSprite2);
+
+            //Параметры верталета
+            DrawText("Heli Life: ", new Vector2f(22, 15),Color.White);
+           // if (helilife < 90) { SetFillColor(Color.Red); DrawText(25, 15, "Heli Life: " + (int)helilife, 14); SetFillColor(Color.White); }
+            DrawText("Altitude: ", new Vector2f(22, 32), Color.White);
+            DrawText("Angle: ", new Vector2f(22, 49), Color.White);
+            DrawText("Автопилот V: ", new Vector2f(22, 66), Color.White);
+            DrawText("Автопилот H: ", new Vector2f(22, 83), Color.White);
+            //DrawText("Engine Switch: ", new Vector2f(35, 25),Color.White );
+
+            /*
+            DrawText(25, 15, "Heli Life: " + (int)helilife, 14);
+
+            DrawText(200, 30, "Engine Switch: " + engineswitch, 14);
+            DrawText(25, 30, "Altitude: " + (int)altitude * 10, 14);
+            DrawText(25, 45, "Angle: " + (int)angle, 14);
+            DrawText(25, 60, "Автопилот V: " + autopilotswitchX, 14);
+            DrawText(25, 75, "Автопилот H: " + autopilotswitch, 14);
+            */
+
+            //Двигаетль
+
+        }
+
+
+
+
+        private void DrawText(string txt, Vector2f pos, Color color)
+        {
+            Vector2f posGlobal = new Vector2f(pos.X + panelAvionikaSprite.Position.X, pos.Y + panelAvionikaSprite.Position.Y+5);
+            aText = new Text(txt, font,14);
+            aText.Position = posGlobal;
+            aText.FillColor = color;
+
+
+            Program.window.Draw(aText);
+        }
 
         /*
         static void PanelInstrument() // параметры приборной панели и отрисовка
         {
             SetFillColor(Color.Red);
 
-            DrawSprite(uh61, 0, 0, 139, 679, 159, 131);
-            DrawSprite(uh61, 175, 0, 139, 679, 159, 131);
-
-            //Параметры верталета
-            SetFillColor(Color.White);
-
-
-
-            DrawText(25, 15, "Heli Life: " + (int)helilife, 14);
-            if (helilife < 90) { SetFillColor(Color.Red); DrawText(25, 15, "Heli Life: " + (int)helilife, 14); SetFillColor(Color.White); }
-            DrawText(200, 30, "Engine Switch: " + engineswitch, 14);
-            DrawText(25, 30, "Altitude: " + (int)altitude * 10, 14);
-            DrawText(25, 45, "Angle: " + (int)angle, 14);
-            DrawText(25, 60, "Автопилот V: " + autopilotswitchX, 14);
-            DrawText(25, 75, "Автопилот H: " + autopilotswitch, 14);
-
-
-            //Двигаетль
+            
+            
             DrawText(200, 15, "Engine S.: " + (int)enginespeed, 14);
             if (enginespeed > enginespeedlimit) { SetFillColor(Color.Red); DrawText(200, 15, "Engine S.: " + (int)enginespeed, 14); SetFillColor(Color.White); }
             DrawText(200, 30, "Engine Switch: " + engineswitch, 14);
@@ -69,7 +117,7 @@ namespace Havier_Than_Air_S
             DrawText(800, 55, "Record: " + hiscore, 18);
             DrawText(800, 15, "Flight: time " + flighttime, 18);
 
-            if (helifuel < 150 && helifuel > 145) PlaySound(rubejvozvrata); //рубеж возврата предупреждение голосовое
+            
 
         }
 
