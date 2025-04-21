@@ -70,7 +70,7 @@ namespace Havier_Than_Air_S.Missions
             targetSprite.Rotation = 45.0f;
 
             //avionika
-            avionika = new Avionika();
+            avionika = new Avionika(Hely);
         }
         
 

@@ -12,8 +12,6 @@ using SFML.Window;
 
 namespace Havier_Than_Air_S
 {
-
-
     public class Hely : GameObject
     {
         #region переменные
@@ -32,17 +30,17 @@ namespace Havier_Than_Air_S
 
 
         //Переменные
-        float helilifeCurrent = 200;// жизни
-        int engineswitch = 1; // включение двигателя
+       public float helilifeCurrent = 200;// жизни
+        public int engineswitch = 1; // включение двигателя
         int autopilotswitch = 0; // автопилот горизонтальный, удерживает угол в точке 0 градусов
-        float altitude = 200; // Высота
-        float helifuel = 1500; // Топливо в баках
+        public float altitude = 200; // Высота
+        public float helifuel = 1500; // Топливо в баках
         int bang1 = 1;
         int gunmode = 0;
 
         //Характеристики
         float helilifemax = 300;// максимальные жизни Вертолета
-        float helienginelife = 100; //исправность двигателя Вертолета
+        public float helienginelife = 100; //исправность двигателя Вертолета
         float fuelrashod = 0.1f; // расход топлива
         float manageability = 5;// управляемость
         float maxangle = 65; // Максимальный угол атаки
@@ -51,17 +49,17 @@ namespace Havier_Than_Air_S
         float holdOborotMotora = 12000; // Холостые обороты мотора
 
 
-        float playerx = 50;
-        float playery = 400;
+        public float playerx = 50;
+        public float playery = 400;
         float speedx = 0;
         float speedxmax = 2.5f;
         float speedy = 0;
         float powery = 200;
-        float enginespeed = 19500; //Обороты двигателя
+        public  float enginespeed = 19500; //Обороты двигателя
         float maxenginespeed = 60000; //Максимальные обороты двигателя
-        float enginespeedlimit = 45000; //Предельные обороты двигателя
+        public float enginespeedlimit = 45000; //Предельные обороты двигателя
 
-        float angle = 0; //угол атаки верталета
+        public float angle = 0; //угол атаки верталета
 
         float boostv = 0; //ускорение вертикальное
 
@@ -90,6 +88,8 @@ namespace Havier_Than_Air_S
         Sound channelSoundTex;
         Clock keyPressClock = new Clock();
         bool keyStartIsPressed = false;
+
+        public int otkazpojardvig= 0;
 
         SoundBuffer ostalos500kg = new SoundBuffer("Fuel500.wav"); // Осталось 500 кг звук
         SoundBuffer ostalos800kg = new SoundBuffer("Fuel800.wav"); // Осталось 800 кг звук

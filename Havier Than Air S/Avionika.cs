@@ -11,6 +11,8 @@ namespace Havier_Than_Air_S
 {
     internal class Avionika
     {
+        private Hely hely;
+
         Font font;
 
         Image imageAll = new Image("uh61all.png");
@@ -19,8 +21,10 @@ namespace Havier_Than_Air_S
         Sprite panelAvionikaSprite2;
         Text aText;
 
-        public Avionika()
+        public Avionika(Hely helycopter)
         {
+            hely = helycopter;
+
             font = new Font("comic.ttf");
             avionikaTexture = new Texture(imageAll, new IntRect(new Vector2i(140, 679), new Vector2i(158, 131)));
             panelAvionikaSprite = new Sprite(avionikaTexture);
@@ -40,16 +44,18 @@ namespace Havier_Than_Air_S
             Program.window.Draw(panelAvionikaSprite2);
 
             //Параметры верталета
-            DrawText("Heli Life: ", new Vector2f(22, 15),Color.White);
-           // if (helilife < 90) { SetFillColor(Color.Red); DrawText(25, 15, "Heli Life: " + (int)helilife, 14); SetFillColor(Color.White); }
-            DrawText("Altitude: ", new Vector2f(22, 32), Color.White);
-            DrawText("Angle: ", new Vector2f(22, 49), Color.White);
-            DrawText("Автопилот V: ", new Vector2f(22, 66), Color.White);
-            DrawText("Автопилот H: ", new Vector2f(22, 83), Color.White);
-            //DrawText("Engine Switch: ", new Vector2f(35, 25),Color.White );
+            Color lifeColor = Color.White;
+            if (hely.helilifeCurrent < 90)  lifeColor = Color.Red; 
+            DrawText("Heli Life: " + (int)hely.helilifeCurrent, new Vector2f(22, 15), lifeColor, 1);
+            
+            DrawText("Altitude: " + (int)hely.altitude, new Vector2f(22, 32), Color.White, 1);
+            DrawText("Angle: " + (int)hely.angle, new Vector2f(22, 49), Color.White, 1);
+            DrawText("Автопилот V: ", new Vector2f(22, 66), Color.White, 1);
+            DrawText("Автопилот H: ", new Vector2f(22, 83), Color.White, 1);
+
 
             /*
-            DrawText(25, 15, "Heli Life: " + (int)helilife, 14);
+            //DrawText(25, 15, "Heli Life: " + (int)helilife, 14);
 
             DrawText(200, 30, "Engine Switch: " + engineswitch, 14);
             DrawText(25, 30, "Altitude: " + (int)altitude * 10, 14);
@@ -59,15 +65,44 @@ namespace Havier_Than_Air_S
             */
 
             //Двигаетль
+            Color colorEngineSpeed = Color.White;
+            if (hely.enginespeed > hely.enginespeedlimit) colorEngineSpeed = Color.Red;
+            DrawText("Engine S.: " + (int)hely.enginespeed, new Vector2f(22, 15) , colorEngineSpeed, 2);
+
+            
+            
+            Color engSwithColor = Color.White;
+            if (hely.engineswitch == 1) engSwithColor = Color.Green;
+            DrawText("Engine Switch: " + hely.engineswitch, new Vector2f(22, 32), engSwithColor, 2);
+
+            Color engLifeColor = Color.White;
+            
+            if (hely.helienginelife < 75 || hely.otkazpojardvig == 1) engLifeColor = Color.Yellow; 
+            if (hely.helienginelife < 53 || hely.otkazpojardvig == 1) engLifeColor = Color.Red;
+            DrawText( "Engine Life: " + (int)hely.helienginelife, new Vector2f(22, 49), engLifeColor, 2);
+
+            Color fuelColor = Color.White;
+            if (hely.helifuel < 150) fuelColor = Color.Yellow; 
+            DrawText("Fuel: " + (int)hely.helifuel, new Vector2f(22, 66), fuelColor, 2);
 
         }
 
 
 
 
-        private void DrawText(string txt, Vector2f pos, Color color)
+        private void DrawText(string txt, Vector2f pos, Color color, int displayNumber)
         {
-            Vector2f posGlobal = new Vector2f(pos.X + panelAvionikaSprite.Position.X, pos.Y + panelAvionikaSprite.Position.Y+5);
+            Vector2f posGlobal = new Vector2f(0,0);
+            if (displayNumber == 1)
+            {
+                posGlobal = new Vector2f(pos.X + panelAvionikaSprite.Position.X, 
+                                pos.Y + panelAvionikaSprite.Position.Y + 5);
+            }
+            else if (displayNumber == 2)
+            {
+                posGlobal = new Vector2f(pos.X + panelAvionikaSprite2.Position.X,
+                                pos.Y + panelAvionikaSprite.Position.Y + 5);
+            }
             aText = new Text(txt, font,14);
             aText.Position = posGlobal;
             aText.FillColor = color;
@@ -83,16 +118,7 @@ namespace Havier_Than_Air_S
 
             
             
-            DrawText(200, 15, "Engine S.: " + (int)enginespeed, 14);
-            if (enginespeed > enginespeedlimit) { SetFillColor(Color.Red); DrawText(200, 15, "Engine S.: " + (int)enginespeed, 14); SetFillColor(Color.White); }
-            DrawText(200, 30, "Engine Switch: " + engineswitch, 14);
-            if (engineswitch == 1) { SetFillColor(Color.Green); DrawText(200, 30, "Engine Switch: " + engineswitch, 14); SetFillColor(Color.White); }
-            DrawText(200, 45, "Engine Life: " + (int)helienginelife, 14);
-            if (helienginelife < 75 || otkazpojardvig == 1) { SetFillColor(Color.Yellow); DrawText(200, 45, "Engine Life: " + (int)helienginelife, 14); SetFillColor(Color.White); }
-            if (helienginelife < 53 || otkazpojardvig == 1) { SetFillColor(Color.Red); DrawText(200, 45, "Engine Life: " + (int)helienginelife, 14); SetFillColor(Color.White); }
-            DrawText(200, 60, "Fuel: " + (int)helifuel, 14);
-            if (helifuel < 150) { SetFillColor(Color.Yellow); DrawText(200, 60, "Fuel: " + (int)helifuel, 14); SetFillColor(Color.White); }
-
+          
             //Вооружение
             DrawText(400, 5, "Режим: " + gunmode, 18);
 
