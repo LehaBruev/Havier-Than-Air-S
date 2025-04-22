@@ -1,4 +1,5 @@
 ﻿using Havier_Than_Air_S.Missions;
+using Havier_Than_Air_S.Weapon;
 using SFML.System;
 using System;
 using System.Collections.Generic;
@@ -10,25 +11,28 @@ namespace Havier_Than_Air_S
 {
     public class PullObjects
     {
-        private int NRroketsCount = 30;
+        private int projectilesCount = 40;
 
-        private Rocket[] NRrockets;
+        private RocketNRLauncher[] NRrockets;
+        private Projectile[] Projectiles;
+        public Vector2f position;
 
         public PullObjects()
         {
-
-            NRrockets = new Rocket[NRroketsCount];
+            position = new Vector2f(2000, 2000);
+            //NRrockets = new Rocket[NRroketsCount];
+            Projectiles = new Projectile[projectilesCount];
             for (int i = 0; i < NRrockets.Length; i++)
             {
-                NRrockets[i] = new Rocket();
+                Projectiles[i] = new Projectile();
             }
         }         
 
-        public void SpawnNR_Rocket(Vector2f position, float angle, MissionTest mission)
+        public void Spawn_Projectile(Vector2f position, float angle, MissionTest mission)
         {
-            for (int i = 0; i < NRrockets.Length; i++)
+            for (int i = 0; i < Projectiles.Length; i++)
             {
-                if (NRrockets[i].currentRocketStatus == RocketStatus.inPool)
+                if (Projectiles[i].currentProjectileStatus == ProjectileStatus.inPool)
                 {
                     NRrockets[i].StartRocket(position, angle, mission);
                     return;
@@ -41,7 +45,7 @@ namespace Havier_Than_Air_S
         {
             for (int i = 0;i < NRrockets.Length;i++)
             {
-                if (NRrockets[i].currentRocketStatus == RocketStatus.inAir)
+                if (NRrockets[i].currentRocketStatus == ProjectileStatus.inAir)
                 {
                     NRrockets[i].MoveNRrocket();
                 }

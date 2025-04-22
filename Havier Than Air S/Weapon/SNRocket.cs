@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S.Weapon
 {
-    public class SNRocket: Rocket
+    public class SNRocket: RocketNRLauncher
     {
 
         public SNRocket(Tehnika target) 

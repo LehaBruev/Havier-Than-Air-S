@@ -136,11 +136,14 @@
     <Compile Include="PullObjects.cs" />
     <Compile Include="Rita.cs" />
     <Compile Include="Tehnika.cs" />
-    <Compile Include="Weapon\Rocket.cs" />
+    <Compile Include="Weapon\NRocket.cs" />
+    <Compile Include="Weapon\Projectile.cs" />
+    <Compile Include="Weapon\RocketNRLauncher.cs" />
     <Compile Include="SoundManager.cs" />
     <Compile Include="TextureManager.cs" />
     <Compile Include="Timer.cs" />
     <Compile Include="Weapon\SNRocket.cs" />
+    <Compile Include="Weapon\WeaponBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -33,26 +33,11 @@ namespace Havier_Than_Air_S.Missions
 
         //Вертал
         Hely Hely;
-        Hely Hely_2;
-        //Hely Hely_3;
-
-        // Земля
-        RectangleShape groundRectShape;
-
-        //Авионика
-        Avionika avionika;
 
         public MissionTest()
         {
-            //Земля
-            groundRectShape = new RectangleShape(new Vector2f(1200, 50));
-            groundRectShape.Position = new Vector2f(0,700);
-            groundRectShape.FillColor = new Color(100,255,105);
-
             clock = new Clock();
             Hely = new Hely();
-            Hely_2 = new Hely();
-            //Hely_3 = new Hely();
 
              taergetImage = new Image("uh612.png");
              targetTexture = new Texture(taergetImage);
@@ -69,26 +54,25 @@ namespace Havier_Than_Air_S.Missions
             targetSprite.Position = new Vector2f(350, 400);
             targetSprite.Rotation = 45.0f;
 
-            //avionika
-            avionika = new Avionika(Hely);
+
+            
+
         }
         
 
         public void Update()
         {
-            Program.window.Draw(targetRect);
-            Program.window.Draw(groundRectShape);
-            avionika.Update();
-
             Hely.Update();
-            Hely_2.Update();
-           //Hely_3.Update();
+
+            Program.window.Draw(targetRect);
 
             if (mouseController == null)
             {
                 mouseController = Program.Game.MouseController;
                 pull = Program.Game.Pull;
             }
+
+
 
             if (mouseController.LeftButton == true)
             {
@@ -116,8 +100,12 @@ namespace Havier_Than_Air_S.Missions
             }
             else
             {
-             //   Console.WriteLine(".");
+                Console.WriteLine(".");
             }
+
+
+
+
         }
 
         private void SpawnRocket()
@@ -130,9 +118,12 @@ namespace Havier_Than_Air_S.Missions
                 //Console.WriteLine("Вектор " + vectorMouse + "; угол " + vectorAngle);
 
                 positionNR = new Vector2f((float)mouseController.x, (float)mouseController.y);
-                pull.SpawnNR_Rocket(mousPoint1, angleNR, this);
+                pull.Spawn_Projectile(mousPoint1, angleNR, this);
                 clock.Restart();
             }
+
         }
+
+
     }
 }

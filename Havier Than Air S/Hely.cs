@@ -14,23 +14,45 @@ namespace Havier_Than_Air_S
 {
     public class Hely : GameObject
     {
-        #region переменные
+
+        #region Параметры_Heli
+
+        // Картинка верталета
+        //Texture heliTexture = new Texture("uh61.png");
+        Texture heliTexture = new Texture("uh612.png");
+        Sprite helySprite;
 
         //Настройки верталета
+         float maxpowery = 300000; //Максимальная сила влияет на вертолет
+         float maxpowerx = 30000; // 
+         float shagengine = 75; // шаг увеличения мощности двигателя
+         float shagAngle = 2; // шаг изменения угла атаки
+         float maxspeedhor = 50;
+         float maxspeedvert = 300;
+         float maxheigh = 575; // потолок полета
+         float speedxmax = 2.5f;
+        //nrrocketsMaxquantity = 8; //максимально ракет
 
-        static float maxpowery = 300000; //Максимальная сила влияет на вертолет
-        static float maxpowerx = 30000; // 
-        static float shagengine = 75; // шаг увеличения мощности двигателя
-        static float shagAngle = 2; // шаг изменения угла атаки
-        static float maxspeedhor = 50;
-        static float maxspeedvert = 300;
-        static float maxheigh = 575; // потолок полета
+        //Характеристики мотора и проч
+        float helilifemax = 300;// максимальные жизни Вертолета
+        public float helienginelife = 100; //исправность двигателя Вертолета
+        float fuelrashod = 1.7f; // расход топлива
+        float manageability = 5;// управляемость
+        float maxangle = 65; // Максимальный угол атаки
+        float helifuelmax = 1300; // Максимальное топливо в баках
+        float maxboost = 11250; // максимальное ускорение от двигателя
+        float holdOborotMotora = 12000; // Холостые обороты мотора
 
-        float currentHelilife;
+        //Настройки прицеливания
+        float aimlehght = 180;
 
+
+        #endregion
+
+        #region переменные
 
         //Переменные
-       public float helilifeCurrent = 200;// жизни
+        public float helilifeCurrent = 200;// жизни
         public int engineswitch = 1; // включение двигателя
         int autopilotswitch = 0; // автопилот горизонтальный, удерживает угол в точке 0 градусов
         public float altitude = 200; // Высота
@@ -38,21 +60,11 @@ namespace Havier_Than_Air_S
         int bang1 = 1;
         int gunmode = 0;
 
-        //Характеристики
-        float helilifemax = 300;// максимальные жизни Вертолета
-        public float helienginelife = 100; //исправность двигателя Вертолета
-        float fuelrashod = 0.1f; // расход топлива
-        float manageability = 5;// управляемость
-        float maxangle = 65; // Максимальный угол атаки
-        float helifuelmax = 1300; // Максимальное топливо в баках
-        float maxboost = 11250; // максимальное ускорение от двигателя
-        float holdOborotMotora = 12000; // Холостые обороты мотора
-
 
         public float playerx = 50;
         public float playery = 400;
         float speedx = 0;
-        float speedxmax = 2.5f;
+        
         float speedy = 0;
         float powery = 200;
         public  float enginespeed = 19500; //Обороты двигателя
@@ -60,25 +72,14 @@ namespace Havier_Than_Air_S
         public float enginespeedlimit = 45000; //Предельные обороты двигателя
 
         public float angle = 0; //угол атаки верталета
-
         float boostv = 0; //ускорение вертикальное
-
 
         int helidestroy = 0; // верталет разрушен
         int helistop = 0; // вертолет обесточен
 
-        //Настройки прицеливания
-        float aimlehght = 180;
-
         #endregion
 
-        // Картинка верталета
-        //Texture heliTexture = new Texture("uh61.png");
-        Texture heliTexture = new Texture("uh612.png");
-        Sprite helySprite;
-
-
-        //Мотор
+        #region Sounds
         //SOUND
         SoundBuffer engineStartSoundBuffer = new SoundBuffer("zapusk2.wav"); //запуск
         //SoundBuffer engineStopSoundBuffer = new SoundBuffer("zapusk2.wav"); //остановка
@@ -94,14 +95,21 @@ namespace Havier_Than_Air_S
         SoundBuffer ostalos500kg = new SoundBuffer("Fuel500.wav"); // Осталось 500 кг звук
         SoundBuffer ostalos800kg = new SoundBuffer("Fuel800.wav"); // Осталось 800 кг звук
 
+        #endregion
+
+        #region Statistoka
         // Статистика
         float fuelusedup = 0; //израсходовано топлива
+        #endregion
 
-
+        #region Testirovanie
         //Точка крепления ротора
         CircleShape CircleShape;
 
 
+        #endregion
+
+        #region Rotors
         //Задний винт
         Sprite rearVintSprite;
         RectangleShape rearRotorRectShape;
@@ -110,68 +118,56 @@ namespace Havier_Than_Air_S
         //Верхний винт
         RectangleShape topRotorRectShape;
         float topVintSpeed = 1545;
-        
+
+        #endregion
 
         public Hely()
         {
             SpawnHely();
-
-
+            if (!Program.TestModeP)
+            {
+                SpawnRotors();
+                SpawnSounds();
+            }
 
             //Начальные настройки верталета
-            int rnd = new Random().Next(300, 800);
+            int rnd = new Random().Next(300, 800); // Положенме по Х рандом
             playerx = rnd; //
             playery = 700;
             engineswitch = 0;
             enginespeed = 0;
             helistop = 1;
-            helifuel = 1000;
-            helifuelmax = 1300;
-            currentHelilife = 300;
-            helilifemax = 300;
-            speedxmax = 3f;
-            manageability = 9; //управляемость
-            shagAngle = 1.7f; // угол атаки
-            //nrrocketsMaxquantity = 8; //максимально ракет
-            //padstoreswitch = 0;
-            helidestroy = 0;
-
-
-            shagengine = 75; //шаг увелич мощности двигателя
-            enginespeedlimit = 35000; //лимит оборотов двигателя
-            fuelrashod = 1.7f; // расход топлива
-                               //otkazcicle[1] = manageability;
-                               //otkazcicle[2] = shagAngle;
-                               //otkazcicle[3] = 0;
+            helifuel = helifuelmax;
+            helilifeCurrent = helilifemax;
         }
 
 
         public void SpawnHely()
         {
             helySprite = new Sprite(heliTexture);
-            
-            
+           
             //helySprite.Scale = new Vector2f(0.5f, 0.5f);
             helySprite.Scale = new Vector2f(2, 2);
+            
             helySprite.Color = Color.White;
             helySprite.Origin = new Vector2f(34, 6);
             int rnd = new Random().Next(300, 800);
             helySprite.Position = new Vector2f(rnd, 650);
             Console.WriteLine(rnd);
 
-            //Sounds
-            engineStartStopSound = new Sound();
-            channelSoundRita = new Sound();
-            channelSoundTex = new Sound();
-
-
+     
             //Точка для ротора
             CircleShape = new CircleShape(2);
             CircleShape.FillColor = new Color(Color.Yellow);
             CircleShape.Origin = new Vector2f(2, 2);
+        }
 
-            SpawnRotors();
-
+        private void SpawnSounds()
+        {
+            //Sounds
+            engineStartStopSound = new Sound();
+            channelSoundRita = new Sound();
+            channelSoundTex = new Sound();
         }
 
         private void SpawnRotors()
@@ -188,32 +184,20 @@ namespace Havier_Than_Air_S
             topRotorRectShape.FillColor = new Color(Color.Yellow);
         }
 
-
-        public void Update()
+        public void RotorUpdate()
         {
-            CheckPosition();
-            PlayerMove();
-            EngineUpdate();
-            PlayerDraw();
-            Program.window.Draw(helySprite);
+            //ротор rear
+            Vector2f rearRotorPositionNewVector = new Vector2f();
+            rearRotorPositionNewVector = Matematika.searchAB(helySprite.Rotation, -58);
+            rearRotorRectShape.Position = new Vector2f((helySprite.Position.X) + rearRotorPositionNewVector.X,
+                                                 (helySprite.Position.Y) + rearRotorPositionNewVector.Y);
+            rearRotorRectShape.Rotation += rearVintSpeed * Program.deltaTimer.Delta() * 100;
 
-            CircleShape.Position = new Vector2f( helySprite.Position.X,
-                                                 helySprite.Position.Y);
-
-            //роторы
-            Vector2f rotorNewVector = new Vector2f();
-            rotorNewVector = Matematika.searchAB(helySprite.Rotation,-58);
-            rearRotorRectShape.Position = new Vector2f((helySprite.Position.X)+rotorNewVector.X,
-                                                 (helySprite.Position.Y)+ rotorNewVector.Y);
-
+            //ротор top
             topRotorRectShape.Position = helySprite.Position;
-
-            Program.window.Draw(CircleShape);
-
-            rearRotorRectShape.Rotation += rearVintSpeed*Program.deltaTimer.Delta()*100;
             topRotorRectShape.Rotation = helySprite.Rotation;
 
-            float RotorX = topRotorRectShape.Scale.X + topVintSpeed * Program.deltaTimer.Delta()/100;
+            float RotorX = topRotorRectShape.Scale.X + topVintSpeed * Program.deltaTimer.Delta() / 100;
             if (RotorX > 1)
             {
                 RotorX = 1;
@@ -230,6 +214,30 @@ namespace Havier_Than_Air_S
 
             Program.window.Draw(rearRotorRectShape);
             Program.window.Draw(topRotorRectShape);
+
+        }
+
+        public void Update()
+        {
+            CheckPosition();
+            PlayerMove();
+            EngineUpdate();
+            PlayerDraw();
+            Program.window.Draw(helySprite);
+
+            if (!Program.TestModeP)
+            {
+                RotorUpdate();
+            }
+
+            CircleShape.Position = new Vector2f( helySprite.Position.X,
+                                                 helySprite.Position.Y);
+
+           
+
+            Program.window.Draw(CircleShape);
+
+            
         }
 
         private void CheckPosition()
@@ -414,20 +422,20 @@ namespace Havier_Than_Air_S
             {
                 if (s < -1)
                 {
-                    currentHelilife = currentHelilife - 19;
+                    helilifeCurrent = helilifeCurrent - 19;
                     PlaySound(channelSoundTex, metal1Sound);
                     getdamages = getdamages - 19;
                 }
                 if (s < -2)
                 {
-                    currentHelilife = currentHelilife - 88;
+                    helilifeCurrent = helilifeCurrent - 88;
                     PlaySound(channelSoundTex, metal2Sound);
                     PlaySound(channelSoundTex, grass1);
                     getdamages = getdamages - 89;
                     //  loterea(); //TODO Повреждения рика КЛАСС
                 }
 
-                if (currentHelilife <= 0)
+                if (helilifeCurrent <= 0)
                 {
                     helidestroy = 1;
                     if (bang1 == 1)
