@@ -9,8 +9,6 @@ using SFML.System;
 
 namespace Havier_Than_Air_S.Weapon
 {
-
-
     public enum ProjectileStatus
     {
         inCase,
@@ -21,20 +19,20 @@ namespace Havier_Than_Air_S.Weapon
     public class Projectile
     {
         public ProjectileStatus currentProjectileStatus;
-        private Vector2f currentProjectilePosition;
-        private float currentProjectileAngle;
+        public RectangleShape rectangleShape;
+        public float projectileRashod;
 
         //Переменные
 
-        private float currentProjectilefuel;
-        private float currentProjectileSpeed;
+        public float currentProjectilefuel;
+        public float currentProjectileSpeed;
+        public Vector2f currentProjectilePosition;
+        public float currentProjectileAngle;
+        public float currentRocketfuel;
 
-        public void StartRocket(Vector2f position, float angle, MissionTest mission)
+        public void Start(Vector2f position, float angle, MissionTest mission)
         {
-            //missTest = mission;
-            DeactivateProjectile();
             currentProjectileStatus = ProjectileStatus.inAir;
-
             currentProjectilePosition = position;
             currentProjectileAngle = angle;
 
@@ -42,48 +40,44 @@ namespace Havier_Than_Air_S.Weapon
 
         public void Update()
         {
-            if (currentRocketStatus == ProjectileStatus.inAir)
+            if (currentProjectileStatus == ProjectileStatus.inAir)
             {
                 ChechRocketCollider();
                 //currentRocketPosition = new Vector2f(currentRocketPosition.X +1.0f,
                 //                                        currentRocketPosition.Y +1.0f);
 
-                currentRocketSpeed = NRrocketspeed * (float)Program.deltaTimer.Delta();
-                currentRocketPosition = currentRocketPosition + Matematika.searchAB(currentRocketAngle, currentRocketSpeed);
-
+                currentProjectileSpeed = currentProjectileSpeed * (float)Program.deltaTimer.Delta();
+                currentProjectilePosition = currentProjectilePosition + Matematika.searchAB(currentProjectileAngle,
+                                                                                    currentProjectileSpeed);
 
 
                 //rocketSprite.Position = currentRocketPosition;
-                rectangleShape.Position = currentRocketPosition;
-                rectangleShape.Rotation = currentRocketAngle;
+                rectangleShape.Position = currentProjectilePosition;
+                rectangleShape.Rotation = currentProjectileAngle;
                 // Отрисовка
 
                 //расход
                 if (currentRocketfuel > 0)
                 {
-                    currentRocketfuel -= NRrocketRashod * (float)Program.deltaTimer.Delta();
-                    Program.window.Draw(NR);
+                    currentRocketfuel -= projectileRashod * (float)Program.deltaTimer.Delta();
+                    Program.window.Draw(rectangleShape);
                 }
                 else
                 {
-                    DeactivateRocket();
+                    DeactivateProjectile();
                 }
-
-
             }
         }
 
 
 
-
         public void ChechRocketCollider()
         {
-            missTest.CheckTargetCollider(rectangleShape.GetGlobalBounds());
+            //missTest.CheckTargetCollider(rectangleShape.GetGlobalBounds());
 
             //rectangleShape.GetGlobalBounds().Intersects
 
         }
-
 
         virtual public void DeactivateProjectile()
         {
@@ -92,8 +86,5 @@ namespace Havier_Than_Air_S.Weapon
             currentProjectileSpeed = 0.0f;
             currentProjectilePosition = Program.PullObjects.position;
         }
-
-
-
     }
 }

@@ -59,7 +59,7 @@ namespace Havier_Than_Air_S
         public float helifuel = 1500; // Топливо в баках
         int bang1 = 1;
         int gunmode = 0;
-
+        public Vector2f position;
 
         public float playerx = 50;
         public float playery = 400;
@@ -121,8 +121,12 @@ namespace Havier_Than_Air_S
 
         #endregion
 
+        Avionika avionika;
+
         public Hely()
         {
+            avionika = new Avionika(this);
+
             SpawnHely();
             if (!Program.TestModeP)
             {
@@ -236,8 +240,9 @@ namespace Havier_Than_Air_S
            
 
             Program.window.Draw(CircleShape);
+            avionika.Update();
 
-            
+
         }
 
         private void CheckPosition()

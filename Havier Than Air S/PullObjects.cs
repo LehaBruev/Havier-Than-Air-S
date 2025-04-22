@@ -13,18 +13,19 @@ namespace Havier_Than_Air_S
     {
         private int projectilesCount = 40;
 
-        private RocketNRLauncher[] NRrockets;
-        private Projectile[] Projectiles;
+        //private RocketNRLauncher[] NRrockets;
+        private NRocket[] Projectiles;
         public Vector2f position;
 
         public PullObjects()
         {
             position = new Vector2f(2000, 2000);
             //NRrockets = new Rocket[NRroketsCount];
-            Projectiles = new Projectile[projectilesCount];
-            for (int i = 0; i < NRrockets.Length; i++)
+            Projectiles = new NRocket[projectilesCount];
+            for (int i = 0; i < Projectiles.Length; i++)
             {
-                Projectiles[i] = new Projectile();
+                Projectiles[i] = new NRocket();
+                Projectiles[i].ProduseNRocket();
             }
         }         
 
@@ -34,7 +35,7 @@ namespace Havier_Than_Air_S
             {
                 if (Projectiles[i].currentProjectileStatus == ProjectileStatus.inPool)
                 {
-                    NRrockets[i].StartRocket(position, angle, mission);
+                    Projectiles[i].Start(position, angle, mission);
                     return;
                 }
                 
@@ -43,11 +44,11 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
-            for (int i = 0;i < NRrockets.Length;i++)
+            for (int i = 0;i < Projectiles.Length;i++)
             {
-                if (NRrockets[i].currentRocketStatus == ProjectileStatus.inAir)
+                if (Projectiles[i].currentProjectileStatus == ProjectileStatus.inAir)
                 {
-                    NRrockets[i].MoveNRrocket();
+                    Projectiles[i].Update();
                 }
             }
         }

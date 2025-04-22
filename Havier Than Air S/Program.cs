@@ -12,7 +12,7 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
-       public static bool TestModeP = true;
+       public static bool TestModeP = false;
        public static DeltaTimer deltaTimer = new DeltaTimer();
        public static Game Game = new Game();
        public static PullObjects PullObjects = new PullObjects();
