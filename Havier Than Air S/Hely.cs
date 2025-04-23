@@ -112,6 +112,7 @@ namespace Havier_Than_Air_S
 
         #region Rotors
         //Задний винт
+        Vector2f rearRotorPositionNewVector;
         Sprite rearVintSprite;
         RectangleShape rearRotorRectShape;
         float rearVintSpeed = 41;
@@ -123,6 +124,8 @@ namespace Havier_Than_Air_S
         #endregion
 
         #region Weapons
+        public Vector2f weaponPositionCurrentPoint;
+        private Vector2f positionWeaponLocalPoint;
         private WeaponBase[] m_Weapons;
         private int currentWeapon;
 
@@ -142,7 +145,7 @@ namespace Havier_Than_Air_S
             avionika = new Avionika(this);
 
             SpawnHely();
-            m_Weapons = new WeaponBase[] { new RocketNRLauncher(50, this) };
+            m_Weapons = new WeaponBase[] { new RocketNRLauncher(250, this) };
             currentWeapon = 0;
 
             if (!Program.TestModeP)
@@ -203,12 +206,13 @@ namespace Havier_Than_Air_S
             topRotorRectShape.Size = new Vector2f(90, 2);
             topRotorRectShape.Origin = new Vector2f(45, 1);
             topRotorRectShape.FillColor = new Color(Color.Yellow);
+
+            positionWeaponLocalPoint = new Vector2f(100, 20);
         }
 
         public void RotorUpdate()
         {
             //ротор rear
-            Vector2f rearRotorPositionNewVector = new Vector2f();
             rearRotorPositionNewVector = Matematika.searchAB(helySprite.Rotation, -58);
             rearRotorRectShape.Position = new Vector2f((helySprite.Position.X) + rearRotorPositionNewVector.X,
                                                  (helySprite.Position.Y) + rearRotorPositionNewVector.Y);
@@ -235,6 +239,13 @@ namespace Havier_Than_Air_S
 
             Program.window.Draw(rearRotorRectShape);
             Program.window.Draw(topRotorRectShape);
+
+
+            //weaponPoint
+            Vector2f currentLocalPositionPW = Matematika.searchAB(positionWeaponLocalPoint.X+angle + new Random().Next(1, 3), positionWeaponLocalPoint.Y + new Random().Next(1,5) );
+            
+            weaponPositionCurrentPoint = new Vector2f( helySprite.Position.X + currentLocalPositionPW.X,
+                                        helySprite.Position.Y + currentLocalPositionPW.Y);
 
         }
 

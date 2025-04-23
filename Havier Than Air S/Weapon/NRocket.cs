@@ -12,13 +12,14 @@ namespace Havier_Than_Air_S.Weapon
     public class NRocket : Projectile 
     {
         //Параметры
-        private Vector2f rocketSize = new Vector2f(40.0f, 5);
-        private Vector2f rocketOrigin = new Vector2f(2.5f, 2.5f);
-        private Color rocketColor = Color.Red;
+        private Vector2f rocketSize = new Vector2f(15.0f, 1);
+        private Vector2f rocketOrigin = new Vector2f(0.5f, 0.5f);
+        private Color rocketColor = Color.Yellow;
         private float rocketRashod = 1f;
         private float rocketFuel = 3;
-        private float rocketSpeed = 200;
-        
+        private float rocketSpeed = 1700;
+        private float NRocketWeight = 100;
+
         public NRocket()
         {
             currentProjectileSpeed = rocketSpeed;
@@ -47,6 +48,7 @@ namespace Havier_Than_Air_S.Weapon
         public override void Start(Vector2f position, float angle)
         {
             base.Start(position, angle);
+            currentProjectilefuel = rocketFuel;
         }
 
         public override void Update()

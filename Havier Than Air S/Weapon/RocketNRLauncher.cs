@@ -18,15 +18,13 @@ namespace Havier_Than_Air_S
         // Параметры
          float NRrocketlenght = 20;
          float NRrocketpower = 47;
-        float NRocketWeight = 100;
+        
+
         TypeOfWeapon type = TypeOfWeapon.nr;
          
-         float NRrocketspeed = 200; // скорость NR неуправляемых ракет
+         
          int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
-         float nrfuel = 3; // запас хода NR неуправляемых ракет
-        float NRrocketRashod = 1;
-
-       
+        
 
         //Отрисовка
         private Color nrColor = new Color(255, 161, 0);
@@ -36,13 +34,13 @@ namespace Havier_Than_Air_S
         private RectangleShape rectangleShape;
         private Drawable NR;
 
-        MissionTest missTest;
+       
         
 
         public RocketNRLauncher(int ammo,Hely hely)
         {
             //ProduceRocket();
-            ammWeight = NRocketWeight; // base
+            //ammWeight = NRocketWeight; // base
             weaponTyte = type; // base
             parentHely = hely; // base
             currentAmmCount = ammo;

@@ -35,7 +35,7 @@ namespace Havier_Than_Air_S.Weapon
         {
             if(!(currentAmmCount<=0))
             {
-               Program.m_PullObjects.StartObject(parentHely.position,parentHely.angle, weaponTyte);
+               Program.m_PullObjects.StartObject(parentHely.weaponPositionCurrentPoint, parentHely.angle, weaponTyte);
                 currentAmmCount -= 1;
 
             }
