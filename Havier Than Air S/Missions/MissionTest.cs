@@ -32,12 +32,12 @@ namespace Havier_Than_Air_S.Missions
         RectangleShape targetRect;
 
         //Вертал
-        Hely Hely;
+        Hely m_Hely;
 
         public MissionTest()
         {
             clock = new Clock();
-            Hely = new Hely();
+            m_Hely = new Hely();
 
              taergetImage = new Image("uh612.png");
              targetTexture = new Texture(taergetImage);
@@ -62,20 +62,20 @@ namespace Havier_Than_Air_S.Missions
 
         public void Update()
         {
-            Hely.Update();
+            m_Hely.Update();
 
             Program.window.Draw(targetRect);
 
             if (mouseController == null)
             {
                 mouseController = Program.Game.MouseController;
-                pull = Program.Game.Pull;
             }
 
 
 
             if (mouseController.LeftButton == true)
             {
+                SpawnRocket();
                 if (mouseIsPressed == false)
                 {
                     mouseIsPressed = true;
@@ -86,14 +86,14 @@ namespace Havier_Than_Air_S.Missions
             {
                 mouseIsPressed = false;// по одному
                 mousPoint2 = mouseController.currentMousePoint;
-                SpawnRocket();
+                //SpawnRocket();
                 mousPoint1 = mouseController.currentMousePoint;
             }
         }
 
         public void CheckTargetCollider(FloatRect incoming)
         {
-           
+            m_Hely.s
             if (targetRect.GetGlobalBounds().Intersects(incoming) == true )
             {
                 Console.WriteLine("Касание");
@@ -112,13 +112,14 @@ namespace Havier_Than_Air_S.Missions
         {
             if (zaderjka < clock.ElapsedTime.AsSeconds())
             {
+                Hely.
                 Vector2f vectorMouse = new Vector2f((mousPoint2 - mousPoint1).X, (mousPoint2 - mousPoint1).Y);
                 float vectorAngle = Matematika.AngleVector(vectorMouse);
                 angleNR = vectorAngle;
                 //Console.WriteLine("Вектор " + vectorMouse + "; угол " + vectorAngle);
 
                 positionNR = new Vector2f((float)mouseController.x, (float)mouseController.y);
-                pull.Start_Projectile(mousPoint1, angleNR, this);
+                
                 clock.Restart();
             }
 

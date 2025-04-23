@@ -33,7 +33,7 @@ namespace Havier_Than_Air_S
            // window = new RenderWindow(vMode, "Havier Than Air SFML");
             window.Closed += Win_Closed;
             window.Position = new Vector2i(50, 50);
-
+            m_PullObjects.StartPull(); // Заполнение пула объектов
 
 
             view.Reset(new FloatRect(0, 0, 1024, 768));// = new View(new FloatRect(50, 50, 300, 100));

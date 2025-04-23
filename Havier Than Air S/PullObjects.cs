@@ -11,34 +11,46 @@ namespace Havier_Than_Air_S
 {
     public class PullObjects
     {
-        private int projectilesCount = 40;
+        //Количество
+        private int NRcount = 40;
 
-        //private RocketNRLauncher[] NRrockets;
-        private NRocket[] NRockets;
-        public Vector2f position;
+        //Pulls
+        private NRocket[] NRockets ;
+
+        //Сервис
+        public Vector2f position = new Vector2f(2000, 2000);
 
         public PullObjects()
         {
-            position = new Vector2f(2000, 2000);
-            //NRrockets = new Rocket[NRroketsCount];
-            NRockets = new NRocket[projectilesCount];
-            for (int i = 0; i < NRockets.Length; i++)
-            {
-                NRockets[i] = new NRocket();
-                NRockets[i].ProduseNRocket();
-            }
-        }         
-
-        public void Start_Projectile(Vector2f position, float angle, MissionTest mission)
+            
+        }  
+        
+        public void StartPull()
         {
-            for (int i = 0; i < NRockets.Length; i++)
+            //NR pull
+            NRockets = new NRocket[NRcount];
+            for (int i = 0; i < NRockets.Length; i++) NRockets[i] = new NRocket();
+
+        }
+
+        public void StartObject(Vector2f position, float angle,TypeOfWeapon weaponTyte)
+        {
+            
+            if (weaponTyte == TypeOfWeapon.nr)
             {
-                if (NRockets[i].currentProjectileStatus == ProjectileStatus.inPool)
+                for (int i = 0; i < NRockets.Length; i++)
                 {
-                    NRockets[i].Start(position, angle, mission);
-                    return;
+                    if (NRockets[i].currentProjectileStatus == ProjectileStatus.inPool)
+                    {
+                        NRockets[i].Start(position, angle);
+                        return;
+                    }
+
                 }
-                
+            }
+            else if (weaponTyte == TypeOfWeapon.gun)
+            {
+
             }
         }
 
@@ -52,5 +64,16 @@ namespace Havier_Than_Air_S
                 }
             }
         }
+
+
+
+        public void ChechRocketCollider()
+        {
+            //missTest.CheckTargetCollider(rectangleShape.GetGlobalBounds());
+
+            //rectangleShape.GetGlobalBounds().Intersects
+
+        }
+
     }
 }

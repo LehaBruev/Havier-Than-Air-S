@@ -136,6 +136,7 @@
     <Compile Include="PullObjects.cs" />
     <Compile Include="Rita.cs" />
     <Compile Include="Tehnika.cs" />
+    <Compile Include="TestBaseClass.cs" />
     <Compile Include="Weapon\NRocket.cs" />
     <Compile Include="Weapon\Projectile.cs" />
     <Compile Include="Weapon\RocketNRLauncher.cs" />

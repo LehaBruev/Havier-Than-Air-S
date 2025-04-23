@@ -19,7 +19,7 @@ namespace Havier_Than_Air_S
          float NRrocketlenght = 20;
          float NRrocketpower = 47;
         float NRocketWeight = 100;
-        typeOfWeapon type = typeOfWeapon.nr;
+        TypeOfWeapon type = TypeOfWeapon.nr;
          
          float NRrocketspeed = 200; // скорость NR неуправляемых ракет
          int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет

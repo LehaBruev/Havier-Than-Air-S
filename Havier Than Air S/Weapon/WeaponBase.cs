@@ -8,7 +8,7 @@ using SFML.System;
 
 namespace Havier_Than_Air_S.Weapon
 {
-    public enum typeOfWeapon
+    public enum TypeOfWeapon
     {
         gun,
         nr,
@@ -19,7 +19,7 @@ namespace Havier_Than_Air_S.Weapon
 
     public class WeaponBase
     {
-        public typeOfWeapon weaponTyte;
+        public TypeOfWeapon weaponTyte;
         public int currentAmmCount;
         public Hely parentHely;
 
@@ -35,7 +35,7 @@ namespace Havier_Than_Air_S.Weapon
         {
             if(!(currentAmmCount<=0))
             {
-               Program.m_PullObjects.Update();
+               Program.m_PullObjects.StartObject(parentHely.position,parentHely.angle, weaponTyte);
                 currentAmmCount -= 1;
 
             }
