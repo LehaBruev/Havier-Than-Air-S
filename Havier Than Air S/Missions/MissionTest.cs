@@ -15,7 +15,7 @@ namespace Havier_Than_Air_S.Missions
         float angleNR = 280.0f;
 
         MouseController mouseController;
-        
+        PullObjects pull;
 
         Clock clock;
         float zaderjka = 0.08f;
@@ -69,14 +69,13 @@ namespace Havier_Than_Air_S.Missions
             if (mouseController == null)
             {
                 mouseController = Program.Game.MouseController;
-                
+                pull = Program.Game.Pull;
             }
 
 
 
             if (mouseController.LeftButton == true)
             {
-                SpawnRocket();
                 if (mouseIsPressed == false)
                 {
                     mouseIsPressed = true;
@@ -87,7 +86,7 @@ namespace Havier_Than_Air_S.Missions
             {
                 mouseIsPressed = false;// по одному
                 mousPoint2 = mouseController.currentMousePoint;
-                //SpawnRocket();
+                SpawnRocket();
                 mousPoint1 = mouseController.currentMousePoint;
             }
         }
@@ -115,13 +114,11 @@ namespace Havier_Than_Air_S.Missions
             {
                 Vector2f vectorMouse = new Vector2f((mousPoint2 - mousPoint1).X, (mousPoint2 - mousPoint1).Y);
                 float vectorAngle = Matematika.AngleVector(vectorMouse);
-                //angleNR = vectorAngle;
-                angleNR = Hely.angle;
+                angleNR = vectorAngle;
                 //Console.WriteLine("Вектор " + vectorMouse + "; угол " + vectorAngle);
 
-                //positionNR = new Vector2f((float)mouseController.x, (float)mouseController.y);
-                positionNR = Hely.position;
-                Program.PullObjects.Spawn_Projectile(positionNR, angleNR, this);
+                positionNR = new Vector2f((float)mouseController.x, (float)mouseController.y);
+                pull.Start_Projectile(mousPoint1, angleNR, this);
                 clock.Restart();
             }
 

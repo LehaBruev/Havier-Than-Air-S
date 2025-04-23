@@ -27,7 +27,6 @@ namespace Havier_Than_Air_S
         public static Magnitola mMagnitola = new Magnitola();
         public static TextureManager mTextureManager = new TextureManager();
         public MainMenuController MenuController = new MainMenuController();
-        public PullObjects Pull = new PullObjects();
 
         public MissionSwitch missionSwitch = MissionSwitch.mis1;
         public MouseController MouseController = new MouseController();
@@ -115,11 +114,8 @@ namespace Havier_Than_Air_S
             
             MouseController.CheckMouse();
             mTextureManager.DrawBackground();
-            
-          
-               MenuController.Update();
+            MenuController.Update();
 
-            
             if (GameState.CurrentMode == GameMode.Play)
             {
                 if (missionSwitch == MissionSwitch.mis1)
@@ -133,9 +129,6 @@ namespace Havier_Than_Air_S
                 MooveObjects();
                 DrawObjects();
             }
-
-            Pull.Update();
-             
         }
 
 

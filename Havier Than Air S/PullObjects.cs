@@ -14,28 +14,28 @@ namespace Havier_Than_Air_S
         private int projectilesCount = 40;
 
         //private RocketNRLauncher[] NRrockets;
-        private NRocket[] Projectiles;
+        private NRocket[] NRockets;
         public Vector2f position;
 
         public PullObjects()
         {
             position = new Vector2f(2000, 2000);
             //NRrockets = new Rocket[NRroketsCount];
-            Projectiles = new NRocket[projectilesCount];
-            for (int i = 0; i < Projectiles.Length; i++)
+            NRockets = new NRocket[projectilesCount];
+            for (int i = 0; i < NRockets.Length; i++)
             {
-                Projectiles[i] = new NRocket();
-                Projectiles[i].ProduseNRocket();
+                NRockets[i] = new NRocket();
+                NRockets[i].ProduseNRocket();
             }
         }         
 
-        public void Spawn_Projectile(Vector2f position, float angle, MissionTest mission)
+        public void Start_Projectile(Vector2f position, float angle, MissionTest mission)
         {
-            for (int i = 0; i < Projectiles.Length; i++)
+            for (int i = 0; i < NRockets.Length; i++)
             {
-                if (Projectiles[i].currentProjectileStatus == ProjectileStatus.inPool)
+                if (NRockets[i].currentProjectileStatus == ProjectileStatus.inPool)
                 {
-                    Projectiles[i].Start(position, angle, mission);
+                    NRockets[i].Start(position, angle, mission);
                     return;
                 }
                 
@@ -44,11 +44,11 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
-            for (int i = 0;i < Projectiles.Length;i++)
+            for (int i = 0;i < NRockets.Length;i++)
             {
-                if (Projectiles[i].currentProjectileStatus == ProjectileStatus.inAir)
+                if (NRockets[i].currentProjectileStatus == ProjectileStatus.inAir)
                 {
-                    Projectiles[i].Update();
+                    NRockets[i].Update();
                 }
             }
         }

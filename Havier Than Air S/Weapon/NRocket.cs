@@ -36,5 +36,17 @@ namespace Havier_Than_Air_S.Weapon
 
             
         }
+
+        public override void Update()
+        {
+            base.Update();
+            DrawNR();
+        }
+
+        private void DrawNR()
+        {
+
+        }
+
     }
 }

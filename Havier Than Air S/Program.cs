@@ -15,7 +15,7 @@ namespace Havier_Than_Air_S
        public static bool TestModeP = false;
        public static DeltaTimer deltaTimer = new DeltaTimer();
        public static Game Game = new Game();
-       public static PullObjects PullObjects = new PullObjects();
+       public static PullObjects m_PullObjects = new PullObjects();
 
        public static VideoMode vMode = new VideoMode(1600, 900);
        public static RenderWindow window = new RenderWindow(vMode, "Havier Than Air SFML");
@@ -54,6 +54,7 @@ namespace Havier_Than_Air_S
                 window.DispatchEvents();
                 deltaTimer.CheckDelta();
                 Game.Update();
+                m_PullObjects.Update();
 
                 window.Display();
 

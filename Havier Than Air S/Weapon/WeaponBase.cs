@@ -35,7 +35,7 @@ namespace Havier_Than_Air_S.Weapon
         {
             if(!(currentAmmCount<=0))
             {
-               Program.PullObjects.Update();
+               Program.m_PullObjects.Update();
                 currentAmmCount -= 1;
 
             }
