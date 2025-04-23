@@ -25,13 +25,17 @@ namespace Havier_Than_Air_S.Weapon
         public ProjectileStatus currentProjectileStatus;
         private Vector2f currentProjectilePosition;
         private float currentProjectileAngle;
-        private float currentProjectileSpeed;
-        private float currentProjectilefuel;
+        protected float currentProjectileSpeed;
+        protected float currentProjectilefuel;
         protected float currentProjectileRashod;
  
         //Сервисные
         float deltaProjectileSpeed;
         
+        public Projectile()
+        {
+            currentProjectileStatus = ProjectileStatus.inPool;
+        }
 
         virtual public void Start(Vector2f position, float angle)
         {
@@ -72,8 +76,8 @@ namespace Havier_Than_Air_S.Weapon
         virtual public void DeactivateProjectile()
         {
             currentProjectileStatus = ProjectileStatus.inPool;
-            currentProjectilefuel = 0;
-            currentProjectileSpeed = 0.0f;
+            //currentProjectilefuel = 0;
+            //currentProjectileSpeed = 0.0f;
             currentProjectilePosition = Program.m_PullObjects.position;
         }
 

@@ -12,14 +12,19 @@ namespace Havier_Than_Air_S.Weapon
     public class NRocket : Projectile 
     {
         //Параметры
-        private Vector2f rocketSize = new Vector2f(80.0f, 10);
-        private Vector2f rocketOrigin = new Vector2f(5, 5);
+        private Vector2f rocketSize = new Vector2f(40.0f, 5);
+        private Vector2f rocketOrigin = new Vector2f(2.5f, 2.5f);
         private Color rocketColor = Color.Red;
-        private float rocketRashod = 1.0f;
+        private float rocketRashod = 1f;
+        private float rocketFuel = 3;
+        private float rocketSpeed = 200;
         
         public NRocket()
         {
+            currentProjectileSpeed = rocketSpeed;
+            currentProjectilefuel = rocketFuel;
             currentProjectileRashod = rocketRashod;
+            
 
             //shape
             m_Rectangleshape = new RectangleShape();

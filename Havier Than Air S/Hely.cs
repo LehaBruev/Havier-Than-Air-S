@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Havier_Than_Air_S.Weapon;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
@@ -121,13 +122,29 @@ namespace Havier_Than_Air_S
 
         #endregion
 
+        #region Weapons
+        private WeaponBase[] m_Weapons;
+        private int currentWeapon;
+
+        #endregion
+
+
         Avionika avionika;
+
+        //звуки доп
+        SoundBuffer metal1Sound = new SoundBuffer("metal1.wav"); // касание земли
+        SoundBuffer metal2Sound = new SoundBuffer("metal2.wav"); // касание земли 2
+        SoundBuffer bangsound = new SoundBuffer("explode4.wav"); //взрыв
+        SoundBuffer grass1 = new SoundBuffer("glass3.wav"); // стекло
 
         public Hely()
         {
             avionika = new Avionika(this);
 
             SpawnHely();
+            m_Weapons = new WeaponBase[] { new RocketNRLauncher(50, this) };
+            currentWeapon = 0;
+
             if (!Program.TestModeP)
             {
                 SpawnRotors();
@@ -367,11 +384,7 @@ namespace Havier_Than_Air_S
 
         //земля
         static int g = 0;
-        //звуки доп
-        SoundBuffer metal1Sound = new SoundBuffer("metal1.wav"); // касание земли
-        SoundBuffer metal2Sound = new SoundBuffer("metal2.wav"); // касание земли 2
-        SoundBuffer bangsound = new SoundBuffer("explode4.wav"); //взрыв
-        SoundBuffer grass1 = new SoundBuffer("glass3.wav"); // стекло
+       
 
         float getdamages = 0; //Получено повреждений
 
@@ -467,7 +480,9 @@ namespace Havier_Than_Air_S
 
             playerx = playerx + speedx*Program.deltaTimer.Delta()*100; //wind
 
-            helySprite.Position = new Vector2f(playerx, playery);
+            position = new Vector2f(playerx, playery);
+
+            helySprite.Position = position;
             /*
             if (Keyboard.IsKeyPressed(Keyboard.Key.V) == true)
             {
@@ -569,5 +584,12 @@ namespace Havier_Than_Air_S
 
             */
         }
+    
+        public void Fire()
+        {
+            m_Weapons[currentWeapon].Fire();
+
+        }
+
     }
 }

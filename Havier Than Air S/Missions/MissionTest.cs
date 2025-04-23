@@ -10,9 +10,6 @@ namespace Havier_Than_Air_S.Missions
 {
     public class MissionTest
     {
-        //установка для нр
-        Vector2f positionNR;
-        float angleNR = 280.0f;
 
         MouseController mouseController;
         PullObjects pull;
@@ -93,7 +90,7 @@ namespace Havier_Than_Air_S.Missions
 
         public void CheckTargetCollider(FloatRect incoming)
         {
-            m_Hely.s
+            
             if (targetRect.GetGlobalBounds().Intersects(incoming) == true )
             {
                 Console.WriteLine("Касание");
@@ -112,13 +109,13 @@ namespace Havier_Than_Air_S.Missions
         {
             if (zaderjka < clock.ElapsedTime.AsSeconds())
             {
-                Hely.
+                m_Hely.Fire();
+
                 Vector2f vectorMouse = new Vector2f((mousPoint2 - mousPoint1).X, (mousPoint2 - mousPoint1).Y);
                 float vectorAngle = Matematika.AngleVector(vectorMouse);
-                angleNR = vectorAngle;
+                
                 //Console.WriteLine("Вектор " + vectorMouse + "; угол " + vectorAngle);
-
-                positionNR = new Vector2f((float)mouseController.x, (float)mouseController.y);
+                //positionNR = new Vector2f((float)mouseController.x, (float)mouseController.y);
                 
                 clock.Restart();
             }
