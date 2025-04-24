@@ -22,16 +22,15 @@ namespace Havier_Than_Air_S
     public class Game 
     {
         public static GameState GameState = new GameState();
+ 
         
-        public static SoundManager soundManager = new SoundManager();
-        public static Magnitola mMagnitola = new Magnitola();
         public static TextureManager mTextureManager = new TextureManager();
         public MainMenuController MenuController = new MainMenuController();
 
+        // Переменные
         public MissionSwitch missionSwitch = MissionSwitch.mis1;
-        public MouseController MouseController = new MouseController();
 
-        private Sprite mBackgroundSprite;
+        private MissionBase[] allMissions = new MissionBase[] { new Mission1_Learning() , new MissionTest(), new Mission3_FreeFlight() };
 
         Mission1_Learning mission1 =  new Mission1_Learning();
         MissionTest missionTest = new MissionTest();
@@ -43,21 +42,6 @@ namespace Havier_Than_Air_S
 
         private void StartGame()
         {
-            //MouseController = new MouseController();
-            //missionSwitch = MissionSwitch.mis1;
-            //missionTest = new MissionTest();  
-
-            
-            //GameState = new GameState();
-            //MenuController = new MainMenuController();
-            //mMagnitola = new Magnitola();
-            //mTextureManager = new TextureManager();
-
-            //mission1 = new Mission1_Learning();
-            //Pull = new PullObjects();
-
-            //отладка
-           // ChangeGameMode(GameMode.MainMenu,MissionSwitch.mis1);
             ChangeGameMode(GameMode.Play,MissionSwitch.test);
         }
 
@@ -70,50 +54,11 @@ namespace Havier_Than_Air_S
 
         }
 
-        // SetFont("comic.ttf"); // Шрифт
-        // PlayMusic(mainmenumusic, volume);
-        //playingmusic = mainmenumusic;
-        //Меню
-        int mainmenuSwitch = 1;
-         int levelchoise = 0;
-         int menuchoise2 = 0;
-         int newgame = 0;
-         int gameplaying = 0;
-         int menudelay = 50;
-         int podskazkaswitch = 1;
-
-        //Миссии
-         int checkdelay = 50;
-         int missionswitch = 0;
-         int volnadelay = 0;
-         int volnadelay2 = 0;
-         int basedurability = 10;
-         int winpobeda = 0;
-
-
-
-        //результаты
-         float resultsmenuswitch = 0; //меню результатов
-         float resultmenuchoise = 0; //меню результатов ывбор кнопки
-         float money = 0; //очки
-         float hiscore = 0; //рекорд очков
-         
-         float flighttimerecord = 0; //рекорд нахождения в воздухе
-         float landingquantity = 0; //количество посадок
-         float NRrocketslaunched = 0; //выпущено NR ракет количество
-         float targetbingos = 0; //попаданий по цели
-         float buk1destroyes = 0; //уничтожено буков1
-         float tank1destroyes = 0; //уничтожено танков1
-         
-         float repairings = 0; //Отремонтирован вертолет
-         
 
 
         public void Update()
         {
             
-            MouseController.CheckMouse();
-            mTextureManager.DrawBackground();
             MenuController.Update();
 
             if (GameState.CurrentMode == GameMode.Play)
@@ -126,26 +71,8 @@ namespace Havier_Than_Air_S
                 {
                     missionTest.Update();
                 }
-                MooveObjects();
-                DrawObjects();
+                
             }
         }
-
-
-        public void MooveObjects()
-        {
-            
-
-        }
-
-        public void DrawObjects()
-        {
-           
-
-        }
-
-
-       
- 
     }
 }

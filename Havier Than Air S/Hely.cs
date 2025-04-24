@@ -96,6 +96,13 @@ namespace Havier_Than_Air_S
         SoundBuffer ostalos500kg = new SoundBuffer("Fuel500.wav"); // Осталось 500 кг звук
         SoundBuffer ostalos800kg = new SoundBuffer("Fuel800.wav"); // Осталось 800 кг звук
 
+        //звуки доп
+        SoundBuffer metal1Sound = new SoundBuffer("metal1.wav"); // касание земли
+        SoundBuffer metal2Sound = new SoundBuffer("metal2.wav"); // касание земли 2
+        SoundBuffer bangsound = new SoundBuffer("explode4.wav"); //взрыв
+        SoundBuffer grass1 = new SoundBuffer("glass3.wav"); // стекло
+
+
         #endregion
 
         #region Statistoka
@@ -141,8 +148,9 @@ namespace Havier_Than_Air_S
         float flighttime = 0; //время нахождения в воздухе
 
         static float gravityweight = 20000; //Сила притяжения
-        int NRrocketsInHely;
-        float NRrocketweight = 100.0f;
+
+        float allWeaponsWeight = 100.0f;
+        float fuelWeight = 6; //вес топл
 
         //земля
         static int g = 0;
@@ -152,11 +160,7 @@ namespace Havier_Than_Air_S
 
         Avionika avionika;
 
-        //звуки доп
-        SoundBuffer metal1Sound = new SoundBuffer("metal1.wav"); // касание земли
-        SoundBuffer metal2Sound = new SoundBuffer("metal2.wav"); // касание земли 2
-        SoundBuffer bangsound = new SoundBuffer("explode4.wav"); //взрыв
-        SoundBuffer grass1 = new SoundBuffer("glass3.wav"); // стекло
+        
 
         public Hely()
         {
@@ -430,7 +434,7 @@ namespace Havier_Than_Air_S
 
 
             //угол атаки уменьшает подъемную силу
-            powery = (enginespeed * ratioenginespeed / 114 * airP) - gravityweight - helifuel * 6 - NRrocketsInHely * NRrocketweight; // подъемная сила
+            powery = (enginespeed * ratioenginespeed / 114 * airP) - gravityweight - helifuel * fuelWeight - allWeaponsWeight; // подъемная сила
 
             boostv = powery / 200;       // вертиклаьное ускорение
             if (boostv > (maxenginespeed / 100 * 75)) boostv = maxboost;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S.Missions
 {
-    internal class Mission3_FreeFlight
+    internal class Mission3_FreeFlight : MissionBase
     {
         /*
         // Левел 3 Свободный полет

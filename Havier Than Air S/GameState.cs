@@ -17,6 +17,29 @@ namespace Havier_Than_Air_S
 
     public class GameState
     {
+
+        //результаты
+        float resultsmenuswitch = 0; //меню результатов
+        float resultmenuchoise = 0; //меню результатов ывбор кнопки
+        float money = 0; //очки
+        float hiscore = 0; //рекорд очков
+
+        float flighttimerecord = 0; //рекорд нахождения в воздухе
+        float landingquantity = 0; //количество посадок
+        float NRrocketslaunched = 0; //выпущено NR ракет количество
+        float targetbingos = 0; //попаданий по цели
+        float buk1destroyes = 0; //уничтожено буков1
+        float tank1destroyes = 0; //уничтожено танков1
+
+        float repairings = 0; //Отремонтирован вертолет
+
+
+
+
+
+
+
+
         public GameMode currentGameMode;
         public GameMode CurrentMode => currentGameMode;
 

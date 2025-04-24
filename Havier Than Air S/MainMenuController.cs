@@ -26,7 +26,19 @@ namespace Havier_Than_Air_S
             test
         }
 
-        
+
+        // SetFont("comic.ttf"); // Шрифт
+        // PlayMusic(mainmenumusic, volume);
+        //playingmusic = mainmenumusic;
+        //Меню
+        int mainmenuSwitch = 1;
+        int levelchoise = 0;
+        int menuchoise2 = 0;
+        int newgame = 0;
+        int gameplaying = 0;
+        int menudelay = 50;
+        int podskazkaswitch = 1;
+
 
         public menuButtons currentButton;
 

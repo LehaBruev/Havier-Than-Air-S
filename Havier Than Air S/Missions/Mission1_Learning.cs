@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using Havier_Than_Air_S.Missions;
+using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S
 {
-    internal class Mission1_Learning
+    internal class Mission1_Learning : MissionBase
     {
 
         // Бэкграунд 

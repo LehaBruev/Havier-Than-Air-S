@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S.Missions
 {
-    public class MissionTest
+    public class MissionTest : MissionBase
     {
 
         MouseController mouseController;
@@ -30,6 +30,19 @@ namespace Havier_Than_Air_S.Missions
 
         //Вертал
         Hely m_Hely;
+
+
+
+        //Миссии
+        int checkdelay = 50;
+        int missionswitch = 0;
+        int volnadelay = 0;
+        int volnadelay2 = 0;
+        int basedurability = 10;
+        int winpobeda = 0;
+
+
+
 
         public MissionTest()
         {
