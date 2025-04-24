@@ -23,7 +23,7 @@ namespace Havier_Than_Air_S.Weapon
 
         //Переменные
         public ProjectileStatus currentProjectileStatus;
-        private Vector2f currentProjectilePosition;
+        protected Vector2f currentProjectilePosition;
         private float currentProjectileAngle;
         protected float currentProjectileSpeed;
         protected float currentProjectilefuel;

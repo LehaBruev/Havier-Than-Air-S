@@ -25,10 +25,11 @@ namespace Havier_Than_Air_S.Weapon
 
         public float ammWeight; //вес ракеты
 
-        public WeaponBase()
+        public WeaponBase(TypeOfWeapon type)
         {
-            
-            
+            weaponTyte = type;
+
+
         }
             
         virtual public void Fire()

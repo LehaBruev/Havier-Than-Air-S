@@ -61,5 +61,13 @@ namespace Havier_Than_Air_S
             }
 
         }
+
+        public bool CheckKeyboardKey(Keyboard.Key key)
+        {
+            if(Keyboard.IsKeyPressed(key))
+            return true;
+            else return false;
+        }
+
     }
 }

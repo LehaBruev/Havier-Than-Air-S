@@ -33,6 +33,7 @@ namespace Havier_Than_Air_S.Missions
 
         public MissionTest()
         {
+            mouseController = Program.m_MouseController;
             clock = new Clock();
             m_Hely = new Hely();
 

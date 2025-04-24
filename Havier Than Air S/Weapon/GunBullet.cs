@@ -9,18 +9,25 @@ using Havier_Than_Air_S.Missions;
 
 namespace Havier_Than_Air_S.Weapon
 {
-    public class NRocket : Projectile 
+    public class GunBullet : Projectile 
     {
         //Параметры
-        private Vector2f rocketSize = new Vector2f(25.0f, 5);
-        private Vector2f rocketOrigin = new Vector2f(2.5f, 2.5f);
-        private Color rocketColor = Color.Red;
+        private Vector2f rocketSize = new Vector2f(5.0f, 1);
+        private Vector2f rocketOrigin = new Vector2f(0.5f, 0.5f);
+        private Color rocketColor = Color.Yellow;
         private float rocketRashod = 1f;
-        private float rocketFuel = 5;
-        private float rocketSpeed = 500;
+        private float rocketFuel = 3;
+        private float rocketSpeed = 1700;
         private float NRocketWeight = 100;
+        
 
-        public NRocket()
+        //Особые
+        private float bulletGravity = 10;
+        private float currentBulletGravity = 0;
+        private float currentSpeed;
+        private float speedHolder = 10;
+
+        public GunBullet()
         {
             currentProjectileSpeed = rocketSpeed;
             currentProjectilefuel = rocketFuel;
@@ -29,9 +36,8 @@ namespace Havier_Than_Air_S.Weapon
 
             //shape
             m_Rectangleshape = new RectangleShape();
-            m_Rectangleshape.OutlineThickness = 3;
-            m_Rectangleshape.OutlineColor = Color.Magenta;
             m_Rectangleshape.Size = rocketSize;
+            m_Rectangleshape.OutlineThickness = 0.5f;
             m_Rectangleshape.Origin = rocketOrigin;
             m_Rectangleshape.FillColor = rocketColor;
 
@@ -51,12 +57,15 @@ namespace Havier_Than_Air_S.Weapon
         {
             base.Start(position, angle);
             currentProjectilefuel = rocketFuel;
+            currentBulletGravity = 0;
         }
 
         public override void Update()
         {
             base.Update();
-            
+            currentBulletGravity += bulletGravity * Program.deltaTimer.Delta();
+            currentProjectilePosition = new Vector2f(currentProjectilePosition.X,
+                                        currentProjectilePosition.Y + currentBulletGravity);
         }
 
     

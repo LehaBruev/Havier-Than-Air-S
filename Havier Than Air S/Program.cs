@@ -16,6 +16,7 @@ namespace Havier_Than_Air_S
        public static DeltaTimer deltaTimer = new DeltaTimer();
        public static Game Game = new Game();
        public static PullObjects m_PullObjects = new PullObjects();
+       public static MouseController m_MouseController = new MouseController();
 
        public static VideoMode vMode = new VideoMode(1600, 900);
        public static RenderWindow window = new RenderWindow(vMode, "Havier Than Air SFML");

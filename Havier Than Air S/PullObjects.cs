@@ -13,9 +13,11 @@ namespace Havier_Than_Air_S
     {
         //Количество
         private int NRcount = 40;
+        private int GunBulletCount = 40;
 
         //Pulls
         private NRocket[] NRockets ;
+        private GunBullet[] GunBullets ;
 
         //Сервис
         public Vector2f position = new Vector2f(2000, 2000);
@@ -30,6 +32,10 @@ namespace Havier_Than_Air_S
             //NR pull
             NRockets = new NRocket[NRcount];
             for (int i = 0; i < NRockets.Length; i++) NRockets[i] = new NRocket();
+
+            //Gun pull
+            GunBullets = new GunBullet[GunBulletCount];
+            for (int i = 0; i < GunBullets.Length; i++) GunBullets[i] = new GunBullet();
 
         }
 
@@ -50,7 +56,15 @@ namespace Havier_Than_Air_S
             }
             else if (weaponTyte == TypeOfWeapon.gun)
             {
+                for (int i = 0; i < GunBullets.Length; i++)
+                {
+                    if (GunBullets[i].currentProjectileStatus == ProjectileStatus.inPool)
+                    {
+                        GunBullets[i].Start(position, angle);
+                        return;
+                    }
 
+                }
             }
         }
 
@@ -61,6 +75,13 @@ namespace Havier_Than_Air_S
                 if (NRockets[i].currentProjectileStatus == ProjectileStatus.inAir)
                 {
                     NRockets[i].Update();
+                }
+            }
+            for (int i = 0; i < GunBullets.Length; i++)
+            {
+                if (GunBullets[i].currentProjectileStatus == ProjectileStatus.inAir)
+                {
+                    GunBullets[i].Update();
                 }
             }
         }

@@ -132,6 +132,24 @@ namespace Havier_Than_Air_S
         #endregion
 
 
+        float ratioenginespeed = 1; //Пожар двигателя
+        //Данные для учета столкновения с землей
+        float s;
+        float ground = 700; // уровень земли
+        float airP = 0; //плотность воздуха
+
+        float flighttime = 0; //время нахождения в воздухе
+
+        static float gravityweight = 20000; //Сила притяжения
+        int NRrocketsInHely;
+        float NRrocketweight = 100.0f;
+
+        //земля
+        static int g = 0;
+
+
+        float getdamages = 0; //Получено повреждений
+
         Avionika avionika;
 
         //звуки доп
@@ -145,7 +163,9 @@ namespace Havier_Than_Air_S
             avionika = new Avionika(this);
 
             SpawnHely();
-            m_Weapons = new WeaponBase[] { new RocketNRLauncher(250, this) };
+
+            
+
             currentWeapon = 0;
 
             if (!Program.TestModeP)
@@ -184,6 +204,10 @@ namespace Havier_Than_Air_S
             CircleShape = new CircleShape(2);
             CircleShape.FillColor = new Color(Color.Yellow);
             CircleShape.Origin = new Vector2f(2, 2);
+
+            m_Weapons = new WeaponBase[] { new GunLauncher(250, this, TypeOfWeapon.gun),
+                                           new RocketNRLauncher(250, this, TypeOfWeapon.nr), 
+                                           new RocketNRLauncher(250, this, TypeOfWeapon.nr) };
         }
 
         private void SpawnSounds()
@@ -266,10 +290,9 @@ namespace Havier_Than_Air_S
                                                  helySprite.Position.Y);
 
            
-
-            Program.window.Draw(CircleShape);
+            //Program.window.Draw(CircleShape);
             avionika.Update();
-
+            CheckGunMode();
 
         }
 
@@ -381,23 +404,7 @@ namespace Havier_Than_Air_S
             channel.Play();
         }
 
-        float ratioenginespeed = 1; //Пожар двигателя
-        //Данные для учета столкновения с землей
-        float s;
-        float ground = 700; // уровень земли
-        float airP = 0; //плотность воздуха
-
-        float flighttime = 0; //время нахождения в воздухе
-
-        static float gravityweight = 20000; //Сила притяжения
-        int NRrocketsInHely;
-        float NRrocketweight = 100.0f;
-
-        //земля
-        static int g = 0;
        
-
-        float getdamages = 0; //Получено повреждений
 
         void PlayerMove() // коэффициент живучести двигателя
         {
@@ -601,6 +608,14 @@ namespace Havier_Than_Air_S
             m_Weapons[currentWeapon].Fire();
 
         }
+
+        private void CheckGunMode()
+        {
+            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num1)) currentWeapon = 0;
+            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num2)) currentWeapon = 1;
+
+        }
+
 
     }
 }
