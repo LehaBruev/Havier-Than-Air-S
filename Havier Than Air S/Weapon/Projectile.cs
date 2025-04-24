@@ -24,7 +24,7 @@ namespace Havier_Than_Air_S.Weapon
         //Переменные
         public ProjectileStatus currentProjectileStatus;
         protected Vector2f currentProjectilePosition;
-        private float currentProjectileAngle;
+        protected float currentProjectileAngle;
         protected float currentProjectileSpeed;
         protected float currentProjectilefuel;
         protected float currentProjectileRashod;
@@ -49,16 +49,7 @@ namespace Havier_Than_Air_S.Weapon
 
         virtual public void Update()
         {
-            //Check
-            if (currentProjectilefuel > 0)
-            {
-                Program.window.Draw(m_Rectangleshape);
-            }
-            else
-            {
-                DeactivateProjectile();
-                return;
-            }
+           
 
             //Вычисление позиции
             deltaProjectileSpeed = currentProjectileSpeed * (float)Program.deltaTimer.Delta();
@@ -70,6 +61,16 @@ namespace Havier_Than_Air_S.Weapon
 
             //Расход
             currentProjectilefuel -= currentProjectileRashod * (float)Program.deltaTimer.Delta();
+            //Check
+            if (currentProjectilefuel > 0)
+            {
+                Program.window.Draw(m_Rectangleshape);
+            }
+            else
+            {
+                DeactivateProjectile();
+                return;
+            }
         }
 
 

@@ -77,9 +77,13 @@ namespace Havier_Than_Air_S.Missions
 
             Program.window.Draw(targetRect);
 
-           
+            if (mouseController == null)
+            {
+                mouseController = Program.m_MouseController;
+            }
 
-            if (mouseController.LeftButton == true)
+
+                if (mouseController.LeftButton == true)
             {
                 SpawnRocket();
                 if (mouseIsPressed == false)

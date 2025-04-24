@@ -270,7 +270,8 @@ namespace Havier_Than_Air_S
 
 
             //weaponPoint
-            Vector2f currentLocalPositionPW = Matematika.searchAB(positionWeaponLocalPoint.X+angle + new Random().Next(1, 3), positionWeaponLocalPoint.Y + new Random().Next(1,5) );
+            Vector2f currentLocalPositionPW = Matematika.searchAB(positionWeaponLocalPoint.X+angle + new Random().Next(1, 3), 
+                                                            positionWeaponLocalPoint.Y + new Random().Next(1,3) );
             
             weaponPositionCurrentPoint = new Vector2f( helySprite.Position.X + currentLocalPositionPW.X,
                                         helySprite.Position.Y + currentLocalPositionPW.Y);
@@ -525,7 +526,6 @@ namespace Havier_Than_Air_S
 
         }
 
-
         void PlayerDraw() // отрисовка Верталета
         {
             // DrawSprite(uh61, padx, pady, 147, 603, 137, 66); // Верталетная площадка
@@ -610,7 +610,6 @@ namespace Havier_Than_Air_S
         public void Fire()
         {
             m_Weapons[currentWeapon].Fire();
-
         }
 
         private void CheckGunMode()

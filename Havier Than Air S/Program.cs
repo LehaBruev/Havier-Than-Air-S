@@ -48,12 +48,13 @@ namespace Havier_Than_Air_S
                 window.Clear();
 
                 window.DispatchEvents();
-                deltaTimer.CheckDelta();
+                
                 Game.Update();
+                m_MouseController.CheckMouse();
                 m_PullObjects.Update();
 
                 window.Display();
-
+                deltaTimer.CheckDelta();
             }
        }
 
