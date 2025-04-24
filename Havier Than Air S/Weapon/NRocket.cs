@@ -17,8 +17,13 @@ namespace Havier_Than_Air_S.Weapon
         private Color rocketColor = Color.Red;
         private float rocketRashod = 1f;
         private float rocketFuel = 5;
-        private float rocketSpeed = 500;
+        private float rocketSpeed = 85;
         private float NRocketWeight = 100;
+
+        //Особые
+        private float speedAxeleration = 8;
+        private float currentSpeedAxeleration = 0;
+        private float maxSpeed = 1200;
 
         public NRocket()
         {
@@ -51,10 +56,15 @@ namespace Havier_Than_Air_S.Weapon
         {
             base.Start(position, angle);
             currentProjectilefuel = rocketFuel;
+            currentProjectileSpeed = rocketSpeed;
+            currentSpeedAxeleration = 0;
         }
 
         public override void Update()
         {
+            currentSpeedAxeleration += speedAxeleration*Program.deltaTimer.Delta(); 
+            currentProjectileSpeed += currentSpeedAxeleration;
+            if (currentProjectileSpeed > maxSpeed) { currentProjectileSpeed = maxSpeed; }
             base.Update();
             
         }
