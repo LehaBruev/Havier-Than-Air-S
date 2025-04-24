@@ -129,8 +129,8 @@ namespace Havier_Than_Air_S
 
         private void CheckMousePosition()
         {
-            float x = Program.Game.MouseController.x;
-            float y = Program.Game.MouseController.y;
+            float x = Program.m_MouseController.x;
+            float y = Program.m_MouseController.y;
 
             if (x > 217 && x < 423 && y > 332 && y < 353 ) //1
             {
@@ -141,7 +141,7 @@ namespace Havier_Than_Air_S
                     currentButton = menuButtons.learning;
                 }
 
-                if(Program.Game.MouseController.LeftButton == true)
+                if(Program.m_MouseController.LeftButton == true)
                 {
                     Program.Game.ChangeGameMode(GameMode.Play, MissionSwitch.mis1);
                 }
@@ -153,7 +153,7 @@ namespace Havier_Than_Air_S
                     ButtonMouseIn(MissionsText);
                     currentButton = menuButtons.missions;
                 }
-                if (Program.Game.MouseController.LeftButton == true)
+                if (Program.m_MouseController.LeftButton == true)
                 {
                     Program.Game.ChangeGameMode(GameMode.Play, MissionSwitch.test);
                 }

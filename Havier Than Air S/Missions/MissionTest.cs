@@ -77,12 +77,7 @@ namespace Havier_Than_Air_S.Missions
 
             Program.window.Draw(targetRect);
 
-            if (mouseController == null)
-            {
-                mouseController = Program.Game.MouseController;
-            }
-
-
+           
 
             if (mouseController.LeftButton == true)
             {
