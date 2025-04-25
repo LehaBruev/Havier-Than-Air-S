@@ -22,6 +22,7 @@ namespace Havier_Than_Air_S.Weapon
         public RectangleShape m_Rectangleshape;
 
         //Переменные
+        public float projectileWeight;
         public ProjectileStatus currentProjectileStatus;
         protected Vector2f currentProjectilePosition;
         protected Vector2f previousProjectilePosition;

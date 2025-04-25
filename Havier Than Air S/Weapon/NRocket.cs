@@ -66,10 +66,10 @@ namespace Havier_Than_Air_S.Weapon
             currentProjectileSpeed += currentSpeedAxeleration;
             if (currentProjectileSpeed > maxSpeed) { currentProjectileSpeed = maxSpeed; }
             base.Update();
-            
+            base.DrawProjectile();
         }
 
-    
+        
 
     }
 }

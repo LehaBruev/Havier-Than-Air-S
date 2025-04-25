@@ -18,19 +18,20 @@ namespace Havier_Than_Air_S.Weapon
         private Color rocketColor = Color.Yellow;
         private float rocketRashod = 1f;
         private float rocketFuel = 3;
-        private float rocketSpeed = 800;
+        private float rocketSpeed = 2000;
+        private float minSpeed = 100;
         private float NRocketWeight = 100;
         
 
         //Особые
-        private float bulletGravity = 0;
         private float bulletGravityShag = 2000.8f;
         private float currentBulletGravity = 0;
         
-        private float maxSpeedResist = 700;
+        private float maxSpeedResist = 2000;
 
         public GunBullet()
         {
+            projectileWeight = NRocketWeight;
             currentProjectileSpeed = rocketSpeed;
             currentProjectilefuel = rocketFuel;
             currentProjectileRashod = rocketRashod;
@@ -65,13 +66,18 @@ namespace Havier_Than_Air_S.Weapon
             Console.WriteLine("start angle = " + angle);
         }
 
-        int a = 0;
+        
         public override void Update()
         {
             // Fix start position
             previousProjectilePosition = currentProjectilePosition;
 
-           // New position
+            // Speed corrector
+            float coef = currentProjectileSpeed / rocketSpeed * maxSpeedResist;
+            currentProjectileSpeed -= coef * Program.deltaTimer.Delta();
+            if (currentProjectileSpeed < minSpeed) currentProjectileSpeed = minSpeed;
+
+            // New position
             base.Update();
 
             // New position + gravity Y
@@ -86,7 +92,7 @@ namespace Havier_Than_Air_S.Weapon
             //if ((currentProjectilePosition - previousProjectilePosition).Y < 0) currentProjectileAngle *= -1;
 
             //if (currentProjectileAngle > 180)  currentProjectileAngle -= 180 ;
-            if (a == 0)
+            
             Console.WriteLine("current =" + currentProjectilePosition +
                                "prev =" + previousProjectilePosition + 
                                " new =" + (currentProjectilePosition - previousProjectilePosition) +
@@ -95,11 +101,8 @@ namespace Havier_Than_Air_S.Weapon
             currentBulletGravity += bulletGravityShag * Program.deltaTimer.Delta(); //червячки
             currentProjectileAngle += currentBulletGravity;
             */
-            a += 1;
-            if (a > 75) a = 0;
-            float coef = currentProjectileSpeed / rocketSpeed * maxSpeedResist;
-            currentProjectileSpeed -= coef * Program.deltaTimer.Delta();
-
+            
+           
 
             DrawProjectile();
         }
