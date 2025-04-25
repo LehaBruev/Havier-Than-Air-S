@@ -51,24 +51,12 @@ namespace Havier_Than_Air_S.Weapon
         virtual public void Update()
         {
 
-            //Смена угла
-            Matematika.
-
-
             //Вычисление позиции
             deltaProjectileSpeed = currentProjectileSpeed * (float)Program.deltaTimer.Delta();
             currentProjectilePosition = currentProjectilePosition + 
                                         Matematika.searchAB(currentProjectileAngle, deltaProjectileSpeed);
             
 
-
-
-
-            // Отрисовка
-            m_Rectangleshape.Position = currentProjectilePosition;
-            m_Rectangleshape.Rotation = currentProjectileAngle;
-
-            
 
 
             //Расход
@@ -81,6 +69,11 @@ namespace Havier_Than_Air_S.Weapon
             //Check
             if (currentProjectilefuel > 0)
             {
+                // Отрисовка
+                m_Rectangleshape.Position = currentProjectilePosition;
+                m_Rectangleshape.Rotation = currentProjectileAngle;
+
+
                 Program.window.Draw(m_Rectangleshape);
             }
             else

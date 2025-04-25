@@ -18,13 +18,13 @@ namespace Havier_Than_Air_S.Weapon
         private Color rocketColor = Color.Yellow;
         private float rocketRashod = 1f;
         private float rocketFuel = 3;
-        private float rocketSpeed = 300;
+        private float rocketSpeed = 800;
         private float NRocketWeight = 100;
         
 
         //Особые
         private float bulletGravity = 0;
-        private float bulletGravityShag = 50000.8f;
+        private float bulletGravityShag = 2000.8f;
         private float currentBulletGravity = 0;
         
         private float maxSpeedResist = 700;
@@ -62,30 +62,52 @@ namespace Havier_Than_Air_S.Weapon
             currentProjectilefuel = rocketFuel;
             currentBulletGravity = 0;
             currentProjectileSpeed = rocketSpeed;
+            Console.WriteLine("start angle = " + angle);
         }
 
+        int a = 0;
         public override void Update()
         {
+            // Fix start position
             previousProjectilePosition = currentProjectilePosition;
 
-           
+           // New position
             base.Update();
 
+            // New position + gravity Y
             currentBulletGravity = currentBulletGravity * Program.deltaTimer.Delta() +
                                    bulletGravityShag * Program.deltaTimer.Delta() * Program.deltaTimer.Delta() / 2;
-            //float H = 
+           
             currentProjectilePosition = new Vector2f(currentProjectilePosition.X,
                                         currentProjectilePosition.Y + currentBulletGravity);
-            Console.WriteLine(currentProjectileSpeed);
+
+            // Change Angle
+            currentProjectileAngle = Matematika.AngleVector( currentProjectilePosition - previousProjectilePosition);
+            //if ((currentProjectilePosition - previousProjectilePosition).Y < 0) currentProjectileAngle *= -1;
+
+            //if (currentProjectileAngle > 180)  currentProjectileAngle -= 180 ;
+            if (a == 0)
+            Console.WriteLine("current =" + currentProjectilePosition +
+                               "prev =" + previousProjectilePosition + 
+                               " new =" + (currentProjectilePosition - previousProjectilePosition) +
+                " = angle =" + currentProjectileAngle);
             /*
             currentBulletGravity += bulletGravityShag * Program.deltaTimer.Delta(); //червячки
             currentProjectileAngle += currentBulletGravity;
             */
-
-
+            a += 1;
+            if (a > 75) a = 0;
             float coef = currentProjectileSpeed / rocketSpeed * maxSpeedResist;
-            //currentProjectileSpeed -= coef * Program.deltaTimer.Delta();
+            currentProjectileSpeed -= coef * Program.deltaTimer.Delta();
 
+
+            DrawProjectile();
         }
+
+        public override void DrawProjectile()
+        {
+            base.DrawProjectile();
+        }
+
     }
 }

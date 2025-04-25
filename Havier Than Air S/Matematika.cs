@@ -61,8 +61,8 @@ namespace Havier_Than_Air_S
 
             if(Math.Sign(vector.Y)<0)
             {
-                angle = 180 + (180 - angle);
-
+                // angle = 180 + (180 - angle);
+                angle = -angle;
             }
 
             return angle;
