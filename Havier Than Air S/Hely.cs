@@ -135,6 +135,7 @@ namespace Havier_Than_Air_S
         private Vector2f positionWeaponLocalPoint;
         private WeaponBase[] m_Weapons;
         private int currentWeapon;
+        float allWeaponsWeight = 100.0f; // Вес weapons
 
         #endregion
 
@@ -149,7 +150,7 @@ namespace Havier_Than_Air_S
 
         static float gravityweight = 20000; //Сила притяжения
 
-        float allWeaponsWeight = 100.0f;
+        
         float fuelWeight = 6; //вес топл
 
         //земля
@@ -611,6 +612,18 @@ namespace Havier_Than_Air_S
         {
             m_Weapons[currentWeapon].Fire();
         }
+
+        private void CheckWeaponsWeight()
+        {
+            allWeaponsWeight = 0;
+            for (int i = 0; i < m_Weapons.Length; i++)
+            {
+                
+                allWeaponsWeight += m_Weapons[i].
+            }
+
+        }
+
 
         private void CheckGunMode()
         {

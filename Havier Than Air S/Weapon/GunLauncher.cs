@@ -21,7 +21,7 @@ namespace Havier_Than_Air_S
          
          
          int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
-        
+        float projectileWeight = 100;
 
         //Отрисовка
         private Color nrColor = new Color(255, 161, 0);
@@ -31,13 +31,12 @@ namespace Havier_Than_Air_S
         private RectangleShape rectangleShape;
         private Drawable NR;
 
-       
-        
 
         public GunLauncher(int ammo, Hely hely, TypeOfWeapon type) : base(type)
         {
             parentHely = hely; // base
             currentAmmCount = ammo;
+            ammWeight = projectileWeight;
             //+ тип передается в базу
         }
 

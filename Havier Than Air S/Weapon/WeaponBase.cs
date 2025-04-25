@@ -20,15 +20,16 @@ namespace Havier_Than_Air_S.Weapon
     public class WeaponBase
     {
         public TypeOfWeapon weaponTyte;
-        public int currentAmmCount;
+        
         public Hely parentHely;
 
+        public int currentAmmCount;
         public float ammWeight; //вес ракеты
+        public int weaponWeight;
 
         public WeaponBase(TypeOfWeapon type)
         {
             weaponTyte = type;
-
 
         }
             
