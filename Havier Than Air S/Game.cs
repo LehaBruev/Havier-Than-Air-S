@@ -30,7 +30,7 @@ namespace Havier_Than_Air_S
         // Переменные
         public MissionSwitch missionSwitch = MissionSwitch.mis1;
 
-        private MissionBase[] allMissions = new MissionBase[] { new Mission1_Learning() , new MissionTest(), new Mission3_FreeFlight() };
+        //private MissionBase[] allMissions = new MissionBase[] { new Mission1_Learning() , new MissionTest(), new Mission3_FreeFlight() };
 
         Mission1_Learning mission1 =  new Mission1_Learning();
         MissionTest missionTest = new MissionTest();
