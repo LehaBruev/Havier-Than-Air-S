@@ -83,27 +83,18 @@ namespace Havier_Than_Air_S.Weapon
             // New position + gravity Y
             currentBulletGravity = currentBulletGravity * Program.deltaTimer.Delta() +
                                    bulletGravityShag * Program.deltaTimer.Delta() * Program.deltaTimer.Delta() / 2;
-           
-            currentProjectilePosition = new Vector2f(currentProjectilePosition.X,
+           currentProjectilePosition = new Vector2f(currentProjectilePosition.X,
                                         currentProjectilePosition.Y + currentBulletGravity);
 
-            // Change Angle
+            // Change projectile Angle
             currentProjectileAngle = Matematika.AngleVector( currentProjectilePosition - previousProjectilePosition);
-            //if ((currentProjectilePosition - previousProjectilePosition).Y < 0) currentProjectileAngle *= -1;
-
-            //if (currentProjectileAngle > 180)  currentProjectileAngle -= 180 ;
             
-            Console.WriteLine("current =" + currentProjectilePosition +
-                               "prev =" + previousProjectilePosition + 
-                               " new =" + (currentProjectilePosition - previousProjectilePosition) +
-                " = angle =" + currentProjectileAngle);
+           
             /*
             currentBulletGravity += bulletGravityShag * Program.deltaTimer.Delta(); //червячки
             currentProjectileAngle += currentBulletGravity;
             */
             
-           
-
             DrawProjectile();
         }
 

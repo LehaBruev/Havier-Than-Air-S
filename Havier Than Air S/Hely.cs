@@ -245,13 +245,15 @@ namespace Havier_Than_Air_S
             rearRotorPositionNewVector = Matematika.searchAB(helySprite.Rotation, -58);
             rearRotorRectShape.Position = new Vector2f((helySprite.Position.X) + rearRotorPositionNewVector.X,
                                                  (helySprite.Position.Y) + rearRotorPositionNewVector.Y);
-            rearRotorRectShape.Rotation += rearVintSpeed * Program.deltaTimer.Delta() * 100;
+            rearRotorRectShape.Rotation += rearVintSpeed * Program.deltaTimer.Delta() * 100*
+                                            enginespeed/maxenginespeed*1.7f;
 
             //ротор top
             topRotorRectShape.Position = helySprite.Position;
             topRotorRectShape.Rotation = helySprite.Rotation;
 
-            float RotorX = topRotorRectShape.Scale.X + topVintSpeed * Program.deltaTimer.Delta() / 100;
+            float RotorX = topRotorRectShape.Scale.X + topVintSpeed * Program.deltaTimer.Delta() / 100*
+                                   enginespeed / maxenginespeed * 2.7f;
             if (RotorX > 1)
             {
                 RotorX = 1;
@@ -618,8 +620,8 @@ namespace Havier_Than_Air_S
             allWeaponsWeight = 0;
             for (int i = 0; i < m_Weapons.Length; i++)
             {
-                
-                allWeaponsWeight += m_Weapons[i].
+
+                allWeaponsWeight += m_Weapons[i].ammWeight;
             }
 
         }
