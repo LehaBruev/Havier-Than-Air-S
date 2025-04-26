@@ -140,6 +140,8 @@ namespace Havier_Than_Air_S
         #endregion
 
 
+        Vector2f inertiaVector;
+
         float ratioenginespeed = 1; //Пожар двигателя
         //Данные для учета столкновения с землей
         float s;
@@ -297,10 +299,49 @@ namespace Havier_Than_Air_S
             CircleShape.Position = new Vector2f( helySprite.Position.X,
                                                  helySprite.Position.Y);
 
-           
+            UpdateInertia();
             //Program.window.Draw(CircleShape);
             avionika.Update();
             CheckGunMode();
+
+
+
+        }
+
+        Vertex inertiavector = new Vertex();
+        VertexArray inertiaLine = new VertexArray();
+        Color vColor = Color.Green;
+
+
+
+        private void UpdateInertia()
+        {
+            inertiavector.Position = new Vector2f(helySprite.Position.X, helySprite.Position.Y);
+
+            vColor = Color.White;
+            if (speedy > 0.5f || speedy < -0.5f) vColor = Color.Yellow;
+            if (speedy > 0.9f || speedy < -0.9f) vColor = Color.Red;
+            
+            Console.WriteLine(speedy);
+
+            Vertex[] line = new Vertex[]
+            {
+                
+               //new Vertex(new Vector2f(helySprite.Position.X, helySprite.Position.Y)),
+              // new Vertex(new Vector2f(helySprite.Position.X + speedx*15, helySprite.Position.Y-speedy*15)),
+               new Vertex(new Vector2f(helySprite.Position.X, helySprite.Position.Y+10)),
+               new Vertex(new Vector2f(helySprite.Position.X + speedx*40, helySprite.Position.Y + 10),vColor),
+               new Vertex(new Vector2f(helySprite.Position.X, helySprite.Position.Y+10)),
+               new Vertex(new Vector2f(helySprite.Position.X, helySprite.Position.Y-speedy*60+10),vColor)
+            };
+            
+            Program.window.Draw(line, PrimitiveType.Lines);
+
+            /*
+            inertiaVector = new Vector2f(speedx, speedy);
+            inertiavector.Color = Color.Yellow;
+            inertiavector.Position = new Vector2f(helySprite.Position.X, helySprite.Position.Y);
+            */
 
         }
 
