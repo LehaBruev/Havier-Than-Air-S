@@ -73,7 +73,8 @@ namespace Havier_Than_Air_S.Missions
 
         public void Update()
         {
-            m_Hely.Update();
+            if (m_Hely!=null) m_Hely.Update();
+
 
             Program.window.Draw(targetRect);
 
@@ -85,7 +86,9 @@ namespace Havier_Than_Air_S.Missions
 
                 if (mouseController.LeftButton == true)
             {
-                SpawnRocket();
+
+                if (m_Hely!=null) SpawnRocket();
+
                 if (mouseIsPressed == false)
                 {
                     mouseIsPressed = true;
