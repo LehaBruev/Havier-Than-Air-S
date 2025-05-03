@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.System;
 using Havier_Than_Air_S.Missions;
+using SFML.Audio;
 
 namespace Havier_Than_Air_S.Weapon
 {
@@ -16,16 +17,19 @@ namespace Havier_Than_Air_S.Weapon
         private Vector2f rocketOrigin = new Vector2f(1f, 1f);
         private Color rocketColor = Color.Red;
         private float rocketRashod = 1f;
-        private float rocketFuel = 5;
+        private float rocketFuel = 1.8f;
         private float rocketSpeed = 75;
         private float NRocketWeight = 100;
 
-        //Особые
+        // Особые
         private float speedAxeleration = 6;
         private float currentSpeedAxeleration = 0;
         private float maxSpeed = 1000;
 
         Texture rocketTexture;
+
+        // Звуки
+        string rocketSound = "rocket1.wav";
 
         public NRocket()
         {
@@ -47,9 +51,9 @@ namespace Havier_Than_Air_S.Weapon
 
 
             DeactivateProjectile();
-            
-          //sprite
-          
+
+            //sprite
+
             /*
           rocketSprite = new Sprite();
           rocketSprite.Texture = rocketTexture;
@@ -57,6 +61,10 @@ namespace Havier_Than_Air_S.Weapon
           rocketSprite.Color = Color.Green;
           rocketSprite.GetGlobalBounds().Intersects(rocketSprite.GetGlobalBounds());
           */
+
+            //Sounds
+            projectileSound.SoundBuffer = new SoundBuffer(rocketSound);
+
         }
 
         public override void Start(Vector2f position, float angle)
@@ -65,6 +73,7 @@ namespace Havier_Than_Air_S.Weapon
             currentProjectilefuel = rocketFuel;
             currentProjectileSpeed = rocketSpeed;
             currentSpeedAxeleration = 0;
+
         }
 
         public override void Update()
@@ -74,6 +83,8 @@ namespace Havier_Than_Air_S.Weapon
             if (currentProjectileSpeed > maxSpeed) { currentProjectileSpeed = maxSpeed; }
             base.Update();
             base.DrawProjectile();
+
+            
         }
 
         

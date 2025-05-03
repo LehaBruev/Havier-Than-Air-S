@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -27,26 +29,25 @@ namespace Havier_Than_Air_S
          float maxpowery = 300000; //Максимальная сила влияет на вертолет
          float maxpowerx = 30000; // 
          float shagengine = 75; // шаг увеличения мощности двигателя
-         float shagAngle = 2; // шаг изменения угла атаки
+         float shagAngle = 2f; // шаг изменения угла атаки
          float maxspeedhor = 50;
          float maxspeedvert = 300;
          float maxheigh = 575; // потолок полета
-         float speedxmax = 2.5f;
+         float speedxmax = 5.5f;
         //nrrocketsMaxquantity = 8; //максимально ракет
 
         //Характеристики мотора и проч
         float helilifemax = 300;// максимальные жизни Вертолета
         public float helienginelife = 100; //исправность двигателя Вертолета
-        float fuelrashod = 1.7f; // расход топлива
-        float manageability = 5;// управляемость
+        float fuelrashod = 11.7f; // расход топлива
+        float manageability = 4f;// управляемость //5 это ИНЕРЦИЯ
         float maxangle = 65; // Максимальный угол атаки
         float helifuelmax = 1300; // Максимальное топливо в баках
-        float maxboost = 11250; // максимальное ускорение от двигателя
+        float maxboost = 8250; // максимальное ускорение от двигателя //11250
         float holdOborotMotora = 12000; // Холостые обороты мотора
 
         //Настройки прицеливания
         float aimlehght = 180;
-
 
         #endregion
 
@@ -56,7 +57,7 @@ namespace Havier_Than_Air_S
         public float helilifeCurrent = 200;// жизни
         public int engineswitch = 1; // включение двигателя
         int autopilotswitch = 0; // автопилот горизонтальный, удерживает угол в точке 0 градусов
-        public float altitude = 200; // Высота
+        public float altitude = 0; // Высота
         public float helifuel = 1500; // Топливо в баках
         int bang1 = 1;
         int gunmode = 0;
@@ -171,7 +172,7 @@ namespace Havier_Than_Air_S
 
             SpawnHely();
 
-            
+            SpawnEngineSound();
 
             currentWeapon = 0;
 
@@ -457,7 +458,7 @@ namespace Havier_Than_Air_S
 
         void PlayerMove() // коэффициент живучести двигателя
         {
-
+            ChechRotorSound();
             ratioenginespeed = helienginelife * 1.25f / 100;
             if (ratioenginespeed > 1) ratioenginespeed = 1;
 
@@ -593,10 +594,31 @@ namespace Havier_Than_Air_S
 
             helySprite.Rotation = angle;
 
-            /*
-            FillCircle(playerx, playery, 3);
+            
             
 
+             
+        }
+    
+        public void Fire()
+        {
+            m_Weapons[currentWeapon].Fire();
+        }
+
+        private void CheckWeaponsWeight()
+        {
+            allWeaponsWeight = 0;
+            for (int i = 0; i < m_Weapons.Length; i++)
+            {
+
+                allWeaponsWeight += m_Weapons[i].ammWeight;
+            }
+
+        }
+
+        private void PricelDraw()
+        {
+            /*
             // Отрисовка прицела МОДЕ 2
             if (gunmode == 2) // Оружие МОДЕ 2. Прицел.
             {
@@ -642,31 +664,10 @@ namespace Havier_Than_Air_S
             else otkazsbrosoboroti = 0;
 
 
-            if (altitude > 50) PlaySound(helirotor1);
-            if (altitude <= 50 && helistop != 1 && helidestroy != 1) PlaySound(helirotor2); // у земли
-
-            if (helilife <= 0 && playery + 10 >= ground) DrawSprite(uh61, playerx - 570, playery - 540, 1685, 4, 705, 568);
-
 
             */
-        }
-    
-        public void Fire()
-        {
-            m_Weapons[currentWeapon].Fire();
-        }
-
-        private void CheckWeaponsWeight()
-        {
-            allWeaponsWeight = 0;
-            for (int i = 0; i < m_Weapons.Length; i++)
-            {
-
-                allWeaponsWeight += m_Weapons[i].ammWeight;
-            }
 
         }
-
 
         private void CheckGunMode()
         {
@@ -675,6 +676,65 @@ namespace Havier_Than_Air_S
 
         }
 
+        string rotorSound1 = "ap_rotorhigh.wav";
+        string rotorSound2 = "ap_rotor2earth.wav";
+        string rotorSound3 = "ap_rotor3down.wav";
+        string rotorSound4 = "ap_rotor4on.wav";
+
+        Sound rotorSound = new Sound();
+        float prevAltitude = 100;
+
+        SoundBuffer rotorBufer;
+        Sound enginesound;
+
+        private void SpawnEngineSound()
+        {
+            enginesound = new Sound();
+            enginesound.Volume = 0;
+            enginesound.SoundBuffer = new SoundBuffer(rotorSound2);
+            enginesound.Loop = true;
+            enginesound.Play();
+        }
+
+        private void ChechRotorSound()
+        {
+            if (enginespeed / maxenginespeed * 1.1f + 0.5f < 1.2) 
+                enginesound.Pitch = enginespeed / maxenginespeed * 1.1f + 0.6f;
+            else enginesound.Pitch = 1.2f;
+
+            if (enginespeed / maxenginespeed * 100 + 0 < 25)
+                enginesound.Volume = enginespeed / maxenginespeed * 100 + 0;
+            else
+                enginesound.Volume = 25;
+
+            if (altitude <= 1 && prevAltitude > 1 ) ChangeSound(rotorSound3); // у земли
+          //  if (altitude > 70 && prevAltitude <= 70 ||
+           //     altitude <= 150 && prevAltitude > 150) ChangeSound(rotorSound2); // второй слой 
+            if (altitude > 1 && prevAltitude <= 1 ||
+                altitude <= 500 && prevAltitude > 500) ChangeSound(rotorSound4); // третий слой 
+            if (altitude > 500 && prevAltitude <= 500) ChangeSound(rotorSound1); // третий слой 
+
+            if (enginespeed / holdOborotMotora > 0.6f) rotorSound.Volume = 100;
+            else
+            rotorSound.Volume = enginespeed/holdOborotMotora;
+            
+
+            prevAltitude = altitude;
+        }
+
+        
+
+
+        private void ChangeSound(string soundString)
+        {
+            rotorSound.Stop();
+            rotorBufer = new SoundBuffer(soundString);
+            rotorSound.SoundBuffer = rotorBufer;
+            rotorSound.Loop = true;
+            rotorSound.Play();
+
+
+        }
 
     }
 }

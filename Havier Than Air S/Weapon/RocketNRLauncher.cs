@@ -18,9 +18,10 @@ namespace Havier_Than_Air_S
         // Параметры
          float NRrocketlenght = 20;
          float NRrocketpower = 47;
+            
         
          int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
-        
+        float skorostrel = 0.5f; //Скорострельность
 
         //Отрисовка
         private Color nrColor = new Color(255, 161, 0);
@@ -38,6 +39,7 @@ namespace Havier_Than_Air_S
             parentHely = hely; // base
             currentAmmCount = ammo;
             //+ тип передается в базу
+            skorostrelnost = skorostrel;
         }
 
         public override void Fire()

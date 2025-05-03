@@ -12,7 +12,7 @@ namespace Havier_Than_Air_S
     public class PullObjects
     {
         //Количество
-        private int NRcount = 40;
+        private int NRcount = 5;
         private int GunBulletCount = 40;
 
         //Pulls

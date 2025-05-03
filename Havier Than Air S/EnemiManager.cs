@@ -60,16 +60,7 @@ namespace Havier_Than_Air_S
         static int pvorocketdirection = 0; //Направление полета ракеты
         static float pvopower = 30; //Направление полета ракеты
 
-        //Параметры Танка1
-        static float tank1x = 300;
-        static float tank1y = ground;
-        static float tank1sizex = 82;
-        static float tank1sizey = 30;
-        static float tank1live = 250;
-        static float tank1speed = 2;
-        static float tank1cource = 790;
-        static float tank1destroy = 0;
-        static int tank1maxquantity = 62;
+       
 
         //Параметры воздушный шар
 

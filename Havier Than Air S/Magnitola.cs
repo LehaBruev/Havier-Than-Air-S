@@ -13,7 +13,8 @@ namespace Havier_Than_Air_S
         static string Music3Level = ("airvolfbig.wav"); // Музыка аирвольв
         static string Level1Music = ("Level1Music.wav"); //Левел 1 музыка
         static string StoreMusic = ("topgun3.wav"); //Магазинчик
-        static string mainmenumusic = ("mainmenumusic.wav"); //Вертолет рабочий режим звука
+       //static string mainmenumusic = ("mainmenumusic.wav"); //Вертолет рабочий режим звука
+        static string mainmenumusic = ("airvolfbig.wav"); //Вертолет рабочий режим звука
         static string finalmusic = ("finalmusic.wav"); //Вертолет рабочий режим звука
 
         //Муз дорожки

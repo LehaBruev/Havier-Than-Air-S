@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Havier_Than_Air_S.Missions;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 
@@ -33,10 +34,14 @@ namespace Havier_Than_Air_S.Weapon
  
         //Сервисные
         float deltaProjectileSpeed;
-        
+
+        // Sound
+        protected Sound projectileSound;
+
         public Projectile()
         {
             currentProjectileStatus = ProjectileStatus.inPool;
+            projectileSound = new Sound();
         }
 
         virtual public void Start(Vector2f position, float angle)
@@ -45,7 +50,7 @@ namespace Havier_Than_Air_S.Weapon
 
             currentProjectilePosition = position;
             currentProjectileAngle = angle;
-
+            if (projectileSound != null) projectileSound.Play();
         }
 
 
@@ -58,11 +63,13 @@ namespace Havier_Than_Air_S.Weapon
                                         Matematika.searchAB(currentProjectileAngle, deltaProjectileSpeed);
             
 
-
-
             //Расход
             currentProjectilefuel -= currentProjectileRashod * (float)Program.deltaTimer.Delta();
-           
+
+
+            //rocketSound.Position = new Vector3f( currentProjectilePosition.X,
+            //                             currentProjectilePosition.Y,0);
+
         }
 
         virtual public void DrawProjectile()
@@ -86,6 +93,7 @@ namespace Havier_Than_Air_S.Weapon
 
         virtual public void DeactivateProjectile()
         {
+            if (projectileSound != null ) projectileSound.Stop();
             currentProjectileStatus = ProjectileStatus.inPool;
             //currentProjectilefuel = 0;
             //currentProjectileSpeed = 0.0f;

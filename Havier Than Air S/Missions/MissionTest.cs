@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using Havier_Than_Air_S.Enemies;
+using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace Havier_Than_Air_S.Missions
         int winpobeda = 0;
 
 
-
+        Tnk1 tank;
 
         public MissionTest()
         {
@@ -56,27 +57,23 @@ namespace Havier_Than_Air_S.Missions
              targetSprite = new Sprite(targetTexture);
             //targetSprite.TextureRect = new IntRect(1, 1,1,1);
 
-            targetRect = new RectangleShape(new Vector2f(50,50));
+            targetRect = new RectangleShape(new Vector2f(1800,150));
             targetRect.FillColor = Color.Yellow;
-            targetRect.Rotation = 37.0f;
-            targetRect.Position = new Vector2f(100,400);
+            targetRect.Position = new Vector2f(0,725);
 
             //
             targetSprite.Position = new Vector2f(350, 400);
             targetSprite.Rotation = 45.0f;
 
-
-            
+            tank = new Tnk1();
 
         }
         
 
         public void Update()
         {
-            if (m_Hely!=null) m_Hely.Update();
-
-
             Program.window.Draw(targetRect);
+            if (m_Hely!=null) m_Hely.Update();
 
             if (mouseController == null)
             {
@@ -102,6 +99,7 @@ namespace Havier_Than_Air_S.Missions
                 //SpawnRocket();
                 mousPoint1 = mouseController.currentMousePoint;
             }
+            tank.Update();
         }
 
         public void CheckTargetCollider(FloatRect incoming)
@@ -115,10 +113,6 @@ namespace Havier_Than_Air_S.Missions
             {
                 Console.WriteLine(".");
             }
-
-
-
-
         }
 
         private void SpawnRocket()

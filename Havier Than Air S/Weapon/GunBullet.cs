@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SFML.System;
 using Havier_Than_Air_S.Missions;
 using System.Runtime.InteropServices;
+using SFML.Audio;
 
 namespace Havier_Than_Air_S.Weapon
 {
@@ -54,6 +55,8 @@ namespace Havier_Than_Air_S.Weapon
           rocketSprite.Color = Color.Green;
           rocketSprite.GetGlobalBounds().Intersects(rocketSprite.GetGlobalBounds());
           */
+            
+
         }
 
         public override void Start(Vector2f position, float angle)
@@ -63,7 +66,8 @@ namespace Havier_Than_Air_S.Weapon
             currentProjectilefuel = rocketFuel;
             currentBulletGravity = 0;
             currentProjectileSpeed = rocketSpeed;
-            Console.WriteLine("start angle = " + angle);
+
+           
         }
 
         

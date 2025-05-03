@@ -109,6 +109,7 @@
     <Compile Include="Collisions.cs" />
     <Compile Include="DeltaTimer.cs" />
     <Compile Include="EffectsVisual.cs" />
+    <Compile Include="Enemies\Tnk1.cs" />
     <Compile Include="EnemiManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
@@ -191,6 +192,11 @@
     <Content Include="bin\x86\Debug\Fuel800.wav" />
     <Content Include="bin\x86\Debug\glass3.wav" />
     <Content Include="bin\x86\Debug\glass4.wav" />
+    <Content Include="bin\x86\Debug\gun1shot.wav" />
+    <Content Include="bin\x86\Debug\gun2shot.wav" />
+    <Content Include="bin\x86\Debug\gun3shot.wav" />
+    <Content Include="bin\x86\Debug\gun4shot.wav" />
+    <Content Include="bin\x86\Debug\gun5shot.wav" />
     <Content Include="bin\x86\Debug\Havier Than Air S.exe" />
     <Content Include="bin\x86\Debug\Havier Than Air S.pdb" />
     <Content Include="bin\x86\Debug\hw_spindown.wav" />
