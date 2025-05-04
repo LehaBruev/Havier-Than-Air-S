@@ -34,6 +34,7 @@ namespace Havier_Than_Air_S.Weapon
             bangTextures = new Texture[40];
             bangSprite = new Sprite();
             bangSprite.Origin = origin;
+            bangSprite.Scale = new Vector2f(5, 5);
             //uhImage.CreateMaskFromColor(new Color(210,197,195));
             //uhImage.CreateMaskFromColor(new Color(203,187,184));
             
