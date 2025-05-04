@@ -140,6 +140,7 @@
     <Compile Include="Tehnika.cs" />
     <Compile Include="TestBaseClass.cs" />
     <Compile Include="Visualistion\Salut.cs" />
+    <Compile Include="Weapon\Bang.cs" />
     <Compile Include="Weapon\GunBullet.cs" />
     <Compile Include="Weapon\NRocket.cs" />
     <Compile Include="Weapon\Projectile.cs" />

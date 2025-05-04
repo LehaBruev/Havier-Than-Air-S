@@ -1,4 +1,5 @@
 ﻿using Havier_Than_Air_S.Enemies;
+using Havier_Than_Air_S.Weapon;
 using SFML.Graphics;
 using SFML.System;
 using System;
@@ -16,7 +17,6 @@ namespace Havier_Than_Air_S.Missions
         PullObjects pull;
 
         Clock clock;
-        float zaderjka = 0.08f;
 
         //мышка тест
         private Vector2f mousPoint1;
@@ -45,8 +45,14 @@ namespace Havier_Than_Air_S.Missions
 
         Tnk1 tank;
 
+
+        // Временные
+        Bang bang1 = new Bang();
+
         public MissionTest()
         {
+
+
             mouseController = Program.m_MouseController;
             clock = new Clock();
             m_Hely = new Hely();
@@ -73,6 +79,8 @@ namespace Havier_Than_Air_S.Missions
         public void Update()
         {
             Program.window.Draw(targetRect);
+            bang1.UpdateBang(); // взрыв
+
             if (m_Hely!=null) m_Hely.Update();
 
             if (mouseController == null)
@@ -82,10 +90,11 @@ namespace Havier_Than_Air_S.Missions
 
 
 
-                if (mouseController.LeftButton == true)
+            if (mouseController.LeftButton == true)
             {
 
                 if (m_Hely!=null) SpawnRocket();
+                bang1.StartBang( new Vector2f(mouseController.currentMousePoint.X,mouseController.currentMousePoint.Y));
 
                 if (mouseIsPressed == false)
                 {
@@ -118,10 +127,9 @@ namespace Havier_Than_Air_S.Missions
 
         private void SpawnRocket()
         {
-            if (zaderjka < clock.ElapsedTime.AsSeconds())
-            {
+          
                 m_Hely.Fire();
-
+ 
                 Vector2f vectorMouse = new Vector2f((mousPoint2 - mousPoint1).X, (mousPoint2 - mousPoint1).Y);
                 float vectorAngle = Matematika.AngleVector(vectorMouse);
                 
@@ -129,7 +137,7 @@ namespace Havier_Than_Air_S.Missions
                 //positionNR = new Vector2f((float)mouseController.x, (float)mouseController.y);
                 
                 clock.Restart();
-            }
+           
 
         }
 

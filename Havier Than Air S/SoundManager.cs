@@ -35,13 +35,10 @@ namespace Havier_Than_Air_S
         /*
 
         //ЗВУКИ
-         int warningdelay = 0;
-         int sounds = 1;
-         int volume = 85;
-         string rocketsound = LoadSound("rocket1.wav");
+         
          string click = LoadSound("buttonclick.wav"); //щелчек кнопки
          string stopengine = LoadSound("hw_spindown.wav"); //щелчек кнопки
-         string bangsound = LoadSound("explode4.wav"); //взрыв
+         
 
 
         //static string startengine = LoadSound("hw_spinup.wav"); //Запуск двигателя
