@@ -25,6 +25,7 @@ namespace Havier_Than_Air_S
         float distance = 150;
         Texture pricMod2Texture;
         Sprite scopeSprite;
+        Vector2f scopeOrigin = new Vector2f(350, 30);
 
         public Avionika(Hely helycopter)
         {
@@ -167,7 +168,8 @@ namespace Havier_Than_Air_S
            // {
                 scopeSprite.Texture = pricMod2Texture;
             //Vector2f ab = Matematika.searchAB(hely.angle, distance);
-            scopeSprite.Position = Matematika.LocalPointOfRotationObject(hely.position.X, hely.position.Y,);
+            Vector2f pos = Matematika.LocalPointOfRotationObject(scopeOrigin.X, scopeOrigin.Y, hely.angle);
+            scopeSprite.Position = new Vector2f(hely.position.X + pos.X, hely.position.Y + pos.Y);
                 //scopeSprite.Rotation = hely.angle;
                 Program.window.Draw(scopeSprite);
           //  }

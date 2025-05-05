@@ -17,11 +17,11 @@ namespace Havier_Than_Air_S.Enemies
          float tank1sizex = 82;
          float tank1sizey = 30;
          float tank1live = 250;
-         float tank1speed = 60;
+         float tank1speed = 1;
          float tank1cource = 790;
          float tank1destroy = 0;
          int tank1maxquantity = 62;
-        Vector2f tankPosition = new Vector2f(1150,750);
+        Vector2f tankPosition = new Vector2f(1400,750);
 
         Image allImage = new Image("uh61all.png");
         Texture body;

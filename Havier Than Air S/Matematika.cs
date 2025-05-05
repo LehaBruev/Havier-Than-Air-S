@@ -82,15 +82,15 @@ namespace Havier_Than_Air_S
 
 
 
-        static public Vector2f LocalPointOfRotationObject(int x, int y, float angleOfObject)
+        static public Vector2f LocalPointOfRotationObject(float x, float y, float angleOfObject)
         {
 
-            float dist = searchdistance(new Vector2i(0,0), new Vector2i(x,y)); // дистанция до точки
+            float dist = searchdistance(new Vector2i(0,0), new Vector2i((int)x,(int)y)); // дистанция до точки
             float ang = AngleOfVector(new Vector2f(x, y));                     // угол к точке
 
 
 
-            Vector2f localCoordinate = searchAB(ang,dist);
+            Vector2f localCoordinate = searchAB(ang+ angleOfObject, dist);
 
 
             return localCoordinate;

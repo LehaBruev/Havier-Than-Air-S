@@ -137,6 +137,7 @@ namespace Havier_Than_Air_S
         public WeaponBase[] m_Weapons;
         public int currentWeapon;
         float allWeaponsWeight = 100.0f; // Вес weapons
+        Vector2f weaponPositionLocal = new Vector2f(50, 10);
 
         #endregion
 
@@ -239,7 +240,7 @@ namespace Havier_Than_Air_S
             topRotorRectShape.Origin = new Vector2f(45, 1);
             topRotorRectShape.FillColor = new Color(Color.Yellow);
 
-            positionWeaponLocalPoint = new Vector2f(100, 20);
+            //positionWeaponLocalPoint = weaponPositionLocal;
         }
 
         public void RotorUpdate()
@@ -276,11 +277,15 @@ namespace Havier_Than_Air_S
 
 
             //weaponPoint
-            Vector2f currentLocalPositionPW = Matematika.searchAB(positionWeaponLocalPoint.X+angle + new Random().Next(1, 3), 
-                                                            positionWeaponLocalPoint.Y + new Random().Next(1,3) );
+            //Vector2f currentLocalPositionPW = Matematika.searchAB(positionWeaponLocalPoint.X+angle + new Random().Next(1, 3), 
+              //                                              positionWeaponLocalPoint.Y + new Random().Next(1,3) );
             
-            weaponPositionCurrentPoint = new Vector2f( helySprite.Position.X + currentLocalPositionPW.X,
-                                        helySprite.Position.Y + currentLocalPositionPW.Y);
+            //weaponPositionCurrentPoint = new Vector2f( helySprite.Position.X + currentLocalPositionPW.X,
+              //                          helySprite.Position.Y + currentLocalPositionPW.Y);
+            
+            Vector2f localpos = Matematika.LocalPointOfRotationObject(weaponPositionLocal.X,weaponPositionLocal.Y,angle);
+            weaponPositionCurrentPoint = new Vector2f(position.X + localpos.X,
+                                                 position.Y + localpos.Y);
 
         }
 
