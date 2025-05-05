@@ -108,7 +108,6 @@
     <Compile Include="CameraController.cs" />
     <Compile Include="Collisions.cs" />
     <Compile Include="DeltaTimer.cs" />
-    <Compile Include="EffectsVisual.cs" />
     <Compile Include="Enemies\Tnk1.cs" />
     <Compile Include="EnemiManager.cs" />
     <Compile Include="Game.cs" />

@@ -213,9 +213,9 @@ namespace Havier_Than_Air_S
             CircleShape.FillColor = new Color(Color.Yellow);
             CircleShape.Origin = new Vector2f(2, 2);
 
-            m_Weapons = new WeaponBase[] { new GunLauncher(250, this, TypeOfWeapon.gun),
-                                           new RocketNRLauncher(250, this, TypeOfWeapon.nr), 
-                                           new RocketNRLauncher(250, this, TypeOfWeapon.nr) };
+            m_Weapons = new WeaponBase[] { new GunLauncher(250, this, TypeOfObject.gun),
+                                           new RocketNRLauncher(250, this, TypeOfObject.nr), 
+                                           new RocketNRLauncher(250, this, TypeOfObject.nr) };
         }
 
         private void SpawnSounds()

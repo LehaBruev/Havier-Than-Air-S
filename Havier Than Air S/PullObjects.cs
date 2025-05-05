@@ -9,23 +9,37 @@ using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S
 {
+    public enum PullStatus
+    {
+        inCase,
+        inAir,
+        inPool
+    }
+
+    public enum TypeOfObject
+    {
+        gun,
+        nr,
+        sr,
+        bang
+        
+    }
+
     public class PullObjects
     {
         //Количество
         private int NRcount = 5;
-        private int GunBulletCount = 40;
+        private int GunBulletCount = 20;
+        private int BangCount = 5;
 
         //Pulls
         private NRocket[] NRockets ;
-        private GunBullet[] GunBullets ;
+        private GunBullet[] GunBullets;
+        private Bang[] Bangs;
 
         //Сервис
         public Vector2f position = new Vector2f(2000, 2000);
 
-        public PullObjects()
-        {
-            
-        }  
         
         public void StartPull()
         {
@@ -37,51 +51,75 @@ namespace Havier_Than_Air_S
             GunBullets = new GunBullet[GunBulletCount];
             for (int i = 0; i < GunBullets.Length; i++) GunBullets[i] = new GunBullet();
 
+            //Bang pull
+            Bangs = new Bang[BangCount];
+            for (int i = 0; i < Bangs.Length; i++) Bangs[i] = new Bang(position);
+
+
         }
 
-        public void StartObject(Vector2f position, float angle,TypeOfWeapon weaponTyte)
+        public void StartObject(Vector2f position, float angle,TypeOfObject objectType)
         {
             
-            if (weaponTyte == TypeOfWeapon.nr)
+            if (objectType == TypeOfObject.nr)
             {
                 for (int i = 0; i < NRockets.Length; i++)
                 {
-                    if (NRockets[i].currentProjectileStatus == ProjectileStatus.inPool)
+                    if (NRockets[i].currentProjectileStatus == PullStatus.inPool)
                     {
                         NRockets[i].Start(position, angle);
                         return;
                     }
-
                 }
             }
-            else if (weaponTyte == TypeOfWeapon.gun)
+            else if (objectType == TypeOfObject.gun)
             {
                 for (int i = 0; i < GunBullets.Length; i++)
                 {
-                    if (GunBullets[i].currentProjectileStatus == ProjectileStatus.inPool)
+                    if (GunBullets[i].currentProjectileStatus == PullStatus.inPool)
                     {
                         GunBullets[i].Start(position, angle);
                         return;
                     }
 
                 }
+            }else if (objectType == TypeOfObject.bang)
+            {
+                for (int i = 0; i < Bangs.Length; i++)
+                {
+                    if (Bangs[i].pullStatus == PullStatus.inPool)
+                    {
+                        Bangs[i].StartBang(position);
+                        return;
+                    }
+
+                }
             }
         }
+
+        
 
         public void Update()
         {
             for (int i = 0;i < NRockets.Length;i++)
             {
-                if (NRockets[i].currentProjectileStatus == ProjectileStatus.inAir)
+                if (NRockets[i].currentProjectileStatus == PullStatus.inAir)
                 {
                     NRockets[i].Update();
                 }
             }
             for (int i = 0; i < GunBullets.Length; i++)
             {
-                if (GunBullets[i].currentProjectileStatus == ProjectileStatus.inAir)
+                if (GunBullets[i].currentProjectileStatus == PullStatus.inAir)
                 {
                     GunBullets[i].Update();
+                }
+            }
+            for (int i = 0; i < Bangs.Length; i++)
+            {
+                if (Bangs[i].pullStatus == PullStatus.inAir)
+                {
+                    Bangs[i].UpdateBang();
                 }
             }
         }

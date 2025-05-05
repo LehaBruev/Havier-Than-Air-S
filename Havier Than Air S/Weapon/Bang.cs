@@ -16,12 +16,11 @@ namespace Havier_Than_Air_S.Weapon
         private Image uhImage = new Image("uh61all.png");
         Sprite bangSprite;
 
-        //new IntRect(703,15,909,552
-        //8
-        //5
+        public PullStatus pullStatus;
+        private Vector2f pullPosition;
 
         Clock clock = new Clock();
-        float frameTimer = 0.01f;
+        float frameTimer = 0.001f;
         int currentFrame = 0;
         bool activated = false;
 
@@ -29,12 +28,15 @@ namespace Havier_Than_Air_S.Weapon
         int x = 915;
         Vector2f origin = new Vector2f(57, 55);
 
-        public Bang()
+        public Bang(Vector2f pPosition)
         {
+            pullPosition = pPosition;
+            pullStatus = PullStatus.inPool;
+
             bangTextures = new Texture[40];
             bangSprite = new Sprite();
             bangSprite.Origin = origin;
-            bangSprite.Scale = new Vector2f(5, 5);
+            bangSprite.Scale = new Vector2f(0.1f, 0.1f);
             //uhImage.CreateMaskFromColor(new Color(210,197,195));
             //uhImage.CreateMaskFromColor(new Color(203,187,184));
             
@@ -83,6 +85,7 @@ namespace Havier_Than_Air_S.Weapon
                 {
                     activated = false;
                     currentFrame = 0;
+                    bangSprite.Position = pullPosition;
                 }
 
             }

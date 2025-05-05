@@ -34,7 +34,7 @@ namespace Havier_Than_Air_S
        
         
 
-        public RocketNRLauncher(int ammo,Hely hely, TypeOfWeapon type) : base(type)
+        public RocketNRLauncher(int ammo,Hely hely, TypeOfObject type) : base(type)
         {
             parentHely = hely; // base
             currentAmmCount = ammo;

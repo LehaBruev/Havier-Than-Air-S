@@ -9,18 +9,11 @@ using SFML.System;
 
 namespace Havier_Than_Air_S.Weapon
 {
-    public enum TypeOfWeapon
-    {
-        gun,
-        nr,
-        sr,
-        b,
-        pushk
-    }
+  
 
     public class WeaponBase
     {
-        public TypeOfWeapon weaponTyte;
+        public TypeOfObject weaponTyte;
         
         public Hely parentHely;
 
@@ -36,7 +29,7 @@ namespace Havier_Than_Air_S.Weapon
         // Звуки
         protected Sound sound;
 
-        public WeaponBase(TypeOfWeapon type)
+        public WeaponBase(TypeOfObject type)
         {
             weaponTyte = type;
             clock = new Clock();

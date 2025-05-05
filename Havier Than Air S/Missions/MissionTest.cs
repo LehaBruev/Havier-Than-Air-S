@@ -14,7 +14,6 @@ namespace Havier_Than_Air_S.Missions
     {
 
         MouseController mouseController;
-        PullObjects pull;
 
         Clock clock;
 
@@ -23,12 +22,7 @@ namespace Havier_Than_Air_S.Missions
         private Vector2f mousPoint2;
         private bool mouseIsPressed;
 
-        //тест цель
-        Image taergetImage;
-        Texture targetTexture;
-        Sprite targetSprite;
-        RectangleShape targetRect;
-
+        
         //Вертал
         Hely m_Hely;
 
@@ -46,30 +40,13 @@ namespace Havier_Than_Air_S.Missions
         Tnk1 tank;
 
 
-        // Временные
-        Bang bang1 = new Bang();
-
         public MissionTest()
         {
-
 
             mouseController = Program.m_MouseController;
             clock = new Clock();
             m_Hely = new Hely();
 
-             taergetImage = new Image("uh612.png");
-             targetTexture = new Texture(taergetImage);
-             //targetSprite = new Sprite(targetTexture);
-             targetSprite = new Sprite(targetTexture);
-            //targetSprite.TextureRect = new IntRect(1, 1,1,1);
-
-            targetRect = new RectangleShape(new Vector2f(1800,150));
-            targetRect.FillColor = Color.Yellow;
-            targetRect.Position = new Vector2f(0,725);
-
-            //
-            targetSprite.Position = new Vector2f(350, 400);
-            targetSprite.Rotation = 45.0f;
 
             tank = new Tnk1();
 
@@ -78,8 +55,7 @@ namespace Havier_Than_Air_S.Missions
 
         public void Update()
         {
-            Program.window.Draw(targetRect);
-            bang1.UpdateBang(); // взрыв
+           
 
             if (m_Hely!=null) m_Hely.Update();
 
@@ -94,7 +70,7 @@ namespace Havier_Than_Air_S.Missions
             {
 
                 if (m_Hely!=null) SpawnRocket();
-                bang1.StartBang( new Vector2f(mouseController.currentMousePoint.X,mouseController.currentMousePoint.Y));
+                Program.m_PullObjects.StartObject(mouseController.currentMousePoint, 0, TypeOfObject.bang);
 
                 if (mouseIsPressed == false)
                 {
@@ -115,14 +91,8 @@ namespace Havier_Than_Air_S.Missions
         public void CheckTargetCollider(FloatRect incoming)
         {
             
-            if (targetRect.GetGlobalBounds().Intersects(incoming) == true )
-            {
-                Console.WriteLine("Касание");
-            }
-            else
-            {
-                Console.WriteLine(".");
-            }
+            //if (targetRect.GetGlobalBounds().Intersects(incoming) == true )
+           
         }
 
         private void SpawnRocket()

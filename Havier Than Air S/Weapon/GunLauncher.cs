@@ -18,7 +18,7 @@ namespace Havier_Than_Air_S
     {
         // Параметры
    
-        TypeOfWeapon type = TypeOfWeapon.gun;
+        TypeOfObject type = TypeOfObject.gun;
         float skorostrel = 0.06f; //Скорострельность
 
 
@@ -26,7 +26,7 @@ namespace Havier_Than_Air_S
         float projectileWeight = 100;
 
         //Sounds
-        string shotSound = "gun2shot.wav";
+        //string shotSound = "gun2shot.wav";
 
         //Отрисовка
         private Color nrColor = new Color(255, 161, 0);
@@ -39,7 +39,7 @@ namespace Havier_Than_Air_S
 
         
 
-        public GunLauncher(int ammo, Hely hely, TypeOfWeapon type) : base(type)
+        public GunLauncher(int ammo, Hely hely, TypeOfObject type) : base(type)
         {
             parentHely = hely; // base
             currentAmmCount = ammo;
@@ -47,7 +47,7 @@ namespace Havier_Than_Air_S
             //+ тип передается в базу
             skorostrelnost = skorostrel;
 
-            sound.SoundBuffer = new SoundBuffer(shotSound);
+            //sound.SoundBuffer = new SoundBuffer(shotSound);
             sound.Volume = 20;
         }
 

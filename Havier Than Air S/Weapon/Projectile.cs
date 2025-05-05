@@ -10,12 +10,7 @@ using SFML.System;
 
 namespace Havier_Than_Air_S.Weapon
 {
-    public enum ProjectileStatus
-    {
-        inCase,
-        inAir,
-        inPool
-    }
+   
 
     public class Projectile
     {
@@ -24,7 +19,7 @@ namespace Havier_Than_Air_S.Weapon
 
         //Переменные
         public float projectileWeight;
-        public ProjectileStatus currentProjectileStatus;
+        public PullStatus currentProjectileStatus;
         protected Vector2f currentProjectilePosition;
         protected Vector2f previousProjectilePosition;
         protected float currentProjectileAngle;
@@ -40,13 +35,13 @@ namespace Havier_Than_Air_S.Weapon
 
         public Projectile()
         {
-            currentProjectileStatus = ProjectileStatus.inPool;
+            currentProjectileStatus = PullStatus.inPool;
             projectileSound = new Sound();
         }
 
         virtual public void Start(Vector2f position, float angle)
         {
-            currentProjectileStatus = ProjectileStatus.inAir;
+            currentProjectileStatus = PullStatus.inAir;
 
             currentProjectilePosition = position;
             currentProjectileAngle = angle;
@@ -94,7 +89,7 @@ namespace Havier_Than_Air_S.Weapon
         virtual public void DeactivateProjectile()
         {
             if (projectileSound != null ) projectileSound.Stop();
-            currentProjectileStatus = ProjectileStatus.inPool;
+            currentProjectileStatus = PullStatus.inPool;
             //currentProjectilefuel = 0;
             //currentProjectileSpeed = 0.0f;
             currentProjectilePosition = Program.m_PullObjects.position;
