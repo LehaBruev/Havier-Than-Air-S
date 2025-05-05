@@ -101,7 +101,7 @@ namespace Havier_Than_Air_S.Missions
                 m_Hely.Fire();
  
                 Vector2f vectorMouse = new Vector2f((mousPoint2 - mousPoint1).X, (mousPoint2 - mousPoint1).Y);
-                float vectorAngle = Matematika.AngleVector(vectorMouse);
+                float vectorAngle = Matematika.AngleOfVector(vectorMouse);
                 
                 //Console.WriteLine("Вектор " + vectorMouse + "; угол " + vectorAngle);
                 //positionNR = new Vector2f((float)mouseController.x, (float)mouseController.y);

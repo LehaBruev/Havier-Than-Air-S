@@ -133,9 +133,9 @@ namespace Havier_Than_Air_S
 
         #region Weapons
         public Vector2f weaponPositionCurrentPoint;
-        private Vector2f positionWeaponLocalPoint;
-        private WeaponBase[] m_Weapons;
-        private int currentWeapon;
+        public Vector2f positionWeaponLocalPoint;
+        public WeaponBase[] m_Weapons;
+        public int currentWeapon;
         float allWeaponsWeight = 100.0f; // Вес weapons
 
         #endregion
@@ -616,58 +616,6 @@ namespace Havier_Than_Air_S
 
         }
 
-        private void PricelDraw()
-        {
-            /*
-            // Отрисовка прицела МОДЕ 2
-            if (gunmode == 2) // Оружие МОДЕ 2. Прицел.
-            {
-
-                //Вычисление поправок
-                searchline = aimlehght + ritarandom - 1;
-                searchangle = angle + ritarandom - 1;
-                searchAB();
-
-                if (angle > 0 && angle < 70)
-                {
-                    DrawSprite(uh61, playerx + searchA, playery + searchB * ritarandom, 305, 302, 35, 37);
-
-                }
-                if (angle > -70 && angle < -15)
-                {
-                    DrawSprite(uh61, playerx - searchA * ritarandom - 50, playery + searchB, 305, 302, 35, 37);
-
-                }
-                if (angle >= -15 && angle <= 0)
-                {
-                    DrawSprite(uh61, playerx + searchA, playery * ritarandom - searchB, 305, 302, 35, 37);
-                }
-
-            }// Отрисовка прицела МОДЕ 2
-
-            // Мышка
-            FillCircle(MouseX, MouseY, 3);
-            if (gunmode == 3) DrawSprite(aiming, MouseX - 50, MouseY - 50);
-            FillCircle(MouseX, MouseY, 3);
-            //Вращение винта
-
-            //звуки верталета
-            //ПРЕДЕЛЬНАЯ ВЫСОТА
-            if (enginespeed > enginespeedlimit)
-            {
-                PlaySound(helirotor4);
-                enginespeed = enginespeed - 50;
-                otkazsbrosoboroti = 1;
-
-
-            } // в небе
-            else otkazsbrosoboroti = 0;
-
-
-
-            */
-
-        }
 
         private void CheckGunMode()
         {

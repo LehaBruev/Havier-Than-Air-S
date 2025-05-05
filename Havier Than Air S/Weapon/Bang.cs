@@ -60,6 +60,7 @@ namespace Havier_Than_Air_S.Weapon
             {
                 bangSprite.Position = pos;
                 activated = true;
+                pullStatus = PullStatus.inAir;
                 clock.Restart();
             }
         }
@@ -86,6 +87,7 @@ namespace Havier_Than_Air_S.Weapon
                     activated = false;
                     currentFrame = 0;
                     bangSprite.Position = pullPosition;
+                    pullStatus = PullStatus.inPool;
                 }
 
             }

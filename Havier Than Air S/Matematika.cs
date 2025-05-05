@@ -21,10 +21,10 @@ namespace Havier_Than_Air_S
 
 
 
-        // Поулучает дистанцию до цели и угол наклона ПРАВОЕ = 0. 
-        // Возвращает добавочные координаты на Х и У
-        //searchline длина прицела, ракеты (расстояние без углов до крайней точки)
-        //вычисляем поправки координат синусом и косинусом стороны А и Б прямоугольника ()
+        // Принимает дистанцию до цели и угол наклона ПРАВОЕ = 0. 
+        // Возвращает корректные координаты на Х и У
+        // searchline длина прицела, ракеты (расстояние без углов до крайней точки)
+        // вычисляем поправки координат синусом и косинусом стороны А и Б прямоугольника ()
         static public Vector2f searchAB(float searchangle, float searchline) 
         {
             const float pi = 3.14f;
@@ -48,7 +48,7 @@ namespace Havier_Than_Air_S
             return new Vector2f(searchA, searchB);
         }
 
-        static public float AngleVector(Vector2f vector)
+        static public float AngleOfVector(Vector2f vector)
         {
             float angle;
 
@@ -78,6 +78,22 @@ namespace Havier_Than_Air_S
             v4 = (ax2 - ax1) * (by2 - ay1) - (ay2 - ay1) * (bx2 - ax1);
             bool res = (v1 * v2 < 0) && (v3 * v4 < 0);
             return res;
+        }
+
+
+
+        static public Vector2f LocalPointOfRotationObject(int x, int y, float angleOfObject)
+        {
+
+            float dist = searchdistance(new Vector2i(0,0), new Vector2i(x,y)); // дистанция до точки
+            float ang = AngleOfVector(new Vector2f(x, y));                     // угол к точке
+
+
+
+            Vector2f localCoordinate = searchAB(ang,dist);
+
+
+            return localCoordinate;
         }
 
     }

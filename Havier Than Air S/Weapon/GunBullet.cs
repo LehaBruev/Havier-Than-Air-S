@@ -91,7 +91,7 @@ namespace Havier_Than_Air_S.Weapon
                                         currentProjectilePosition.Y + currentBulletGravity);
 
             // Change projectile Angle
-            currentProjectileAngle = Matematika.AngleVector( currentProjectilePosition - previousProjectilePosition);
+            currentProjectileAngle = Matematika.AngleOfVector( currentProjectilePosition - previousProjectilePosition);
             
            
             /*

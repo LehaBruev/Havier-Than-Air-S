@@ -21,6 +21,11 @@ namespace Havier_Than_Air_S
         Sprite panelAvionikaSprite2;
         Text aText;
 
+        // Pricel mode 2
+        float distance = 150;
+        Texture pricMod2Texture;
+        Sprite scopeSprite;
+
         public Avionika(Hely helycopter)
         {
             hely = helycopter;
@@ -36,6 +41,11 @@ namespace Havier_Than_Air_S
             aText = new Text();
             aText.FillColor = Color.White;
 
+
+            // Priceles
+            pricMod2Texture = new Texture("uh61all.png", new IntRect(305, 302, 37, 37));
+            scopeSprite = new Sprite(pricMod2Texture);
+            scopeSprite.Origin = new Vector2f(18.5f, 18.5f);
         }
 
         public void Update()
@@ -85,6 +95,8 @@ namespace Havier_Than_Air_S
             if (hely.helifuel < 150) fuelColor = Color.Yellow; 
             DrawText("Fuel: " + (int)hely.helifuel, new Vector2f(22, 66), fuelColor, 2);
 
+
+            PricelDraw();
         }
 
 
@@ -149,5 +161,65 @@ namespace Havier_Than_Air_S
 
 */
 
+        private void PricelDraw()
+        {
+            //if (hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.nr)
+           // {
+                scopeSprite.Texture = pricMod2Texture;
+            //Vector2f ab = Matematika.searchAB(hely.angle, distance);
+            scopeSprite.Position = Matematika.LocalPointOfRotationObject(hely.position.X, hely.position.Y,);
+                //scopeSprite.Rotation = hely.angle;
+                Program.window.Draw(scopeSprite);
+          //  }
+            /*
+            // Отрисовка прицела МОДЕ 2
+            if (gunmode == 2) // Оружие МОДЕ 2. Прицел.
+            {
+
+                //Вычисление поправок
+                searchline = aimlehght + ritarandom - 1;
+                searchangle = angle + ritarandom - 1;
+                searchAB();
+
+                if (angle > 0 && angle < 70)
+                {
+                    DrawSprite(uh61, playerx + searchA, playery + searchB * ritarandom, 305, 302, 35, 37);
+
+                }
+                if (angle > -70 && angle < -15)
+                {
+                    DrawSprite(uh61, playerx - searchA * ritarandom - 50, playery + searchB, 305, 302, 35, 37);
+
+                }
+                if (angle >= -15 && angle <= 0)
+                {
+                    DrawSprite(uh61, playerx + searchA, playery * ritarandom - searchB, 305, 302, 35, 37);
+                }
+
+            }// Отрисовка прицела МОДЕ 2
+
+            // Мышка
+            FillCircle(MouseX, MouseY, 3);
+            if (gunmode == 3) DrawSprite(aiming, MouseX - 50, MouseY - 50);
+            FillCircle(MouseX, MouseY, 3);
+            //Вращение винта
+
+            //звуки верталета
+            //ПРЕДЕЛЬНАЯ ВЫСОТА
+            if (enginespeed > enginespeedlimit)
+            {
+                PlaySound(helirotor4);
+                enginespeed = enginespeed - 50;
+                otkazsbrosoboroti = 1;
+
+
+            } // в небе
+            else otkazsbrosoboroti = 0;
+
+
+
+            */
+
+        }
     }
 }
