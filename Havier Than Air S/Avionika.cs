@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 
 namespace Havier_Than_Air_S
 {
@@ -24,6 +25,7 @@ namespace Havier_Than_Air_S
         // Pricel mode 2
         float distance = 150;
         Texture pricMod2Texture;
+        Texture pricMod3Texture;
         Sprite scopeSprite;
         Vector2f scopeOrigin = new Vector2f(350, 30);
 
@@ -45,7 +47,9 @@ namespace Havier_Than_Air_S
 
             // Priceles
             pricMod2Texture = new Texture("uh61all.png", new IntRect(305, 302, 37, 37));
+            pricMod3Texture = new Texture("aim.png");
             scopeSprite = new Sprite(pricMod2Texture);
+            scopeSprite.Color = Color.White;
             scopeSprite.Origin = new Vector2f(18.5f, 18.5f);
         }
 
@@ -164,63 +168,23 @@ namespace Havier_Than_Air_S
 
         private void PricelDraw()
         {
-            //if (hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.nr)
-           // {
-                scopeSprite.Texture = pricMod2Texture;
-            //Vector2f ab = Matematika.searchAB(hely.angle, distance);
+            if (hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.nr)
+            {
             Vector2f pos = Matematika.LocalPointOfRotationObject(scopeOrigin.X, scopeOrigin.Y, hely.angle);
             scopeSprite.Position = new Vector2f(hely.position.X + pos.X, hely.position.Y + pos.Y);
-                //scopeSprite.Rotation = hely.angle;
+                scopeSprite.Color = Color.White;
                 Program.window.Draw(scopeSprite);
-          //  }
-            /*
-            // Отрисовка прицела МОДЕ 2
-            if (gunmode == 2) // Оружие МОДЕ 2. Прицел.
+            }
+
+
+            if (hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.sr)
             {
 
-                //Вычисление поправок
-                searchline = aimlehght + ritarandom - 1;
-                searchangle = angle + ritarandom - 1;
-                searchAB();
+                scopeSprite.Position = (Vector2f)Mouse.GetPosition(Program.window);
+                scopeSprite.Color = Color.Red;
+                Program.window.Draw(scopeSprite);
 
-                if (angle > 0 && angle < 70)
-                {
-                    DrawSprite(uh61, playerx + searchA, playery + searchB * ritarandom, 305, 302, 35, 37);
-
-                }
-                if (angle > -70 && angle < -15)
-                {
-                    DrawSprite(uh61, playerx - searchA * ritarandom - 50, playery + searchB, 305, 302, 35, 37);
-
-                }
-                if (angle >= -15 && angle <= 0)
-                {
-                    DrawSprite(uh61, playerx + searchA, playery * ritarandom - searchB, 305, 302, 35, 37);
-                }
-
-            }// Отрисовка прицела МОДЕ 2
-
-            // Мышка
-            FillCircle(MouseX, MouseY, 3);
-            if (gunmode == 3) DrawSprite(aiming, MouseX - 50, MouseY - 50);
-            FillCircle(MouseX, MouseY, 3);
-            //Вращение винта
-
-            //звуки верталета
-            //ПРЕДЕЛЬНАЯ ВЫСОТА
-            if (enginespeed > enginespeedlimit)
-            {
-                PlaySound(helirotor4);
-                enginespeed = enginespeed - 50;
-                otkazsbrosoboroti = 1;
-
-
-            } // в небе
-            else otkazsbrosoboroti = 0;
-
-
-
-            */
+            }
 
         }
     }

@@ -4,11 +4,65 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Graphics;
+using SFML.System;
 
 namespace Havier_Than_Air_S
 {
     internal class Collisions
     {
+
+        Sprite s1;
+        Sprite s2;
+
+        IntRect rect1;
+        IntRect rect2;
+
+
+        public Collisions()
+        {
+            rect1 = new IntRect(50,50,150,150);
+            rect2 = new IntRect(300,50,150,150);
+            s1 = new Sprite();
+            s1.TextureRect = rect1;
+            s1.Position = new Vector2f(400, 400);
+            s1.Color = Color.White;
+            
+
+
+        }
+
+        public void CheckColisions(Sprite sprt1,Sprite sprt2)
+        {
+
+
+
+        }
+
+        public void Update()
+        {
+            Program.window.Draw(s1);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /*
         // СТОЛКНОВЕНИЯ СТОЛКНОВЕНИЯ СТОЛКНОВЕНИЯ
         static void SearchConflict() // Поиск столкновений и коллизий ( Bx1 < Ax2 && Bx 2> Ax1 ) формула

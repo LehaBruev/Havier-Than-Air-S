@@ -216,7 +216,7 @@ namespace Havier_Than_Air_S
 
             m_Weapons = new WeaponBase[] { new GunLauncher(250, this, TypeOfObject.gun),
                                            new RocketNRLauncher(250, this, TypeOfObject.nr), 
-                                           new RocketNRLauncher(250, this, TypeOfObject.nr) };
+                                           new RocketNRLauncher(250, this, TypeOfObject.sr) };
         }
 
         private void SpawnSounds()
@@ -624,8 +624,19 @@ namespace Havier_Than_Air_S
 
         private void CheckGunMode()
         {
+            
             if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num1)) currentWeapon = 0;
-            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num2)) currentWeapon = 1;
+            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num2))
+            {
+                currentWeapon = 1;
+                Program.window.SetMouseCursorVisible(true);
+            }
+            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num3))
+            {
+                currentWeapon = 2;
+                Program.window.SetMouseCursorVisible(false);
+            }
+            
 
         }
 
@@ -647,6 +658,8 @@ namespace Havier_Than_Air_S
             enginesound.SoundBuffer = new SoundBuffer(rotorSound2);
             enginesound.Loop = true;
             enginesound.Play();
+
+            
         }
 
         private void ChechRotorSound()

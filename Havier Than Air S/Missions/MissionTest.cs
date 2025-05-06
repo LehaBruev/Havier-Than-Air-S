@@ -12,6 +12,7 @@ namespace Havier_Than_Air_S.Missions
 {
     public class MissionTest : MissionBase
     {
+        Collisions collisions;
 
         MouseController mouseController;
 
@@ -42,7 +43,7 @@ namespace Havier_Than_Air_S.Missions
 
         public MissionTest()
         {
-
+            collisions = new Collisions();
             mouseController = Program.m_MouseController;
             clock = new Clock();
             m_Hely = new Hely();
@@ -55,7 +56,7 @@ namespace Havier_Than_Air_S.Missions
 
         public void Update()
         {
-           
+            collisions.Update(); 
 
             if (m_Hely!=null) m_Hely.Update();
 
