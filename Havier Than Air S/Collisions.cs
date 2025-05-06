@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 
 namespace Havier_Than_Air_S
 {
@@ -17,31 +18,74 @@ namespace Havier_Than_Air_S
 
         IntRect rect1;
         IntRect rect2;
-
+        RectangleShape collider;
 
         public Collisions()
         {
             rect1 = new IntRect(50,50,150,150);
             rect2 = new IntRect(300,50,150,150);
             s1 = new Sprite();
-            s1.TextureRect = rect1;
+            s1.Texture = new Texture("uh612.png");
+            s1.Scale = new Vector2f(5, 5);
+             collider = new RectangleShape(new Vector2f(100,50));
+            collider.FillColor = Color.White;
+            collider.Rotation = 15;
+            collider.Origin = new Vector2f(50,25);
+
+           // s1.TextureRect = new IntRect(10,10,10,10);
             s1.Position = new Vector2f(400, 400);
             s1.Color = Color.White;
-            
-
 
         }
 
-        public void CheckColisions(Sprite sprt1,Sprite sprt2)
+
+
+        Vector2f[] vectors1;
+
+        private void GetGrani(RectangleShape col)
         {
+            Vector2f a = new Vector2f(col.Position.X, col.Position.Y);
+            Vector2f b = new Vector2f(col.Position.X + col.Size.X, col.Position.Y);
+            Vector2f c = new Vector2f(col.Position.X + col.Size.X, col.Position.Y+col.Size.Y);
+            Vector2f d = new Vector2f(col.Position.X, col.Position.Y+col.Size.Y);
 
+            vectors1 = new Vector2f[]{ a-b, b-c, c-d, d-a };
+        }
+
+
+        public void CheckColisions(Vector2f[] col1, Vector2f[] col2)
+        {
+            for (int i = 0; i < col1.Length; i++)
+            {
+                for (int k = 0; k < col2.Length; k++)
+                {
+                    Intersection(col1[i].X, col1[i].Y,)
+                }
+
+            }
 
 
         }
+
+
+        // Пересечение
+        static public bool Intersection(double ax1, double ay1, double ax2, double ay2, double bx1, double by1, double bx2, double by2)
+        {
+            double v1, v2, v3, v4;
+            v1 = (bx2 - bx1) * (ay1 - by1) - (by2 - by1) * (ax1 - bx1);
+            v2 = (bx2 - bx1) * (ay2 - by1) - (by2 - by1) * (ax2 - bx1);
+            v3 = (ax2 - ax1) * (by1 - ay1) - (ay2 - ay1) * (bx1 - ax1);
+            v4 = (ax2 - ax1) * (by2 - ay1) - (ay2 - ay1) * (bx2 - ax1);
+            bool res = (v1 * v2 < 0) && (v3 * v4 < 0);
+            return res;
+        }
+
 
         public void Update()
         {
+            collider.Position = (Vector2f)Mouse.GetPosition();
             Program.window.Draw(s1);
+            Program.window.Draw(collider);
 
         }
 
