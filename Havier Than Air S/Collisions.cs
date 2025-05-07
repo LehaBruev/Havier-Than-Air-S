@@ -12,27 +12,27 @@ namespace Havier_Than_Air_S
 {
     internal class Collisions
     {
-
-        Sprite s1;
-        Sprite s2;
-
-        IntRect rect1;
-        IntRect rect2;
+        
         RectangleShape collider1;
         RectangleShape collider2;
+        Vertex naborTochek;
+        ConvexShape naborTochekConvex;
+
+
+        // Два набора точек
+        Vector2f[] points1;
+        Vector2f[] points2;
+
+        // Маркер
+        CircleShape marker;
 
         public Collisions()
         {
-            rect1 = new IntRect(50,50,150,150);
-            rect2 = new IntRect(300,50,150,150);
-            s1 = new Sprite();
-            s1.Texture = new Texture("uh612.png");
-            s1.Scale = new Vector2f(5, 5);
 
             //collider1
             collider1 = new RectangleShape(new Vector2f(70,50));
             collider1.FillColor = Color.White;
-            collider1.Rotation = 20;
+            collider1.Rotation = 35;
             collider1.Origin = new Vector2f(35,25);
 
             //collider2
@@ -42,18 +42,26 @@ namespace Havier_Than_Air_S
             collider2.Position = new Vector2f(400,300);
             collider2.Origin = new Vector2f(50, 50);
 
+            naborTochekConvex = new ConvexShape();
+            naborTochekConvex.SetPointCount(6);
+            naborTochekConvex.Position = new Vector2f(500, 700);
+            naborTochekConvex.SetPoint(0, new Vector2f(10, 10));
+            naborTochekConvex.SetPoint(1, new Vector2f(20, 20));
+            naborTochekConvex.SetPoint(2, new Vector2f(150, 20));
+            naborTochekConvex.SetPoint(3, new Vector2f(150, 200));
+            naborTochekConvex.SetPoint(4, new Vector2f(200, 200));
+            naborTochekConvex.SetPoint(5, new Vector2f(150, 50));
 
+            naborTochekConvex.FillColor = Color.Yellow;
+            
 
-            // s1.TextureRect = new IntRect(10,10,10,10);
-            s1.Position = new Vector2f(400, 400);
-            s1.Color = Color.White;
+            // Marker
+            marker = new CircleShape();
+            marker.FillColor = Color.Blue;
+            marker.Radius = 5;
+            marker.Origin = new Vector2f(5, 5);
 
         }
-
-
-
-        Vector2f[] points1;
-        Vector2f[] points2;
 
 
         public void ChechRectanglesForCollision(RectangleShape recShape1, RectangleShape recShape2)
@@ -67,14 +75,27 @@ namespace Havier_Than_Air_S
             Console.WriteLine(peresechenie);
         }
 
+        private Vector2f[] GetPointAtConvexFigure()
+        {
+            Vector2f[] points = new Vector2f[naborTochekConvex.GetPointCount()];
+            for (int i = 0;i< naborTochekConvex.GetPointCount(); i++)
+            {
+                points[i] = 
 
+
+
+            }
+
+
+            return new Vector2f[0];
+        }
 
         private Vector2f[] GetGrani(RectangleShape col)
         {
-            Vector2f a = Matematika.LocalPointOfRotationObject(0, 0, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
-            Vector2f b = Matematika.LocalPointOfRotationObject(0 + col.Size.X, 0, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
-            Vector2f c = Matematika.LocalPointOfRotationObject(0 + col.Size.X, 0 + col.Size.Y, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
-            Vector2f d = Matematika.LocalPointOfRotationObject(0, 0 + col.Size.Y, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
+            Vector2f a = Matematika.LocalPointOfRotationObject(-col.Origin.X, -col.Origin.Y, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
+            Vector2f b = Matematika.LocalPointOfRotationObject(-col.Origin.X + col.Size.X, -col.Origin.Y, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
+            Vector2f c = Matematika.LocalPointOfRotationObject(-col.Origin.X + col.Size.X, -col.Origin.Y + col.Size.Y, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
+            Vector2f d = Matematika.LocalPointOfRotationObject(-col.Origin.X, -col.Origin.Y + col.Size.Y, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
 
 
             //new Vector2f(col.Position.X, col.Position.Y);
@@ -149,6 +170,24 @@ namespace Havier_Than_Air_S
             //Program.window.Draw(s1);
             Program.window.Draw(collider1);
             Program.window.Draw(collider2);
+            Program.window.Draw(naborTochekConvex);
+            
+            for (int i = 0;i< points1.Length;i++)
+            {
+                marker.Position = points1[i];
+                Program.window.Draw(marker);
+
+
+            }
+
+            for (int i = 0; i < points2.Length; i++)
+            {
+                marker.Position = points2[i];
+                Program.window.Draw(marker);
+
+
+            }
+
 
         }
 

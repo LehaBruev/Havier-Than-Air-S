@@ -35,7 +35,7 @@ namespace Havier_Than_Air_S
             double cos2 = Math.Sqrt(cos * cos);
             double xside = searchline * cos2;
             float searchA = (float)xside; // вертикальная поправка для X
-            if (270 > searchangle && searchangle > 90) searchA = -searchA;
+            if (270 > searchangle && searchangle > 90 || -270 < searchangle && searchangle < -90) searchA = -searchA;
 
             // вычисление y
             double sin = Math.Sin(rad); //синус а

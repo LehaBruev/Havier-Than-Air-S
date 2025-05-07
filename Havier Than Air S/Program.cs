@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -14,6 +15,7 @@ namespace Havier_Than_Air_S
     {
         // Режим разработчки
        public static bool TestModeP = false;
+       static ContextSettings _Settings = new ContextSettings();
 
        public static DeltaTimer deltaTimer = new DeltaTimer();
        public static Game Game = new Game();
@@ -23,14 +25,17 @@ namespace Havier_Than_Air_S
         public static Magnitola mMagnitola = new Magnitola();
 
         // Вывод изображения
+
         public static VideoMode vMode = new VideoMode(1600, 900);
-       public static RenderWindow window = new RenderWindow(vMode, "Havier Than Air SFML");
+        public static RenderWindow window;
        public static View view = new View(new FloatRect(50, 50, 300, 100));
        public static View view2 = new View(new FloatRect(50, 50, 300, 100));
        public static CameraController cameraController= new CameraController();
 
        static void Main(string[] args)
        {
+            _Settings.AntialiasingLevel = 4; // Не работает сглаживание
+            window = new RenderWindow(vMode, "Havier Than Air SFML", new Styles(), _Settings);
             window.Closed += Win_Closed;
             window.Position = new Vector2i(1, 1);
             m_PullObjects.StartPull(); // Заполнение пула объектов
