@@ -44,16 +44,18 @@ namespace Havier_Than_Air_S
 
             naborTochekConvex = new ConvexShape();
             naborTochekConvex.SetPointCount(6);
-            naborTochekConvex.Position = new Vector2f(500, 700);
+            naborTochekConvex.Position = new Vector2f(500, 300);
             naborTochekConvex.SetPoint(0, new Vector2f(10, 10));
-            naborTochekConvex.SetPoint(1, new Vector2f(20, 20));
-            naborTochekConvex.SetPoint(2, new Vector2f(150, 20));
-            naborTochekConvex.SetPoint(3, new Vector2f(150, 200));
-            naborTochekConvex.SetPoint(4, new Vector2f(200, 200));
-            naborTochekConvex.SetPoint(5, new Vector2f(150, 50));
+            naborTochekConvex.SetPoint(1, new Vector2f(15, 70));
+            naborTochekConvex.SetPoint(2, new Vector2f(50, 76));
+            naborTochekConvex.SetPoint(3, new Vector2f(150, 100));
+            naborTochekConvex.SetPoint(4, new Vector2f(200, 30));
+            naborTochekConvex.SetPoint(5, new Vector2f(100, 5));
 
-            naborTochekConvex.FillColor = Color.Yellow;
-            
+            naborTochekConvex.FillColor = Color.Green;
+            naborTochekConvex.Rotation = 25;
+            naborTochekConvex.Origin = new Vector2f(50,100);
+
 
             // Marker
             marker = new CircleShape();
@@ -67,7 +69,8 @@ namespace Havier_Than_Air_S
         public void ChechRectanglesForCollision(RectangleShape recShape1, RectangleShape recShape2)
         {
             points1 = GetGrani(recShape1);
-            points2 = GetGrani(recShape2);
+            //points2 = GetGrani(recShape2);
+            points2 = GetPointAtConvexFigure(naborTochekConvex);
 
             bool peresechenie = CheckColisions(points1, points2);
 
@@ -75,19 +78,16 @@ namespace Havier_Than_Air_S
             Console.WriteLine(peresechenie);
         }
 
-        private Vector2f[] GetPointAtConvexFigure()
+        private Vector2f[] GetPointAtConvexFigure(ConvexShape convex)
         {
-            Vector2f[] points = new Vector2f[naborTochekConvex.GetPointCount()];
-            for (int i = 0;i< naborTochekConvex.GetPointCount(); i++)
+            Vector2f[] points = new Vector2f[convex.GetPointCount()];
+            for (int i = 0;i< convex.GetPointCount(); i++)
             {
-                points[i] = 
-
-
-
+                points[i] = convex.GetPoint((uint)i) + convex.Position;
             }
 
 
-            return new Vector2f[0];
+            return points;
         }
 
         private Vector2f[] GetGrani(RectangleShape col)

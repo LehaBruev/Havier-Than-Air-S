@@ -34,8 +34,9 @@ namespace Havier_Than_Air_S
 
        static void Main(string[] args)
        {
-            _Settings.AntialiasingLevel = 4; // Не работает сглаживание
-            window = new RenderWindow(vMode, "Havier Than Air SFML", new Styles(), _Settings);
+            _Settings.AntialiasingLevel = 8; // сглажывание
+            //window = new RenderWindow(vMode, "Havier Than Air SFML", new Styles(), _Settings);
+            window = new RenderWindow(vMode, "Havier Than Air SFML");
             window.Closed += Win_Closed;
             window.Position = new Vector2i(1, 1);
             m_PullObjects.StartPull(); // Заполнение пула объектов
