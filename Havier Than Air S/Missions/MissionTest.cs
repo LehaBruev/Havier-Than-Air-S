@@ -46,10 +46,10 @@ namespace Havier_Than_Air_S.Missions
             collisions = new Collisions();
             mouseController = Program.m_MouseController;
             clock = new Clock();
-            m_Hely = new Hely();
+            //m_Hely = new Hely();
 
 
-            tank = new Tnk1();
+            //tank = new Tnk1();
 
         }
         
@@ -86,7 +86,7 @@ namespace Havier_Than_Air_S.Missions
                 //SpawnRocket();
                 mousPoint1 = mouseController.currentMousePoint;
             }
-            tank.Update();
+             if (tank!=null) tank.Update();
         }
 
         public void CheckTargetCollider(FloatRect incoming)

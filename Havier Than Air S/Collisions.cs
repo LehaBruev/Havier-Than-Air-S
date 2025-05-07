@@ -18,7 +18,8 @@ namespace Havier_Than_Air_S
 
         IntRect rect1;
         IntRect rect2;
-        RectangleShape collider;
+        RectangleShape collider1;
+        RectangleShape collider2;
 
         public Collisions()
         {
@@ -27,12 +28,23 @@ namespace Havier_Than_Air_S
             s1 = new Sprite();
             s1.Texture = new Texture("uh612.png");
             s1.Scale = new Vector2f(5, 5);
-             collider = new RectangleShape(new Vector2f(100,50));
-            collider.FillColor = Color.White;
-            collider.Rotation = 15;
-            collider.Origin = new Vector2f(50,25);
 
-           // s1.TextureRect = new IntRect(10,10,10,10);
+            //collider1
+            collider1 = new RectangleShape(new Vector2f(70,50));
+            collider1.FillColor = Color.White;
+            collider1.Rotation = 20;
+            collider1.Origin = new Vector2f(35,25);
+
+            //collider2
+            collider2 = new RectangleShape(new Vector2f(100, 100));
+            collider2.FillColor = Color.Yellow;
+            collider2.Rotation = 0;
+            collider2.Position = new Vector2f(400,300);
+            collider2.Origin = new Vector2f(50, 50);
+
+
+
+            // s1.TextureRect = new IntRect(10,10,10,10);
             s1.Position = new Vector2f(400, 400);
             s1.Color = Color.White;
 
@@ -40,36 +52,84 @@ namespace Havier_Than_Air_S
 
 
 
-        Vector2f[] vectors1;
+        Vector2f[] points1;
+        Vector2f[] points2;
 
-        private void GetGrani(RectangleShape col)
+
+        public void ChechRectanglesForCollision(RectangleShape recShape1, RectangleShape recShape2)
         {
-            Vector2f a = new Vector2f(col.Position.X, col.Position.Y);
-            Vector2f b = new Vector2f(col.Position.X + col.Size.X, col.Position.Y);
-            Vector2f c = new Vector2f(col.Position.X + col.Size.X, col.Position.Y+col.Size.Y);
-            Vector2f d = new Vector2f(col.Position.X, col.Position.Y+col.Size.Y);
+            points1 = GetGrani(recShape1);
+            points2 = GetGrani(recShape2);
 
-            vectors1 = new Vector2f[]{ a-b, b-c, c-d, d-a };
+            bool peresechenie = CheckColisions(points1, points2);
+
+
+            Console.WriteLine(peresechenie);
         }
 
 
-        public void CheckColisions(Vector2f[] col1, Vector2f[] col2)
+
+        private Vector2f[] GetGrani(RectangleShape col)
         {
-            for (int i = 0; i < col1.Length; i++)
+            Vector2f a = Matematika.LocalPointOfRotationObject(0, 0, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
+            Vector2f b = Matematika.LocalPointOfRotationObject(0 + col.Size.X, 0, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
+            Vector2f c = Matematika.LocalPointOfRotationObject(0 + col.Size.X, 0 + col.Size.Y, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
+            Vector2f d = Matematika.LocalPointOfRotationObject(0, 0 + col.Size.Y, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
+
+
+            //new Vector2f(col.Position.X, col.Position.Y);
+            //Vector2f b = new Vector2f(col.Position.X + col.Size.X, col.Position.Y);
+            //Vector2f c = new Vector2f(col.Position.X + col.Size.X, col.Position.Y+col.Size.Y);
+            //Vector2f d = new Vector2f(col.Position.X, col.Position.Y+col.Size.Y);
+
+            return new Vector2f[]{ a, b, c, d };
+
+            
+
+        }
+
+
+        private bool CheckColisions(Vector2f[] pointsToCheck1, Vector2f[] pointsToCheck2)
+        {
+            int numerator1 = 0;
+            int numerator2 = 0;
+            bool intersected = false;
+            for (int i = 0; i < pointsToCheck1.Length; i++)
             {
-                for (int k = 0; k < col2.Length; k++)
+                if (i == pointsToCheck1.Length - 1) numerator1 = 0;
+                else numerator1 = i + 1;
+
+
+                for (int k = 0; k < pointsToCheck2.Length; k++)
                 {
-                    Intersection(col1[i].X, col1[i].Y,)
+                    if (k == pointsToCheck2.Length - 1) numerator2 = 0;
+                    else numerator2 = k + 1;
+
+                    intersected = Intersection(pointsToCheck1[i].X, pointsToCheck1[i].Y,
+                                     pointsToCheck1[numerator1].X, pointsToCheck1[numerator1].Y,
+                                     pointsToCheck2[k].X, pointsToCheck2[k].Y,
+                                     pointsToCheck2[numerator2].X, pointsToCheck2[numerator2].Y);
+
+                    if (intersected)
+                    {
+                        return true;
+                    }
+
                 }
 
             }
 
-
+            return false;
         }
 
 
-        // Пересечение
-        static public bool Intersection(double ax1, double ay1, double ax2, double ay2, double bx1, double by1, double bx2, double by2)
+        // Пересечение двух линий
+        // а = вектор1
+        // b = вектор2
+        static public bool Intersection(double ax1, double ay1, 
+                                        double ax2, double ay2, 
+                                        double bx1, double by1, 
+                                        double bx2, double by2)
         {
             double v1, v2, v3, v4;
             v1 = (bx2 - bx1) * (ay1 - by1) - (by2 - by1) * (ax1 - bx1);
@@ -83,9 +143,12 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
-            collider.Position = (Vector2f)Mouse.GetPosition();
-            Program.window.Draw(s1);
-            Program.window.Draw(collider);
+            collider1.Position = (Vector2f)Mouse.GetPosition(Program.window);
+            ChechRectanglesForCollision(collider1, collider2);
+
+            //Program.window.Draw(s1);
+            Program.window.Draw(collider1);
+            Program.window.Draw(collider2);
 
         }
 
