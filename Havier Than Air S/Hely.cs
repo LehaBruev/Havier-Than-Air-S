@@ -141,6 +141,11 @@ namespace Havier_Than_Air_S
 
         #endregion
 
+        #region Colliders
+        ConvexShape collider;
+        public Collider heliCollider;
+
+        #endregion
 
         Vector2f inertiaVector;
 
@@ -217,6 +222,27 @@ namespace Havier_Than_Air_S
             m_Weapons = new WeaponBase[] { new GunLauncher(250, this, TypeOfObject.gun),
                                            new RocketNRLauncher(250, this, TypeOfObject.nr), 
                                            new RocketNRLauncher(250, this, TypeOfObject.sr) };
+
+            
+            collider = new ConvexShape(10);
+            collider.SetPoint(0, new Vector2f(0, 0));
+            collider.SetPoint(1, new Vector2f(10, 10));
+            collider.SetPoint(2, new Vector2f(30, 10));
+            collider.SetPoint(3, new Vector2f(35,7));
+            collider.SetPoint(4, new Vector2f(55,7));
+            collider.SetPoint(5, new Vector2f(66,15));
+            collider.SetPoint(6, new Vector2f(60,25));
+            collider.SetPoint(7, new Vector2f(40,25));
+            collider.SetPoint(8, new Vector2f(40,20));
+            collider.SetPoint(9, new Vector2f(10,15));
+            collider.FillColor = Color.White;
+            collider.Origin = helySprite.Origin;
+
+
+
+            heliCollider = new Collider(collider);
+
+
         }
 
         private void SpawnSounds()
@@ -283,7 +309,7 @@ namespace Havier_Than_Air_S
             //weaponPositionCurrentPoint = new Vector2f( helySprite.Position.X + currentLocalPositionPW.X,
               //                          helySprite.Position.Y + currentLocalPositionPW.Y);
             
-            Vector2f localpos = Matematika.LocalPointOfRotationObject(weaponPositionLocal.X,weaponPositionLocal.Y,angle);
+            Vector2f localpos = Matematika.LocalPointOfRotationObject(weaponPositionLocal,angle);
             weaponPositionCurrentPoint = new Vector2f(position.X + localpos.X,
                                                  position.Y + localpos.Y);
 
@@ -310,7 +336,10 @@ namespace Havier_Than_Air_S
             avionika.Update();
             CheckGunMode();
 
-
+            // Collider
+            collider.Position = position;
+            collider.Rotation = angle;
+            Program.window.Draw(collider);
 
         }
 

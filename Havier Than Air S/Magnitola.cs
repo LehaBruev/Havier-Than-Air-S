@@ -29,7 +29,7 @@ namespace Havier_Than_Air_S
                 _Music = new Music(Level1Music);
                 _Music.Pitch = 1.0f;
                 _Music.Volume = 60;
-                _Music.Play();
+              //  _Music.Play();
             }
 
         }
@@ -40,7 +40,7 @@ namespace Havier_Than_Air_S
             _Music.Loop = true;
             _Music.Pitch = 1.0f;
             _Music.Volume = 75;
-            _Music.Play();
+          //  _Music.Play();
 
 
             /*

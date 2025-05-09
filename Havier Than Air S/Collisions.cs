@@ -10,7 +10,18 @@ using SFML.Window;
 
 namespace Havier_Than_Air_S
 {
-    internal class Collisions
+
+    public enum Layer
+    {
+        playerProjectiles,
+        enemyProjectiles,
+        playerColliders,
+        enemyColliders,
+        groundCplliders
+    }
+
+
+    public class Collisions
     {
         
         RectangleShape collider1;
@@ -53,7 +64,7 @@ namespace Havier_Than_Air_S
             naborTochekConvex.SetPoint(5, new Vector2f(100, 5));
 
             naborTochekConvex.FillColor = Color.Green;
-            naborTochekConvex.Rotation = 25;
+            naborTochekConvex.Rotation = 78;
             naborTochekConvex.Origin = new Vector2f(50,100);
 
 
@@ -66,49 +77,49 @@ namespace Havier_Than_Air_S
         }
 
 
-        public void ChechRectanglesForCollision(RectangleShape recShape1, RectangleShape recShape2)
+        public bool CheckShapesForCollision(RectangleShape recShape1, RectangleShape recShape2)
         {
-            points1 = GetGrani(recShape1);
+            points1 = GetShapePoints(recShape1);
             //points2 = GetGrani(recShape2);
-            points2 = GetPointAtConvexFigure(naborTochekConvex);
+            points2 = GetShapePoints(naborTochekConvex);
 
             bool peresechenie = CheckColisions(points1, points2);
 
 
             Console.WriteLine(peresechenie);
+
+            return peresechenie;
+
         }
 
-        private Vector2f[] GetPointAtConvexFigure(ConvexShape convex)
+        private Vector2f[] GetShapePoints(Shape collider)
         {
-            Vector2f[] points = new Vector2f[convex.GetPointCount()];
-            for (int i = 0;i< convex.GetPointCount(); i++)
+            Vector2f[] points = new Vector2f[collider.GetPointCount()];
+            for (int i = 0;i< collider.GetPointCount(); i++)
             {
-                points[i] = convex.GetPoint((uint)i) + convex.Position;
+                points[i] = collider.GetPoint((uint)i) + collider.Position;
+                points[i] = Matematika.LocalPointOfRotationObject(-collider.Origin + collider.GetPoint((uint)i), collider.Rotation) + collider.Position;
             }
 
 
             return points;
         }
 
-        private Vector2f[] GetGrani(RectangleShape col)
+        /*
+        private Vector2f[] GetRectanglePoints(RectangleShape col)
         {
-            Vector2f a = Matematika.LocalPointOfRotationObject(-col.Origin.X, -col.Origin.Y, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
-            Vector2f b = Matematika.LocalPointOfRotationObject(-col.Origin.X + col.Size.X, -col.Origin.Y, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
-            Vector2f c = Matematika.LocalPointOfRotationObject(-col.Origin.X + col.Size.X, -col.Origin.Y + col.Size.Y, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
-            Vector2f d = Matematika.LocalPointOfRotationObject(-col.Origin.X, -col.Origin.Y + col.Size.Y, col.Rotation) + new Vector2f(col.Position.X, col.Position.Y);
+            Vector2f a = Matematika.LocalPointOfRotationObject(-col.Origin, col.Rotation) + col.Position;
+            Vector2f b = Matematika.LocalPointOfRotationObject(-col.Origin + new Vector2f(col.Size.X,0), col.Rotation) + col.Position; 
+            Vector2f c = Matematika.LocalPointOfRotationObject(-col.Origin.X + col.Size.X, -col.Origin.Y + col.Size.Y, col.Rotation) + col.Position;
+            Vector2f d = Matematika.LocalPointOfRotationObject(-col.Origin.X, -col.Origin.Y + col.Size.Y, col.Rotation) + col.Position;
 
-
-            //new Vector2f(col.Position.X, col.Position.Y);
-            //Vector2f b = new Vector2f(col.Position.X + col.Size.X, col.Position.Y);
-            //Vector2f c = new Vector2f(col.Position.X + col.Size.X, col.Position.Y+col.Size.Y);
-            //Vector2f d = new Vector2f(col.Position.X, col.Position.Y+col.Size.Y);
-
+            
             return new Vector2f[]{ a, b, c, d };
 
             
 
         }
-
+        */
 
         private bool CheckColisions(Vector2f[] pointsToCheck1, Vector2f[] pointsToCheck2)
         {
@@ -126,7 +137,7 @@ namespace Havier_Than_Air_S
                     if (k == pointsToCheck2.Length - 1) numerator2 = 0;
                     else numerator2 = k + 1;
 
-                    intersected = Intersection(pointsToCheck1[i].X, pointsToCheck1[i].Y,
+                    intersected = Matematika.Intersection(pointsToCheck1[i].X, pointsToCheck1[i].Y,
                                      pointsToCheck1[numerator1].X, pointsToCheck1[numerator1].Y,
                                      pointsToCheck2[k].X, pointsToCheck2[k].Y,
                                      pointsToCheck2[numerator2].X, pointsToCheck2[numerator2].Y);
@@ -144,48 +155,28 @@ namespace Havier_Than_Air_S
         }
 
 
-        // Пересечение двух линий
-        // а = вектор1
-        // b = вектор2
-        static public bool Intersection(double ax1, double ay1, 
-                                        double ax2, double ay2, 
-                                        double bx1, double by1, 
-                                        double bx2, double by2)
-        {
-            double v1, v2, v3, v4;
-            v1 = (bx2 - bx1) * (ay1 - by1) - (by2 - by1) * (ax1 - bx1);
-            v2 = (bx2 - bx1) * (ay2 - by1) - (by2 - by1) * (ax2 - bx1);
-            v3 = (ax2 - ax1) * (by1 - ay1) - (ay2 - ay1) * (bx1 - ax1);
-            v4 = (ax2 - ax1) * (by2 - ay1) - (ay2 - ay1) * (bx2 - ax1);
-            bool res = (v1 * v2 < 0) && (v3 * v4 < 0);
-            return res;
-        }
-
 
         public void Update()
         {
             collider1.Position = (Vector2f)Mouse.GetPosition(Program.window);
-            ChechRectanglesForCollision(collider1, collider2);
+            CheckShapesForCollision(collider1, collider2);
 
             //Program.window.Draw(s1);
             Program.window.Draw(collider1);
             Program.window.Draw(collider2);
             Program.window.Draw(naborTochekConvex);
             
+            // Маркеры
             for (int i = 0;i< points1.Length;i++)
             {
                 marker.Position = points1[i];
                 Program.window.Draw(marker);
-
-
             }
 
             for (int i = 0; i < points2.Length; i++)
             {
                 marker.Position = points2[i];
                 Program.window.Draw(marker);
-
-
             }
 
 

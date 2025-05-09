@@ -12,14 +12,14 @@ namespace Havier_Than_Air_S.Weapon
 {
    
 
-    public class Projectile
+    public class Projectile: IMoovable
     {
         //Форма
         public RectangleShape m_Rectangleshape;
 
         //Переменные
         public float projectileWeight;
-        public PullStatus currentProjectileStatus;
+        
         protected Vector2f currentProjectilePosition;
         protected Vector2f previousProjectilePosition;
         protected float currentProjectileAngle;
@@ -29,19 +29,21 @@ namespace Havier_Than_Air_S.Weapon
  
         //Сервисные
         float deltaProjectileSpeed;
+        protected TypeOfObject typeOfObject;
+        PullStatus pullStatus;
 
         // Sound
         protected Sound projectileSound;
 
         public Projectile()
         {
-            currentProjectileStatus = PullStatus.inPool;
+            pullStatus = PullStatus.inPool;
             projectileSound = new Sound();
         }
 
         virtual public void Start(Vector2f position, float angle)
         {
-            currentProjectileStatus = PullStatus.inAir;
+            pullStatus = PullStatus.inAir;
 
             currentProjectilePosition = position;
             currentProjectileAngle = angle;
@@ -89,13 +91,22 @@ namespace Havier_Than_Air_S.Weapon
         virtual public void DeactivateProjectile()
         {
             if (projectileSound != null ) projectileSound.Stop();
-            currentProjectileStatus = PullStatus.inPool;
+            pullStatus = PullStatus.inPool;
             //currentProjectilefuel = 0;
             //currentProjectileSpeed = 0.0f;
             currentProjectilePosition = Program.m_PullObjects.position;
         }
 
+        public TypeOfObject GetTypeOfObject()
+        {
 
+            return typeOfObject;
+        }
+        public PullStatus GetCurrentPullStatus()
+        {
+
+            return pullStatus;
+        }
 
     }
 }

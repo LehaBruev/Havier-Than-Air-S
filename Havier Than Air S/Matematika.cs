@@ -73,8 +73,13 @@ namespace Havier_Than_Air_S
             return angle;
         }
 
-        // Пересечение
-        static public bool Intersection(double ax1, double ay1, double ax2, double ay2, double bx1, double by1, double bx2, double by2)
+        // Пересечение двух линий
+        // а = вектор1
+        // b = вектор2
+        static public bool Intersection(double ax1, double ay1,
+                                        double ax2, double ay2,
+                                        double bx1, double by1,
+                                        double bx2, double by2)
         {
             double v1, v2, v3, v4;
             v1 = (bx2 - bx1) * (ay1 - by1) - (by2 - by1) * (ax1 - bx1);
@@ -87,11 +92,11 @@ namespace Havier_Than_Air_S
 
 
 
-        static public Vector2f LocalPointOfRotationObject(float x, float y, float angleOfObject)
+        static public Vector2f LocalPointOfRotationObject(Vector2f pos, float angleOfObject)
         {
 
-            float dist = searchdistance(new Vector2i(0,0), new Vector2i((int)x,(int)y)); // дистанция до точки
-            float ang = AngleOfVector(new Vector2f(x, y));                     // угол к точке
+            float dist = searchdistance(new Vector2i(0,0), new Vector2i((int)pos.X, (int)pos.Y)); // дистанция до точки
+            float ang = AngleOfVector(new Vector2f(pos.X, pos.Y));                     // угол к точке
 
 
 

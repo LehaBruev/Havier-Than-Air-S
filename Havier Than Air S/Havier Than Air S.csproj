@@ -106,6 +106,7 @@
     <Compile Include="Avionika.cs" />
     <Compile Include="Avtopilot.cs" />
     <Compile Include="CameraController.cs" />
+    <Compile Include="Collider.cs" />
     <Compile Include="Collisions.cs" />
     <Compile Include="DeltaTimer.cs" />
     <Compile Include="Enemies\Tnk1.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Gita.cs" />
     <Compile Include="Hely.cs" />
     <Compile Include="HelyControl.cs" />
+    <Compile Include="IMoovable.cs" />
     <Compile Include="Magazin.cs" />
     <Compile Include="Magnitola.cs" />
     <Compile Include="MainMenuController.cs" />

@@ -32,6 +32,8 @@ namespace Havier_Than_Air_S.Weapon
 
         public GunBullet()
         {
+            typeOfObject = TypeOfObject.gun;
+
             projectileWeight = NRocketWeight;
             currentProjectileSpeed = rocketSpeed;
             currentProjectilefuel = rocketFuel;

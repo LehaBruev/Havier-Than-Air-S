@@ -10,7 +10,7 @@ using SFML.Audio;
 
 namespace Havier_Than_Air_S.Weapon
 {
-    public class NRocket : Projectile 
+    public class NRocket : Projectile
     {
         //Параметры
         private Vector2f rocketSize = new Vector2f(30.0f, 20);
@@ -33,6 +33,8 @@ namespace Havier_Than_Air_S.Weapon
 
         public NRocket()
         {
+            typeOfObject = TypeOfObject.nr;
+
             currentProjectileSpeed = rocketSpeed;
             currentProjectilefuel = rocketFuel;
             currentProjectileRashod = rocketRashod;

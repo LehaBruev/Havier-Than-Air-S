@@ -8,9 +8,10 @@ using SFML.System;
 
 namespace Havier_Than_Air_S.Weapon
 {
-    public class Bang
+    public class Bang: IMoovable
     {
         //string bangsound = LoadSound("explode4.wav"); //взрыв
+        public TypeOfObject typeOfObject;
 
         private Texture[] bangTextures;
         private Image uhImage = new Image("uh61all.png");
@@ -30,6 +31,8 @@ namespace Havier_Than_Air_S.Weapon
 
         public Bang(Vector2f pPosition)
         {
+            typeOfObject = TypeOfObject.bang;
+
             pullPosition = pPosition;
             pullStatus = PullStatus.inPool;
 
@@ -54,7 +57,7 @@ namespace Havier_Than_Air_S.Weapon
 
         }
 
-        public void StartBang(Vector2f pos)
+        public void Start(Vector2f pos, float angle)
         {
             if (!activated)
             {
@@ -65,7 +68,7 @@ namespace Havier_Than_Air_S.Weapon
             }
         }
 
-        public void UpdateBang()
+        public void Update()
         {
             if (activated == true)
             {
@@ -93,6 +96,16 @@ namespace Havier_Than_Air_S.Weapon
             }
         }
 
+        public TypeOfObject GetTypeOfObject()
+        {
+
+            return typeOfObject;
+        }
+        public PullStatus GetCurrentPullStatus()
+        {
+
+            return pullStatus;
+        }
 
 
 

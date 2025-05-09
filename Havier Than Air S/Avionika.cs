@@ -170,7 +170,7 @@ namespace Havier_Than_Air_S
         {
             if (hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.nr)
             {
-            Vector2f pos = Matematika.LocalPointOfRotationObject(scopeOrigin.X, scopeOrigin.Y, hely.angle);
+            Vector2f pos = Matematika.LocalPointOfRotationObject(scopeOrigin, hely.angle);
             scopeSprite.Position = new Vector2f(hely.position.X + pos.X, hely.position.Y + pos.Y);
                 scopeSprite.Color = Color.White;
                 Program.window.Draw(scopeSprite);
