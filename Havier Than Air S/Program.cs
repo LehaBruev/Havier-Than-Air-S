@@ -29,6 +29,7 @@ namespace Havier_Than_Air_S
        public static View view2 = new View(new FloatRect(50, 50, 300, 100));
        public static CameraController cameraController= new CameraController();
 
+
        static void Main(string[] args)
        {
             window.Closed += Win_Closed;
