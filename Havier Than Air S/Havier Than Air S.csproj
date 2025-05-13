@@ -121,6 +121,7 @@
     <Compile Include="Magnitola.cs" />
     <Compile Include="MainMenuController.cs" />
     <Compile Include="Matematika.cs" />
+    <Compile Include="Missions\Hous.cs" />
     <Compile Include="Missions\Mission1_Learning.cs" />
     <Compile Include="Missions\Mission3_FreeFlight.cs" />
     <Compile Include="Missions\MissionBase.cs" />
