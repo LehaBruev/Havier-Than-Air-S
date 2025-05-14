@@ -62,6 +62,7 @@ namespace Havier_Than_Air_S
             naborTochekConvex.SetPoint(3, new Vector2f(150, 100));
             naborTochekConvex.SetPoint(4, new Vector2f(200, 30));
             naborTochekConvex.SetPoint(5, new Vector2f(100, 5));
+            
 
             naborTochekConvex.FillColor = Color.Green;
             naborTochekConvex.Rotation = 78;
