@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
+using SFML.System;
 
 namespace Havier_Than_Air_S.Missions
 {
@@ -15,11 +16,12 @@ namespace Havier_Than_Air_S.Missions
         public Hous() 
         { 
         rectShape.FillColor = Color.White;
-        
+        rectShape.Size = new Vector2f(20, 50);
+        rectShape.Origin = new Vector2f(0,rectShape.Size.Y);
         
         }
 
-
+         
 
 
 

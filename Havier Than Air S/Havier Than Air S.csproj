@@ -193,8 +193,8 @@
     <Content Include="bin\x86\Debug\Fuel800.wav" />
     <Content Include="bin\x86\Debug\glass3.wav" />
     <Content Include="bin\x86\Debug\glass4.wav" />
-    <Content Include="bin\x86\Debug\gun1shot.wav" />
     <Content Include="bin\x86\Debug\gun2shot.wav" />
+    <Content Include="bin\x86\Debug\gun1shot.wav" />
     <Content Include="bin\x86\Debug\gun3shot.wav" />
     <Content Include="bin\x86\Debug\gun4shot.wav" />
     <Content Include="bin\x86\Debug\gun5shot.wav" />
