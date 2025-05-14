@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S.Enemies
 {
-    public class Tnk1
+    public class Tnk1: IMoovable
     {
-
+        RectangleShape shape;
 
         //Параметры Танка1
          
@@ -64,40 +64,54 @@ namespace Havier_Than_Air_S.Enemies
             Program.window.Draw(gunSprite);
         }
 
-        public void Start(Vector2f pos)
+
+        public void Start(Vector2f pos, float angle)
         {
+            throw new NotImplementedException();
+        }
 
+        public TypeOfObject GetTypeOfObject()
+        {
+            throw new NotImplementedException();
+        }
 
+        public PullStatus GetCurrentPullStatus()
+        {
+            throw new NotImplementedException();
+        }
 
+        public Shape GetShape()
+        {
+            return shape;
         }
         /*
-        static void tank1Draw() // Танк1 (1=x танка, 2=y танка, 3=проявлен, 4=х назначения, 5=у назначения, 6=жизни танка) [1=проявлен 2=побдит]
-        {
+static void tank1Draw() // Танк1 (1=x танка, 2=y танка, 3=проявлен, 4=х назначения, 5=у назначения, 6=жизни танка) [1=проявлен 2=побдит]
+{
 
-            for (int i = 0; i < Tank1cicles.GetLength(1); i++)
-            {
-                if (Tank1cicles[3, i] == 1) // танк целый
-                {
-                    PlaySound(tank1motorsound2, volume);
-                    DrawSprite(uh61, Tank1cicles[1, i] - 30, Tank1cicles[2, i], 8, 462, 120, 42); // спрайт танка
-                                                                                                  //FillCircle(Tank1cicles[1, i], Tank1cicles[2, i], 3);
-                                                                                                  //FillCircle(Tank1cicles[1, i] + tank1sizex, Tank1cicles[2, i] + tank1sizey, 3);
-                    SetFillColor(Color.Yellow);
-                    DrawText((int)Tank1cicles[1, i] - 20, (int)Tank1cicles[2, i] - 20, "" + Tank1cicles[7, i], 12);
-                }
+   for (int i = 0; i < Tank1cicles.GetLength(1); i++)
+   {
+       if (Tank1cicles[3, i] == 1) // танк целый
+       {
+           PlaySound(tank1motorsound2, volume);
+           DrawSprite(uh61, Tank1cicles[1, i] - 30, Tank1cicles[2, i], 8, 462, 120, 42); // спрайт танка
+                                                                                         //FillCircle(Tank1cicles[1, i], Tank1cicles[2, i], 3);
+                                                                                         //FillCircle(Tank1cicles[1, i] + tank1sizex, Tank1cicles[2, i] + tank1sizey, 3);
+           SetFillColor(Color.Yellow);
+           DrawText((int)Tank1cicles[1, i] - 20, (int)Tank1cicles[2, i] - 20, "" + Tank1cicles[7, i], 12);
+       }
 
-                if (Tank1cicles[3, i] == 2) //танк разрушен
-                {
+       if (Tank1cicles[3, i] == 2) //танк разрушен
+       {
 
-                    DrawSprite(uh61, Tank1cicles[1, i] - 30, Tank1cicles[2, i], 135, 519, 114, 35); // спрайт танка разрушенного
-                                                                                                    //FillCircle(Tank1cicles[1, i], Tank1cicles[2, i], 3);
-                                                                                                    // FillCircle(Tank1cicles[1, i] + tank1sizex, Tank1cicles[2, i] + tank1sizey, 3);
+           DrawSprite(uh61, Tank1cicles[1, i] - 30, Tank1cicles[2, i], 135, 519, 114, 35); // спрайт танка разрушенного
+                                                                                           //FillCircle(Tank1cicles[1, i], Tank1cicles[2, i], 3);
+                                                                                           // FillCircle(Tank1cicles[1, i] + tank1sizex, Tank1cicles[2, i] + tank1sizey, 3);
 
-                }
+       }
 
-            }
+   }
 
-        }
-        */
+}
+*/
     }
 }

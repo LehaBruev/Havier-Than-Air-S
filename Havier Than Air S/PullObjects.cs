@@ -20,7 +20,8 @@ namespace Havier_Than_Air_S
         gun,
         nr,
         sr,
-        bang
+        bang,
+        enemy
         
     }
 
@@ -37,6 +38,8 @@ namespace Havier_Than_Air_S
         //Сервис
         public Vector2f position = new Vector2f(2000, 2000);
 
+        // Collisions
+        public Collisions collisions;
         
         public void StartPull()
         {
@@ -48,7 +51,7 @@ namespace Havier_Than_Air_S
             for (int i = NRcount + GunBulletCount;
                      i < NRcount + GunBulletCount + BangCount; i++) IMoovables[i] = new Bang(position);
 
-
+            collisions = new Collisions();
         }
 
         public void StartObject(Vector2f position, float angle,TypeOfObject objectType)
@@ -78,11 +81,28 @@ namespace Havier_Than_Air_S
 
        
 
-        public void CheckRocketCollider()
+        public void CheckCollisions()
         {
-            //missTest.CheckTargetCollider(rectangleShape.GetGlobalBounds());
 
-            //rectangleShape.GetGlobalBounds().Intersects
+            for (int i = 0; i < IMoovables.Length; i++)
+            {
+                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.nr)
+                {
+                    for (int k = 0; k < IMoovables.Length; k++)
+                    {
+                        if (IMoovables[k].GetTypeOfObject() == TypeOfObject.enemy)
+                        {
+                            collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
+
+                        }
+                    }
+                }
+            }
+
+
+
+
+
 
         }
 

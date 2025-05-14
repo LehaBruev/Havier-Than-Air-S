@@ -10,6 +10,8 @@ namespace Havier_Than_Air_S.Weapon
 {
     public class Bang: IMoovable
     {
+        CircleShape circleshape;
+
         //string bangsound = LoadSound("explode4.wav"); //взрыв
         public TypeOfObject typeOfObject;
 
@@ -107,7 +109,9 @@ namespace Havier_Than_Air_S.Weapon
             return pullStatus;
         }
 
-
-
+        public Shape GetShape()
+        {
+           return circleshape;
+        }
     }
 }

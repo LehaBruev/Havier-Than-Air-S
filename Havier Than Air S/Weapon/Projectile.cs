@@ -10,10 +10,12 @@ using SFML.System;
 
 namespace Havier_Than_Air_S.Weapon
 {
-   
 
-    public class Projectile: IMoovable
+
+    public class Projectile : IMoovable
     {
+        
+
         //Форма
         public RectangleShape m_Rectangleshape;
 
@@ -107,6 +109,13 @@ namespace Havier_Than_Air_S.Weapon
 
             return pullStatus;
         }
+
+        public Shape GetShape()
+        {
+
+            return m_Rectangleshape;
+        }
+
 
     }
 }

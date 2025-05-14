@@ -77,7 +77,7 @@ namespace Havier_Than_Air_S
         }
 
 
-        public bool CheckShapesForCollision(RectangleShape recShape1, RectangleShape recShape2)
+        public bool CheckShapesForCollision(Shape recShape1, Shape recShape2)
         {
             points1 = GetShapePoints(recShape1);
             //points2 = GetGrani(recShape2);
