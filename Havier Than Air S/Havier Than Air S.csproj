@@ -122,6 +122,7 @@
     <Compile Include="Magnitola.cs" />
     <Compile Include="MainMenuController.cs" />
     <Compile Include="Matematika.cs" />
+    <Compile Include="Missions\Hous.cs" />
     <Compile Include="Missions\Mission1_Learning.cs" />
     <Compile Include="Missions\Mission3_FreeFlight.cs" />
     <Compile Include="Missions\MissionBase.cs" />
@@ -194,8 +195,8 @@
     <Content Include="bin\x86\Debug\Fuel800.wav" />
     <Content Include="bin\x86\Debug\glass3.wav" />
     <Content Include="bin\x86\Debug\glass4.wav" />
-    <Content Include="bin\x86\Debug\gun1shot.wav" />
     <Content Include="bin\x86\Debug\gun2shot.wav" />
+    <Content Include="bin\x86\Debug\gun1shot.wav" />
     <Content Include="bin\x86\Debug\gun3shot.wav" />
     <Content Include="bin\x86\Debug\gun4shot.wav" />
     <Content Include="bin\x86\Debug\gun5shot.wav" />
