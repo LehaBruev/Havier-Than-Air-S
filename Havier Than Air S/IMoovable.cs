@@ -17,5 +17,7 @@ namespace Havier_Than_Air_S
         PullStatus GetCurrentPullStatus();
         Shape GetShape();
 
+        Vector2f GetPosition();
+
     }
 }

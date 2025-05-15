@@ -32,6 +32,7 @@ namespace Havier_Than_Air_S
        public static View view2 = new View(new FloatRect(50, 50, 300, 100));
        public static CameraController cameraController= new CameraController();
 
+        static Vector2f offset = new Vector2f(350,400);
 
        static void Main(string[] args)
        {
@@ -42,18 +43,20 @@ namespace Havier_Than_Air_S
             window.Position = new Vector2i(1, 1);
             m_PullObjects.StartPull(); // Заполнение пула объектов
 
-            /*
-            view.Reset(new FloatRect(0, 0, 1024, 768));// = new View(new FloatRect(50, 50, 300, 100));
-            view2.Reset(new FloatRect(0, 0, 1024, 768));// = new View(new FloatRect(50, 50, 300, 100));
-            view.Viewport = (new FloatRect(0f, 0f, 0.5f, 1.0f));
-            view2.Viewport = (new FloatRect(0.5f, 0f, 0.5f, 1f));
-            //view.Size = new Vector2f(50, 1000);
-            */
+            
+            view.Reset(new FloatRect(0, 0, 1600, 900));// = new View(new FloatRect(50, 50, 300, 100));
+            //view2.Reset(new FloatRect(0, 0, 1024, 768));// = new View(new FloatRect(50, 50, 300, 100));
+            //view.Viewport = (new FloatRect(0f, 0f, 0f, 1.0f));
+            //view2.Viewport = (new FloatRect(0.5f, 0f, 0.5f, 1f));
+            //view.Size = new Vector2f(1600, 900);
+            
+            
 
             while (window.IsOpen)
             {
                 window.Clear();
-
+                view.Move(offset);
+                window.SetView(view);
                 window.DispatchEvents();
                 
                 Game.Update();
@@ -62,6 +65,7 @@ namespace Havier_Than_Air_S
 
                 window.Display();
                 deltaTimer.CheckDelta();
+                
             }
        }
 
