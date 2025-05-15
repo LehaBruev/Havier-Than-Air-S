@@ -17,7 +17,9 @@ namespace Havier_Than_Air_S
        public static bool TestModeP = false;
        static ContextSettings _Settings = new ContextSettings();
 
-       public static DeltaTimer deltaTimer = new DeltaTimer();
+
+        public static CameraController cameraController = new CameraController();
+        public static DeltaTimer deltaTimer = new DeltaTimer();
        public static Game Game = new Game();
        public static PullObjects m_PullObjects = new PullObjects();
        public static MouseController m_MouseController = new MouseController();
@@ -30,12 +32,12 @@ namespace Havier_Than_Air_S
         public static RenderWindow window;
        public static View view = new View(new FloatRect(50, 50, 300, 100));
        public static View view2 = new View(new FloatRect(50, 50, 300, 100));
-       public static CameraController cameraController= new CameraController();
 
-        static Vector2f offset = new Vector2f(350,400);
+        public static Vector2f offset = new Vector2f(350,400);
 
        static void Main(string[] args)
        {
+            cameraController.Update();
             _Settings.AntialiasingLevel = 8; // сглажывание
             //window = new RenderWindow(vMode, "Havier Than Air SFML", new Styles(), _Settings);
             window = new RenderWindow(vMode, "Havier Than Air SFML");
@@ -55,7 +57,8 @@ namespace Havier_Than_Air_S
             while (window.IsOpen)
             {
                 window.Clear();
-                view.Move(offset);
+                cameraController.Update();
+                view.Center = offset; //Move(offset);
                 window.SetView(view);
                 window.DispatchEvents();
                 

@@ -11,9 +11,9 @@ namespace Havier_Than_Air_S
     public class CameraController
     {
 
-        Vector2f offset;
+        public Vector2f offset;
         IMoovable moovable;
-
+        Hely player;
         public CameraController()
         {
             
@@ -22,10 +22,22 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
-            offset = new Vector2f(0, moovable.GetPosition().Y);
+            if (moovable != null)
+            {
+                Program.offset = new Vector2f(moovable.GetPosition().X, 450);
+                //Program.offset = new Vector2f(1, 0);
+                if (moovable is Hely)
+                {
+                    Program.offset += new Vector2f((moovable as Hely).speedx*40, (moovable as Hely).speedy *40);
+                }
+            }
 
+        }
 
+        public void SetCameraObject(IMoovable obj)
+        {
 
+            moovable = obj;
         }
     }
 }

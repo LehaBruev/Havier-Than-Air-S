@@ -47,6 +47,7 @@ namespace Havier_Than_Air_S.Missions
             mouseController = Program.m_MouseController;
             clock = new Clock();
             m_Hely = new Hely();
+            Program.cameraController.SetCameraObject(m_Hely);
 
 
             //tank = new Tnk1();

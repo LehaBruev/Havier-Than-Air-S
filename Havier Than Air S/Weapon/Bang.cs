@@ -27,9 +27,12 @@ namespace Havier_Than_Air_S.Weapon
         int currentFrame = 0;
         bool activated = false;
 
+        public Vector2f position;
         int y = 663;
         int x = 915;
         Vector2f origin = new Vector2f(57, 55);
+
+
 
         public Bang(Vector2f pPosition)
         {
@@ -112,6 +115,11 @@ namespace Havier_Than_Air_S.Weapon
         public Shape GetShape()
         {
            return circleshape;
+        }
+
+        public Vector2f GetPosition()
+        {
+            return position;
         }
     }
 }

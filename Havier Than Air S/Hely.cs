@@ -15,7 +15,7 @@ using SFML.Window;
 
 namespace Havier_Than_Air_S
 {
-    public class Hely : GameObject
+    public class Hely : GameObject, IMoovable
     {
 
         #region Параметры_Heli
@@ -65,9 +65,9 @@ namespace Havier_Than_Air_S
 
         public float playerx = 50;
         public float playery = 400;
-        float speedx = 0;
-        
-        float speedy = 0;
+        public float speedx = 0;
+
+        public float speedy = 0;
         float powery = 200;
         public  float enginespeed = 19500; //Обороты двигателя
         float maxenginespeed = 60000; //Максимальные обороты двигателя
@@ -359,6 +359,8 @@ namespace Havier_Than_Air_S
             
             Console.WriteLine(speedy);
 
+
+            // ParkovkaAssistance
             Vertex[] line = new Vertex[]
             {
                 
@@ -731,5 +733,29 @@ namespace Havier_Than_Air_S
 
         }
 
+        public void Start(Vector2f pos, float angle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TypeOfObject GetTypeOfObject()
+        {
+            throw new NotImplementedException();
+        }
+
+        public PullStatus GetCurrentPullStatus()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Shape GetShape()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vector2f GetPosition()
+        {
+            return position;
+        }
     }
 }

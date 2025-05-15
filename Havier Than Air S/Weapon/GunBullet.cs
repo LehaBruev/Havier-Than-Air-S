@@ -76,7 +76,7 @@ namespace Havier_Than_Air_S.Weapon
         public override void Update()
         {
             // Fix start position
-            previousProjectilePosition = currentProjectilePosition;
+            previousProjectilePosition = position;
 
             // Speed corrector
             float coef = currentProjectileSpeed / rocketSpeed * maxSpeedResist;
@@ -89,11 +89,11 @@ namespace Havier_Than_Air_S.Weapon
             // New position + gravity Y
             currentBulletGravity = currentBulletGravity * Program.deltaTimer.Delta() +
                                    bulletGravityShag * Program.deltaTimer.Delta() * Program.deltaTimer.Delta() / 2;
-           currentProjectilePosition = new Vector2f(currentProjectilePosition.X,
-                                        currentProjectilePosition.Y + currentBulletGravity);
+           position = new Vector2f(position.X,
+                                        position.Y + currentBulletGravity);
 
             // Change projectile Angle
-            currentProjectileAngle = Matematika.AngleOfVector( currentProjectilePosition - previousProjectilePosition);
+            currentProjectileAngle = Matematika.AngleOfVector( position - previousProjectilePosition);
             
            
             /*

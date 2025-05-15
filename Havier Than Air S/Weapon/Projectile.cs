@@ -22,7 +22,7 @@ namespace Havier_Than_Air_S.Weapon
         //Переменные
         public float projectileWeight;
         
-        protected Vector2f currentProjectilePosition;
+        protected Vector2f position;
         protected Vector2f previousProjectilePosition;
         protected float currentProjectileAngle;
         protected float currentProjectileSpeed;
@@ -43,11 +43,11 @@ namespace Havier_Than_Air_S.Weapon
             projectileSound = new Sound();
         }
 
-        virtual public void Start(Vector2f position, float angle)
+        virtual public void Start(Vector2f pos, float angle)
         {
             pullStatus = PullStatus.inAir;
 
-            currentProjectilePosition = position;
+            position = pos;
             currentProjectileAngle = angle;
             if (projectileSound != null) projectileSound.Play();
         }
@@ -58,8 +58,7 @@ namespace Havier_Than_Air_S.Weapon
 
             //Вычисление позиции
             deltaProjectileSpeed = currentProjectileSpeed * (float)Program.deltaTimer.Delta();
-            currentProjectilePosition = currentProjectilePosition + 
-                                        Matematika.searchAB(currentProjectileAngle, deltaProjectileSpeed);
+            position = position + Matematika.searchAB(currentProjectileAngle, deltaProjectileSpeed);
             
 
             //Расход
@@ -77,7 +76,7 @@ namespace Havier_Than_Air_S.Weapon
             if (currentProjectilefuel > 0)
             {
                 // Отрисовка
-                m_Rectangleshape.Position = currentProjectilePosition;
+                m_Rectangleshape.Position = position;
                 m_Rectangleshape.Rotation = currentProjectileAngle;
 
 
@@ -96,7 +95,7 @@ namespace Havier_Than_Air_S.Weapon
             pullStatus = PullStatus.inPool;
             //currentProjectilefuel = 0;
             //currentProjectileSpeed = 0.0f;
-            currentProjectilePosition = Program.m_PullObjects.position;
+            position = Program.m_PullObjects.position;
         }
 
         public TypeOfObject GetTypeOfObject()
@@ -116,6 +115,9 @@ namespace Havier_Than_Air_S.Weapon
             return m_Rectangleshape;
         }
 
-
+        public Vector2f GetPosition()
+        {
+            return position;
+        }
     }
 }
