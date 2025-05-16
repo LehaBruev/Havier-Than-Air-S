@@ -65,7 +65,7 @@ namespace Havier_Than_Air_S.Enemies
         }
 
 
-        public void Start(Vector2f pos, float angle)
+        public void Start(Vector2f pos, float angle, Vector2f speed)
         {
             throw new NotImplementedException();
         }

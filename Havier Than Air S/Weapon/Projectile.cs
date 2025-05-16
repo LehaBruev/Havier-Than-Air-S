@@ -43,13 +43,14 @@ namespace Havier_Than_Air_S.Weapon
             projectileSound = new Sound();
         }
 
-        virtual public void Start(Vector2f pos, float angle)
+        virtual public void Start(Vector2f pos, float angle, Vector2f speed)
         {
             pullStatus = PullStatus.inAir;
 
             position = pos;
             currentProjectileAngle = angle;
             if (projectileSound != null) projectileSound.Play();
+            currentProjectileSpeed = Matematika.searchdistance((Vector2i)speed, new Vector2i(0, 0));
         }
 
 

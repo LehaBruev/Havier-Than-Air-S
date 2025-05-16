@@ -40,7 +40,10 @@ namespace Havier_Than_Air_S.Weapon
         {
             if(!(currentAmmCount<=0) && clock.ElapsedTime.AsSeconds()>skorostrelnost)
             {
-               Program.m_PullObjects.StartObject(parentHely.weaponPositionCurrentPoint, parentHely.angle, weaponTyte);
+               Program.m_PullObjects.StartObject(parentHely.weaponPositionCurrentPoint, 
+                                                parentHely.angle,  
+                                                new Vector2f(parentHely.speedx, parentHely.speedy),
+                                                weaponTyte);
                 currentAmmCount -= 1;
                 clock.Restart();
 

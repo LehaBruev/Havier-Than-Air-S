@@ -54,14 +54,14 @@ namespace Havier_Than_Air_S
             collisions = new Collisions();
         }
 
-        public void StartObject(Vector2f position, float angle,TypeOfObject objectType)
+        public void StartObject(Vector2f position, float angle, Vector2f speed, TypeOfObject objectType)
         {
             for (int i = 0; i < IMoovables.Length; i++)
             {
                 if (IMoovables[i].GetCurrentPullStatus() == PullStatus.inPool &&
                     IMoovables[i].GetTypeOfObject() == objectType)
                 {
-                    IMoovables[i].Start(position, angle);
+                    IMoovables[i].Start(position, angle, speed);
                     return;
                 }
             }

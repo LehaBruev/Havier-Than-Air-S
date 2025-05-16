@@ -14,15 +14,21 @@ namespace Havier_Than_Air_S.Missions
         public RectangleShape rectShape;
 
         public Hous() 
-        { 
-        rectShape.FillColor = Color.White;
+        {
+            rectShape = new RectangleShape();
+        rectShape.FillColor = Color.Green;
         rectShape.Size = new Vector2f(20, 50);
         rectShape.Origin = new Vector2f(0,rectShape.Size.Y);
         
         }
 
+        
          
+        public void Update()
+        {
+            Program.window.Draw(rectShape);
 
+        }
 
 
     }

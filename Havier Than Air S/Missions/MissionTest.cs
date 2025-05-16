@@ -40,14 +40,55 @@ namespace Havier_Than_Air_S.Missions
 
         Tnk1 tank;
 
+        // Houses
+
+        Vector2f[] housesPositions;
+        Hous[] houses;
+        Random rand;
+        int hCount = 5000;
+        int hBeginX = 1500;
+        int hEndX = 30000;
+        int hBeginY = 300;
+        int hEndY = 790;
 
         public MissionTest()
         {
+            rand = new Random();
             collisions = new Collisions();
             mouseController = Program.m_MouseController;
             clock = new Clock();
             m_Hely = new Hely();
             Program.cameraController.SetCameraObject(m_Hely);
+
+            /*
+            housesPositions = new Vector2f[]
+            {
+                new Vector2f(1100, 750),
+                new Vector2f(1300, 750),
+                new Vector2f(1400, rand.Next(730,770)),
+                new Vector2f(1470, rand.Next(730,770)),
+                new Vector2f(1700, rand.Next(730,770)),
+                new Vector2f(2200, rand.Next(500,700)),
+                new Vector2f(2500, rand.Next(500,700)),
+                new Vector2f(3000, rand.Next(500,700)),
+
+            };
+            */
+            housesPositions = new Vector2f[hCount];
+
+            for (int i = 0; i < housesPositions.Length; i++)
+            {
+                housesPositions[i] = new Vector2f(rand.Next(hBeginX, hEndX), rand.Next(hBeginY, hEndY));
+
+            }
+
+
+            houses = new Hous[housesPositions.Length];
+            for (int i = 0; i < housesPositions.Length; i++)
+            {
+                houses[i] = new Hous();
+                houses[i].rectShape.Position = housesPositions[i];
+            }
 
 
             //tank = new Tnk1();
@@ -72,7 +113,7 @@ namespace Havier_Than_Air_S.Missions
             {
 
                 if (m_Hely!=null) SpawnRocket();
-                Program.m_PullObjects.StartObject(mouseController.currentMousePoint, 0, TypeOfObject.bang);
+                Program.m_PullObjects.StartObject(mouseController.currentMousePoint, 0, new Vector2f(0,0), TypeOfObject.bang);
 
                 if (mouseIsPressed == false)
                 {
@@ -88,6 +129,13 @@ namespace Havier_Than_Air_S.Missions
                 mousPoint1 = mouseController.currentMousePoint;
             }
              if (tank!=null) tank.Update();
+
+            // Houses
+            for (int i = 0; i < housesPositions.Length; i++)
+            {
+                houses[i].Update();
+            }
+
         }
 
         public void CheckTargetCollider(FloatRect incoming)

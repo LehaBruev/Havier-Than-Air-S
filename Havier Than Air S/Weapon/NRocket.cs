@@ -69,9 +69,9 @@ namespace Havier_Than_Air_S.Weapon
 
         }
 
-        public override void Start(Vector2f position, float angle)
+        public override void Start(Vector2f position, float angle, Vector2f speed)
         {
-            base.Start(position, angle);
+            base.Start(position, angle, speed);
             currentProjectilefuel = rocketFuel;
             currentProjectileSpeed = rocketSpeed;
             currentSpeedAxeleration = 0;

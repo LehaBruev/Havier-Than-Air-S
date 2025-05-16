@@ -11,7 +11,7 @@ namespace Havier_Than_Air_S
     public interface IMoovable
     {
 
-        void Start(Vector2f pos, float angle);
+        void Start(Vector2f pos, float angle, Vector2f speed);
         void Update();
         TypeOfObject GetTypeOfObject();
         PullStatus GetCurrentPullStatus();
