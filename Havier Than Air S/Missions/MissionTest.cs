@@ -45,9 +45,9 @@ namespace Havier_Than_Air_S.Missions
         Vector2f[] housesPositions;
         Hous[] houses;
         Random rand;
-        int hCount = 5000;
+        int hCount = 100;
         int hBeginX = 1500;
-        int hEndX = 30000;
+        int hEndX = 7000;
         int hBeginY = 300;
         int hEndY = 790;
 

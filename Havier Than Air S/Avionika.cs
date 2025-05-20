@@ -13,6 +13,9 @@ namespace Havier_Than_Air_S
     internal class Avionika
     {
         private Hely hely;
+        Vector2f origin = new Vector2f(0,0);
+        Vector2f panel1Posi = new Vector2f(10,10);
+        Vector2f panel2Posi = new Vector2f(185.0f, 10.0f);
 
         Font font;
 
@@ -55,6 +58,13 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
+            origin = Program.offset;
+            panelAvionikaSprite.Position = origin -
+                                            new Vector2f( Program.vMode.Width/2,Program.vMode.Height/2) + panel1Posi;
+            panelAvionikaSprite2.Position = origin -
+                                           new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) + panel2Posi;
+
+
             Program.window.Draw(panelAvionikaSprite);
             Program.window.Draw(panelAvionikaSprite2);
 
