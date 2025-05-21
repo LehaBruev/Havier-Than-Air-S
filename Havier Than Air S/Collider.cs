@@ -11,21 +11,12 @@ namespace Havier_Than_Air_S
     {
         public Shape shape;
 
-
         public Collider(Shape sh) 
         
         {
             shape = sh;
-
-
         }
         
-
-
-
-
-
-
 
     }
 }

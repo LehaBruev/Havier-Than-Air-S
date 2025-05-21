@@ -111,7 +111,13 @@ namespace Havier_Than_Air_S
             DrawText("Fuel: " + (int)hely.helifuel, new Vector2f(22, 66), fuelColor, 2);
 
 
-            PricelDraw();
+            
+
+            if (hely != null)
+            {
+                PricelDraw();
+                UpdateInertia();
+            }
         }
 
 
@@ -190,12 +196,52 @@ namespace Havier_Than_Air_S
             if (hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.sr)
             {
 
-                scopeSprite.Position = (Vector2f)Mouse.GetPosition(Program.window);
+                //scopeSprite.Position = (Vector2f)Mouse.GetPosition(Program.window);
+                scopeSprite.Position = Program.offset + (Vector2f)Mouse.GetPosition(Program.window) -
+                new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2);
+
+
                 scopeSprite.Color = Color.Red;
                 Program.window.Draw(scopeSprite);
 
             }
 
         }
+
+        Vertex inertiavector = new Vertex();
+        Color vColor = Color.Green;
+        private void UpdateInertia()
+        {
+            inertiavector.Position = new Vector2f(hely.helySprite.Position.X, hely.helySprite.Position.Y);
+
+            vColor = Color.White;
+            if (hely.speedy > 0.5f || hely.speedy < -0.5f) vColor = Color.Yellow;
+            if (hely.speedy > 0.9f || hely.speedy < -0.9f) vColor = Color.Red;
+
+
+
+            // ParkovkaAssistance
+            Vertex[] line = new Vertex[]
+            {
+                
+               //new Vertex(new Vector2f(helySprite.Position.X, helySprite.Position.Y)),
+              // new Vertex(new Vector2f(helySprite.Position.X + speedx*15, helySprite.Position.Y-speedy*15)),
+               new Vertex(new Vector2f(hely.helySprite.Position.X, hely.helySprite.Position.Y+10)),
+               new Vertex(new Vector2f(hely.helySprite.Position.X + hely.speedx*40, hely.helySprite.Position.Y + 10),vColor),
+               new Vertex(new Vector2f(hely.helySprite.Position.X, hely.helySprite.Position.Y+10)),
+               new Vertex(new Vector2f(hely.helySprite.Position.X, hely.helySprite.Position.Y-hely.speedy*60+10),vColor)
+            };
+
+            Program.window.Draw(line, PrimitiveType.Lines);
+
+            /*
+            inertiaVector = new Vector2f(speedx, speedy);
+            inertiavector.Color = Color.Yellow;
+            inertiavector.Position = new Vector2f(helySprite.Position.X, helySprite.Position.Y);
+            */
+
+        }
+
+
     }
 }

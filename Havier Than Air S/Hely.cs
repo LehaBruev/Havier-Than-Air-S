@@ -23,7 +23,7 @@ namespace Havier_Than_Air_S
         // Картинка верталета
         //Texture heliTexture = new Texture("uh61.png");
         Texture heliTexture = new Texture("uh612.png");
-        Sprite helySprite;
+        public Sprite helySprite;
 
         //Настройки верталета
          float maxpowery = 300000; //Максимальная сила влияет на вертолет
@@ -225,16 +225,16 @@ namespace Havier_Than_Air_S
 
             
             collider = new ConvexShape(10);
-            collider.SetPoint(0, new Vector2f(0, 0));
-            collider.SetPoint(1, new Vector2f(10, 10));
-            collider.SetPoint(2, new Vector2f(30, 10));
-            collider.SetPoint(3, new Vector2f(35,7));
-            collider.SetPoint(4, new Vector2f(55,7));
+            collider.SetPoint(0, new Vector2f(-27, 5));
+            collider.SetPoint(1, new Vector2f(-23, 15));
+            collider.SetPoint(2, new Vector2f(10, 15));
+            collider.SetPoint(3, new Vector2f(15,10));
+            collider.SetPoint(4, new Vector2f(55,10));
             collider.SetPoint(5, new Vector2f(66,15));
-            collider.SetPoint(6, new Vector2f(60,25));
-            collider.SetPoint(7, new Vector2f(40,25));
-            collider.SetPoint(8, new Vector2f(40,20));
-            collider.SetPoint(9, new Vector2f(10,15));
+            collider.SetPoint(6, new Vector2f(60,30));
+            collider.SetPoint(7, new Vector2f(5,30));
+            collider.SetPoint(8, new Vector2f(0,25));
+            collider.SetPoint(9, new Vector2f(-23,20));
             collider.FillColor = Color.White;
             collider.Origin = helySprite.Origin;
 
@@ -331,7 +331,7 @@ namespace Havier_Than_Air_S
             CircleShape.Position = new Vector2f( helySprite.Position.X,
                                                  helySprite.Position.Y);
 
-            UpdateInertia();
+            
             //Program.window.Draw(CircleShape);
             avionika.Update();
             CheckGunMode();
@@ -343,44 +343,9 @@ namespace Havier_Than_Air_S
 
         }
 
-        Vertex inertiavector = new Vertex();
-        VertexArray inertiaLine = new VertexArray();
-        Color vColor = Color.Green;
+        
 
-
-
-        private void UpdateInertia()
-        {
-            inertiavector.Position = new Vector2f(helySprite.Position.X, helySprite.Position.Y);
-
-            vColor = Color.White;
-            if (speedy > 0.5f || speedy < -0.5f) vColor = Color.Yellow;
-            if (speedy > 0.9f || speedy < -0.9f) vColor = Color.Red;
-            
-            Console.WriteLine(speedy);
-
-
-            // ParkovkaAssistance
-            Vertex[] line = new Vertex[]
-            {
-                
-               //new Vertex(new Vector2f(helySprite.Position.X, helySprite.Position.Y)),
-              // new Vertex(new Vector2f(helySprite.Position.X + speedx*15, helySprite.Position.Y-speedy*15)),
-               new Vertex(new Vector2f(helySprite.Position.X, helySprite.Position.Y+10)),
-               new Vertex(new Vector2f(helySprite.Position.X + speedx*40, helySprite.Position.Y + 10),vColor),
-               new Vertex(new Vector2f(helySprite.Position.X, helySprite.Position.Y+10)),
-               new Vertex(new Vector2f(helySprite.Position.X, helySprite.Position.Y-speedy*60+10),vColor)
-            };
-            
-            Program.window.Draw(line, PrimitiveType.Lines);
-
-            /*
-            inertiaVector = new Vector2f(speedx, speedy);
-            inertiavector.Color = Color.Yellow;
-            inertiavector.Position = new Vector2f(helySprite.Position.X, helySprite.Position.Y);
-            */
-
-        }
+       
 
         private void CheckPosition()
         {

@@ -35,7 +35,11 @@ namespace Havier_Than_Air_S
 
         public static Vector2f offset = new Vector2f(350,400);
 
-       static void Main(string[] args)
+        //
+        public static Collisions collisions = new Collisions();
+
+
+        static void Main(string[] args)
        {
             cameraController.Update();
             _Settings.AntialiasingLevel = 8; // сглажывание
