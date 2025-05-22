@@ -16,7 +16,7 @@ namespace Havier_Than_Air_S
         // Режим разработчки
        public static bool TestModeP = false;
        static ContextSettings _Settings = new ContextSettings();
-
+        public static Collisions collisions = new Collisions();
 
         public static CameraController cameraController = new CameraController();
         public static DeltaTimer deltaTimer = new DeltaTimer();
@@ -36,7 +36,7 @@ namespace Havier_Than_Air_S
         public static Vector2f offset = new Vector2f(350,400);
 
         //
-        public static Collisions collisions = new Collisions();
+        
 
 
         static void Main(string[] args)
@@ -69,6 +69,8 @@ namespace Havier_Than_Air_S
                 Game.Update();
                 m_MouseController.CheckMouse();
                 m_PullObjects.Update();
+                collisions.Update();
+
 
                 window.Display();
                 deltaTimer.CheckDelta();

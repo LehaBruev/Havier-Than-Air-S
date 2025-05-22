@@ -17,13 +17,19 @@ namespace Havier_Than_Air_S
         float size;
 
 
-        public Marker(Vector2f[] pointsPos,  Color color, float pointRadius) 
+        public Marker(Shape shape,  Color color, float pointRadius) 
         {
-            pointsPositions = pointsPos;
+            pointsPositions = Program.collisions.GetShapePoints(shape); 
             markerPoint = new CircleShape();
             markerPoint.FillColor = color;
             markerPoint.Radius = pointRadius;
             markerPoint.Origin = new Vector2f(pointRadius, pointRadius);
+        }
+
+        public void UpdatePoints(Shape shape)
+        {
+            pointsPositions = Program.collisions.GetShapePoints(shape);
+
         }
 
         public void Update()

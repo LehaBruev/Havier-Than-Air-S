@@ -92,7 +92,7 @@ namespace Havier_Than_Air_S
             for (int i = 0; i < IMoovables.Length; i++)
             {
 
-                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.nr && IMoovables[i].GetCurrentPullStatus() == PullStatus.inAir)
+                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.gun && IMoovables[i].GetCurrentPullStatus() == PullStatus.inAir)
                 {
                     for (int k = 0; k < IMoovables.Length; k++)
                     {
@@ -101,7 +101,7 @@ namespace Havier_Than_Air_S
                            bool d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
 
                             if (d == true)
-                                Console.WriteLine("" + IMoovables[i] + " VS " + IMoovables[k]);
+                                Console.Write("" + IMoovables[i] + " VS " + IMoovables[k] );
 
 
                         }

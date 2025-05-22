@@ -18,7 +18,7 @@ namespace Havier_Than_Air_S.Enemies
          float tank1sizex = 82;
          float tank1sizey = 30;
          float tank1live = 250;
-         float tank1speed = 1;
+         float tank1speed = 5;
          float tank1cource = 790;
          float tank1destroy = 0;
          int tank1maxquantity = 62;
@@ -41,6 +41,9 @@ namespace Havier_Than_Air_S.Enemies
         int napravlenie = 1;
 
 
+        //marker
+        Marker marker;
+
         public Tnk1()
         {
             body = new Texture(allImage, new IntRect(39, 884, 85, 24));
@@ -53,6 +56,8 @@ namespace Havier_Than_Air_S.Enemies
             gunSprite.Origin = new Vector2f(58, 3);
 
             shape = new RectangleShape(new Vector2f(85,24));
+            
+            marker = new Marker(shape,Color.Yellow,3);
         }
 
         public void Update()
@@ -69,6 +74,8 @@ namespace Havier_Than_Air_S.Enemies
             Program.window.Draw(bodySprite);
             Program.window.Draw(headSprite);
             Program.window.Draw(gunSprite);
+            marker.UpdatePoints(shape);
+            marker.Update();
         }
 
 

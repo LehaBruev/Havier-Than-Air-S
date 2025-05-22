@@ -84,7 +84,7 @@ namespace Havier_Than_Air_S.Missions
         {
             m_Hely = new Hely();
             Program.cameraController.SetCameraObject(m_Hely);
-            Program.m_PullObjects.StartObject(new Vector2f(1300, 770), 0, new Vector2f(1, 0), TypeOfObject.enemy);
+            Program.m_PullObjects.StartObject(new Vector2f(1300, 770), 0, new Vector2f(20, 0), TypeOfObject.enemy);
 
 
             // houses

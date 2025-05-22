@@ -27,8 +27,9 @@ namespace Havier_Than_Air_S
         /*
         RectangleShape collider1;
         RectangleShape collider2;
-        ConvexShape naborTochekConvex;
         */
+        ConvexShape naborTochekConvex;
+        
 
         Collider playerCollider;
         Collider[] enemyCollider;
@@ -60,7 +61,7 @@ namespace Havier_Than_Air_S
             collider2.Rotation = 0;
             collider2.Position = new Vector2f(400,300);
             collider2.Origin = new Vector2f(50, 50);
-
+            */
             // ConvexShape
             naborTochekConvex = new ConvexShape();
             naborTochekConvex.SetPointCount(6);
@@ -77,8 +78,8 @@ namespace Havier_Than_Air_S
 
 
             // Marker
-            marker = new Marker(GetShapePoints(naborTochekConvex), Color.Red,5);
-            */
+            marker = new Marker(naborTochekConvex, Color.Red,5);
+            
         }
 
 
@@ -97,13 +98,15 @@ namespace Havier_Than_Air_S
             Vector2f[] points = new Vector2f[shape.GetPointCount()];
             for (int i = 0;i< shape.GetPointCount(); i++)
             {
-                points[i] = Matematika.LocalPointOfRotationObject(shape.Position - shape.Origin + shape.GetPoint((uint)i), 
-                                                                    shape.Rotation);
+                // Vector2f c = new Vector2f(Program.offset)
+                points[i] = shape.Position  + Matematika.LocalPointOfRotationObject( shape.GetPoint((uint)i) - shape.Origin,
+                                                                    shape.Rotation);//shape.Rotation
             }
 
 
             return points;
         }
+      
 
         /*
         private Vector2f[] GetRectanglePoints(RectangleShape col)
@@ -154,7 +157,10 @@ namespace Havier_Than_Air_S
         
 
         public void Update()
-        {/*
+        {
+
+            Program.window.Draw(naborTochekConvex);
+            /*
             collider1.Position = Program.offset + (Vector2f)Mouse.GetPosition(Program.window) -
                 new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2);
 
@@ -165,7 +171,7 @@ namespace Havier_Than_Air_S
             Program.window.Draw(collider1);
             Program.window.Draw(collider2);
             Program.window.Draw(naborTochekConvex);
-
+            */
             // Маркеры
             if (marker != null) marker.Update();
 
@@ -181,8 +187,8 @@ namespace Havier_Than_Air_S
                 marker.Position = points2[i];
                 Program.window.Draw(marker);
             }
-            
             */
+            
         }
 
 

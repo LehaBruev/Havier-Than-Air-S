@@ -32,7 +32,7 @@ namespace Havier_Than_Air_S
                     Program.offset += new Vector2f((moovable as Hely).speedx*80, 0);
                 }
             }
-
+            
         }
 
         public void SetCameraObject(IMoovable obj)

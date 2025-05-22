@@ -100,7 +100,7 @@ namespace Havier_Than_Air_S
 
 
 
-            Vector2f localCoordinate = searchAB(ang+ angleOfObject, dist);
+            Vector2f localCoordinate = searchAB(ang + angleOfObject, dist);
 
 
             return localCoordinate;

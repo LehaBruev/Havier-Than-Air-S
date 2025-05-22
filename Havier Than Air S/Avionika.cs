@@ -16,6 +16,7 @@ namespace Havier_Than_Air_S
         Vector2f origin = new Vector2f(0,0);
         Vector2f panel1Posi = new Vector2f(10,10);
         Vector2f panel2Posi = new Vector2f(185.0f, 10.0f);
+        Vector2f panel3Posi = new Vector2f(350.0f, 10.0f);
 
         Font font;
 
@@ -23,6 +24,7 @@ namespace Havier_Than_Air_S
         Texture avionikaTexture;
         Sprite panelAvionikaSprite;
         Sprite panelAvionikaSprite2;
+        Sprite panelAvionikaSprite3;
         Text aText;
 
         // Pricel mode 2
@@ -44,6 +46,9 @@ namespace Havier_Than_Air_S
             panelAvionikaSprite2 = new Sprite(avionikaTexture);
             panelAvionikaSprite2.Position = new Vector2f(185.0f, 10.0f);
 
+            panelAvionikaSprite3 = new Sprite(avionikaTexture);
+            panelAvionikaSprite3.Position = panel3Posi;
+
             aText = new Text();
             aText.FillColor = Color.White;
 
@@ -63,16 +68,18 @@ namespace Havier_Than_Air_S
                                             new Vector2f( Program.vMode.Width/2,Program.vMode.Height/2) + panel1Posi;
             panelAvionikaSprite2.Position = origin -
                                            new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) + panel2Posi;
+            panelAvionikaSprite3.Position = origin -
+                                           new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) + panel3Posi;
 
 
             Program.window.Draw(panelAvionikaSprite);
             Program.window.Draw(panelAvionikaSprite2);
+            Program.window.Draw(panelAvionikaSprite3);
 
-            //Параметры верталета
+            //Параметры верталета Panel_1
             Color lifeColor = Color.White;
             if (hely.helilifeCurrent < 90)  lifeColor = Color.Red; 
             DrawText("Heli Life: " + (int)hely.helilifeCurrent, new Vector2f(22, 15), lifeColor, 1);
-            
             DrawText("Altitude: " + (int)hely.altitude, new Vector2f(22, 32), Color.White, 1);
             DrawText("Angle: " + (int)hely.angle, new Vector2f(22, 49), Color.White, 1);
             DrawText("Автопилот V: ", new Vector2f(22, 66), Color.White, 1);
@@ -89,12 +96,11 @@ namespace Havier_Than_Air_S
             DrawText(25, 75, "Автопилот H: " + autopilotswitch, 14);
             */
 
+            // Panel_2
             //Двигаетль
             Color colorEngineSpeed = Color.White;
             if (hely.enginespeed > hely.enginespeedlimit) colorEngineSpeed = Color.Red;
             DrawText("Engine S.: " + (int)hely.enginespeed, new Vector2f(22, 15) , colorEngineSpeed, 2);
-
-            
             
             Color engSwithColor = Color.White;
             if (hely.engineswitch == 1) engSwithColor = Color.Green;
@@ -110,8 +116,9 @@ namespace Havier_Than_Air_S
             if (hely.helifuel < 150) fuelColor = Color.Yellow; 
             DrawText("Fuel: " + (int)hely.helifuel, new Vector2f(22, 66), fuelColor, 2);
 
-
-            
+            // Panel_3
+            DrawText("X: " + (int)hely.position.X, new Vector2f(22, 15), Color.Green, 3);
+            DrawText("Y: " + (int)hely.position.Y, new Vector2f(22, 32), Color.Green, 3);
 
             if (hely != null)
             {
@@ -123,18 +130,23 @@ namespace Havier_Than_Air_S
 
 
 
-        private void DrawText(string txt, Vector2f pos, Color color, int displayNumber)
+        private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
         {
             Vector2f posGlobal = new Vector2f(0,0);
-            if (displayNumber == 1)
+            if (panelNumber == 1)
             {
                 posGlobal = new Vector2f(pos.X + panelAvionikaSprite.Position.X, 
                                 pos.Y + panelAvionikaSprite.Position.Y + 5);
             }
-            else if (displayNumber == 2)
+            else if (panelNumber == 2)
             {
                 posGlobal = new Vector2f(pos.X + panelAvionikaSprite2.Position.X,
-                                pos.Y + panelAvionikaSprite.Position.Y + 5);
+                                pos.Y + panelAvionikaSprite2.Position.Y + 5);
+            }
+            else if (panelNumber == 3)
+            {
+                posGlobal = new Vector2f(pos.X + panelAvionikaSprite3.Position.X,
+                                pos.Y + panelAvionikaSprite3.Position.Y + 5);
             }
             aText = new Text(txt, font,14);
             aText.Position = posGlobal;
