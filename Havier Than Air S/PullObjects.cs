@@ -1,4 +1,5 @@
-﻿using Havier_Than_Air_S.Missions;
+﻿using Havier_Than_Air_S.Enemies;
+using Havier_Than_Air_S.Missions;
 using Havier_Than_Air_S.Weapon;
 using SFML.System;
 using System;
@@ -31,6 +32,7 @@ namespace Havier_Than_Air_S
         private int GunBulletCount = 30;
         private int NRcount = 5;
         private int BangCount = 5;
+        private int TankCount = 5;
 
         //Pull
         private IMoovable[] IMoovables;
@@ -43,15 +45,17 @@ namespace Havier_Than_Air_S
         
         public void StartPull()
         {
-            IMoovables = new IMoovable[NRcount+GunBulletCount+BangCount];
+            IMoovables = new IMoovable[NRcount+GunBulletCount+BangCount+ TankCount];
 
             for (int i = 0; i < NRcount; i++) IMoovables[i] = new NRocket();
             for (int i = NRcount; 
                      i < NRcount + GunBulletCount; i++) IMoovables[i] = new GunBullet();
             for (int i = NRcount + GunBulletCount;
                      i < NRcount + GunBulletCount + BangCount; i++) IMoovables[i] = new Bang(position);
+            for (int i = NRcount + GunBulletCount + BangCount;
+                     i < NRcount + GunBulletCount + BangCount + TankCount; i++) IMoovables[i] = new Tnk1();
 
-            collisions = new Collisions();
+            collisions = Program.collisions;
         }
 
         public void StartObject(Vector2f position, float angle, Vector2f speed, TypeOfObject objectType)
@@ -77,6 +81,7 @@ namespace Havier_Than_Air_S
                     IMoovables[i].Update();
                 }
             }
+            CheckCollisions();
         }
 
        
@@ -86,13 +91,18 @@ namespace Havier_Than_Air_S
 
             for (int i = 0; i < IMoovables.Length; i++)
             {
-                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.nr)
+
+                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.nr && IMoovables[i].GetCurrentPullStatus() == PullStatus.inAir)
                 {
                     for (int k = 0; k < IMoovables.Length; k++)
                     {
-                        if (IMoovables[k].GetTypeOfObject() == TypeOfObject.enemy)
+                        if (IMoovables[k].GetTypeOfObject() == TypeOfObject.enemy && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir)
                         {
-                            collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
+                           bool d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
+
+                            if (d == true)
+                                Console.WriteLine("" + IMoovables[i] + " VS " + IMoovables[k]);
+
 
                         }
                     }

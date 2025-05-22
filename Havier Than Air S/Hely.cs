@@ -29,11 +29,11 @@ namespace Havier_Than_Air_S
          float maxpowery = 300000; //Максимальная сила влияет на вертолет
          float maxpowerx = 30000; // 
          float shagengine = 75; // шаг увеличения мощности двигателя
-         float shagAngle = 2f; // шаг изменения угла атаки
+         float shagAngle = 1.5f; // шаг изменения угла атаки
          float maxspeedhor = 50;
          float maxspeedvert = 300;
          float maxheigh = 575; // потолок полета
-         float speedxmax = 5.5f;
+         float speedxmax = 3.5f;
         //nrrocketsMaxquantity = 8; //максимально ракет
 
         //Характеристики мотора и проч
@@ -41,7 +41,7 @@ namespace Havier_Than_Air_S
         public float helienginelife = 100; //исправность двигателя Вертолета
         float fuelrashod = 11.7f; // расход топлива
         float manageability = 4f;// управляемость //5 это ИНЕРЦИЯ
-        float maxangle = 65; // Максимальный угол атаки
+        float maxangle = 60; // Максимальный угол атаки
         float helifuelmax = 1300; // Максимальное топливо в баках
         float maxboost = 8250; // максимальное ускорение от двигателя //11250
         float holdOborotMotora = 12000; // Холостые обороты мотора

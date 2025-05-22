@@ -11,7 +11,8 @@ namespace Havier_Than_Air_S.Enemies
     public class Tnk1: IMoovable
     {
         RectangleShape shape;
-
+        PullStatus status = PullStatus.inPool;
+        TypeOfObject typeofObject = TypeOfObject.enemy;
         //Параметры Танка1
          
          float tank1sizex = 82;
@@ -21,7 +22,8 @@ namespace Havier_Than_Air_S.Enemies
          float tank1cource = 790;
          float tank1destroy = 0;
          int tank1maxquantity = 62;
-        Vector2f tankPosition = new Vector2f(1400,750);
+        Vector2f tankPosition;
+        float tankAngle;
 
         Image allImage = new Image("uh61all.png");
         Texture body;
@@ -49,11 +51,16 @@ namespace Havier_Than_Air_S.Enemies
             headSprite = new Sprite(head);
             gunSprite = new Sprite(Gun);
             gunSprite.Origin = new Vector2f(58, 3);
+
+            shape = new RectangleShape(new Vector2f(85,24));
         }
 
         public void Update()
         {
             tankPosition = new Vector2f(tankPosition.X - tank1speed*Program.deltaTimer.Delta(),tankPosition.Y);
+            shape.Position = tankPosition;
+
+
 
             bodySprite.Position = tankPosition;
             headSprite.Position = bodySprite.Position + headPosition;
@@ -67,17 +74,20 @@ namespace Havier_Than_Air_S.Enemies
 
         public void Start(Vector2f pos, float angle, Vector2f speed)
         {
-            throw new NotImplementedException();
+            tankPosition = pos;
+            tankAngle = angle;
+            tank1speed = speed.X;
+            status = PullStatus.inAir;
         }
 
         public TypeOfObject GetTypeOfObject()
         {
-            throw new NotImplementedException();
+            return typeofObject;
         }
 
         public PullStatus GetCurrentPullStatus()
         {
-            throw new NotImplementedException();
+            return status;
         }
 
         public Shape GetShape()

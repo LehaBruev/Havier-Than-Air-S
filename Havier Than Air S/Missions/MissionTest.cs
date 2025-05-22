@@ -57,8 +57,7 @@ namespace Havier_Than_Air_S.Missions
             
             mouseController = Program.m_MouseController;
             clock = new Clock();
-            m_Hely = new Hely();
-            Program.cameraController.SetCameraObject(m_Hely);
+            
 
             /*
             housesPositions = new Vector2f[]
@@ -74,6 +73,21 @@ namespace Havier_Than_Air_S.Missions
 
             };
             */
+            
+
+            
+            //tank = new Tnk1();
+
+        }
+        
+        public void StartMiss()
+        {
+            m_Hely = new Hely();
+            Program.cameraController.SetCameraObject(m_Hely);
+            Program.m_PullObjects.StartObject(new Vector2f(1300, 770), 0, new Vector2f(1, 0), TypeOfObject.enemy);
+
+
+            // houses
             housesPositions = new Vector2f[hCount];
 
             for (int i = 0; i < housesPositions.Length; i++)
@@ -90,11 +104,8 @@ namespace Havier_Than_Air_S.Missions
                 houses[i].rectShape.Position = housesPositions[i];
             }
 
-
-            //tank = new Tnk1();
-
         }
-        
+
 
         public void Update()
         {
@@ -107,7 +118,7 @@ namespace Havier_Than_Air_S.Missions
                 mouseController = Program.m_MouseController;
             }
 
-
+            
 
             if (mouseController.LeftButton == true)
             {
@@ -128,7 +139,7 @@ namespace Havier_Than_Air_S.Missions
                 //SpawnRocket();
                 mousPoint1 = mouseController.currentMousePoint;
             }
-             if (tank!=null) tank.Update();
+            // if (tank!=null) tank.Update();
 
             // Houses
             for (int i = 0; i < housesPositions.Length; i++)

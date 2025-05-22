@@ -30,6 +30,14 @@ namespace Havier_Than_Air_S
         ConvexShape naborTochekConvex;
         */
 
+        Collider playerCollider;
+        Collider[] enemyCollider;
+        Collider groundColliders;
+        Collider[] playerProjColliders;
+        Collider[] enemyProjColliders;
+
+
+
         // Два набора точек
         Vector2f[] points1;
         Vector2f[] points2;
@@ -107,9 +115,6 @@ namespace Havier_Than_Air_S
 
             
             return new Vector2f[]{ a, b, c, d };
-
-            
-
         }
         */
 
@@ -178,6 +183,13 @@ namespace Havier_Than_Air_S
             }
             
             */
+        }
+
+
+        public void CheckAllColliders()
+        {
+
+
         }
 
 

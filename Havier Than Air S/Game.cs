@@ -37,12 +37,13 @@ namespace Havier_Than_Air_S
 
         public Game()
         {
-            StartGame();
+            
         }
 
-        private void StartGame()
+        public void StartGame()
         {
             ChangeGameMode(GameMode.Play,MissionSwitch.test);
+            missionTest.StartMiss();
         }
 
         public void ChangeGameMode(GameMode mode, MissionSwitch mission)

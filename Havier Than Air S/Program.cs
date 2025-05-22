@@ -56,7 +56,7 @@ namespace Havier_Than_Air_S
             //view2.Viewport = (new FloatRect(0.5f, 0f, 0.5f, 1f));
             //view.Size = new Vector2f(1600, 900);
             
-            
+            Game.StartGame();
 
             while (window.IsOpen)
             {
