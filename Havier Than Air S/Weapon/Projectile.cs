@@ -21,6 +21,7 @@ namespace Havier_Than_Air_S.Weapon
 
         //Переменные
         public float projectileWeight;
+        public float projectileDamage = 0;
         
         protected Vector2f position;
         protected Vector2f previousProjectilePosition;
@@ -33,6 +34,8 @@ namespace Havier_Than_Air_S.Weapon
         float deltaProjectileSpeed;
         protected TypeOfObject typeOfObject;
         PullStatus pullStatus;
+        protected bool colliderStatus;
+        
 
         // Sound
         protected Sound projectileSound;
@@ -47,6 +50,7 @@ namespace Havier_Than_Air_S.Weapon
         virtual public void Start(Vector2f pos, float angle, Vector2f speed)
         {
             pullStatus = PullStatus.inAir;
+            colliderStatus = true;
 
             position = pos;
             currentProjectileAngle = angle;
@@ -124,6 +128,16 @@ namespace Havier_Than_Air_S.Weapon
         public Vector2f GetPosition()
         {
             return position;
+        }
+
+        public virtual void SetDamage(IMoovable obj)
+        {
+            DeactivateProjectile();
+        }
+
+        public bool GetColliderStatus()
+        {
+            return colliderStatus;
         }
     }
 }

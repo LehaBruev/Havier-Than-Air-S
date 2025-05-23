@@ -19,5 +19,8 @@ namespace Havier_Than_Air_S
 
         Vector2f GetPosition();
 
+        void SetDamage(IMoovable obj);
+
+        bool GetColliderStatus();
     }
 }

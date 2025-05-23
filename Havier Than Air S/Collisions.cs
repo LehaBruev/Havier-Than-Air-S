@@ -44,7 +44,7 @@ namespace Havier_Than_Air_S
         Vector2f[] points2;
 
         // Маркер
-        Marker marker;
+       // Marker marker;
 
         public Collisions()
         {
@@ -78,7 +78,7 @@ namespace Havier_Than_Air_S
 
 
             // Marker
-            marker = new Marker(naborTochekConvex, Color.Red,5);
+          //  marker = new Marker(naborTochekConvex, Color.Red,5);
             
         }
 
@@ -173,7 +173,8 @@ namespace Havier_Than_Air_S
             Program.window.Draw(naborTochekConvex);
             */
             // Маркеры
-            if (marker != null) marker.Update();
+
+            //if (marker != null) marker.Update();
 
             /*
             for (int i = 0;i< points1.Length;i++)

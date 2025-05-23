@@ -22,8 +22,8 @@ namespace Havier_Than_Air_S
     public class Game 
     {
         public static GameState GameState = new GameState();
- 
-        
+
+        public Random rnd = new Random();
         public static TextureManager mTextureManager = new TextureManager();
         public MainMenuController MenuController = new MainMenuController();
 

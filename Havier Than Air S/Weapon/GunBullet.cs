@@ -8,6 +8,7 @@ using SFML.System;
 using Havier_Than_Air_S.Missions;
 using System.Runtime.InteropServices;
 using SFML.Audio;
+using Havier_Than_Air_S.Enemies;
 
 namespace Havier_Than_Air_S.Weapon
 {
@@ -22,6 +23,7 @@ namespace Havier_Than_Air_S.Weapon
         private float rocketSpeed = 2000;
         private float minSpeed = 100;
         private float NRocketWeight = 100;
+        private float damagePower = 1f;
         
 
         //Особые
@@ -33,6 +35,7 @@ namespace Havier_Than_Air_S.Weapon
         public GunBullet()
         {
             typeOfObject = TypeOfObject.gun;
+            projectileDamage = damagePower;
 
             projectileWeight = NRocketWeight;
             currentProjectileSpeed = rocketSpeed;
@@ -107,6 +110,24 @@ namespace Havier_Than_Air_S.Weapon
         public override void DrawProjectile()
         {
             base.DrawProjectile();
+        }
+
+        
+
+        public override void SetDamage(IMoovable obj)
+        {
+            int a = Program.Game.rnd.Next(0, 100);
+            if ((obj is Tnk1) && a>35)
+            {
+                colliderStatus = false;
+                currentProjectileAngle = Program.Game.rnd.Next(0, 360);
+                currentProjectileSpeed /= (float)2*Program.Game.rnd.Next(4, 10)/10; 
+            }
+            else
+            {
+                base.SetDamage(obj);
+            }
+                
         }
 
     }

@@ -722,5 +722,15 @@ namespace Havier_Than_Air_S
         {
             return position;
         }
+
+        public void SetDamage(IMoovable obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool GetColliderStatus()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

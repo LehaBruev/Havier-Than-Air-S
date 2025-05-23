@@ -20,6 +20,7 @@ namespace Havier_Than_Air_S.Weapon
         private float rocketFuel = 1.8f;
         private float rocketSpeed = 75;
         private float NRocketWeight = 100;
+        private float damagePower;
 
         // Особые
         private float speedAxeleration = 6;
@@ -34,6 +35,7 @@ namespace Havier_Than_Air_S.Weapon
         public NRocket()
         {
             typeOfObject = TypeOfObject.nr;
+            projectileDamage = damagePower;
 
             currentProjectileSpeed = rocketSpeed;
             currentProjectilefuel = rocketFuel;
@@ -49,7 +51,7 @@ namespace Havier_Than_Air_S.Weapon
             m_Rectangleshape.Origin = rocketOrigin;
             //m_Rectangleshape.FillColor = rocketColor;
             m_Rectangleshape.Texture = rocketTexture;
-            m_Rectangleshape.Scale = new Vector2f(-1,1);    
+            m_Rectangleshape.Scale = new Vector2f(1,1);    
 
 
             DeactivateProjectile();
@@ -75,6 +77,7 @@ namespace Havier_Than_Air_S.Weapon
             currentProjectilefuel = rocketFuel;
             currentProjectileSpeed = rocketSpeed;
             currentSpeedAxeleration = 0;
+            projectileDamage = damagePower;
 
         }
 

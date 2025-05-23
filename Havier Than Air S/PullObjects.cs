@@ -92,17 +92,23 @@ namespace Havier_Than_Air_S
             for (int i = 0; i < IMoovables.Length; i++)
             {
 
-                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.gun && IMoovables[i].GetCurrentPullStatus() == PullStatus.inAir)
+                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.gun && IMoovables[i].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
                 {
                     for (int k = 0; k < IMoovables.Length; k++)
                     {
-                        if (IMoovables[k].GetTypeOfObject() == TypeOfObject.enemy && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir)
+                        if (IMoovables[k].GetTypeOfObject() == TypeOfObject.enemy && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
                         {
                            bool d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
 
                             if (d == true)
-                                Console.Write("" + IMoovables[i] + " VS " + IMoovables[k] );
+                            {
 
+                                IMoovables[i].SetDamage(IMoovables[k]);
+                                IMoovables[k].SetDamage(IMoovables[i]);
+
+
+                                Console.Write("" + IMoovables[i] + " VS " + IMoovables[k]);
+                            }
 
                         }
                     }

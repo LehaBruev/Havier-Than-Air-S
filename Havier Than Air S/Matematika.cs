@@ -11,6 +11,7 @@ namespace Havier_Than_Air_S
     static public class Matematika
     {
         public static Vector2f vectorGeneral = new Vector2f(1,0);
+        
 
         static public float searchdistance(Vector2i point_1, Vector2i point_2) // Вычисление расстояния между двумя точками
         {

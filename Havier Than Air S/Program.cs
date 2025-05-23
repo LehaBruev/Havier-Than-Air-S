@@ -17,6 +17,7 @@ namespace Havier_Than_Air_S
        public static bool TestModeP = false;
        static ContextSettings _Settings = new ContextSettings();
         public static Collisions collisions = new Collisions();
+        public static Font font = new Font("comic.ttf");
 
         public static CameraController cameraController = new CameraController();
         public static DeltaTimer deltaTimer = new DeltaTimer();
