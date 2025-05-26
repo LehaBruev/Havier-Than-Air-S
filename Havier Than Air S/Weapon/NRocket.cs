@@ -51,8 +51,8 @@ namespace Havier_Than_Air_S.Weapon
             m_Rectangleshape.Origin = rocketOrigin;
             //m_Rectangleshape.FillColor = rocketColor;
             m_Rectangleshape.Texture = rocketTexture;
-            m_Rectangleshape.Scale = new Vector2f(1,1);    
-
+            m_Rectangleshape.Scale = new Vector2f(1,1);
+            
 
             DeactivateProjectile();
 
