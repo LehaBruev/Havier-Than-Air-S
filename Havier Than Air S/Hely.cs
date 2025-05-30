@@ -137,6 +137,7 @@ namespace Havier_Than_Air_S
         public WeaponBase[] m_Weapons;
         public int currentWeapon;
         float allWeaponsWeight = 100.0f; // Вес weapons
+        
         Vector2f weaponPositionLocal = new Vector2f(-5, 20);
 
         #endregion
@@ -200,12 +201,15 @@ namespace Havier_Than_Air_S
         }
 
 
+        float scaleX = 2; // Для зеркального отображения спрайта вертолета
+        float rearRotorOrigin = -58;
+
         public void SpawnHely()
         {
             helySprite = new Sprite(heliTexture);
            
             //helySprite.Scale = new Vector2f(0.5f, 0.5f);
-            helySprite.Scale = new Vector2f(2, 2);
+            helySprite.Scale = new Vector2f(scaleX, 2);
             
             helySprite.Color = Color.White;
             helySprite.Origin = new Vector2f(34, 6);
@@ -269,10 +273,13 @@ namespace Havier_Than_Air_S
             //positionWeaponLocalPoint = weaponPositionLocal;
         }
 
+        bool rPressed = false;
+
+
         public void RotorUpdate()
         {
             //ротор rear
-            rearRotorPositionNewVector = Matematika.searchAB(helySprite.Rotation, -58);
+            rearRotorPositionNewVector = Matematika.searchAB(helySprite.Rotation, rearRotorOrigin);
             rearRotorRectShape.Position = new Vector2f((helySprite.Position.X) + rearRotorPositionNewVector.X,
                                                  (helySprite.Position.Y) + rearRotorPositionNewVector.Y);
             rearRotorRectShape.Rotation += rearVintSpeed * Program.deltaTimer.Delta() * 100*
@@ -312,6 +319,28 @@ namespace Havier_Than_Air_S
             Vector2f localpos = Matematika.LocalPointOfRotationObject(weaponPositionLocal,angle);
             weaponPositionCurrentPoint = new Vector2f(position.X + localpos.X,
                                                  position.Y + localpos.Y);
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.R) && rPressed==false)
+            {
+                CheckFlip();
+                rPressed = true;
+            }
+            else
+            {
+                if (!Keyboard.IsKeyPressed(Keyboard.Key.R))
+                 {
+                    rPressed = false;
+                }
+            }
+
+        }
+
+        private void CheckFlip()
+        {
+            weaponPositionCurrentPoint = new Vector2f(weaponPositionCurrentPoint.X * (-1),
+                                                        weaponPositionCurrentPoint.Y);
+            rearRotorOrigin = rearRotorOrigin * (-1);
+            helySprite.Scale = new Vector2f(helySprite.Scale.X * (-1), helySprite.Scale.Y);
 
         }
 
