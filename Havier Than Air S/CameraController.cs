@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +9,25 @@ using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S
 {
+
+    public enum CameraMode
+    {
+        hold,
+        hely,
+        helyAtack
+    }
+
     public class CameraController
     {
-
         public Vector2f offset;
         IMoovable moovable;
         Hely player;
+
+        // perem
+        CameraMode currentCameraMode = CameraMode.hold;
+
         public CameraController()
-        {
-            
+        {  
            //Program.view.Reset(new FloatRect(50,50,300, 100));
         }
 
@@ -24,20 +35,42 @@ namespace Havier_Than_Air_S
         {
             if (moovable != null)
             {
-                Program.offset = new Vector2f(moovable.GetPosition().X, 450);
-                //Program.offset = new Vector2f(1, 0);
-                if (moovable is Hely)
+                if (currentCameraMode == CameraMode.hold)
                 {
-                    //Program.offset += new Vector2f((moovable as Hely).speedx*40, (moovable as Hely).speedy *40);
-                    Program.offset += new Vector2f((moovable as Hely).speedx*80, 0);
+
+                }
+                else if (currentCameraMode == CameraMode.hely)
+                {
+                    Program.offset = new Vector2f(moovable.GetPosition().X, 450);
+                }
+                else if (currentCameraMode == CameraMode.helyAtack)
+                {
+                    Program.offset = new Vector2f(moovable.GetPosition().X, 450);
+                    if (moovable is Hely)
+                    {
+                       
+                        Program.offset += new Vector2f((moovable as Hely).speedx * 80, 0);
+                    }
+                }
+
+                if (Keyboard.IsKeyPressed(Keyboard.Key.F1))
+                {
+                    currentCameraMode = CameraMode.hold;
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.F2))
+                {
+                    currentCameraMode = CameraMode.hely;
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.F3))
+                {
+                    currentCameraMode = CameraMode.helyAtack;
                 }
             }
-            
         }
+        
 
         public void SetCameraObject(IMoovable obj)
         {
-
             moovable = obj;
         }
     }

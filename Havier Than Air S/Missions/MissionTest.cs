@@ -79,13 +79,24 @@ namespace Havier_Than_Air_S.Missions
             //tank = new Tnk1();
 
         }
-        
+
+        int tankCount = 10;
+
+        Random rnd;
+        Random rnd2;
         public void StartMiss()
         {
+            rnd = new Random();
+            rnd2 = new Random();
+            
             m_Hely = new Hely();
             Program.cameraController.SetCameraObject(m_Hely);
-            Program.m_PullObjects.StartObject(new Vector2f(1300, 770), 0, new Vector2f(20, 0), TypeOfObject.enemy);
 
+            // tanks
+            for (int i = 0; i < tankCount; i++)
+            {
+                Program.m_PullObjects.StartObject(new Vector2f(rnd.Next(1500,3500) , 750), 0, new Vector2f(rnd2.Next(5, 50),0), TypeOfObject.enemy);
+            }
 
             // houses
             housesPositions = new Vector2f[hCount];

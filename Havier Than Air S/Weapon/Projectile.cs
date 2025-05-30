@@ -56,7 +56,7 @@ namespace Havier_Than_Air_S.Weapon
             currentProjectileAngle = angle;
             if (projectileSound != null) projectileSound.Play();
             currentProjectileSpeed = Matematika.searchdistance((Vector2i)speed, new Vector2i(0, 0));
-            marker = new Marker(m_Rectangleshape, Color.Green, 3);
+           //marker = new Marker(m_Rectangleshape, Color.Green, 3);
         }
 
 
@@ -89,8 +89,8 @@ namespace Havier_Than_Air_S.Weapon
 
 
                 Program.window.Draw(m_Rectangleshape);
-                marker.UpdatePoints(m_Rectangleshape);
-                marker.Update();
+               // marker.UpdatePoints(m_Rectangleshape);
+               // marker.Update();
             }
             else
             {

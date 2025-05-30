@@ -17,7 +17,7 @@ namespace Havier_Than_Air_S.Enemies
         PullStatus status = PullStatus.inPool;
         TypeOfObject typeofObject = TypeOfObject.enemy;
         // Параметры Танка1
-        float maxLifes = 3000;
+        float maxLifes = 100;
 
         // Переменные 
         float currentLifes;
@@ -74,13 +74,14 @@ namespace Havier_Than_Air_S.Enemies
             
         }
 
-
+        Random rand;
         public void Start(Vector2f pos, float angle, Vector2f speed)
         {
-            currentLifes = maxLifes;
+            rand = new Random();
+            currentLifes = rand.Next(50,200);
             tankPosition = pos;
             tankAngle = angle;
-            tank1speed = speed.X;
+            tank1speed = speed.X;//speed.X;
             status = PullStatus.inAir;
             colliderStatus = true;
         }

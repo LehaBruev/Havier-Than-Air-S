@@ -32,7 +32,7 @@ namespace Havier_Than_Air_S
         private int GunBulletCount = 30;
         private int NRcount = 5;
         private int BangCount = 5;
-        private int TankCount = 5;
+        private int TankCount = 10;
 
         //Pull
         private IMoovable[] IMoovables;

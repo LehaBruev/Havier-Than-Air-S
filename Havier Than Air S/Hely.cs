@@ -137,7 +137,7 @@ namespace Havier_Than_Air_S
         public WeaponBase[] m_Weapons;
         public int currentWeapon;
         float allWeaponsWeight = 100.0f; // Вес weapons
-        Vector2f weaponPositionLocal = new Vector2f(50, 10);
+        Vector2f weaponPositionLocal = new Vector2f(-5, 20);
 
         #endregion
 
@@ -219,7 +219,7 @@ namespace Havier_Than_Air_S
             CircleShape.FillColor = new Color(Color.Yellow);
             CircleShape.Origin = new Vector2f(2, 2);
 
-            m_Weapons = new WeaponBase[] { new GunLauncher(250, this, TypeOfObject.gun),
+            m_Weapons = new WeaponBase[] { new GunLauncher(1000, this, TypeOfObject.gun),
                                            new RocketNRLauncher(250, this, TypeOfObject.nr), 
                                            new RocketNRLauncher(250, this, TypeOfObject.sr) };
 
@@ -339,7 +339,7 @@ namespace Havier_Than_Air_S
             // Collider
             collider.Position = position;
             collider.Rotation = angle;
-            Program.window.Draw(collider);
+            //Program.window.Draw(collider);
 
         }
 

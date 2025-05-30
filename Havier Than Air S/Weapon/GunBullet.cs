@@ -23,7 +23,7 @@ namespace Havier_Than_Air_S.Weapon
         private float rocketSpeed = 2000;
         private float minSpeed = 100;
         private float NRocketWeight = 100;
-        private float damagePower = 1f;
+        private float damagePower = 5f;
         
 
         //Особые

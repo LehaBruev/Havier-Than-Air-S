@@ -19,14 +19,14 @@ namespace Havier_Than_Air_S
         // Параметры
    
         TypeOfObject type = TypeOfObject.gun;
-        float skorostrel = 0.06f; //Скорострельность
+        float skorostrel = 0.1f; //Скорострельность
 
 
         int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
         float projectileWeight = 100;
 
         //Sounds
-        //string shotSound = "gun2shot.wav";
+        string shotSound = "gun2shot.wav";
 
         //Отрисовка
         private Color nrColor = new Color(255, 161, 0);
@@ -47,7 +47,7 @@ namespace Havier_Than_Air_S
             //+ тип передается в базу
             skorostrelnost = skorostrel;
 
-            //sound.SoundBuffer = new SoundBuffer(shotSound);
+            sound.SoundBuffer = new SoundBuffer(shotSound);
             sound.Volume = 20;
         }
 
