@@ -12,8 +12,6 @@ namespace Havier_Than_Air_S.Missions
 {
     public class MissionTest : MissionBase
     {
-        
-
         MouseController mouseController;
 
         Clock clock;

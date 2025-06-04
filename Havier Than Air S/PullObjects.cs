@@ -22,7 +22,8 @@ namespace Havier_Than_Air_S
         nr,
         sr,
         bang,
-        enemy
+        enemy,
+        house
         
     }
 
@@ -33,12 +34,13 @@ namespace Havier_Than_Air_S
         private int NRcount = 5;
         private int BangCount = 5;
         private int TankCount = 10;
+        private int HousCount = 200;
 
         //Pull
         private IMoovable[] IMoovables;
 
         //Сервис
-        public Vector2f position = new Vector2f(2000, 2000);
+        public Vector2f position = new Vector2f(2000, -2000);
 
         // Collisions
         public Collisions collisions;
@@ -54,6 +56,8 @@ namespace Havier_Than_Air_S
                      i < NRcount + GunBulletCount + BangCount; i++) IMoovables[i] = new Bang(position);
             for (int i = NRcount + GunBulletCount + BangCount;
                      i < NRcount + GunBulletCount + BangCount + TankCount; i++) IMoovables[i] = new Tnk1();
+            for (int i = NRcount + GunBulletCount + BangCount + TankCount;
+                     i < NRcount + GunBulletCount + BangCount + TankCount + HousCount; i++) IMoovables[i] = new Hous();
 
             collisions = Program.collisions;
         }

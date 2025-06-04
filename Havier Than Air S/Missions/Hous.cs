@@ -8,8 +8,9 @@ using SFML.System;
 
 namespace Havier_Than_Air_S.Missions
 {
-    public class Hous
+    public class Hous : IMoovable
     {
+        PullStatus currentPullStatus = PullStatus.inPool;
 
         public RectangleShape rectShape;
         Marker Marker;
@@ -22,8 +23,41 @@ namespace Havier_Than_Air_S.Missions
             Marker = new Marker(rectShape,Color.Red,2);
         }
 
-        
-         
+        public bool GetColliderStatus()
+        {
+            throw new NotImplementedException();
+        }
+
+        public PullStatus GetCurrentPullStatus()
+        {
+            return currentPullStatus;
+        }
+
+        public Vector2f GetPosition()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Shape GetShape()
+        {
+            throw new NotImplementedException();
+        }
+
+        public TypeOfObject GetTypeOfObject()
+        {
+            return TypeOfObject.house;
+        }
+
+        public void SetDamage(IMoovable obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Start(Vector2f pos, float angle, Vector2f speed)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update()
         {
             Program.window.Draw(rectShape);
