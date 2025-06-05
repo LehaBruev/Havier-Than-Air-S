@@ -44,8 +44,8 @@ namespace Havier_Than_Air_S.Missions
         Hous[] houses;
         Random rand;
         int hCount = 100;
-        int hBeginX = 1500;
-        int hEndX = 7000;
+        int hBeginX = 1000;
+        int hEndX = 3000;
         int hBeginY = 300;
         int hEndY = 790;
 
@@ -96,23 +96,27 @@ namespace Havier_Than_Air_S.Missions
                 Program.m_PullObjects.StartObject(new Vector2f(rnd.Next(1500,3500) , 750), 0, new Vector2f(rnd2.Next(5, 50),0), TypeOfObject.enemy);
             }
 
+           
+
             // houses
             housesPositions = new Vector2f[hCount];
 
             for (int i = 0; i < housesPositions.Length; i++)
             {
                 housesPositions[i] = new Vector2f(rand.Next(hBeginX, hEndX), rand.Next(hBeginY, hEndY));
-
             }
-
-
+            for (int i = 0; i < hCount; i++)
+            {
+                Program.m_PullObjects.StartObject(housesPositions[i], 0, new Vector2f(0, 0), TypeOfObject.house);
+            }
+            /*
             houses = new Hous[housesPositions.Length];
             for (int i = 0; i < housesPositions.Length; i++)
             {
                 houses[i] = new Hous();
                 houses[i].rectShape.Position = housesPositions[i];
             }
-
+            */
         }
 
 
@@ -150,12 +154,13 @@ namespace Havier_Than_Air_S.Missions
             }
             // if (tank!=null) tank.Update();
 
+            /*
             // Houses
             for (int i = 0; i < housesPositions.Length; i++)
             {
                 houses[i].Update();
             }
-
+            */
         }
 
         public void CheckTargetCollider(FloatRect incoming)

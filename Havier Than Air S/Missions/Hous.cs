@@ -25,7 +25,7 @@ namespace Havier_Than_Air_S.Missions
 
         public bool GetColliderStatus()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public PullStatus GetCurrentPullStatus()
@@ -40,7 +40,7 @@ namespace Havier_Than_Air_S.Missions
 
         public Shape GetShape()
         {
-            throw new NotImplementedException();
+            return rectShape;
         }
 
         public TypeOfObject GetTypeOfObject()
@@ -50,12 +50,14 @@ namespace Havier_Than_Air_S.Missions
 
         public void SetDamage(IMoovable obj)
         {
-            throw new NotImplementedException();
+            currentPullStatus = PullStatus.inPool;
+            rectShape.Position = Program.m_PullObjects.position;
         }
 
         public void Start(Vector2f pos, float angle, Vector2f speed)
         {
-            throw new NotImplementedException();
+            currentPullStatus = PullStatus.inAir;
+            rectShape.Position = pos;
         }
 
         public void Update()

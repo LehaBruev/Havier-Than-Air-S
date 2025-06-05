@@ -30,11 +30,13 @@ namespace Havier_Than_Air_S
     public class PullObjects
     {
         //Количество
-        private int GunBulletCount = 30;
+        private int GunBulletCount = 75;
         private int NRcount = 5;
         private int BangCount = 5;
         private int TankCount = 10;
         private int HousCount = 200;
+        private int[] counts;
+
 
         //Pull
         private IMoovable[] IMoovables;
@@ -47,17 +49,33 @@ namespace Havier_Than_Air_S
         
         public void StartPull()
         {
-            IMoovables = new IMoovable[NRcount+GunBulletCount+BangCount+ TankCount];
+            
 
-            for (int i = 0; i < NRcount; i++) IMoovables[i] = new NRocket();
-            for (int i = NRcount; 
-                     i < NRcount + GunBulletCount; i++) IMoovables[i] = new GunBullet();
-            for (int i = NRcount + GunBulletCount;
-                     i < NRcount + GunBulletCount + BangCount; i++) IMoovables[i] = new Bang(position);
-            for (int i = NRcount + GunBulletCount + BangCount;
-                     i < NRcount + GunBulletCount + BangCount + TankCount; i++) IMoovables[i] = new Tnk1();
-            for (int i = NRcount + GunBulletCount + BangCount + TankCount;
-                     i < NRcount + GunBulletCount + BangCount + TankCount + HousCount; i++) IMoovables[i] = new Hous();
+            counts = new int[]
+            {
+                GunBulletCount,
+                NRcount,
+                BangCount,
+                TankCount,
+                HousCount
+            };
+
+            IMoovables = new IMoovable[NRcount + GunBulletCount + BangCount + TankCount + HousCount];
+
+            int n = 0;
+            for (int m = 0; m < counts.Length; m++)
+            {
+                for (int i = 0; i < counts[m]; i++)
+                {
+                    if (m==0) IMoovables[n] = new GunBullet();
+                    if (m==1) IMoovables[n] = new NRocket();
+                    if (m==2) IMoovables[n] = new Bang(position);
+                    if (m==3) IMoovables[n] = new Tnk1();
+                    if (m==4) IMoovables[n] = new Hous();
+                    n += 1;
+                }
+            }
+
 
             collisions = Program.collisions;
         }
@@ -77,7 +95,6 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
-            
             for (int i = 0; i < IMoovables.Length; i++)
             {
                 if (IMoovables[i].GetCurrentPullStatus() == PullStatus.inAir)
@@ -110,8 +127,18 @@ namespace Havier_Than_Air_S
                                 IMoovables[i].SetDamage(IMoovables[k]);
                                 IMoovables[k].SetDamage(IMoovables[i]);
 
+                            }
 
-                                Console.Write("" + IMoovables[i] + " VS " + IMoovables[k]);
+                        }
+                        if (IMoovables[k].GetTypeOfObject() == TypeOfObject.house && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
+                        {
+                            bool d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
+
+                            if (d == true)
+                            {
+
+                                IMoovables[i].SetDamage(IMoovables[k]);
+                                IMoovables[k].SetDamage(IMoovables[i]);
                             }
 
                         }
