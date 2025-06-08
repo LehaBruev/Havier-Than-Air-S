@@ -14,6 +14,13 @@ namespace Havier_Than_Air_S.Missions
     {
         MouseController mouseController;
 
+        Texture background = new Texture("BackGroundLevel3.png");
+        Texture paralax = new Texture("Горы1.png");
+        Sprite backgroundSprite;
+        Sprite paralaxSprite;
+        Sprite paralaxSprite2;
+        Sprite paralaxSprite3;
+
         Clock clock;
 
         //мышка тест
@@ -51,6 +58,22 @@ namespace Havier_Than_Air_S.Missions
 
         public MissionTest()
         {
+            backgroundSprite = new Sprite(background);
+            backgroundSprite.Scale = new Vector2f(1.6f, 1.6f);
+
+            paralaxSprite = new Sprite(paralax);
+            //paralaxSprite.Scale = new Vector2f(0.5f, 0.5f);
+
+            paralaxSprite2 = new Sprite(paralax);
+            paralaxSprite2.Scale = new Vector2f(1.6f, 1.6f);
+            paralaxSprite2.Position = new Vector2f(-500, 400);
+
+            paralaxSprite3 = new Sprite(paralax);
+            paralaxSprite3.Scale = new Vector2f(3.5f, 3.5f);
+            paralaxSprite3.Position = new Vector2f(1200, 150);
+
+
+
             rand = new Random();
             
             mouseController = Program.m_MouseController;
@@ -122,7 +145,23 @@ namespace Havier_Than_Air_S.Missions
 
         public void Update()
         {
+            backgroundSprite.Position = Program.offset - new Vector2f(Program.vMode.Width/2, Program.vMode.Height / 2);
+            Program.window.Draw(backgroundSprite);
+
+            float n = Program.offset.X / paralaxSprite.GetLocalBounds().Width;
+
+            //paralaxSprite.Position = new Vector2f(0, 300);
+            //Program.window.Draw(paralaxSprite);
+            paralaxSprite.Position = new Vector2f(n* 0.8f * paralaxSprite.GetLocalBounds().Width + paralaxSprite.GetLocalBounds().Width, 300);
+            Program.window.Draw(paralaxSprite);
+            paralaxSprite.Position = new Vector2f(n*0.8f*paralaxSprite.GetLocalBounds().Width , 300);
+            Program.window.Draw(paralaxSprite);
+            //paralaxSprite.Position = new Vector2f(n * paralaxSprite.GetLocalBounds().Width - paralaxSprite.GetLocalBounds().Width, 300);
+            Program.window.Draw(paralaxSprite2);
+
+           
             
+
 
             if (m_Hely!=null) m_Hely.Update();
 
@@ -161,6 +200,7 @@ namespace Havier_Than_Air_S.Missions
                 houses[i].Update();
             }
             */
+            Program.window.Draw(paralaxSprite3);
         }
 
         public void CheckTargetCollider(FloatRect incoming)
