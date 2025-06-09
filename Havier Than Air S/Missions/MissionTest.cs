@@ -56,8 +56,13 @@ namespace Havier_Than_Air_S.Missions
         int hBeginY = 300;
         int hEndY = 790;
 
+        //Mountains
+        Mountains mounts;
+
         public MissionTest()
         {
+            mounts = new Mountains();
+
             backgroundSprite = new Sprite(background);
             backgroundSprite.Scale = new Vector2f(1.6f, 1.6f);
 
@@ -201,6 +206,9 @@ namespace Havier_Than_Air_S.Missions
             }
             */
             Program.window.Draw(paralaxSprite3);
+
+            mounts.Update();
+
         }
 
         public void CheckTargetCollider(FloatRect incoming)

@@ -128,6 +128,7 @@
     <Compile Include="Missions\Mission3_FreeFlight.cs" />
     <Compile Include="Missions\MissionBase.cs" />
     <Compile Include="Missions\MissionTest.cs" />
+    <Compile Include="Mountains.cs" />
     <Compile Include="MouseController.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="obj\x64\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
