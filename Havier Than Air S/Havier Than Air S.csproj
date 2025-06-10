@@ -118,6 +118,7 @@
     <Compile Include="Hely.cs" />
     <Compile Include="HelyControl.cs" />
     <Compile Include="IMoovable.cs" />
+    <Compile Include="LogWriter.cs" />
     <Compile Include="Magazin.cs" />
     <Compile Include="Magnitola.cs" />
     <Compile Include="MainMenuController.cs" />

@@ -119,6 +119,10 @@ namespace Havier_Than_Air_S
             // Panel_3
             DrawText("X: " + (int)hely.position.X, new Vector2f(22, 15), Color.Green, 3);
             DrawText("Y: " + (int)hely.position.Y, new Vector2f(22, 32), Color.Green, 3);
+            DrawText("X: " + Mouse.GetPosition().X + " Y: " + Mouse.GetPosition().Y, new Vector2f(22, 49), Color.Green, 3);
+            DrawText("X: " + Mouse.GetPosition(Program.window).X + " Y: " + Mouse.GetPosition(Program.window).Y, new Vector2f(22, 66), Color.Yellow, 3);
+            
+
 
             if (hely != null)
             {

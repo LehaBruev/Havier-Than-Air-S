@@ -2,6 +2,7 @@
 using Havier_Than_Air_S.Weapon;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,6 @@ namespace Havier_Than_Air_S.Missions
         Hely m_Hely;
 
 
-
         //Миссии
         int checkdelay = 50;
         int missionswitch = 0;
@@ -41,7 +41,6 @@ namespace Havier_Than_Air_S.Missions
         int volnadelay2 = 0;
         int basedurability = 10;
         int winpobeda = 0;
-
 
         Tnk1 tank;
 
@@ -67,15 +66,17 @@ namespace Havier_Than_Air_S.Missions
             backgroundSprite.Scale = new Vector2f(1.6f, 1.6f);
 
             paralaxSprite = new Sprite(paralax);
-            //paralaxSprite.Scale = new Vector2f(0.5f, 0.5f);
+            paralaxSprite.Scale = new Vector2f(0.8f, 0.8f);
+            paralaxSprite.Color = Color.Blue;
 
             paralaxSprite2 = new Sprite(paralax);
-            paralaxSprite2.Scale = new Vector2f(1.6f, 1.6f);
+            paralaxSprite2.Scale = new Vector2f(1.4f, 1.4f);
             paralaxSprite2.Position = new Vector2f(-500, 400);
+            
 
             paralaxSprite3 = new Sprite(paralax);
             paralaxSprite3.Scale = new Vector2f(3.5f, 3.5f);
-            paralaxSprite3.Position = new Vector2f(1200, 150);
+            paralaxSprite3.Position = new Vector2f(300, 150);
 
 
 
@@ -99,9 +100,6 @@ namespace Havier_Than_Air_S.Missions
 
             };
             */
-            
-
-            
             //tank = new Tnk1();
 
         }
@@ -187,6 +185,7 @@ namespace Havier_Than_Air_S.Missions
                 {
                     mouseIsPressed = true;
                     mousPoint1 = mouseController.currentMousePoint;
+                    Program.log.WriteXY("mount1.SetPoint(0, new Vector2f(" + Mouse.GetPosition(Program.window).X + " , " + Mouse.GetPosition(Program.window).Y + " ));");
                 }
             }
             else if (mouseIsPressed == true)

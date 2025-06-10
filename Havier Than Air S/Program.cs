@@ -18,14 +18,15 @@ namespace Havier_Than_Air_S
        static ContextSettings _Settings = new ContextSettings();
         public static Collisions collisions = new Collisions();
         public static Font font = new Font("comic.ttf");
+        public static LogWriter log = new LogWriter();
 
-        public static CameraController cameraController = new CameraController();
-        public static DeltaTimer deltaTimer = new DeltaTimer();
+       public static CameraController cameraController = new CameraController();
+       public static DeltaTimer deltaTimer = new DeltaTimer();
        public static Game Game = new Game();
        public static PullObjects m_PullObjects = new PullObjects();
        public static MouseController m_MouseController = new MouseController();
-        public static SoundManager soundManager = new SoundManager();
-        public static Magnitola mMagnitola = new Magnitola();
+       public static SoundManager soundManager = new SoundManager();
+       public static Magnitola mMagnitola = new Magnitola();
 
         // Вывод изображения
 
