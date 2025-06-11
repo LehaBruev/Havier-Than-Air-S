@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Havier_Than_Air_S.Weapon;
@@ -143,7 +144,7 @@ namespace Havier_Than_Air_S
         #endregion
 
         #region Colliders
-        ConvexShape collider;
+        public ConvexShape collider;
         public Collider heliCollider;
 
         #endregion
@@ -346,6 +347,12 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
+            if (groundClock.ElapsedTime.AsSeconds()>0.3)
+            {
+                tGround = ground;
+                inGround = false;
+            }
+
             CheckPosition();
             PlayerMove();
             EngineUpdate();
@@ -516,52 +523,17 @@ namespace Havier_Than_Air_S
             if (boostv > (maxenginespeed / 100 * 75)) boostv = maxboost;
 
             speedy = (boostv / 10); // вертикальная скорость
+            if (inGround && speedy<0) speedy = 0;
 
             playery = (playery - speedy * Program.deltaTimer.Delta() * 100);
 
 
-
-            //ЗЕМЛЯ столкновение
             if (playery >= ground)
             {
-                g = 1;
-                playery = ground;
-                speedx = 0;
-                boostv = 0;
-                powery = 0;
-                speedy = 0;
-                angle = 0;
+                groundDamage();
+
             }
 
-
-            if (g == 1)
-            {
-                if (s < -1)
-                {
-                    helilifeCurrent = helilifeCurrent - 19;
-                    PlaySound(channelSoundTex, metal1Sound);
-                    getdamages = getdamages - 19;
-                }
-                if (s < -2)
-                {
-                    helilifeCurrent = helilifeCurrent - 88;
-                    PlaySound(channelSoundTex, metal2Sound);
-                    PlaySound(channelSoundTex, grass1);
-                    getdamages = getdamages - 89;
-                    //  loterea(); //TODO Повреждения рика КЛАСС
-                }
-
-                if (helilifeCurrent <= 0)
-                {
-                    helidestroy = 1;
-                    if (bang1 == 1)
-                    {
-                        PlaySound(channelSoundTex, bangsound);
-                        bang1 = 0;
-                    }
-                }
-                g = 0;
-            }
 
 
             // Расчет ГОРИЗОНТАЛЬНОГО ПОЛЕТА угол атаки
@@ -598,6 +570,65 @@ namespace Havier_Than_Air_S
             }
 
             */
+
+        }
+
+        bool inGround = false;
+        float tGround = 750;
+        Clock groundClock = new Clock();
+
+        private void groundDamage()
+        {
+            groundClock.Restart();
+            if ( inGround == false)
+            {
+                tGround = playery;
+                inGround = true;
+            }
+            //ЗЕМЛЯ столкновение
+             if (playery >= tGround)
+             {
+               playery = tGround;
+
+             }
+            
+            // g = 1;
+             speedx = 0;
+                boostv = 0;
+                powery = 0;
+                
+                speedy = 0;
+                angle = 0;
+
+
+          //  if (g == 1)
+          // {
+                if (s < -1)
+                {
+                    helilifeCurrent = helilifeCurrent - 19;
+                    PlaySound(channelSoundTex, metal1Sound);
+                    getdamages = getdamages - 19;
+                }
+                if (s < -2)
+                {
+                    helilifeCurrent = helilifeCurrent - 88;
+                    PlaySound(channelSoundTex, metal2Sound);
+                    PlaySound(channelSoundTex, grass1);
+                    getdamages = getdamages - 89;
+                    //  loterea(); //TODO Повреждения рика КЛАСС
+                }
+
+                if (helilifeCurrent <= 0)
+                {
+                    helidestroy = 1;
+                    if (bang1 == 1)
+                    {
+                        PlaySound(channelSoundTex, bangsound);
+                        bang1 = 0;
+                    }
+                }
+               // g = 0;
+           // }
 
         }
 
@@ -754,7 +785,11 @@ namespace Havier_Than_Air_S
 
         public void SetDamage(IMoovable obj)
         {
-            throw new NotImplementedException();
+            if (obj is Hely)
+            {
+
+                groundDamage();
+            }
         }
 
         public bool GetColliderStatus()

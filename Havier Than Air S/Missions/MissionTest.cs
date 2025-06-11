@@ -185,7 +185,7 @@ namespace Havier_Than_Air_S.Missions
                 {
                     mouseIsPressed = true;
                     mousPoint1 = mouseController.currentMousePoint;
-                    Program.log.WriteXY("mount1.SetPoint(0, new Vector2f(" + Mouse.GetPosition(Program.window).X + " , " + Mouse.GetPosition(Program.window).Y + " ));");
+                   // Program.log.WriteXY("mount1.SetPoint(0, new Vector2f(" + Mouse.GetPosition(Program.window).X + " , " + Mouse.GetPosition(Program.window).Y + " ));");
                 }
             }
             else if (mouseIsPressed == true)
@@ -208,6 +208,15 @@ namespace Havier_Than_Air_S.Missions
 
             mounts.Update();
 
+
+            //collisions
+            bool d = Program.collisions.CheckShapesForCollision(mounts.mount1, m_Hely.collider);
+            if (d==true)
+            {
+                m_Hely.SetDamage(m_Hely);
+            }
+
+
         }
 
         public void CheckTargetCollider(FloatRect incoming)
@@ -219,15 +228,10 @@ namespace Havier_Than_Air_S.Missions
 
         private void SpawnRocket()
         {
-          
                 m_Hely.Fire();
- 
                 Vector2f vectorMouse = new Vector2f((mousPoint2 - mousPoint1).X, (mousPoint2 - mousPoint1).Y);
                 float vectorAngle = Matematika.AngleOfVector(vectorMouse);
-                
-                //Console.WriteLine("Вектор " + vectorMouse + "; угол " + vectorAngle);
-                //positionNR = new Vector2f((float)mouseController.x, (float)mouseController.y);
-                
+           
                 clock.Restart();
            
 

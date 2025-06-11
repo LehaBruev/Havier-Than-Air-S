@@ -12,7 +12,7 @@ namespace Havier_Than_Air_S
     public class Mountains
     {
 
-        ConvexShape mount1;
+        public ConvexShape mount1;
         Marker mark_1;
         public Mountains()
         {
@@ -51,6 +51,7 @@ namespace Havier_Than_Air_S
 
             Program.window.Draw(mount1);
 
+            
         }
 
 
