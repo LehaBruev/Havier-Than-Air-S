@@ -30,6 +30,7 @@ namespace Havier_Than_Air_S.Missions
         private bool mouseIsPressed;
 
         
+
         //Вертал
         Hely m_Hely;
 
@@ -145,7 +146,7 @@ namespace Havier_Than_Air_S.Missions
             */
         }
 
-
+        int lognum = 0;
         public void Update()
         {
             backgroundSprite.Position = Program.offset - new Vector2f(Program.vMode.Width/2, Program.vMode.Height / 2);
@@ -185,7 +186,8 @@ namespace Havier_Than_Air_S.Missions
                 {
                     mouseIsPressed = true;
                     mousPoint1 = mouseController.currentMousePoint;
-                   // Program.log.WriteXY("mount1.SetPoint(0, new Vector2f(" + Mouse.GetPosition(Program.window).X + " , " + Mouse.GetPosition(Program.window).Y + " ));");
+                    Program.log.WriteXY("mount1.SetPoint(0" + lognum + ", new Vector2f(" + Mouse.GetPosition(Program.window).X + " , " + Mouse.GetPosition(Program.window).Y + " ));");
+                    lognum += 1;
                 }
             }
             else if (mouseIsPressed == true)

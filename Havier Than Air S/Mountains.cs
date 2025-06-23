@@ -11,36 +11,38 @@ namespace Havier_Than_Air_S
 {
     public class Mountains
     {
-
+        Image mountImage;
+        Texture mountTexture;
         public ConvexShape mount1;
         Marker mark_1;
+
+
         public Mountains()
         {
-            mount1 = new ConvexShape();
-            mount1.SetPointCount(19);
-            mount1.SetPoint(0, new Vector2f(70, 807));
-            mount1.SetPoint(1, new Vector2f(322, 543));
-            mount1.SetPoint(2, new Vector2f(407, 446));
-            mount1.SetPoint(3, new Vector2f(467, 435));
-            mount1.SetPoint(4, new Vector2f(562, 396));
-            mount1.SetPoint(5, new Vector2f(680, 294));
-            mount1.SetPoint(6, new Vector2f(739, 267));
-            mount1.SetPoint(7, new Vector2f(804, 193));
-            mount1.SetPoint(8, new Vector2f(845, 182));
-            mount1.SetPoint(9, new Vector2f(857, 163));
-            mount1.SetPoint(10, new Vector2f(943, 251));
-            mount1.SetPoint(11, new Vector2f(1183, 510));
-            mount1.SetPoint(12, new Vector2f(1209, 508));
-            mount1.SetPoint(13, new Vector2f(1265, 539));
-            mount1.SetPoint(14, new Vector2f(1310, 537));
-            mount1.SetPoint(15, new Vector2f(1329, 524));
-            mount1.SetPoint(16, new Vector2f(1387, 559));
-            mount1.SetPoint(17, new Vector2f(1486, 721));
-            mount1.SetPoint(18, new Vector2f(1547, 833));
-            mount1.FillColor = Color.Blue;
-            mount1.Position = new Vector2f(1060,0);
-            mark_1 = new Marker(mount1, Color.Blue,3);
+            mountImage = new Image("BackGroundLevel1.png");
+            mountTexture = new Texture(mountImage);
 
+            mount1 = new ConvexShape();
+            mount1.SetPointCount(13);
+            mount1.SetPoint(00, new Vector2f(556, 533));
+            mount1.SetPoint(01, new Vector2f(609, 455));
+            mount1.SetPoint(02, new Vector2f(648, 450));
+            mount1.SetPoint(03, new Vector2f(778, 396));
+            mount1.SetPoint(04, new Vector2f(849, 314));
+            mount1.SetPoint(05, new Vector2f(957, 266));
+            mount1.SetPoint(06, new Vector2f(1029, 192));
+            mount1.SetPoint(07, new Vector2f(1076, 161));
+            mount1.SetPoint(08, new Vector2f(1167, 245));
+            mount1.SetPoint(09, new Vector2f(1233, 333));
+            mount1.SetPoint(010, new Vector2f(1329, 426));
+            mount1.SetPoint(011, new Vector2f(1358, 481));
+            mount1.SetPoint(012, new Vector2f(1461, 524));
+
+            mount1.FillColor = Color.Blue;
+            mount1.Position = new Vector2f(850,0);
+            mark_1 = new Marker(mount1, Color.Blue,5);
+            
+            mount1.Texture = mountTexture;
         }
 
         public void Update()
