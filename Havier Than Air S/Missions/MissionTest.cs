@@ -212,7 +212,7 @@ namespace Havier_Than_Air_S.Missions
 
 
             //collisions
-            bool d = Program.collisions.CheckShapesForCollision(mounts.mount1, m_Hely.collider);
+            bool d = Program.collisions.CheckShapesForCollision(mounts.MountShape1, m_Hely.collider);
             if (d==true)
             {
                 m_Hely.SetDamage(m_Hely);

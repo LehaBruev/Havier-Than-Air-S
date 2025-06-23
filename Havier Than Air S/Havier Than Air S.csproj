@@ -257,6 +257,7 @@
     <Content Include="bin\x86\Debug\zapmachine.wav" />
     <Content Include="bin\x86\Debug\zapusk2.wav" />
     <Content Include="bin\x86\Debug\Горы1.png" />
+    <Content Include="bin\x86\Debug\Пещера_01.jpg" />
     <Content Include="Havier Than Air 1.1\aim.png" />
     <Content Include="Havier Than Air 1.1\airvolfbig.wav" />
     <Content Include="Havier Than Air 1.1\ap_rotor2earth.wav" />
