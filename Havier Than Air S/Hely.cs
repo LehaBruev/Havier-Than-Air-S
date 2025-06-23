@@ -22,8 +22,8 @@ namespace Havier_Than_Air_S
         #region Параметры_Heli
 
         // Картинка верталета
-        //Texture heliTexture = new Texture("uh61.png");
-        Texture heliTexture = new Texture("uh612.png");
+        Texture heliTexture = new Texture("uh61.png");
+        //Texture heliTexture = new Texture("uh612.png");
         public Sprite helySprite;
 
         //Настройки верталета
