@@ -37,7 +37,7 @@ namespace Havier_Than_Air_S
 
             caveTexture = new Texture(caveImage);
 
-            MountColliders = new ConvexShape[3];
+            MountColliders = new ConvexShape[1];
 
             ConvexShape MountShape1 = new ConvexShape();
             MountShape1.SetPointCount(13);
@@ -67,12 +67,12 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
-
             mark_1.Update();
 
-
-            Program.window.Draw(MountShape1);
-
+            for (int i = 0; i < MountColliders.Length; i++)
+            {
+                Program.window.Draw(MountColliders[i]);
+            }
             
         }
 

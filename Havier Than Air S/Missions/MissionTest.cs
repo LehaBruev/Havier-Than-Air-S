@@ -167,7 +167,7 @@ namespace Havier_Than_Air_S.Missions
             
 
 
-            if (m_Hely!=null) m_Hely.Update();
+            
 
             if (mouseController == null)
             {
@@ -180,7 +180,7 @@ namespace Havier_Than_Air_S.Missions
             {
 
                 if (m_Hely!=null) SpawnRocket();
-                Program.m_PullObjects.StartObject(mouseController.currentMousePoint, 0, new Vector2f(0,0), TypeOfObject.bang);
+                //Program.m_PullObjects.StartObject(mouseController.currentMousePoint, 0, new Vector2f(0,0), TypeOfObject.bang);
 
                 if (mouseIsPressed == false)
                 {
@@ -212,13 +212,15 @@ namespace Havier_Than_Air_S.Missions
 
 
             //collisions
-            bool d = Program.collisions.CheckShapesForCollision(mounts.MountShape1, m_Hely.collider);
-            if (d==true)
+            for (int i = 0; i < mounts.MountColliders.Length; i++)
             {
-                m_Hely.SetDamage(m_Hely);
+                bool d = Program.collisions.CheckShapesForCollision(mounts.MountColliders[i], m_Hely.collider);
+                if (d == true)
+                {
+                    m_Hely.SetDamage(m_Hely);
+                }
             }
-
-
+            if (m_Hely != null) m_Hely.Update();
         }
 
         public void CheckTargetCollider(FloatRect incoming)

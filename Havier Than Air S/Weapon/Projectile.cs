@@ -105,7 +105,10 @@ namespace Havier_Than_Air_S.Weapon
             pullStatus = PullStatus.inPool;
             //currentProjectilefuel = 0;
             //currentProjectileSpeed = 0.0f;
+
+           
             position = Program.m_PullObjects.position;
+
         }
 
         public TypeOfObject GetTypeOfObject()

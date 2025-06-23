@@ -13,14 +13,14 @@ namespace Havier_Than_Air_S.Weapon
     public class NRocket : Projectile
     {
         //Параметры
-        private Vector2f rocketSize = new Vector2f(50.0f, 5);
-        private Vector2f rocketOrigin = new Vector2f(2.5f, 2.5f);
+        private Vector2f rocketSize = new Vector2f(8*3f, 8);
+        private Vector2f rocketOrigin = new Vector2f(4f, 4f);
         private Color rocketColor = Color.Red;
         private float rocketRashod = 1f;
         private float rocketFuel = 1.8f;
         private float rocketSpeed = 75;
         private float NRocketWeight = 100;
-        private float damagePower;
+        private float damagePower = 55;
 
         // Особые
         private float speedAxeleration = 6;
@@ -92,7 +92,11 @@ namespace Havier_Than_Air_S.Weapon
             
         }
 
-        
+        public override void DeactivateProjectile()
+        {
+            Program.m_PullObjects.StartObject(position, 0, new Vector2f(0, 0), TypeOfObject.bang);
+            base.DeactivateProjectile();
+        }
 
     }
 }

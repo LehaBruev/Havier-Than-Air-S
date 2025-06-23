@@ -31,8 +31,8 @@ namespace Havier_Than_Air_S
     {
         //Количество
         private int GunBulletCount = 75;
-        private int NRcount = 5;
-        private int BangCount = 5;
+        private int NRcount = 8;
+        private int BangCount = 8;
         private int TankCount = 10;
         private int HousCount = 200;
         private int[] counts;
@@ -84,7 +84,7 @@ namespace Havier_Than_Air_S
         {
             for (int i = 0; i < IMoovables.Length; i++)
             {
-                if (IMoovables[i].GetCurrentPullStatus() == PullStatus.inPool &&
+                if (IMoovables[i]!=null && IMoovables[i].GetCurrentPullStatus() == PullStatus.inPool &&
                     IMoovables[i].GetTypeOfObject() == objectType)
                 {
                     IMoovables[i].Start(position, angle, speed);
@@ -113,7 +113,9 @@ namespace Havier_Than_Air_S
             for (int i = 0; i < IMoovables.Length; i++)
             {
 
-                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.gun && IMoovables[i].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
+                if ( (IMoovables[i].GetTypeOfObject() == TypeOfObject.gun || IMoovables[i].GetTypeOfObject() == TypeOfObject.nr) && 
+                    IMoovables[i].GetCurrentPullStatus() == PullStatus.inAir && 
+                    IMoovables[i].GetColliderStatus() == true)
                 {
                     for (int k = 0; k < IMoovables.Length; k++)
                     {

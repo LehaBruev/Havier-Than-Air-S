@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 
@@ -23,7 +24,7 @@ namespace Havier_Than_Air_S.Weapon
         private Vector2f pullPosition;
 
         Clock clock = new Clock();
-        float frameTimer = 0.001f;
+        float frameTimer = 0.01f;
         int currentFrame = 0;
         bool activated = false;
 
@@ -32,10 +33,16 @@ namespace Havier_Than_Air_S.Weapon
         int x = 915;
         Vector2f origin = new Vector2f(57, 55);
 
-
+        SoundBuffer soundBuffer;
+        Sound sound;
 
         public Bang(Vector2f pPosition)
         {
+            soundBuffer = new SoundBuffer("explode4.wav");
+            sound = new Sound(soundBuffer);
+            
+            
+
             typeOfObject = TypeOfObject.bang;
 
             pullPosition = pPosition;
@@ -44,7 +51,7 @@ namespace Havier_Than_Air_S.Weapon
             bangTextures = new Texture[40];
             bangSprite = new Sprite();
             bangSprite.Origin = origin;
-            bangSprite.Scale = new Vector2f(0.1f, 0.1f);
+            bangSprite.Scale = new Vector2f(0.5f, 0.5f);
             //uhImage.CreateMaskFromColor(new Color(210,197,195));
             //uhImage.CreateMaskFromColor(new Color(203,187,184));
             
@@ -70,6 +77,7 @@ namespace Havier_Than_Air_S.Weapon
                 activated = true;
                 pullStatus = PullStatus.inAir;
                 clock.Restart();
+                sound.Play();
             }
         }
 
