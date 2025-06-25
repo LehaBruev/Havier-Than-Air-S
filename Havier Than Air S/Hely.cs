@@ -23,56 +23,56 @@ namespace Havier_Than_Air_S
 
         // Картинка верталета
         //Texture heliTexture = new Texture("uh61.png");
-        Texture heliTexture = new Texture("uh612.png");
+        //protected Texture heliTexture = new Texture("uh612.png");
+        protected Texture heliTexture;
         public Sprite helySprite;
+        protected string textureName = "uh612.png";
+        protected Vector2f spriteScale =  new Vector2f(2,2);
 
         //Настройки верталета
-         float maxpowery = 300000; //Максимальная сила влияет на вертолет
-         float maxpowerx = 30000; // 
-         float shagengine = 75; // шаг увеличения мощности двигателя
-         float shagAngle = 1.5f; // шаг изменения угла атаки
-         float maxspeedhor = 50;
-         float maxspeedvert = 300;
-         float maxheigh = 575; // потолок полета
-         float speedxmax = 3.5f;
+        protected float maxpowery = 300000; //Максимальная сила влияет на вертолет
+        protected float maxpowerx = 30000; // 
+        protected float shagengine = 75; // шаг увеличения мощности двигателя
+        protected float shagAngle = 1.5f; // шаг изменения угла атаки
+        protected float maxspeedhor = 50;
+        protected float maxspeedvert = 300;
+        protected float maxheigh = 575; // потолок полета
+        protected float speedxmax = 2.5f;
         //nrrocketsMaxquantity = 8; //максимально ракет
 
         //Характеристики мотора и проч
-        float helilifemax = 300;// максимальные жизни Вертолета
+        protected float helilifemax = 300;// максимальные жизни Вертолета
         public float helienginelife = 100; //исправность двигателя Вертолета
-        float fuelrashod = 11.7f; // расход топлива
-        float manageability = 4f;// управляемость //5 это ИНЕРЦИЯ
-        float maxangle = 60; // Максимальный угол атаки
-        float helifuelmax = 1300; // Максимальное топливо в баках
-        float maxboost = 8250; // максимальное ускорение от двигателя //11250
-        float holdOborotMotora = 12000; // Холостые обороты мотора
+        protected float fuelrashod = 11.7f; // расход топлива
+        protected float manageability = 4f;// управляемость //5 это ИНЕРЦИЯ
+        protected float maxangle = 60; // Максимальный угол атаки
+        protected float helifuelmax = 1300; // Максимальное топливо в баках
+        protected float maxboost = 8250; // максимальное ускорение от двигателя //11250
+        protected float holdOborotMotora = 12000; // Холостые обороты мотора
 
-        //Настройки прицеливания
-        float aimlehght = 180;
+        protected float maxenginespeed = 60000; //Максимальные обороты двигателя
+        public float enginespeedlimit = 45000; //Предельные обороты двигателя
 
         #endregion
 
         #region переменные
 
         //Переменные
-        public float helilifeCurrent = 200;// жизни
+        public float helilifeCurrent;// жизни
         public int engineswitch = 1; // включение двигателя
-        int autopilotswitch = 0; // автопилот горизонтальный, удерживает угол в точке 0 градусов
         public float altitude = 0; // Высота
-        public float helifuel = 1500; // Топливо в баках
+        public float helifuelCurrent; // Топливо в баках
         int bang1 = 1;
-        int gunmode = 0;
-        public Vector2f position;
+        
 
         public float playerx = 50;
         public float playery = 400;
-        public float speedx = 0;
 
-        public float speedy = 0;
-        float powery = 200;
-        public  float enginespeed = 19500; //Обороты двигателя
-        float maxenginespeed = 60000; //Максимальные обороты двигателя
-        public float enginespeedlimit = 45000; //Предельные обороты двигателя
+        public Vector2f position;
+        public float speedx;
+        public float speedy;
+        float powery;
+        public  float enginespeed; //Обороты двигателя
 
         public float angle = 0; //угол атаки верталета
         float boostv = 0; //ускорение вертикальное
@@ -107,14 +107,14 @@ namespace Havier_Than_Air_S
 
         #endregion
 
-        #region Statistoka
+        #region Statistika
         // Статистика
         float fuelusedup = 0; //израсходовано топлива
         #endregion
 
         #region Testirovanie
         //Точка крепления ротора
-        CircleShape CircleShape;
+        CircleShape CircleShapeRotorPoint;
 
 
         #endregion
@@ -139,7 +139,7 @@ namespace Havier_Than_Air_S
         public int currentWeapon;
         float allWeaponsWeight = 100.0f; // Вес weapons
         
-        Vector2f weaponPositionLocal = new Vector2f(-5, 20);
+        protected Vector2f weaponPositionLocal = new Vector2f(-5, 20); // позиция подвесок оружия
 
         #endregion
 
@@ -162,7 +162,7 @@ namespace Havier_Than_Air_S
         static float gravityweight = 20000; //Сила притяжения
 
         
-        float fuelWeight = 6; //вес топл
+        float fuelWeight = 26; //вес топл
 
         //земля
         static int g = 0;
@@ -197,7 +197,7 @@ namespace Havier_Than_Air_S
             engineswitch = 0;
             enginespeed = 0;
             helistop = 1;
-            helifuel = helifuelmax;
+            helifuelCurrent = helifuelmax;
             helilifeCurrent = helilifemax;
         }
 
@@ -207,22 +207,24 @@ namespace Havier_Than_Air_S
 
         public void SpawnHely()
         {
+            heliTexture  = new Texture(textureName);
             helySprite = new Sprite(heliTexture);
-           
+
             //helySprite.Scale = new Vector2f(0.5f, 0.5f);
-            helySprite.Scale = new Vector2f(scaleX, 2);
+            helySprite.Scale = spriteScale; // new Vector2f(scaleX, 2);
             
-            helySprite.Color = Color.White;
-            helySprite.Origin = new Vector2f(34, 6);
+            //helySprite.Color = Color.White;
+            //helySprite.Origin = new Vector2f(34, 6);
+            helySprite.Origin = new Vector2f(400, 100);
             int rnd = new Random().Next(300, 800);
             helySprite.Position = new Vector2f(rnd, 650);
             Console.WriteLine(rnd);
 
      
             //Точка для ротора
-            CircleShape = new CircleShape(2);
-            CircleShape.FillColor = new Color(Color.Yellow);
-            CircleShape.Origin = new Vector2f(2, 2);
+            CircleShapeRotorPoint = new CircleShape(2);
+            CircleShapeRotorPoint.FillColor = new Color(Color.Yellow);
+            CircleShapeRotorPoint.Origin = new Vector2f(2, 2);
 
             m_Weapons = new WeaponBase[] { new GunLauncher(1000, this, TypeOfObject.gun),
                                            new RocketNRLauncher(250, this, TypeOfObject.nr), 
@@ -364,7 +366,7 @@ namespace Havier_Than_Air_S
                 RotorUpdate();
             }
 
-            CircleShape.Position = new Vector2f( helySprite.Position.X,
+            CircleShapeRotorPoint.Position = new Vector2f( helySprite.Position.X,
                                                  helySprite.Position.Y);
 
             
@@ -429,7 +431,7 @@ namespace Havier_Than_Air_S
                     if (j == 1) engineswitch = 0;
                     if (j == 0) engineswitch = 1;
 
-                    if (engineswitch == 1 && helifuel > 0 && helidestroy != 1)
+                    if (engineswitch == 1 && helifuelCurrent > 0 && helidestroy != 1)
                     {
                         PlaySound(engineStartStopSound, engineStartSoundBuffer);
                     }
@@ -445,7 +447,7 @@ namespace Havier_Than_Air_S
             }
 
             // Отключение двигателя
-            if (engineswitch == 0 || helifuel <= 0 || helidestroy == 1)
+            if (engineswitch == 0 || helifuelCurrent <= 0 || helidestroy == 1)
             {
                 if (enginespeed > 0)
                 {
@@ -462,7 +464,7 @@ namespace Havier_Than_Air_S
             }
 
             // Продолжение работы мотора
-            if (engineswitch == 1 && helifuel > 0 && helidestroy != 1)
+            if (engineswitch == 1 && helifuelCurrent > 0 && helidestroy != 1)
             {
                 if (enginespeed < holdOborotMotora)
                 {
@@ -475,11 +477,11 @@ namespace Havier_Than_Air_S
             }
 
             //Расход топлива
-            helifuel = helifuel - (enginespeed / 100) * (enginespeed / 100) / 1000000 * fuelrashod * Program.deltaTimer.Delta();
+            helifuelCurrent = helifuelCurrent - (enginespeed / 100) * (enginespeed / 100) / 1000000 * fuelrashod * Program.deltaTimer.Delta();
             fuelusedup = fuelusedup + (enginespeed / 100) * (enginespeed / 100) / 1000000 * fuelrashod * Program.deltaTimer.Delta();
-            if (helifuel < 0) helifuel = 0;
-            if (helifuel < 510 && helifuel > 507) PlaySound(channelSoundRita, ostalos500kg);
-            if (helifuel < 810 && helifuel > 805) PlaySound(channelSoundRita, ostalos800kg);
+            if (helifuelCurrent < 0) helifuelCurrent = 0;
+            if (helifuelCurrent < 510 && helifuelCurrent > 507) PlaySound(channelSoundRita, ostalos500kg);
+            if (helifuelCurrent < 810 && helifuelCurrent > 805) PlaySound(channelSoundRita, ostalos800kg);
             //if (helifuel < 150 && helifuel > 145) PlaySound(rubejvozvrata); //рубеж возврата предупреждение голосовое
 
         }
@@ -517,7 +519,7 @@ namespace Havier_Than_Air_S
 
 
             //угол атаки уменьшает подъемную силу
-            powery = (enginespeed * ratioenginespeed / 114 * airP) - gravityweight - helifuel * fuelWeight - allWeaponsWeight; // подъемная сила
+            powery = (enginespeed * ratioenginespeed / 114 * airP) - gravityweight - helifuelCurrent * fuelWeight - allWeaponsWeight; // подъемная сила
 
             boostv = powery / 200;       // вертиклаьное ускорение
             if (boostv > (maxenginespeed / 100 * 75)) boostv = maxboost;

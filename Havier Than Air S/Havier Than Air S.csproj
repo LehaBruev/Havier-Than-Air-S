@@ -124,6 +124,7 @@
     <Compile Include="MainMenuController.cs" />
     <Compile Include="Marker.cs" />
     <Compile Include="Matematika.cs" />
+    <Compile Include="mi24.cs" />
     <Compile Include="Missions\Hous.cs" />
     <Compile Include="Missions\Mission1_Learning.cs" />
     <Compile Include="Missions\Mission3_FreeFlight.cs" />
@@ -257,6 +258,7 @@
     <Content Include="bin\x86\Debug\zapmachine.wav" />
     <Content Include="bin\x86\Debug\zapusk2.wav" />
     <Content Include="bin\x86\Debug\Горы1.png" />
+    <Content Include="bin\x86\Debug\ми24_1.png" />
     <Content Include="bin\x86\Debug\Пещера_01.jpg" />
     <Content Include="Havier Than Air 1.1\aim.png" />
     <Content Include="Havier Than Air 1.1\airvolfbig.wav" />

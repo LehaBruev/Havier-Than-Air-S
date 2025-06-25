@@ -113,8 +113,8 @@ namespace Havier_Than_Air_S
             DrawText( "Engine Life: " + (int)hely.helienginelife, new Vector2f(22, 49), engLifeColor, 2);
 
             Color fuelColor = Color.White;
-            if (hely.helifuel < 150) fuelColor = Color.Yellow; 
-            DrawText("Fuel: " + (int)hely.helifuel, new Vector2f(22, 66), fuelColor, 2);
+            if (hely.helifuelCurrent < 150) fuelColor = Color.Yellow; 
+            DrawText("Fuel: " + (int)hely.helifuelCurrent, new Vector2f(22, 66), fuelColor, 2);
 
             // Panel_3
             DrawText("X: " + (int)hely.position.X, new Vector2f(22, 15), Color.Green, 3);
