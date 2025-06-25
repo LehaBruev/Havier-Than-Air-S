@@ -26,7 +26,7 @@ namespace Havier_Than_Air_S
         //protected Texture heliTexture = new Texture("uh612.png");
         protected Texture heliTexture;
         public Sprite helySprite;
-        protected string textureName = "uh612.png";
+        protected string textureName;//= "uh612.png";
         protected Vector2f spriteScale =  new Vector2f(2,2);
 
         //Настройки верталета
@@ -205,7 +205,7 @@ namespace Havier_Than_Air_S
         float scaleX = 2; // Для зеркального отображения спрайта вертолета
         float rearRotorOrigin = -58;
 
-        public void SpawnHely()
+        protected void SpawnHely()
         {
             heliTexture  = new Texture(textureName);
             helySprite = new Sprite(heliTexture);

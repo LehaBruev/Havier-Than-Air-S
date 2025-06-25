@@ -11,7 +11,6 @@ namespace Havier_Than_Air_S
     public class mi24: Hely
     {
 
-
         public mi24()
         {
             textureName = "ми24_1.png";
@@ -41,7 +40,6 @@ namespace Havier_Than_Air_S
             enginespeedlimit = 55000; //Предельные обороты двигателя
 
             weaponPositionLocal = new Vector2f(-5, 20); //Позиция подвесок оружия
-
 
 
         }
