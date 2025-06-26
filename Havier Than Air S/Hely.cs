@@ -28,6 +28,7 @@ namespace Havier_Than_Air_S
         public Sprite helySprite;
         protected string textureName;//= "uh612.png";
         protected Vector2f spriteScale =  new Vector2f(2,2);
+        protected Vector2f spriteOrigin = new Vector2f(34, 6);
 
         //Настройки верталета
         protected float maxpowery = 300000; //Максимальная сила влияет на вертолет
@@ -210,21 +211,21 @@ namespace Havier_Than_Air_S
             heliTexture  = new Texture(textureName);
             helySprite = new Sprite(heliTexture);
 
-            //helySprite.Scale = new Vector2f(0.5f, 0.5f);
+           
             helySprite.Scale = spriteScale; // new Vector2f(scaleX, 2);
-            
-            //helySprite.Color = Color.White;
-            //helySprite.Origin = new Vector2f(34, 6);
-            helySprite.Origin = new Vector2f(400, 100);
+
+
+            helySprite.Origin = spriteOrigin; //new Vector2f(34, 6);
+            //helySprite.Origin = new Vector2f(400, 100);
             int rnd = new Random().Next(300, 800);
             helySprite.Position = new Vector2f(rnd, 650);
-            Console.WriteLine(rnd);
+            //Console.WriteLine(rnd);
 
      
             //Точка для ротора
-            CircleShapeRotorPoint = new CircleShape(2);
+            CircleShapeRotorPoint = new CircleShape(10);
             CircleShapeRotorPoint.FillColor = new Color(Color.Yellow);
-            CircleShapeRotorPoint.Origin = new Vector2f(2, 2);
+            CircleShapeRotorPoint.Origin = new Vector2f(5, 5);
 
             m_Weapons = new WeaponBase[] { new GunLauncher(1000, this, TypeOfObject.gun),
                                            new RocketNRLauncher(250, this, TypeOfObject.nr), 

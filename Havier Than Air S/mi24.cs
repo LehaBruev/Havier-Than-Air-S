@@ -13,15 +13,16 @@ namespace Havier_Than_Air_S
 
         public mi24()
         {
-           
 
+            SpawnHely();
 
         }
 
         protected override void SpawnHely()
         {
             textureName = "ми24_1.png";
-            spriteScale = new Vector2f(0.3f, 0.3f);
+            spriteScale = new Vector2f(0.15f, 0.15f);
+            spriteOrigin = new Vector2f(550, -10);
 
             //Настройки верталета
             maxpowery = 300000; //Максимальная сила влияет на вертолет
@@ -40,13 +41,14 @@ namespace Havier_Than_Air_S
             manageability = 6f;// управляемость //5 это ИНЕРЦИЯ
             maxangle = 50; // Максимальный угол атаки
             helifuelmax = 2000; // Максимальное топливо в баках
-            maxboost = 6250; // максимальное ускорение от двигателя //11250
-            holdOborotMotora = 12000; // Холостые обороты мотора
+            maxboost = 9250; // максимальное ускорение от двигателя //11250
+            holdOborotMotora = 11000; // Холостые обороты мотора
 
             maxenginespeed = 70000; //Максимальные обороты двигателя
             enginespeedlimit = 55000; //Предельные обороты двигателя
 
             weaponPositionLocal = new Vector2f(-5, 20); //Позиция подвесок оружия
+
             base.SpawnHely();
         }
 
