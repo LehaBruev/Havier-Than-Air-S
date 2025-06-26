@@ -205,7 +205,7 @@ namespace Havier_Than_Air_S
         float scaleX = 2; // Для зеркального отображения спрайта вертолета
         float rearRotorOrigin = -58;
 
-        protected void SpawnHely()
+        virtual protected void SpawnHely()
         {
             heliTexture  = new Texture(textureName);
             helySprite = new Sprite(heliTexture);
