@@ -29,8 +29,6 @@ namespace Havier_Than_Air_S.Missions
         private Vector2f mousPoint2;
         private bool mouseIsPressed;
 
-        
-
         //Вертал
         Hely m_Hely;
 
@@ -98,7 +96,6 @@ namespace Havier_Than_Air_S.Missions
                 new Vector2f(2200, rand.Next(500,700)),
                 new Vector2f(2500, rand.Next(500,700)),
                 new Vector2f(3000, rand.Next(500,700)),
-
             };
             */
             //tank = new Tnk1();

@@ -26,8 +26,9 @@ namespace Havier_Than_Air_S
         //protected Texture heliTexture = new Texture("uh612.png");
         protected Texture heliTexture;
         public Sprite helySprite;
-        protected string textureName;//= "uh612.png";
+        protected string textureName = "uh612.png";
         protected Vector2f spriteScale =  new Vector2f(2,2);
+        protected Vector2f spriteOrigin = new Vector2f(34, 6);
 
         //Настройки верталета
         protected float maxpowery = 300000; //Максимальная сила влияет на вертолет
@@ -125,10 +126,13 @@ namespace Havier_Than_Air_S
         Sprite rearVintSprite;
         RectangleShape rearRotorRectShape;
         float rearVintSpeed = 41;
+        float scaleX = 2; // Для зеркального отображения спрайта вертолета
+        protected float rearRotorOrigin = -58;
+
 
         //Верхний винт
-        RectangleShape topRotorRectShape;
-        float topVintSpeed = 1545;
+        protected RectangleShape topRotorRectShape;
+        protected float topVintSpeed = 1545;
 
         #endregion
 
@@ -184,12 +188,13 @@ namespace Havier_Than_Air_S
 
             currentWeapon = 0;
 
+            /*
             if (!Program.TestModeP)
             {
                 SpawnRotors();
                 SpawnSounds();
             }
-
+            */
             //Начальные настройки верталета
             int rnd = new Random().Next(300, 800); // Положенме по Х рандом
             playerx = rnd; //
@@ -202,8 +207,7 @@ namespace Havier_Than_Air_S
         }
 
 
-        float scaleX = 2; // Для зеркального отображения спрайта вертолета
-        float rearRotorOrigin = -58;
+        
 
         virtual protected void SpawnHely()
         {
@@ -212,13 +216,13 @@ namespace Havier_Than_Air_S
 
             //helySprite.Scale = new Vector2f(0.5f, 0.5f);
             helySprite.Scale = spriteScale; // new Vector2f(scaleX, 2);
-            
+
             //helySprite.Color = Color.White;
             //helySprite.Origin = new Vector2f(34, 6);
-            helySprite.Origin = new Vector2f(400, 100);
+            helySprite.Origin = spriteOrigin; //new Vector2f(400, 100);
             int rnd = new Random().Next(300, 800);
             helySprite.Position = new Vector2f(rnd, 650);
-            Console.WriteLine(rnd);
+            //Console.WriteLine(rnd);
 
      
             //Точка для ротора
@@ -249,6 +253,9 @@ namespace Havier_Than_Air_S
 
             heliCollider = new Collider(collider);
 
+
+            SpawnRotors();
+            SpawnSounds();
 
         }
 

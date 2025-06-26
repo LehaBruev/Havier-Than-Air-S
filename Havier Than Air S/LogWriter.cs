@@ -9,8 +9,8 @@ namespace Havier_Than_Air_S
 {
     public class LogWriter
     {
-        //string path = "E:\\c_sharp projects\\log.txt";
-        string path = "C:\\Users\\user\\Desktop\\С-Шарп проекты\\log.txt";
+        string path = "E:\\c_sharp projects\\log.txt";
+        //string path = "C:\\Users\\user\\Desktop\\С-Шарп проекты\\log.txt";
 
         public LogWriter() 
         {
