@@ -8,11 +8,16 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Havier_Than_Air_S.Weapon;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+
+
+
+
 
 namespace Havier_Than_Air_S
 {
@@ -22,8 +27,7 @@ namespace Havier_Than_Air_S
         #region Параметры_Heli
 
         // Картинка верталета
-        //Texture heliTexture = new Texture("uh61.png");
-        //protected Texture heliTexture = new Texture("uh612.png");
+        
         protected Texture heliTexture;
         public Sprite helySprite;
         protected string textureName = "uh612.png";
@@ -39,7 +43,6 @@ namespace Havier_Than_Air_S
         protected float maxspeedvert = 300;
         protected float maxheigh = 575; // потолок полета
         protected float speedxmax = 2.5f;
-        //nrrocketsMaxquantity = 8; //максимально ракет
 
         //Характеристики мотора и проч
         protected float helilifemax = 300;// максимальные жизни Вертолета
@@ -80,6 +83,18 @@ namespace Havier_Than_Air_S
 
         int helidestroy = 0; // верталет разрушен
         int helistop = 0; // вертолет обесточен
+
+        // weapons
+        public int currentWeapon;
+        float allWeaponsWeight = 100.0f; // Вес weapons
+
+        // Otrisovka
+        Vector2f rearRotorPositionNewVector;
+        public int flip = 1;
+
+        // Knopki
+        bool rPressed = false;
+
 
         #endregion
 
@@ -122,34 +137,33 @@ namespace Havier_Than_Air_S
 
         #region Rotors
         //Задний винт
-        Vector2f rearRotorPositionNewVector;
         Sprite rearVintSprite;
-        RectangleShape rearRotorRectShape;
+        protected RectangleShape rearRotorRectShape;
         float rearVintSpeed = 41;
-        float scaleX = 2; // Для зеркального отображения спрайта вертолета
-        protected float rearRotorOrigin = -58;
+        protected Vector2f rearRotorOrigin = new Vector2f( -58,0);
 
 
         //Верхний винт
         protected RectangleShape topRotorRectShape;
         protected float topVintSpeed = 1545;
+        protected Vector2f topVontOrigin = new Vector2f(0, 0);
 
         #endregion
 
+
         #region Weapons
+        protected Vector2f weaponPositionOrigin = new Vector2f(-5, 20); // позиция подвесок оружия
         public Vector2f weaponPositionCurrentPoint;
-        public Vector2f positionWeaponLocalPoint;
         public WeaponBase[] m_Weapons;
-        public int currentWeapon;
-        float allWeaponsWeight = 100.0f; // Вес weapons
         
-        protected Vector2f weaponPositionLocal = new Vector2f(-5, 20); // позиция подвесок оружия
+        
+        
 
         #endregion
 
         #region Colliders
+        protected Vector2f colliderOrigin = new Vector2f(0, 0);
         public ConvexShape collider;
-        public Collider heliCollider;
 
         #endregion
 
@@ -211,18 +225,16 @@ namespace Havier_Than_Air_S
 
         virtual protected void SpawnHely()
         {
+
+            //Спрайт
             heliTexture  = new Texture(textureName);
             helySprite = new Sprite(heliTexture);
+            helySprite.Scale = spriteScale;
+            helySprite.Origin = spriteOrigin; 
 
-            //helySprite.Scale = new Vector2f(0.5f, 0.5f);
-            helySprite.Scale = spriteScale; // new Vector2f(scaleX, 2);
-
-            //helySprite.Color = Color.White;
-            //helySprite.Origin = new Vector2f(34, 6);
-            helySprite.Origin = spriteOrigin; //new Vector2f(400, 100);
+            //Позиция при старте
             int rnd = new Random().Next(300, 800);
-            helySprite.Position = new Vector2f(rnd, 650);
-            //Console.WriteLine(rnd);
+            position = new Vector2f(rnd, 650);
 
      
             //Точка для ротора
@@ -230,11 +242,12 @@ namespace Havier_Than_Air_S
             CircleShapeRotorPoint.FillColor = new Color(Color.Yellow);
             CircleShapeRotorPoint.Origin = new Vector2f(2, 2);
 
+            //Оружие
             m_Weapons = new WeaponBase[] { new GunLauncher(1000, this, TypeOfObject.gun),
                                            new RocketNRLauncher(250, this, TypeOfObject.nr), 
                                            new RocketNRLauncher(250, this, TypeOfObject.sr) };
 
-            
+            //Коллайдер
             collider = new ConvexShape(10);
             collider.SetPoint(0, new Vector2f(-27, 5));
             collider.SetPoint(1, new Vector2f(-23, 15));
@@ -246,12 +259,8 @@ namespace Havier_Than_Air_S
             collider.SetPoint(7, new Vector2f(5,30));
             collider.SetPoint(8, new Vector2f(0,25));
             collider.SetPoint(9, new Vector2f(-23,20));
-            collider.FillColor = Color.White;
-            collider.Origin = helySprite.Origin;
-
-
-
-            heliCollider = new Collider(collider);
+            collider.FillColor = Color.Yellow;
+            collider.Origin = colliderOrigin;
 
 
             SpawnRotors();
@@ -280,24 +289,24 @@ namespace Havier_Than_Air_S
             topRotorRectShape.Origin = new Vector2f(45, 1);
             topRotorRectShape.FillColor = new Color(Color.Yellow);
 
-            //positionWeaponLocalPoint = weaponPositionLocal;
+            
         }
 
-        bool rPressed = false;
+        
 
 
         public void RotorUpdate()
         {
             //ротор rear
-            rearRotorPositionNewVector = Matematika.searchAB(helySprite.Rotation, rearRotorOrigin);
-            rearRotorRectShape.Position = new Vector2f((helySprite.Position.X) + rearRotorPositionNewVector.X,
-                                                 (helySprite.Position.Y) + rearRotorPositionNewVector.Y);
+            rearRotorPositionNewVector = Matematika.searchAB(angle, rearRotorOrigin.X);
+            rearRotorRectShape.Position = new Vector2f((position.X) + rearRotorPositionNewVector.X,
+                                                 (position.Y) + rearRotorPositionNewVector.Y);
             rearRotorRectShape.Rotation += rearVintSpeed * Program.deltaTimer.Delta() * 100*
                                             enginespeed/maxenginespeed*1.7f;
 
             //ротор top
-            topRotorRectShape.Position = helySprite.Position;
-            topRotorRectShape.Rotation = helySprite.Rotation;
+            topRotorRectShape.Position = position;
+            topRotorRectShape.Rotation = angle;
 
             float RotorX = topRotorRectShape.Scale.X + topVintSpeed * Program.deltaTimer.Delta() / 100*
                                    enginespeed / maxenginespeed * 2.7f;
@@ -318,17 +327,7 @@ namespace Havier_Than_Air_S
             Program.window.Draw(rearRotorRectShape);
             Program.window.Draw(topRotorRectShape);
 
-
-            //weaponPoint
-            //Vector2f currentLocalPositionPW = Matematika.searchAB(positionWeaponLocalPoint.X+angle + new Random().Next(1, 3), 
-              //                                              positionWeaponLocalPoint.Y + new Random().Next(1,3) );
             
-            //weaponPositionCurrentPoint = new Vector2f( helySprite.Position.X + currentLocalPositionPW.X,
-              //                          helySprite.Position.Y + currentLocalPositionPW.Y);
-            
-            Vector2f localpos = Matematika.LocalPointOfRotationObject(weaponPositionLocal,angle);
-            weaponPositionCurrentPoint = new Vector2f(position.X + localpos.X,
-                                                 position.Y + localpos.Y);
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.R) && rPressed==false)
             {
@@ -352,9 +351,15 @@ namespace Havier_Than_Air_S
             rearRotorOrigin = rearRotorOrigin * (-1);
             helySprite.Scale = new Vector2f(helySprite.Scale.X * (-1), helySprite.Scale.Y);
 
+            for (int i = 0; i < collider.GetPointCount(); i++)
+            {
+                collider.SetPoint((uint)i, new Vector2f(-collider.GetPoint((uint)i).X, collider.GetPoint((uint)i).Y));
+
+            }
+            flip *= -1;
         }
 
-        public void Update()
+        public virtual void Update()
         {
             if (groundClock.ElapsedTime.AsSeconds()>0.3)
             {
@@ -365,32 +370,39 @@ namespace Havier_Than_Air_S
             CheckPosition();
             PlayerMove();
             EngineUpdate();
-            PlayerDraw();
-            Program.window.Draw(helySprite);
+            SpriteDraw();
+            
 
             if (!Program.TestModeP)
             {
                 RotorUpdate();
             }
 
-            CircleShapeRotorPoint.Position = new Vector2f( helySprite.Position.X,
-                                                 helySprite.Position.Y);
+            CircleShapeRotorPoint.Position = new Vector2f( position.X,
+                                                 position.Y);
 
-            
-            //Program.window.Draw(CircleShape);
+
+            Vector2f localpos = Matematika.LocalPointOfRotationObject(weaponPositionOrigin, angle);
+            weaponPositionCurrentPoint = new Vector2f(position.X + localpos.X,
+                                                 position.Y + localpos.Y);
+
+
             avionika.Update();
             CheckGunMode();
 
             // Collider
-            collider.Position = position;
-            collider.Rotation = angle;
-            //Program.window.Draw(collider);
+            UpdateCollider();
 
         }
 
-        
+        private void UpdateCollider()
+        {
+            collider.Position = position;
+            collider.Rotation = angle;
+            // Program.window.Draw(collider);
+        }
 
-       
+
 
         private void CheckPosition()
         {
@@ -401,28 +413,6 @@ namespace Havier_Than_Air_S
             if (Keyboard.IsKeyPressed(Keyboard.Key.S) == true) enginespeed = (enginespeed - shagengine * 1.5f*Program.deltaTimer.Delta()*100);
             if (enginespeed < 0) enginespeed = 0;
 
-            /*
-            if (Keyboard.IsKeyPressed(Keyboard.Key.W))
-            {
-                helySprite.Position = new Vector2f(helySprite.Position.X, helySprite.Position.Y-powery*Program.deltaTimer.Delta());
-
-            }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.S))
-            {
-                helySprite.Position = new Vector2f(helySprite.Position.X, helySprite.Position.Y + powery * Program.deltaTimer.Delta());
-
-            }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.D))
-            {
-                helySprite.Position = new Vector2f(helySprite.Position.X + powery * Program.deltaTimer.Delta(), helySprite.Position.Y );
-
-            }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.A))
-            {
-                helySprite.Position = new Vector2f(helySprite.Position.X - powery * Program.deltaTimer.Delta(), helySprite.Position.Y);
-
-            }
-            */
         }
 
 
@@ -641,33 +631,12 @@ namespace Havier_Than_Air_S
 
         }
 
-        void PlayerDraw() // отрисовка Верталета
+        void SpriteDraw() // отрисовка Верталета
         {
-            // DrawSprite(uh61, padx, pady, 147, 603, 137, 66); // Верталетная площадка
-            //цветы
-
-            /*
-            if (currentHelilife <= 0) DrawSprite(uh61, playerx - 41, playery - 17, 408, 101, 91, 43);
-            else
-            {
-                if (angle >= 0 && angle <= 10) DrawSprite(uh61, playerx - 95, playery - 26, 0, 0, 130, 57);
-                if (angle > 10 && angle <= 30) DrawSprite(uh61, playerx - 96, playery - 30, 0, 56, 127, 59);
-                if (angle > 30 && angle <= 45) DrawSprite(uh61, playerx - 75, playery - 68, 23, 184, 105, 106);
-                if (angle > 45 && angle <= 70) DrawSprite(uh61, playerx - 61, playery - 83, 150, 1, 93, 125);
-
-                if (angle >= -15 && angle < 0) DrawSprite(uh61, playerx - 98, playery - 23, 403, 28, 134, 53);
-                if (angle >= -30 && angle < -15) DrawSprite(uh61, playerx - 35, playery - 27, 272, 68, 127, 59);
-                if (angle >= -45 && angle < -30) DrawSprite(uh61, playerx - 29, playery - 66, 277, 163, 103, 105);
-                if (angle >= -70 && angle < -45) DrawSprite(uh61, playerx - 25, playery - 86, 160, 147, 79, 122);
-            } //отрисовка спрайтов Вертолета
-            */
-
+            
             helySprite.Rotation = angle;
+            Program.window.Draw(helySprite);
 
-            
-            
-
-             
         }
     
         public void Fire()

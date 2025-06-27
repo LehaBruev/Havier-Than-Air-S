@@ -121,7 +121,9 @@ namespace Havier_Than_Air_S
             DrawText("Y: " + (int)hely.position.Y, new Vector2f(22, 32), Color.Green, 3);
             DrawText("X: " + Mouse.GetPosition().X + " Y: " + Mouse.GetPosition().Y, new Vector2f(22, 49), Color.Green, 3);
             DrawText("X: " + Mouse.GetPosition(Program.window).X + " Y: " + Mouse.GetPosition(Program.window).Y, new Vector2f(22, 66), Color.Yellow, 3);
-            
+            DrawText("X: " + (Mouse.GetPosition(Program.window).X  - hely.position.X + Program.offset.X  - Program.vMode.Width/2) +
+                " Y: " + (Mouse.GetPosition(Program.window).Y - hely.position.Y  + Program.offset.Y  - Program.vMode.Height / 2), new Vector2f(22, 83), Color.White, 3);
+            DrawText("X: " + Program.offset.X + " Y: " + Program.offset.Y, new Vector2f(22, 130), Color.Green, 3);
 
 
             if (hely != null)
@@ -228,7 +230,7 @@ namespace Havier_Than_Air_S
         Color vColor = Color.Green;
         private void UpdateInertia()
         {
-            inertiavector.Position = new Vector2f(hely.helySprite.Position.X, hely.helySprite.Position.Y);
+            inertiavector.Position = new Vector2f(hely.position.X, hely.position.Y);
 
             vColor = Color.White;
             if (hely.speedy > 0.5f || hely.speedy < -0.5f) vColor = Color.Yellow;
@@ -239,13 +241,10 @@ namespace Havier_Than_Air_S
             // ParkovkaAssistance
             Vertex[] line = new Vertex[]
             {
-                
-               //new Vertex(new Vector2f(helySprite.Position.X, helySprite.Position.Y)),
-              // new Vertex(new Vector2f(helySprite.Position.X + speedx*15, helySprite.Position.Y-speedy*15)),
-               new Vertex(new Vector2f(hely.helySprite.Position.X, hely.helySprite.Position.Y+10)),
-               new Vertex(new Vector2f(hely.helySprite.Position.X + hely.speedx*40, hely.helySprite.Position.Y + 10),vColor),
-               new Vertex(new Vector2f(hely.helySprite.Position.X, hely.helySprite.Position.Y+10)),
-               new Vertex(new Vector2f(hely.helySprite.Position.X, hely.helySprite.Position.Y-hely.speedy*60+10),vColor)
+               new Vertex(new Vector2f(hely.position.X, hely.position.Y+10)),
+               new Vertex(new Vector2f(hely.position.X + hely.speedx*40, hely.position.Y + 10),vColor),
+               new Vertex(new Vector2f(hely.position.X, hely.position.Y+10)),
+               new Vertex(new Vector2f(hely.position.X, hely.position.Y-hely.speedy*60+10),vColor)
             };
 
             Program.window.Draw(line, PrimitiveType.Lines);
@@ -253,7 +252,7 @@ namespace Havier_Than_Air_S
             /*
             inertiaVector = new Vector2f(speedx, speedy);
             inertiavector.Color = Color.Yellow;
-            inertiavector.Position = new Vector2f(helySprite.Position.X, helySprite.Position.Y);
+            inertiavector.Position = new Vector2f(hely.position.X, hely.position.Y);
             */
 
         }
