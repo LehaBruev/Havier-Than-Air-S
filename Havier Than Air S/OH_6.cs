@@ -8,12 +8,12 @@ using SFML.System;
 
 namespace Havier_Than_Air_S
 {
-    public class mi24: Hely
+    public class OH_6: Hely
     {
 
         Marker marker;
 
-        public mi24()
+        public OH_6()
         {
            
         }
@@ -21,47 +21,47 @@ namespace Havier_Than_Air_S
         protected override void SpawnHely()
         {
 
-            textureName = "ми24_1.png";
-            spriteScale = new Vector2f(0.18f, 0.18f);
+            textureName = "OH-6_1.png";
+            spriteScale = new Vector2f(0.22f, 0.22f);
 
             //Позиции деталей 
-            spriteOrigin = new Vector2f(540,0);
+            spriteOrigin = new Vector2f(300,0);
             colliderOrigin = new Vector2f(0, 0);
-            rearRotorOrigin = new Vector2f(-100,0);
+            rearRotorOrigin = new Vector2f(-50,0);
 
             //Настройки верталета
-            maxpowery = 300000; //Максимальная сила влияет на вертолет
-            maxpowerx = 30000; // 
-            shagengine = 50; // шаг увеличения мощности двигателя
-            shagAngle = 1.1f; // шаг изменения угла атаки
-            maxspeedhor = 240;
-            maxspeedvert = 200;
-            maxheigh = 400; // потолок полета
-            speedxmax = 4.5f;
+            maxpowery = 200000; //Максимальная сила влияет на вертолет
+            maxpowerx = 20000; // 
+            shagengine = 80; // шаг увеличения мощности двигателя
+            shagAngle = 1.7f; // шаг изменения угла атаки
+            maxspeedhor = 120;
+            maxspeedvert = 240;
+            maxheigh = 500; // потолок полета
+            speedxmax = 3.5f;
 
             //Характеристики мотора и проч
-            helilifemax = 1000;// максимальные жизни Вертолета
+            helilifemax = 200;// максимальные жизни Вертолета
             helienginelife = 100; //исправность двигателя Вертолета
-            fuelrashod = 50.7f; // расход топлива
-            manageability = 1f;// управляемость //5 это ИНЕРЦИЯ
-            maxangle = 37; // Максимальный угол атаки
-            helifuelmax = 2000; // Максимальное топливо в баках
-            maxboost = 9250; // максимальное ускорение от двигателя //11250
+            fuelrashod = 30.7f; // расход топлива
+            manageability = 6f;// управляемость //5 это ИНЕРЦИЯ
+            maxangle = 85; // Максимальный угол атаки
+            helifuelmax = 800; // Максимальное топливо в баках
+            maxboost = 10250; // максимальное ускорение от двигателя //11250
             holdOborotMotora = 12000; // Холостые обороты мотора
 
-            maxenginespeed = 70000; //Максимальные обороты двигателя
-            enginespeedlimit = 55000; //Предельные обороты двигателя
+            maxenginespeed = 50000; //Максимальные обороты двигателя
+            enginespeedlimit = 39000; //Предельные обороты двигателя
 
             weaponPositionOrigin = new Vector2f(-5, 20); //Позиция подвесок оружия
 
             base.SpawnHely();
 
             //Верхний винт
-            topRotorRectShape.Size = new Vector2f(140, 2);
+            topRotorRectShape.Size = new Vector2f(80, 2);
             topRotorRectShape.FillColor = new Color(Color.Green);
-            topVintSpeed = 1137;
+            topVintSpeed = 600;
 
-            topRotorRectShape.Origin = new Vector2f(70, 1);
+            topRotorRectShape.Origin = new Vector2f(40, 1);
 
             //Задний винт
 
