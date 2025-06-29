@@ -245,7 +245,7 @@ namespace Havier_Than_Air_S
             //Оружие
             m_Weapons = new WeaponBase[] { new GunLauncher(1000, this, TypeOfObject.gun),
                                            new RocketNRLauncher(250, this, TypeOfObject.nr), 
-                                           new RocketNRLauncher(250, this, TypeOfObject.sr) };
+                                           new RocketSNRLauncher(250, this, TypeOfObject.sr) };
 
             //Коллайдер
             collider = new ConvexShape(10);

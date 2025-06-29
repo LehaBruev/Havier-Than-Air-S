@@ -153,6 +153,7 @@
     <Compile Include="Weapon\NRocket.cs" />
     <Compile Include="Weapon\Projectile.cs" />
     <Compile Include="Weapon\GunLauncher.cs" />
+    <Compile Include="Weapon\RocketSNRLauncher.cs" />
     <Compile Include="Weapon\RocketNRLauncher.cs" />
     <Compile Include="SoundManager.cs" />
     <Compile Include="TextureManager.cs" />

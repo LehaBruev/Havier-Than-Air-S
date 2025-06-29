@@ -32,6 +32,7 @@ namespace Havier_Than_Air_S
         //Количество
         private int GunBulletCount = 75;
         private int NRcount = 8;
+        private int SNRcount = 8;
         private int BangCount = 8;
         private int TankCount = 10;
         private int HousCount = 200;
@@ -55,12 +56,13 @@ namespace Havier_Than_Air_S
             {
                 GunBulletCount,
                 NRcount,
+                SNRcount,
                 BangCount,
                 TankCount,
                 HousCount
             };
 
-            IMoovables = new IMoovable[NRcount + GunBulletCount + BangCount + TankCount + HousCount];
+            IMoovables = new IMoovable[ GunBulletCount + NRcount + SNRcount + BangCount + TankCount + HousCount];
 
             int n = 0;
             for (int m = 0; m < counts.Length; m++)
@@ -69,9 +71,10 @@ namespace Havier_Than_Air_S
                 {
                     if (m==0) IMoovables[n] = new GunBullet();
                     if (m==1) IMoovables[n] = new NRocket();
-                    if (m==2) IMoovables[n] = new Bang(position);
-                    if (m==3) IMoovables[n] = new Tnk1();
-                    if (m==4) IMoovables[n] = new Hous();
+                    if (m==2) IMoovables[n] = new SNRocket();
+                    if (m==3) IMoovables[n] = new Bang(position);
+                    if (m==4) IMoovables[n] = new Tnk1();
+                    if (m==5) IMoovables[n] = new Hous();
                     n += 1;
                 }
             }
@@ -113,7 +116,9 @@ namespace Havier_Than_Air_S
             for (int i = 0; i < IMoovables.Length; i++)
             {
 
-                if ( (IMoovables[i].GetTypeOfObject() == TypeOfObject.gun || IMoovables[i].GetTypeOfObject() == TypeOfObject.nr) && 
+                if ( (IMoovables[i].GetTypeOfObject() == TypeOfObject.gun || 
+                    IMoovables[i].GetTypeOfObject() == TypeOfObject.nr ||
+                    IMoovables[i].GetTypeOfObject() == TypeOfObject.sr) && 
                     IMoovables[i].GetCurrentPullStatus() == PullStatus.inAir && 
                     IMoovables[i].GetColliderStatus() == true)
                 {
