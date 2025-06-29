@@ -21,7 +21,7 @@ namespace Havier_Than_Air_S
             
         
          int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
-        float skorostrel = 0.5f; //Скорострельность
+        float skorostrel = 0.2f; //Скорострельность
 
        
 
