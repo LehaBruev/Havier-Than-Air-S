@@ -13,7 +13,7 @@ namespace Havier_Than_Air_S
 {
 
 
-    public class RocketNRLauncher: WeaponBase
+    public class RocketSNRLauncher: WeaponBase
     {
         // Параметры
          float NRrocketlenght = 20;
@@ -21,14 +21,14 @@ namespace Havier_Than_Air_S
             
         
          int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
-        float skorostrel = 0.2f; //Скорострельность
+        float skorostrel = 0.3f; //Скорострельность
 
        
 
        
         
 
-        public RocketNRLauncher(int ammo,Hely hely, TypeOfObject type) : base(type)
+        public RocketSNRLauncher(int ammo,Hely hely, TypeOfObject type) : base(type)
         {
             parentHely = hely; // base
             currentAmmCount = ammo;
