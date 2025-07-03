@@ -52,7 +52,7 @@ namespace Havier_Than_Air_S
             maxenginespeed = 50000; //Максимальные обороты двигателя
             enginespeedlimit = 45000; //Предельные обороты двигателя
 
-            weaponPositionOrigin = new Vector2f(0, 30); //Позиция подвесок оружия
+            weaponPositionOrigin = new Vector2f(0, 35); //Позиция подвесок оружия
 
             base.SpawnHely();
 
@@ -103,8 +103,8 @@ namespace Havier_Than_Air_S
         {
             base.Update();
 
-            marker.Update();
-            Program.window.Draw(collider);
+            //marker.Update();
+            //Program.window.Draw(collider);
 
         }
     }

@@ -112,9 +112,9 @@ namespace Havier_Than_Air_S.Missions
             rnd2 = new Random();
             
             //m_Hely = new Hely();
-            m_Hely = new mi24();
+            //m_Hely = new mi24();
             //m_Hely = new OH_6();
-            //m_Hely = new AH_1();
+            m_Hely = new AH_1();
             Program.cameraController.SetCameraObject(m_Hely);
 
             // tanks

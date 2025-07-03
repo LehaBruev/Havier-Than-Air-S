@@ -88,7 +88,7 @@ namespace Havier_Than_Air_S.Weapon
 
             if (snrmode == SNRmode.checkMousePosition)
             {
-                currentTargetPosition = (new Vector2f(Mouse.GetPosition().X, Mouse.GetPosition().Y))+
+                currentTargetPosition = (new Vector2f(Mouse.GetPosition(Program.window).X, Mouse.GetPosition(Program.window).Y))+
                                             Program.offset-new Vector2f(Program.vMode.Width/2, Program.vMode.Height / 2);
             }
         }
