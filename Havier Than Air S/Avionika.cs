@@ -218,6 +218,10 @@ namespace Havier_Than_Air_S
                 scopeSprite.Position = Program.offset + (Vector2f)Mouse.GetPosition(Program.window) -
                 new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2);
 
+                if (Program.m_MouseController.LeftButton)
+                {
+                    Mouse.SetPosition(Program.m_MouseController.memMousePosition);
+                }
 
                 scopeSprite.Color = Color.Red;
                 Program.window.Draw(scopeSprite);
