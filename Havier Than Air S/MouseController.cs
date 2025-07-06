@@ -48,12 +48,17 @@ namespace Havier_Than_Air_S
 
             if (LeftButton == true) 
             {
-                if (memMousePosition == new Vector2i(-2000, -2000)) memMousePosition = Mouse.GetPosition(Program.window);
+                if (memMousePosition == new Vector2i(-2000, -2000))
+                {
+                    memMousePosition = Mouse.GetPosition(Program.window);
+                }
             }
             else
             {
                 if (memMousePosition != new Vector2i(-2000, -2000)) memMousePosition = new Vector2i(-2000, -2000);
             }
+
+
 
             if (x < 0)
             {

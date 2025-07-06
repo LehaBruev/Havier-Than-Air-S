@@ -135,7 +135,6 @@ namespace Havier_Than_Air_S
 
 
 
-
         private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
         {
             Vector2f posGlobal = new Vector2f(0,0);
@@ -167,9 +166,6 @@ namespace Havier_Than_Air_S
         {
             SetFillColor(Color.Red);
 
-            
-            
-          
             //Вооружение
             DrawText(400, 5, "Режим: " + gunmode, 18);
 
@@ -183,7 +179,6 @@ namespace Havier_Than_Air_S
             if (n <= 3) { SetFillColor(Color.Yellow); DrawText(400, 20, "НР ракеты " + n + " из " + nrrocketsMaxquantity, 18); SetFillColor(Color.White); }
 
 
-
             //Окруж среда
             DrawText(600, 5, "Плотность воздуха: " + gunmode, 14);
             DrawText(600, 20, "Ветер " + wind, 14);
@@ -193,8 +188,6 @@ namespace Havier_Than_Air_S
             DrawText(800, 35, "Money: " + money, 18);
             DrawText(800, 55, "Record: " + hiscore, 18);
             DrawText(800, 15, "Flight: time " + flighttime, 18);
-
-            
 
         }
 
@@ -216,11 +209,11 @@ namespace Havier_Than_Air_S
 
                 //scopeSprite.Position = (Vector2f)Mouse.GetPosition(Program.window);
                 scopeSprite.Position = Program.offset + (Vector2f)Mouse.GetPosition(Program.window) -
-                new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2);
+                new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) ;
 
                 if (Program.m_MouseController.LeftButton)
                 {
-                    Mouse.SetPosition(Program.m_MouseController.memMousePosition);
+                    Mouse.SetPosition(Program.m_MouseController.memMousePosition, Program.window);
                 }
 
                 scopeSprite.Color = Color.Red;

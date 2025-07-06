@@ -186,7 +186,7 @@ namespace Havier_Than_Air_S.Missions
                 {
                     mouseIsPressed = true;
                     mousPoint1 = mouseController.currentMousePoint;
-                    Program.log.WriteXY("mount1.SetPoint(0" + lognum + ", new Vector2f(" + Mouse.GetPosition(Program.window).X + " , " + Mouse.GetPosition(Program.window).Y + " ));");
+                    //Program.log.WriteXY("mount1.SetPoint(0" + lognum + ", new Vector2f(" + Mouse.GetPosition(Program.window).X + " , " + Mouse.GetPosition(Program.window).Y + " ));");
                     lognum += 1;
                 }
             }
