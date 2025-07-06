@@ -10,23 +10,23 @@ namespace Havier_Than_Air_S
     public class LogWriter
     {
         //string path = "E:\\c_sharp projects\\log.txt";
-        string path = "C:\\Users\\user\\Desktop\\С-Шарп проекты\\log.txt";
+        //string path = "C:\\Users\\user\\Desktop\\С-Шарп проекты\\log.txt";
 
         public LogWriter() 
         {
             
         }
-
+        /*
         public async void WriteXY(string t)
         {
             using (StreamWriter writer = new StreamWriter(path, true))
             {
-                await writer.WriteLineAsync(t);
+               // await writer.WriteLineAsync(t);
             }
 
         }
 
-          
+          */
 
 
 
