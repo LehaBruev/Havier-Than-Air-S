@@ -195,10 +195,11 @@ namespace Havier_Than_Air_S
 
         private void PricelDraw()
         {
-            if (hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.nr)
+            if (hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.nr ||
+                hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.gun)
             {
             Vector2f pos = Matematika.LocalPointOfRotationObject(scopeOrigin, hely.angle);
-            scopeSprite.Position = new Vector2f(hely.position.X + pos.X, hely.position.Y + pos.Y);
+            scopeSprite.Position = new Vector2f(hely.position.X + pos.X*hely.flip, hely.position.Y + pos.Y*hely.flip);
                 scopeSprite.Color = Color.White;
                 Program.window.Draw(scopeSprite);
             }

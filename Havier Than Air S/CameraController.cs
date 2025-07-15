@@ -22,6 +22,8 @@ namespace Havier_Than_Air_S
         public Vector2f offset;
         IMoovable moovable;
         Hely player;
+        float camPosSpeed = 5;
+        float currentCamAimPos;
 
         // perem
         CameraMode currentCameraMode = CameraMode.hold;
@@ -41,11 +43,32 @@ namespace Havier_Than_Air_S
                 }
                 else if (currentCameraMode == CameraMode.hely)
                 {
-                    Program.offset = new Vector2f(moovable.GetPosition().X, 450);
+                    currentCamAimPos = moovable.GetPosition().X;
+                    float dist = currentCamAimPos - Program.offset.X;
+
+                    if (currentCamAimPos - Program.offset.X > camPosSpeed)
+                    {
+                        Program.offset = new Vector2f(Program.offset.X + camPosSpeed*Program.deltaTimer.Delta()* dist, Program.vMode.Height / 2);
+
+                    }
+                    else if ( Program.offset.X - currentCamAimPos > camPosSpeed)
+                    {
+                        Program.offset = new Vector2f(Program.offset.X + camPosSpeed * Program.deltaTimer.Delta()* dist, Program.vMode.Height / 2);
+
+                    }
+                    else
+                    {
+                        Program.offset = new Vector2f(moovable.GetPosition().X, Program.vMode.Height / 2);
+
+                    }
+                    
+
+
+
                 }
                 else if (currentCameraMode == CameraMode.helyAtack)
                 {
-                    Program.offset = new Vector2f(moovable.GetPosition().X, 450);
+                    Program.offset = new Vector2f(moovable.GetPosition().X, Program.vMode.Height/2);
                     if (moovable is Hely)
                     {
                        
