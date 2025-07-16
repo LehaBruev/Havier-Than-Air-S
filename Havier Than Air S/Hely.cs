@@ -174,7 +174,6 @@ namespace Havier_Than_Air_S
         //Данные для учета столкновения с землей
         float s;
         float ground = 700; // уровень земли
-        float airP = 0; //плотность воздуха
 
         float flighttime = 0; //время нахождения в воздухе
 
@@ -498,7 +497,7 @@ namespace Havier_Than_Air_S
             //расчет плотности воздуха, на выходе получаем = airP
             altitude = (768 - playery) - (768 - ground);
 
-            airP = (float)Math.Sqrt(playery) * 2 * 3;
+            Program.m_Pogoda.airP = (float)Math.Sqrt(playery) * 2 * 3;
 
             if (altitude > 0) flighttime = flighttime + 1;
             if (maxenginespeed < enginespeed) enginespeed = maxenginespeed;

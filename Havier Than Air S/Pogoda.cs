@@ -10,7 +10,7 @@ namespace Havier_Than_Air_S
 {
     public class Pogoda
     {
-        public float davlenie = 200;
+        public float airP = 200;
         public float veter = 0;
         private Clock clockDavlenie;
         private Clock clockVeter;

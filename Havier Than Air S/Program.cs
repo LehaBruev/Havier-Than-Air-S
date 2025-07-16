@@ -22,6 +22,7 @@ namespace Havier_Than_Air_S
 
        public static CameraController cameraController = new CameraController();
        public static DeltaTimer deltaTimer = new DeltaTimer();
+       public static Pogoda m_Pogoda = new Pogoda();
        public static Game Game = new Game();
        public static PullObjects m_PullObjects = new PullObjects();
        public static MouseController m_MouseController = new MouseController();
