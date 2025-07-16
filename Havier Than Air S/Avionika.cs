@@ -33,6 +33,7 @@ namespace Havier_Than_Air_S
         Texture pricMod3Texture;
         Sprite scopeSprite;
         Vector2f scopeOrigin = new Vector2f(350, 30);
+        Vector2i scopeMemory;
 
         public Avionika(Hely helycopter)
         {
@@ -162,44 +163,39 @@ namespace Havier_Than_Air_S
         }
 
         /*
-        static void PanelInstrument() // параметры приборной панели и отрисовка
-        {
-            SetFillColor(Color.Red);
-
-            //Вооружение
-            DrawText(400, 5, "Режим: " + gunmode, 18);
-
-            int n = 0;
-            for (int i = 0; i < R.GetLength(1); i++)
-            {
-                if (R[5, i] == 1) n = n + 1;
-
-            }
-            DrawText(400, 20, "НР ракеты " + n + " из " + nrrocketsMaxquantity, 18);
-            if (n <= 3) { SetFillColor(Color.Yellow); DrawText(400, 20, "НР ракеты " + n + " из " + nrrocketsMaxquantity, 18); SetFillColor(Color.White); }
-
-
-            //Окруж среда
-            DrawText(600, 5, "Плотность воздуха: " + gunmode, 14);
-            DrawText(600, 20, "Ветер " + wind, 14);
-
+       
 
             //Очки
             DrawText(800, 35, "Money: " + money, 18);
             DrawText(800, 55, "Record: " + hiscore, 18);
             DrawText(800, 15, "Flight: time " + flighttime, 18);
 
-        }
-
-*/
+            */
 
         private void PricelDraw()
         {
+            // Aiming Memoy
+            if (Program.m_MouseController.LeftButton == true)
+            {
+                if (scopeMemory == new Vector2i(-2000, -2000))
+                {
+                    scopeMemory = Mouse.GetPosition(Program.window)  +  (Vector2i)Program.offset - 
+                        new Vector2i((int)Program.vMode.Width/2, (int)Program.vMode.Height / 2);
+                }
+            }
+            else
+            {
+                if (scopeMemory != new Vector2i(-2000, -2000)) scopeMemory = new Vector2i(-2000, -2000);
+            }
+
+
+
+
             if (hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.nr ||
                 hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.gun)
             {
-            Vector2f pos = Matematika.LocalPointOfRotationObject(scopeOrigin, hely.angle);
-            scopeSprite.Position = new Vector2f(hely.position.X + pos.X*hely.flip, hely.position.Y + pos.Y*hely.flip);
+            Vector2f pos = Matematika.LocalPointOfRotationObject(new Vector2f(scopeOrigin.X*hely.flip, scopeOrigin.Y), hely.angle);
+            scopeSprite.Position = new Vector2f(hely.position.X + pos.X, hely.position.Y + pos.Y);
                 scopeSprite.Color = Color.White;
                 Program.window.Draw(scopeSprite);
             }
@@ -208,13 +204,15 @@ namespace Havier_Than_Air_S
             if (hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.sr)
             {
 
-                //scopeSprite.Position = (Vector2f)Mouse.GetPosition(Program.window);
-                scopeSprite.Position = Program.offset + (Vector2f)Mouse.GetPosition(Program.window) -
-                new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) ;
-
                 if (Program.m_MouseController.LeftButton)
                 {
-                    Mouse.SetPosition(Program.m_MouseController.memMousePosition, Program.window);
+                    //Mouse.SetPosition(scopeMemory, Program.window);
+                    scopeSprite.Position = (Vector2f)scopeMemory;
+                }
+                else
+                {
+                    scopeSprite.Position = Program.offset + (Vector2f)Mouse.GetPosition(Program.window) -
+                                   new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2);
                 }
 
                 scopeSprite.Color = Color.Red;

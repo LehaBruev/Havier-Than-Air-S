@@ -46,17 +46,7 @@ namespace Havier_Than_Air_S
             y = Mouse.GetPosition(Program.window).Y;
             currentMousePoint = new Vector2f(x, y);
 
-            if (LeftButton == true) 
-            {
-                if (memMousePosition == new Vector2i(-2000, -2000))
-                {
-                    memMousePosition = Mouse.GetPosition(Program.window);
-                }
-            }
-            else
-            {
-                if (memMousePosition != new Vector2i(-2000, -2000)) memMousePosition = new Vector2i(-2000, -2000);
-            }
+            
 
 
 
