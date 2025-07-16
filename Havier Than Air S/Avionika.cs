@@ -228,6 +228,7 @@ namespace Havier_Than_Air_S
         Color vColor = Color.Green;
         private void UpdateInertia()
         {
+
             inertiavector.Position = new Vector2f(hely.position.X, hely.position.Y);
 
             vColor = Color.White;
