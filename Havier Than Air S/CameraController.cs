@@ -72,7 +72,7 @@ namespace Havier_Than_Air_S
                     if (moovable is Hely)
                     {
                        
-                        Program.offset += new Vector2f((moovable as Hely).speedx * 80, 0);
+                        Program.offset += new Vector2f((moovable as Hely).speed.X * 80, 0);
                     }
                 }
 

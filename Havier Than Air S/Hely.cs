@@ -493,7 +493,7 @@ namespace Havier_Than_Air_S
             ratioenginespeed = helienginelife * 1.25f / 100;
             if (ratioenginespeed > 1) ratioenginespeed = 1;
 
-            s = speedy;
+            //s = speedy;
 
             //расчет плотности воздуха, на выходе получаем = airP
             altitude = (768 - playery) - (768 - ground);
@@ -511,15 +511,15 @@ namespace Havier_Than_Air_S
 
 
             //угол атаки уменьшает подъемную силу
-            powery = (enginespeed * ratioenginespeed / 114 * airP) - gravityweight - helifuelCurrent * fuelWeight - allWeaponsWeight; // подъемная сила
+            power.Y = (enginespeed * ratioenginespeed / 114 * airP) - gravityweight - helifuelCurrent * fuelWeight - allWeaponsWeight; // подъемная сила
 
-            boostv = powery / 200;       // вертиклаьное ускорение
-            if (boostv > (maxenginespeed / 100 * 75)) boostv = maxboost;
+            boost.Y = power.Y / 200;       // вертиклаьное ускорение
+            if (boost.Y > (maxenginespeed / 100 * 75)) boost.Y = maxboost;
 
-            speedy = (boostv / 10); // вертикальная скорость
-            if (inGround && speedy<0) speedy = 0;
+            speed.Y = (boost.Y / 10); // вертикальная скорость
+            if (inGround && speed.Y < 0) speed.Y = 0;
 
-            playery = (playery - speedy * Program.deltaTimer.Delta() * 100);
+            playery = (playery - speed.Y * Program.deltaTimer.Delta() * 100);
 
 
             if (playery >= ground)
@@ -556,11 +556,11 @@ namespace Havier_Than_Air_S
                 currentShagAngleSpeed = 0;
             }
 
-                speedx = speedx + enginespeed / 114 * airP / 100 * angle * Program.deltaTimer.Delta() / gravityweight * manageability; // ФОРМУЛА РАСЧЕТА ГОРИЗОНТАЛЬНОЙ СКОРОСТИ (ПОМЕНЯТЬ)
-            if (speedx > speedxmax) speedx = speedxmax;
-            if (speedx < -speedxmax) speedx = -speedxmax;
+                speed.X = speed.X + enginespeed / 114 * airP / 100 * angle * Program.deltaTimer.Delta() / gravityweight * manageability; // ФОРМУЛА РАСЧЕТА ГОРИЗОНТАЛЬНОЙ СКОРОСТИ (ПОМЕНЯТЬ)
+            if (speed.X > speedxmax) speed.X = speedxmax;
+            if (speed.X < -speedxmax) speed.X = -speedxmax;
 
-            playerx = playerx + speedx*Program.deltaTimer.Delta()*100; //wind
+            playerx = playerx + speed.X * Program.deltaTimer.Delta()*100; //wind
 
             position = new Vector2f(playerx, playery);
 
@@ -603,13 +603,13 @@ namespace Havier_Than_Air_S
                playery = tGround;
 
              }
-            
+
             // g = 1;
-             speedx = 0;
-                boostv = 0;
-                powery = 0;
+            speed.X = 0;
+                boost.Y = 0;
+                power.Y = 0;
                 
-                speedy = 0;
+                speed.Y = 0;
                 angle = 0;
 
 

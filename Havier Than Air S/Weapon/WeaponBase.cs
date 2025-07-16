@@ -45,7 +45,7 @@ namespace Havier_Than_Air_S.Weapon
 
                Program.m_PullObjects.StartObject(parentHely.weaponPositionCurrentPoint,
                                                 a,  
-                                                new Vector2f(parentHely.speedx, parentHely.speedy),
+                                                new Vector2f(parentHely.speed.X, parentHely.speed.Y),
                                                 weaponTyte);
                 currentAmmCount -= 1;
                 clock.Restart();
