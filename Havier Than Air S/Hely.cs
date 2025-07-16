@@ -39,6 +39,7 @@ namespace Havier_Than_Air_S
         protected float maxpowerx = 30000; // 
         protected float shagengine = 75; // шаг увеличения мощности двигателя
         protected float shagAngle = 1.5f; // шаг изменения угла атаки
+        protected float shagAngleSpeed = 0.1f;
         protected float maxspeedhor = 50;
         protected float maxspeedvert = 300;
         protected float maxheigh = 575; // потолок полета
@@ -79,6 +80,7 @@ namespace Havier_Than_Air_S
         public  float enginespeed; //Обороты двигателя
 
         public float angle = 0; //угол атаки верталета
+        float currentShagAngleSpeed; // текущая скорость прироста угла
         float boostv = 0; //ускорение вертикальное
 
         int helidestroy = 0; // верталет разрушен
@@ -533,17 +535,33 @@ namespace Havier_Than_Air_S
 
             }
 
-
-
             // Расчет ГОРИЗОНТАЛЬНОГО ПОЛЕТА угол атаки
             // Вылет за зону полётов
             //Управление углом атаки
-            if (Keyboard.IsKeyPressed(Keyboard.Key.D) == true) angle = (angle + shagAngle*Program.deltaTimer.Delta()*100);
-            if (angle > maxangle) angle = maxangle;
-            if (Keyboard.IsKeyPressed(Keyboard.Key.A) == true) angle = (angle - shagAngle * Program.deltaTimer.Delta()*100);
-            if (angle < -maxangle) angle = -maxangle;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.D) == true)
+            {
+                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta()*500;
+                if (currentShagAngleSpeed > shagAngle) 
+                    currentShagAngleSpeed = shagAngle;
 
-            speedx = speedx + enginespeed / 114 * airP / 100 * angle * Program.deltaTimer.Delta() / gravityweight * manageability; // ФОРМУЛА РАСЧЕТА ГОРИЗОНТАЛЬНОЙ СКОРОСТИ (ПОМЕНЯТЬ)
+                angle = (angle + currentShagAngleSpeed * Program.deltaTimer.Delta() * 100);
+                if (angle > maxangle) angle = maxangle;
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.A) == true)
+            {
+                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta()*5;
+                if (currentShagAngleSpeed > shagAngle) 
+                    currentShagAngleSpeed = shagAngle;
+
+                angle = (angle - currentShagAngleSpeed * Program.deltaTimer.Delta() * 100);
+                if (angle < -maxangle) angle = -maxangle;
+            }
+            else
+            {
+                currentShagAngleSpeed = 0;
+            }
+
+                speedx = speedx + enginespeed / 114 * airP / 100 * angle * Program.deltaTimer.Delta() / gravityweight * manageability; // ФОРМУЛА РАСЧЕТА ГОРИЗОНТАЛЬНОЙ СКОРОСТИ (ПОМЕНЯТЬ)
             if (speedx > speedxmax) speedx = speedxmax;
             if (speedx < -speedxmax) speedx = -speedxmax;
 
