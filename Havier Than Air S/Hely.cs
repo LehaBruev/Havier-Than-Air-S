@@ -39,7 +39,7 @@ namespace Havier_Than_Air_S
         protected float maxpowerx = 30000; // 
         protected float shagengine = 75; // шаг увеличения мощности двигателя
         protected float shagAngle = 1.5f; // шаг изменения угла атаки
-        protected float shagAngleSpeed = 0.1f;
+        protected float shagAngleSpeed = 7f; // отклик рукоятки угла
         protected float maxspeedhor = 50;
         protected float maxspeedvert = 300;
         protected float maxheigh = 575; // потолок полета
@@ -204,16 +204,10 @@ namespace Havier_Than_Air_S
 
             currentWeapon = 0;
 
-            /*
-            if (!Program.TestModeP)
-            {
-                SpawnRotors();
-                SpawnSounds();
-            }
-            */
+            
             //Начальные настройки верталета
             int rnd = new Random().Next(300, 800); // Положенме по Х рандом
-            playerx = rnd; //
+            playerx = 350; //
             playery = 700;
             engineswitch = 0;
             enginespeed = 0;
@@ -540,21 +534,23 @@ namespace Havier_Than_Air_S
             //Управление углом атаки
             if (Keyboard.IsKeyPressed(Keyboard.Key.D) == true)
             {
-                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta()*500;
+                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta();
                 if (currentShagAngleSpeed > shagAngle) 
                     currentShagAngleSpeed = shagAngle;
 
                 angle = (angle + currentShagAngleSpeed * Program.deltaTimer.Delta() * 100);
-                if (angle > maxangle) angle = maxangle;
+                if (angle > maxangle) 
+                    angle = maxangle;
             }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.A) == true)
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.A) == true)
             {
-                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta()*5;
+                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta();
                 if (currentShagAngleSpeed > shagAngle) 
                     currentShagAngleSpeed = shagAngle;
 
                 angle = (angle - currentShagAngleSpeed * Program.deltaTimer.Delta() * 100);
-                if (angle < -maxangle) angle = -maxangle;
+                if (angle < -maxangle) 
+                    angle = -maxangle;
             }
             else
             {

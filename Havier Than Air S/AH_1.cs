@@ -34,6 +34,7 @@ namespace Havier_Than_Air_S
             maxpowerx = 30000; // 
             shagengine = 70; // шаг увеличения мощности двигателя
             shagAngle = 1.3f; // шаг изменения угла атаки
+            shagAngleSpeed = 4.5f; // отклик рукоятки угла
             maxspeedhor = 200;
             maxspeedvert = 220;
             maxheigh = 500; // потолок полета
