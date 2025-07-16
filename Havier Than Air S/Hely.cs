@@ -74,14 +74,13 @@ namespace Havier_Than_Air_S
         public float playery = 400;
 
         public Vector2f position;
-        public float speedx;
-        public float speedy;
-        float powery;
+        public Vector2f speed;
+        Vector2f power;
         public  float enginespeed; //Обороты двигателя
 
         public float angle = 0; //угол атаки верталета
         float currentShagAngleSpeed; // текущая скорость прироста угла
-        float boostv = 0; //ускорение вертикальное
+        Vector2f boost = new Vector2f(0,0); //ускорение 
 
         int helidestroy = 0; // верталет разрушен
         int helistop = 0; // вертолет обесточен
