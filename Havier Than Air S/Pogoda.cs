@@ -10,12 +10,13 @@ namespace Havier_Than_Air_S
 {
     public class Pogoda
     {
-        public float airP = 200;
+        public float airP = 1;
         public float veter = 0;
         private Clock clockDavlenie;
         private Clock clockVeter;
         Random rndDavlenie = new Random();
         Random rndVeter = new Random();
+        public float gravityweight = 20000; //Сила притяжения
 
         public Pogoda()
         {
@@ -28,14 +29,18 @@ namespace Havier_Than_Air_S
         public void Update()
         {
 
-
-
-
-
-
-
         }
 
+        //Принимает высоту, выдаёт текущую плотность воздуха на этой высоте
+        public float GetCurrentAirP(float alt)
+        {
+            float p = 0;
+
+            p =  airP / alt;
+
+
+            return p;
+        }
 
     }
 }

@@ -35,10 +35,9 @@ namespace Havier_Than_Air_S
         Vector2f scopeOrigin = new Vector2f(350, 30);
         Vector2i scopeMemory;
 
-        public Avionika(Hely helycopter)
+        public Avionika()
         {
-            hely = helycopter;
-
+            
             font = new Font("comic.ttf");
             avionikaTexture = new Texture(imageAll, new IntRect(new Vector2i(140, 679), new Vector2i(158, 131)));
             panelAvionikaSprite = new Sprite(avionikaTexture);
@@ -64,77 +63,72 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
-            origin = Program.offset;
-            panelAvionikaSprite.Position = origin -
-                                            new Vector2f( Program.vMode.Width/2,Program.vMode.Height/2) + panel1Posi;
-            panelAvionikaSprite2.Position = origin -
-                                           new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) + panel2Posi;
-            panelAvionikaSprite3.Position = origin -
-                                           new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) + panel3Posi;
-
-
-            Program.window.Draw(panelAvionikaSprite);
-            Program.window.Draw(panelAvionikaSprite2);
-            Program.window.Draw(panelAvionikaSprite3);
-
-            //Параметры верталета Panel_1
-            Color lifeColor = Color.White;
-            if (hely.helilifeCurrent < 90)  lifeColor = Color.Red; 
-            DrawText("Heli Life: " + (int)hely.helilifeCurrent, new Vector2f(22, 15), lifeColor, 1);
-            DrawText("Altitude: " + (int)hely.altitude, new Vector2f(22, 32), Color.White, 1);
-            DrawText("Angle: " + (int)hely.angle, new Vector2f(22, 49), Color.White, 1);
-            DrawText("Автопилот V: ", new Vector2f(22, 66), Color.White, 1);
-            DrawText("Автопилот H: ", new Vector2f(22, 83), Color.White, 1);
-
-
-            /*
-            //DrawText(25, 15, "Heli Life: " + (int)helilife, 14);
-
-            DrawText(200, 30, "Engine Switch: " + engineswitch, 14);
-            DrawText(25, 30, "Altitude: " + (int)altitude * 10, 14);
-            DrawText(25, 45, "Angle: " + (int)angle, 14);
-            DrawText(25, 60, "Автопилот V: " + autopilotswitchX, 14);
-            DrawText(25, 75, "Автопилот H: " + autopilotswitch, 14);
-            */
-
-            // Panel_2
-            //Двигаетль
-            Color colorEngineSpeed = Color.White;
-            if (hely.enginespeed > hely.enginespeedlimit) colorEngineSpeed = Color.Red;
-            DrawText("Engine S.: " + (int)hely.enginespeed, new Vector2f(22, 15) , colorEngineSpeed, 2);
-            
-            Color engSwithColor = Color.White;
-            if (hely.engineswitch == 1) engSwithColor = Color.Green;
-            DrawText("Engine Switch: " + hely.engineswitch, new Vector2f(22, 32), engSwithColor, 2);
-
-            Color engLifeColor = Color.White;
-            
-            if (hely.helienginelife < 75 || hely.otkazpojardvig == 1) engLifeColor = Color.Yellow; 
-            if (hely.helienginelife < 53 || hely.otkazpojardvig == 1) engLifeColor = Color.Red;
-            DrawText( "Engine Life: " + (int)hely.helienginelife, new Vector2f(22, 49), engLifeColor, 2);
-
-            Color fuelColor = Color.White;
-            if (hely.helifuelCurrent < 150) fuelColor = Color.Yellow; 
-            DrawText("Fuel: " + (int)hely.helifuelCurrent, new Vector2f(22, 66), fuelColor, 2);
-
-            // Panel_3
-            DrawText("X: " + (int)hely.position.X, new Vector2f(22, 15), Color.Green, 3);
-            DrawText("Y: " + (int)hely.position.Y, new Vector2f(22, 32), Color.Green, 3);
-            DrawText("X: " + Mouse.GetPosition().X + " Y: " + Mouse.GetPosition().Y, new Vector2f(22, 49), Color.Green, 3);
-            DrawText("X: " + Mouse.GetPosition(Program.window).X + " Y: " + Mouse.GetPosition(Program.window).Y, new Vector2f(22, 66), Color.Yellow, 3);
-            DrawText("X: " + (Mouse.GetPosition(Program.window).X  - hely.position.X + Program.offset.X  - Program.vMode.Width/2) +
-                " Y: " + (Mouse.GetPosition(Program.window).Y - hely.position.Y  + Program.offset.Y  - Program.vMode.Height / 2), new Vector2f(22, 83), Color.White, 3);
-            DrawText("X: " + Program.offset.X + " Y: " + Program.offset.Y, new Vector2f(22, 130), Color.Green, 3);
-
-
             if (hely != null)
             {
+                origin = Program.offset;
+                panelAvionikaSprite.Position = origin -
+                                                new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) + panel1Posi;
+                panelAvionikaSprite2.Position = origin -
+                                               new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) + panel2Posi;
+                panelAvionikaSprite3.Position = origin -
+                                               new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) + panel3Posi;
+
+
+                Program.window.Draw(panelAvionikaSprite);
+                Program.window.Draw(panelAvionikaSprite2);
+                Program.window.Draw(panelAvionikaSprite3);
+
+                // Panel_1
+                Color lifeColor = Color.White;
+                if (hely.helylifeCurrent < 90) lifeColor = Color.Red;
+                DrawText("Heli Life: " + (int)hely.helylifeCurrent, new Vector2f(22, 15), lifeColor, 1);
+                DrawText("Altitude: " + (int)hely.altitude, new Vector2f(22, 32), Color.White, 1);
+                DrawText("Angle: " + (int)hely.angle, new Vector2f(22, 49), Color.White, 1);
+                DrawText("RUD: " + (int)hely.currentRUDposition, new Vector2f(22, 66), Color.White, 1);
+                DrawText("Автопилот H: ", new Vector2f(22, 83), Color.White, 1);
+
+
+                // Panel_2
+                //Двигаетль
+                Color colorEngineSpeed = Color.White;
+                if (hely.RPM > hely.RPMLimit) colorEngineSpeed = Color.Red;
+                DrawText("Engine S.: " + (int)hely.RPM, new Vector2f(22, 15), colorEngineSpeed, 2);
+
+                Color engSwithColor = Color.White;
+                if (hely.engineswitch == 1) engSwithColor = Color.Green;
+                DrawText("Engine Switch: " + hely.engineswitch, new Vector2f(22, 32), engSwithColor, 2);
+
+                Color engLifeColor = Color.White;
+
+                if (hely.currentEnginelife < 75 || hely.otkazpojardvig == 1) engLifeColor = Color.Yellow;
+                if (hely.currentEnginelife < 53 || hely.otkazpojardvig == 1) engLifeColor = Color.Red;
+                DrawText("Engine Life: " + (int)hely.currentEnginelife, new Vector2f(22, 49), engLifeColor, 2);
+
+                Color fuelColor = Color.White;
+                if (hely.helifuelCurrent < 150) fuelColor = Color.Yellow;
+                DrawText("Fuel: " + (int)hely.helifuelCurrent, new Vector2f(22, 66), fuelColor, 2);
+
+                // Panel_3
+                DrawText("X: " + (int)hely.position.X, new Vector2f(22, 15), Color.Green, 3);
+                DrawText("Y: " + (int)hely.position.Y, new Vector2f(22, 32), Color.Green, 3);
+                DrawText("X: " + Mouse.GetPosition().X + " Y: " + Mouse.GetPosition().Y, new Vector2f(22, 49), Color.Green, 3);
+                DrawText("X: " + Mouse.GetPosition(Program.window).X + " Y: " + Mouse.GetPosition(Program.window).Y, new Vector2f(22, 66), Color.Yellow, 3);
+                DrawText("X: " + (Mouse.GetPosition(Program.window).X - hely.position.X + Program.offset.X - Program.vMode.Width / 2) +
+                    " Y: " + (Mouse.GetPosition(Program.window).Y - hely.position.Y + Program.offset.Y - Program.vMode.Height / 2), new Vector2f(22, 83), Color.White, 3);
+                DrawText("X: " + Program.offset.X + " Y: " + Program.offset.Y, new Vector2f(22, 130), Color.Green, 3);
+
+
+
                 PricelDraw();
                 UpdateInertia();
-            }
+            }            
         }
 
+        public void SetHely(Hely helycopter)
+        {
+            hely = helycopter;
 
+        }
 
         private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
         {
@@ -163,8 +157,6 @@ namespace Havier_Than_Air_S
         }
 
         /*
-       
-
             //Очки
             DrawText(800, 35, "Money: " + money, 18);
             DrawText(800, 55, "Record: " + hiscore, 18);
