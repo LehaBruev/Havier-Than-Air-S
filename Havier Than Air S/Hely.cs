@@ -53,7 +53,7 @@ namespace Havier_Than_Air_S
         protected float helilifemax = 300;// максимальные жизни Вертолета
         public float currentEnginelife = 100; //исправность двигателя Вертолета
         protected float fuelrashod = 11.7f; // расход топлива
-        protected float inertia = 4f;// управляемость //5 это ИНЕРЦИЯ
+        protected float inertia = 5f;// управляемость //5 это ИНЕРЦИЯ
         protected float maxangle = 60; // Максимальный угол атаки
         protected float helifuelmax = 1300; // Максимальное топливо в баках
         protected float engineMaxPower = 18250; // максимальное ускорение от двигателя //11250
@@ -491,7 +491,7 @@ namespace Havier_Than_Air_S
 
             //boost.Y = power.Y / 200;       // вертиклаьное ускорение
 
-            RPM = currentRUDposition / 100 * maxRPM + (float)Math.Sqrt(angle*angle)*maxRPM/900;
+            RPM = currentRUDposition / 100 * maxRPM ;
             if (maxRPM < RPM) RPM = maxRPM;
             currentRotorPower = RPM/maxRPM * (currentEnginelife / 100) * engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);
             powerRTR.Y = currentRotorPower;// + currentRotorPower / 90* (float)Math.Sqrt(angle*angle)/20;
