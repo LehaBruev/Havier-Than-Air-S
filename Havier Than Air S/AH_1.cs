@@ -22,7 +22,7 @@ namespace Havier_Than_Air_S
         {
 
             textureName = "AH1_1.png";
-            spriteScale = new Vector2f(0.13f, 0.13f);
+            spriteScale = new Vector2f(0.23f, 0.23f);
 
             //Позиции деталей 
             spriteOrigin = new Vector2f(500,0);
@@ -32,13 +32,13 @@ namespace Havier_Than_Air_S
             //Настройки верталета
             maxpowery = 400000; //Максимальная сила влияет на вертолет
             maxpowerx = 30000; // 
-            shagRUD = 70; // шаг увеличения мощности двигателя
+            shagRUD = 35; // шаг увеличения мощности двигателя
             shagAngle = 1.3f; // шаг изменения угла атаки
             shagAngleSpeed = 4.5f; // отклик рукоятки угла
             maxspeedhor = 200;
             maxspeedvert = 220;
             maxheigh = 500; // потолок полета
-            speedxmax = 2.5f;
+            speedxmax = 4.5f;
 
             //Характеристики мотора и проч
             helilifemax = 500;// максимальные жизни Вертолета
@@ -47,8 +47,10 @@ namespace Havier_Than_Air_S
             inertia = 3f;// управляемость //5 это ИНЕРЦИЯ
             maxangle = 70; // Максимальный угол атаки
             helifuelmax = 1300; // Максимальное топливо в баках
-            engineMaxPower = 9250; // максимальное ускорение от двигателя //11250
+            engineMaxPower = 20250; // максимальное ускорение от двигателя //11250
             holdRPM = 12000; // Холостые обороты мотора
+            Weight = 1500;
+
 
             maxRPM = 50000; //Максимальные обороты двигателя
             RPMLimit = 45000; //Предельные обороты двигателя

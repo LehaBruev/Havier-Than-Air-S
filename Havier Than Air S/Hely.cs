@@ -32,9 +32,9 @@ namespace Havier_Than_Air_S
         
         protected Texture heliTexture;
         public Sprite helySprite;
-        protected string textureName = "uh612.png";
-        protected Vector2f spriteScale =  new Vector2f(2,2);
-        protected Vector2f spriteOrigin = new Vector2f(34, 6);
+        protected string textureName = "uh61.png";
+        protected Vector2f spriteScale =  new Vector2f(0.7f,0.7f);
+        protected Vector2f spriteOrigin = new Vector2f(175, -10);
 
         //Настройки верталета
         protected float maxpowery = 300000; //Максимальная сила влияет на вертолет
@@ -158,7 +158,7 @@ namespace Havier_Than_Air_S
         //Верхний винт
         protected RectangleShape topRotorRectShape;
         protected float topVintSpeed = 1545;
-        protected Vector2f topVontOrigin = new Vector2f(0, 0);
+        protected Vector2f topVintOrigin = new Vector2f(0, 0);
 
         #endregion
 

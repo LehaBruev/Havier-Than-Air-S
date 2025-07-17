@@ -22,7 +22,7 @@ namespace Havier_Than_Air_S
         {
 
             textureName = "OH-6_1.png";
-            spriteScale = new Vector2f(0.22f, 0.22f);
+            spriteScale = new Vector2f(0.32f, 0.32f);
 
             //Позиции деталей 
             spriteOrigin = new Vector2f(300,0);

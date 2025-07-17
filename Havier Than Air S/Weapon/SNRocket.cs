@@ -48,7 +48,7 @@ namespace Havier_Than_Air_S.Weapon
         // Настройки для снр
         SNRmode snrmode = SNRmode.checkMousePosition;
         Vector2f currentTargetPosition;
-        float manageability = 15;
+        float manageability = 550;
 
         public SNRocket()
         {
