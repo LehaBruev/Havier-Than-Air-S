@@ -230,8 +230,8 @@ namespace Havier_Than_Air_S
             inertiavector.Position = new Vector2f(hely.position.X, hely.position.Y);
 
             vColor = Color.White;
-            if (hely.speedy > 0.5f || hely.speedy < -0.5f) vColor = Color.Yellow;
-            if (hely.speedy > 0.9f || hely.speedy < -0.9f) vColor = Color.Red;
+            if (hely.speed.Y > 0.5f || hely.speed.Y < -0.5f) vColor = Color.Yellow;
+            if (hely.speed.Y > 0.9f || hely.speed.Y < -0.9f) vColor = Color.Red;
 
 
 
@@ -239,13 +239,15 @@ namespace Havier_Than_Air_S
             Vertex[] line = new Vertex[]
             {
                new Vertex(new Vector2f(hely.position.X, hely.position.Y+10)),
-               new Vertex(new Vector2f(hely.position.X + hely.speedx*40, hely.position.Y + 10),vColor),
+               new Vertex(new Vector2f(hely.position.X + hely.speed.X*40, hely.position.Y + 10),vColor),
                new Vertex(new Vector2f(hely.position.X, hely.position.Y+10)),
-               new Vertex(new Vector2f(hely.position.X, hely.position.Y-hely.speedy*60+10),vColor)
+               new Vertex(new Vector2f(hely.position.X, hely.position.Y-hely.speed.Y*60+10),vColor)
             };
 
             Program.window.Draw(line, PrimitiveType.Lines);
 
+
+            //Вектор + направление движенмя
             /*
             inertiaVector = new Vector2f(speedx, speedy);
             inertiavector.Color = Color.Yellow;

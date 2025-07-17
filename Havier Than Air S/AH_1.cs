@@ -27,7 +27,6 @@ namespace Havier_Than_Air_S
             //Позиции деталей 
             spriteOrigin = new Vector2f(500,0);
             colliderOrigin = new Vector2f(0, 0);
-            rearRotorOrigin = new Vector2f(-100,0);
 
             //Настройки верталета
             maxpowery = 400000; //Максимальная сила влияет на вертолет
@@ -52,35 +51,36 @@ namespace Havier_Than_Air_S
             maxenginespeed = 50000; //Максимальные обороты двигателя
             enginespeedlimit = 45000; //Предельные обороты двигателя
 
-            weaponPositionOrigin = new Vector2f(0, 35); //Позиция подвесок оружия
+
+
+            //Верхний винт
+            topRotorOrigin = new Vector2f(48, 1);
+            topVintSize = new Vector2f(96, 2);
+            topRotorColor = new Color(Color.Red);
+            topVintSpeed = 1137;
+
+            //Задний винт
+            rearVintPosition = new Vector2f();
+            rearRotorOrigin = new Vector2f(1, 9f);
+            rearRotorSize = new Vector2f(2, 18);
+            rearRotorColor = new Color(Color.Yellow);
+            rearVintSpeed = 55;
+
+            // weapons
+            weaponPositionOrigin = new Vector2f(0, 22); //Позиция подвесок оружия
 
             base.SpawnHely();
 
-            //Верхний винт
-            topRotorRectShape.Size = new Vector2f(140, 2);
-            topRotorRectShape.FillColor = new Color(Color.Green);
-            topVintSpeed = 1137;
-
-            topRotorRectShape.Origin = new Vector2f(70, 1);
-
-            //Задний винт
-
-            rearRotorRectShape.Size = new Vector2f(2, 18);
-            rearRotorRectShape.FillColor = new Color(Color.Yellow);
-            rearRotorRectShape.Origin = new Vector2f(1, 9f);
-
-
-
             //Коллайдер
-            collider = new ConvexShape(8);
-            collider.SetPoint(0, new Vector2f(-98, 5));
-            collider.SetPoint(1, new Vector2f(-72, 14));
-            collider.SetPoint(2, new Vector2f(-24, 14));
-            collider.SetPoint(3, new Vector2f(23, 11));
-            collider.SetPoint(4, new Vector2f(49, 25));
-            collider.SetPoint(5, new Vector2f(50, 36));
-            collider.SetPoint(6, new Vector2f(-13, 34));
-            collider.SetPoint(7, new Vector2f(-79, 23));
+            colliderConvexShape = new ConvexShape(8);
+            colliderConvexShape.SetPoint(0, new Vector2f(-98, 5));
+            colliderConvexShape.SetPoint(1, new Vector2f(-72, 14));
+            colliderConvexShape.SetPoint(2, new Vector2f(-24, 14));
+            colliderConvexShape.SetPoint(3, new Vector2f(23, 11));
+            colliderConvexShape.SetPoint(4, new Vector2f(49, 25));
+            colliderConvexShape.SetPoint(5, new Vector2f(50, 36));
+            colliderConvexShape.SetPoint(6, new Vector2f(-13, 34));
+            colliderConvexShape.SetPoint(7, new Vector2f(-79, 23));
             //collider.SetPoint(4, new Vector2f(63, 30));
             //collider.SetPoint(5, new Vector2f(-80, 28));
             
@@ -93,9 +93,9 @@ namespace Havier_Than_Air_S
             collider.SetPoint(8, new Vector2f(0, 25));
             collider.SetPoint(9, new Vector2f(-63, 30));
             */
-            collider.FillColor = Color.Green;
+            colliderConvexShape.FillColor = Color.Green;
 
-            marker = new Marker(collider, Color.Red, 3);
+            marker = new Marker(colliderConvexShape, Color.Red, 3);
 
         }
 

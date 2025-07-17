@@ -98,7 +98,7 @@ namespace Havier_Than_Air_S.Weapon
             currentSpeedAxeleration += speedAxeleration * Program.deltaTimer.Delta();
             currentProjectileSpeed += currentSpeedAxeleration;
             if (currentProjectileSpeed > maxSpeed) { currentProjectileSpeed = maxSpeed; }
-
+            s
             RocketAngleUpdate();
 
             base.Update();
