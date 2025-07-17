@@ -17,6 +17,7 @@ namespace Havier_Than_Air_S
         Vector2f panel1Posi = new Vector2f(10,10);
         Vector2f panel2Posi = new Vector2f(185.0f, 10.0f);
         Vector2f panel3Posi = new Vector2f(350.0f, 10.0f);
+        Vector2f panel4Posi = new Vector2f(525.0f, 10.0f);
 
         Font font;
 
@@ -25,6 +26,7 @@ namespace Havier_Than_Air_S
         Sprite panelAvionikaSprite;
         Sprite panelAvionikaSprite2;
         Sprite panelAvionikaSprite3;
+        Sprite panelAvionikaSprite4;
         Text aText;
 
         // Pricel mode 2
@@ -49,6 +51,9 @@ namespace Havier_Than_Air_S
             panelAvionikaSprite3 = new Sprite(avionikaTexture);
             panelAvionikaSprite3.Position = panel3Posi;
 
+            panelAvionikaSprite4 = new Sprite(avionikaTexture);
+            panelAvionikaSprite4.Position = panel4Posi;
+
             aText = new Text();
             aText.FillColor = Color.White;
 
@@ -72,11 +77,14 @@ namespace Havier_Than_Air_S
                                                new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) + panel2Posi;
                 panelAvionikaSprite3.Position = origin -
                                                new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) + panel3Posi;
+                panelAvionikaSprite4.Position = origin -
+                                              new Vector2f(Program.vMode.Width / 2, Program.vMode.Height / 2) + panel4Posi;
 
 
                 Program.window.Draw(panelAvionikaSprite);
                 Program.window.Draw(panelAvionikaSprite2);
                 Program.window.Draw(panelAvionikaSprite3);
+                Program.window.Draw(panelAvionikaSprite4);
 
                 // Panel_1
                 Color lifeColor = Color.White;
@@ -109,19 +117,32 @@ namespace Havier_Than_Air_S
                 DrawText("Fuel: " + (int)hely.helifuelCurrent, new Vector2f(22, 66), fuelColor, 2);
 
                 // Panel_3
-                DrawText("X: " + (int)hely.position.X, new Vector2f(22, 15), Color.Green, 3);
-                DrawText("Y: " + (int)hely.position.Y, new Vector2f(22, 32), Color.Green, 3);
+                DrawText("X: " + (int)hely.positionOfHely.X, new Vector2f(22, 15), Color.Green, 3);
+                DrawText("Y: " + (int)hely.positionOfHely.Y, new Vector2f(22, 32), Color.Green, 3);
                 DrawText("X: " + Mouse.GetPosition().X + " Y: " + Mouse.GetPosition().Y, new Vector2f(22, 49), Color.Green, 3);
                 DrawText("X: " + Mouse.GetPosition(Program.window).X + " Y: " + Mouse.GetPosition(Program.window).Y, new Vector2f(22, 66), Color.Yellow, 3);
-                DrawText("X: " + (Mouse.GetPosition(Program.window).X - hely.position.X + Program.offset.X - Program.vMode.Width / 2) +
-                    " Y: " + (Mouse.GetPosition(Program.window).Y - hely.position.Y + Program.offset.Y - Program.vMode.Height / 2), new Vector2f(22, 83), Color.White, 3);
+                DrawText("X: " + (Mouse.GetPosition(Program.window).X - hely.positionOfHely.X + Program.offset.X - Program.vMode.Width / 2) +
+                    " Y: " + (Mouse.GetPosition(Program.window).Y - hely.positionOfHely.Y + Program.offset.Y - Program.vMode.Height / 2), new Vector2f(22, 83), Color.White, 3);
                 DrawText("X: " + Program.offset.X + " Y: " + Program.offset.Y, new Vector2f(22, 130), Color.Green, 3);
 
-
+                // Panel_4
+                Panel4Check();
 
                 PricelDraw();
                 UpdateInertia();
             }            
+        }
+
+        public void Panel4Check()
+        {
+            
+            DrawText("RPM: " + (int)hely.RPM, new Vector2f(22, 15), Color.Green, 4);
+            DrawText("currentRotorPower: " + (int)hely.currentRotorPower, new Vector2f(22, 32), Color.Green, 4);
+            DrawText("gravityPower: " + (int)hely.gravityPower, new Vector2f(22, 49), Color.Green, 4);
+            DrawText("airP: " + Program.m_Pogoda.GetCurrentAirP(hely.altitude), new Vector2f(22, 66), Color.Yellow, 4);
+            DrawText("boost.Y: " + hely.boost.Y, new Vector2f(22, 83), Color.White, 4);
+            DrawText("powerRTR.Y: " + hely.powerRTR.Y, new Vector2f(22, 130), Color.Green, 4);
+
         }
 
         public void SetHely(Hely helycopter)
@@ -147,6 +168,11 @@ namespace Havier_Than_Air_S
             {
                 posGlobal = new Vector2f(pos.X + panelAvionikaSprite3.Position.X,
                                 pos.Y + panelAvionikaSprite3.Position.Y + 5);
+            }
+            else if (panelNumber == 4)
+            {
+                posGlobal = new Vector2f(pos.X + panelAvionikaSprite4.Position.X,
+                                pos.Y + panelAvionikaSprite4.Position.Y + 5);
             }
             aText = new Text(txt, font,14);
             aText.Position = posGlobal;
@@ -187,7 +213,7 @@ namespace Havier_Than_Air_S
                 hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.gun)
             {
             Vector2f pos = Matematika.LocalPointOfRotationObject(new Vector2f(scopeOrigin.X*hely.flip, scopeOrigin.Y), hely.angle);
-            scopeSprite.Position = new Vector2f(hely.position.X + pos.X, hely.position.Y + pos.Y);
+            scopeSprite.Position = new Vector2f(hely.positionOfHely.X + pos.X, hely.positionOfHely.Y + pos.Y);
                 scopeSprite.Color = Color.White;
                 Program.window.Draw(scopeSprite);
             }
@@ -219,7 +245,7 @@ namespace Havier_Than_Air_S
         private void UpdateInertia()
         {
 
-            inertiavector.Position = new Vector2f(hely.position.X, hely.position.Y);
+            inertiavector.Position = new Vector2f(hely.positionOfHely.X, hely.positionOfHely.Y);
 
             vColor = Color.White;
             if (hely.speed.Y > 0.5f || hely.speed.Y < -0.5f) vColor = Color.Yellow;
@@ -231,10 +257,10 @@ namespace Havier_Than_Air_S
             // ParkovkaAssistance
             Vertex[] line = new Vertex[]
             {
-               new Vertex(new Vector2f(hely.position.X, hely.position.Y+10)),
-               new Vertex(new Vector2f(hely.position.X + hely.speed.X*40, hely.position.Y + 10),vColor),
-               new Vertex(new Vector2f(hely.position.X, hely.position.Y+10)),
-               new Vertex(new Vector2f(hely.position.X, hely.position.Y-hely.speed.Y*60+10),vColor)
+               new Vertex(new Vector2f(hely.positionOfHely.X, hely.positionOfHely.Y+10)),
+               new Vertex(new Vector2f(hely.positionOfHely.X + hely.speed.X*40, hely.positionOfHely.Y + 10),vColor),
+               new Vertex(new Vector2f(hely.positionOfHely.X, hely.positionOfHely.Y+10)),
+               new Vertex(new Vector2f(hely.positionOfHely.X, hely.positionOfHely.Y-hely.speed.Y*60+10),vColor)
             };
 
             Program.window.Draw(line, PrimitiveType.Lines);

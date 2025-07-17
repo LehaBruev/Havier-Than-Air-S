@@ -24,6 +24,8 @@ namespace Havier_Than_Air_S
     public class Hely : GameObject, IMoovable
     {
 
+        float maxVSpeed = 1f;
+
         #region Параметры_Heli
 
         // Картинка верталета
@@ -37,23 +39,24 @@ namespace Havier_Than_Air_S
         //Настройки верталета
         protected float maxpowery = 300000; //Максимальная сила влияет на вертолет
         protected float maxpowerx = 30000; // 
-        protected float shagRUD = 75; // шаг увеличения мощности двигателя
+        protected float shagRUD = 18; // шаг увеличения мощности двигателя
         protected float shagAngle = 1.5f; // шаг изменения угла атаки
         protected float shagAngleSpeed = 7f; // отклик рукоятки угла
         protected float maxspeedhor = 50;
         protected float maxspeedvert = 300;
         protected float maxheigh = 575; // потолок полета
-        protected float speedxmax = 2.5f;
-        protected float Weight = 10000; // вес машины
+        protected float speedxmax = 4.5f;
+        protected float Weight = 1000; // вес машины
+        protected float bladesEffectiveness = 3f; // эффективность лопастей
 
         //Характеристики мотора и проч
         protected float helilifemax = 300;// максимальные жизни Вертолета
         public float currentEnginelife = 100; //исправность двигателя Вертолета
         protected float fuelrashod = 11.7f; // расход топлива
-        protected float manageability = 4f;// управляемость //5 это ИНЕРЦИЯ
+        protected float inertia = 4f;// управляемость //5 это ИНЕРЦИЯ
         protected float maxangle = 60; // Максимальный угол атаки
         protected float helifuelmax = 1300; // Максимальное топливо в баках
-        protected float engineMaxPower = 8250; // максимальное ускорение от двигателя //11250
+        protected float engineMaxPower = 18250; // максимальное ускорение от двигателя //11250
         protected float holdRPM = 12000; // Холостые обороты мотора
 
         protected float maxRPM = 60000; //Максимальные обороты двигателя
@@ -68,16 +71,19 @@ namespace Havier_Than_Air_S
         public float altitude = 0; // высота
         public float helifuelCurrent; // тек топливо
         int bang1 = 0;
-        protected float currentWeight = 10000; // вес машины
-        public Vector2f position = new Vector2f(50,400); // позиция в пространстве
+        protected float currentWeight = 1; // вес машины
+        public Vector2f positionOfHely = new Vector2f(50,700); // позиция в пространстве
         public Vector2f speed = new Vector2f(0,0); // скорость
         
         int helidestroy = 0; // верталет разрушен
         int helistop = 0; // вертолет обесточен
 
+        // силы
+        public float gravityPower = 0;
+
         // rotor
-        float currentRotorPower = 0;
-        Vector2f powerRTR = new Vector2f(0, 0); // сила ротора по векторам
+        public float currentRotorPower = 0;
+        public Vector2f powerRTR = new Vector2f(0, 0); // сила ротора по векторам
 
         // engine
         public int engineswitch = 1; // включение двигателя
@@ -87,7 +93,7 @@ namespace Havier_Than_Air_S
         // angle
         public float angle = 0; //угол атаки верталета
         public float currentShagAngleSpeed = 0; // текущая скорость прироста угла
-        Vector2f boost = new Vector2f(0,0); //ускорение 
+        public Vector2f boost = new Vector2f(0,0); //ускорение 
 
  
         // weapons
@@ -191,9 +197,7 @@ namespace Havier_Than_Air_S
 
             currentWeapon = 0;
             //Начальные настройки верталета
-            int rnd = new Random().Next(300, 800); // Положенме по Х рандом
-            position.X = 350; //
-            position.Y = 700;
+            
             engineswitch = 0;
             RPM = 0;
             helistop = 1;
@@ -212,11 +216,7 @@ namespace Havier_Than_Air_S
             helySprite.Scale = spriteScale;
             helySprite.Origin = spriteOrigin; 
 
-            //Позиция при старте
-            int rnd = new Random().Next(300, 800);
-            position = new Vector2f(rnd, 650);
-
-     
+                
             //Точка для ротора
             CircleShapeRotorPoint = new CircleShape(2);
             CircleShapeRotorPoint.FillColor = new Color(Color.Yellow);
@@ -277,13 +277,13 @@ namespace Havier_Than_Air_S
         {
             //ротор rear
             rearRotorPositionNewVector = Matematika.searchAB(angle, rearRotorOrigin.X);
-            rearRotorRectShape.Position = new Vector2f((position.X) + rearRotorPositionNewVector.X,
-                                                 (position.Y) + rearRotorPositionNewVector.Y);
+            rearRotorRectShape.Position = new Vector2f((positionOfHely.X) + rearRotorPositionNewVector.X,
+                                                 (positionOfHely.Y) + rearRotorPositionNewVector.Y);
             rearRotorRectShape.Rotation += rearVintSpeed * Program.deltaTimer.Delta() * 100*
                                             RPM/maxRPM*1.7f;
 
             //ротор top
-            topRotorRectShape.Position = position;
+            topRotorRectShape.Position = positionOfHely;
             topRotorRectShape.Rotation = angle;
 
             float RotorX = topRotorRectShape.Scale.X + topVintSpeed * Program.deltaTimer.Delta() / 100*
@@ -356,13 +356,13 @@ namespace Havier_Than_Air_S
                 RotorAnimatioUpdate();
             }
 
-            CircleShapeRotorPoint.Position = new Vector2f( position.X,
-                                                 position.Y);
+            CircleShapeRotorPoint.Position = new Vector2f( positionOfHely.X,
+                                                 positionOfHely.Y);
 
 
             Vector2f localpos = Matematika.LocalPointOfRotationObject(weaponPositionOrigin, angle);
-            weaponPositionCurrentPoint = new Vector2f(position.X + localpos.X,
-                                                 position.Y + localpos.Y);
+            weaponPositionCurrentPoint = new Vector2f(positionOfHely.X + localpos.X,
+                                                 positionOfHely.Y + localpos.Y);
 
 
             CheckGunMode();
@@ -374,7 +374,7 @@ namespace Havier_Than_Air_S
 
         private void UpdateCollider()
         {
-            collider.Position = position;
+            collider.Position = positionOfHely;
             collider.Rotation = angle;
             // Program.window.Draw(collider);
         }
@@ -470,16 +470,17 @@ namespace Havier_Than_Air_S
 
         void PlayerMove() // коэффициент живучести двигателя
         {
+            currentWeight = Weight;
+
             ChechRotorSound();
             ratioenginespeed = currentEnginelife * 1.25f / 100;
             if (ratioenginespeed > 1) ratioenginespeed = 1;
 
             //расчет плотности воздуха, на выходе получаем = airP
-            altitude = (768 - position.Y) - (768 - ground);
+             altitude = ground - positionOfHely.Y;
+            if (altitude < 0) altitude = 0;
 
-            Program.m_Pogoda.airP = (float)Math.Sqrt(position.Y) * 2 * 3;
 
-            if (maxRPM < RPM) RPM = maxRPM;
 
             //расчет вертикальной скорости
             //расчет подъемной силы
@@ -490,19 +491,31 @@ namespace Havier_Than_Air_S
 
             //boost.Y = power.Y / 200;       // вертиклаьное ускорение
 
-            RPM = currentRUDposition / 100 * maxRPM;
-            currentRotorPower = RPM * currentEnginelife / 100 * engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);
+            RPM = currentRUDposition / 100 * maxRPM + (float)Math.Sqrt(angle*angle)*maxRPM/900;
+            if (maxRPM < RPM) RPM = maxRPM;
+            currentRotorPower = RPM/maxRPM * (currentEnginelife / 100) * engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);
+            powerRTR.Y = currentRotorPower;// + currentRotorPower / 90* (float)Math.Sqrt(angle*angle)/20;
             
+            //if (speed.X > 0 && angle<0) powerRTR.Y = currentRotorPower + currentRotorPower / 90 * (float)Math.Sqrt(angle * angle) / 10;
+            
+            powerRTR.X = currentRotorPower - (currentRotorPower - currentRotorPower / 90 * (float)Math.Sqrt(angle * angle) / 10);
+            gravityPower = Program.m_Pogoda.gravity * currentWeight;
+            boost.Y = (powerRTR.Y - gravityPower)/ currentWeight* bladesEffectiveness*Program.m_Pogoda.GetCurrentAirP(altitude);
 
-            if (boost.Y > (maxRPM / 100 * 75)) boost.Y = engineMaxPower;
+            //if (boost.Y > (maxRPM / 100 * 75)) boost.Y = engineMaxPower;
 
-            speed.Y = (boost.Y / 10); // вертикальная скорость
-            if (inGround && speed.Y < 0) speed.Y = 0;
+            //speed.Y = (speed.Y + boost.Y * Program.deltaTimer.Delta() * Program.gameSpeed); // вертикальная скорость
+            if (speed.Y > maxVSpeed) speed.Y = maxVSpeed;
+            if (speed.Y < -maxVSpeed) speed.Y = - maxVSpeed;
 
-            position.Y = (position.Y - speed.Y * Program.deltaTimer.Delta() * 100);
 
+            positionOfHely.Y = (positionOfHely.Y - boost.Y * Program.deltaTimer.Delta() * Program.gameSpeed);
+            
+            if (positionOfHely.Y > 770) positionOfHely.Y = 770;
+            if (positionOfHely.Y < 50) 
+                positionOfHely.Y = 50;
 
-            if (position.Y >= ground)
+            if (positionOfHely.Y >= ground)
             {
                 groundDamage();
 
@@ -513,21 +526,21 @@ namespace Havier_Than_Air_S
             //Управление углом атаки
             if (Keyboard.IsKeyPressed(Keyboard.Key.D) == true)
             {
-                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta();
+                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta() ;
                 if (currentShagAngleSpeed > shagAngle) 
                     currentShagAngleSpeed = shagAngle;
 
-                angle = (angle + currentShagAngleSpeed * Program.deltaTimer.Delta() * 100);
+                angle = (angle + currentShagAngleSpeed * Program.deltaTimer.Delta() * Program.gameSpeed);
                 if (angle > maxangle) 
                     angle = maxangle;
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.A) == true)
             {
-                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta();
+                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta() ;
                 if (currentShagAngleSpeed > shagAngle) 
                     currentShagAngleSpeed = shagAngle;
 
-                angle = (angle - currentShagAngleSpeed * Program.deltaTimer.Delta() * 100);
+                angle = (angle - currentShagAngleSpeed * Program.deltaTimer.Delta()  *Program.gameSpeed);
                 if (angle < -maxangle) 
                     angle = -maxangle;
             }
@@ -536,17 +549,16 @@ namespace Havier_Than_Air_S
                 currentShagAngleSpeed = 0;
             }
 
-            speed.X = speed.X + RPM / 114 * airP / 100 * angle * Program.deltaTimer.Delta() / gravityweight * manageability; // ФОРМУЛА РАСЧЕТА ГОРИЗОНТАЛЬНОЙ СКОРОСТИ (ПОМЕНЯТЬ)
+            speed.X = speed.X + powerRTR.X *Math.Sign(angle) * Program.deltaTimer.Delta()/(Weight/inertia)*
+                bladesEffectiveness * Program.m_Pogoda.GetCurrentAirP(altitude); // ФОРМУЛА РАСЧЕТА ГОРИЗОНТАЛЬНОЙ СКОРОСТИ (ПОМЕНЯТЬ)
             if (speed.X > speedxmax) speed.X = speedxmax;
             if (speed.X < -speedxmax) speed.X = -speedxmax;
 
-            position.X = position.X + speed.X * Program.deltaTimer.Delta()*100; //wind
+            positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta()*Program.gameSpeed; //wind
 
-            position = new Vector2f(position.X, position.Y);
+           
 
-            helySprite.Position = position;
-          
-
+            helySprite.Position = positionOfHely;
         }
 
         bool inGround = false;
@@ -558,40 +570,38 @@ namespace Havier_Than_Air_S
             groundClock.Restart();
             if ( inGround == false)
             {
-                tGround = position.Y;
+                tGround = positionOfHely.Y;
                 inGround = true;
             }
             //ЗЕМЛЯ столкновение
-             if (position.Y >= tGround)
+             if (positionOfHely.Y >= tGround)
              {
-               position.Y = tGround;
+               positionOfHely.Y = tGround;
 
              }
 
-            // g = 1;
+            
             speed.X = 0;
-                boost.Y = 0;
-                powerRTR.Y = 0;
+          //      boost.Y = 0;
+         //       powerRTR.Y = 0;
                 
-                speed.Y = 0;
-                angle = 0;
+          //      speed.Y = 0;
+           //     angle = 0;
 
 
-          //  if (g == 1)
-          // {
-                if (s < -1)
+       
+                if (speed.Y < -1)
                 {
                     helylifeCurrent = helylifeCurrent - 19;
                     PlaySound(channelSoundTex, metal1Sound);
-                    getdamages = getdamages - 19;
+                    
                 }
-                if (s < -2)
+                if (speed.Y < -2)
                 {
                     helylifeCurrent = helylifeCurrent - 88;
                     PlaySound(channelSoundTex, metal2Sound);
                     PlaySound(channelSoundTex, grass1);
-                    getdamages = getdamages - 89;
-                    //  loterea(); //TODO Повреждения рика КЛАСС
+                    
                 }
 
                 if (helylifeCurrent <= 0)
@@ -603,8 +613,7 @@ namespace Havier_Than_Air_S
                         bang1 = 0;
                     }
                 }
-               // g = 0;
-           // }
+          
 
         }
 
@@ -735,7 +744,7 @@ namespace Havier_Than_Air_S
 
         public Vector2f GetPosition()
         {
-            return position;
+            return positionOfHely;
         }
 
         public void SetDamage(IMoovable obj)

@@ -13,6 +13,7 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
+        public static float gameSpeed = 50;
         // Режим разработчки
        public static bool TestModeP = false;
        static ContextSettings _Settings = new ContextSettings();
@@ -75,7 +76,7 @@ namespace Havier_Than_Air_S
                 m_PullObjects.Update();
                 collisions.Update();
 
-
+                m_Avionika.Update();
                 window.Display();
                 deltaTimer.CheckDelta();
                 
