@@ -74,15 +74,15 @@ namespace Havier_Than_Air_S
 
 
             //Коллайдер
-            collider = new ConvexShape(8);
-            collider.SetPoint(0, new Vector2f(-98, 5));
-            collider.SetPoint(1, new Vector2f(-72, 14));
-            collider.SetPoint(2, new Vector2f(-24, 14));
-            collider.SetPoint(3, new Vector2f(23, 11));
-            collider.SetPoint(4, new Vector2f(49, 25));
-            collider.SetPoint(5, new Vector2f(50, 36));
-            collider.SetPoint(6, new Vector2f(-13, 34));
-            collider.SetPoint(7, new Vector2f(-79, 23));
+            colliderConvexShape = new ConvexShape(8);
+            colliderConvexShape.SetPoint(0, new Vector2f(-98, 5));
+            colliderConvexShape.SetPoint(1, new Vector2f(-72, 14));
+            colliderConvexShape.SetPoint(2, new Vector2f(-24, 14));
+            colliderConvexShape.SetPoint(3, new Vector2f(23, 11));
+            colliderConvexShape.SetPoint(4, new Vector2f(49, 25));
+            colliderConvexShape.SetPoint(5, new Vector2f(50, 36));
+            colliderConvexShape.SetPoint(6, new Vector2f(-13, 34));
+            colliderConvexShape.SetPoint(7, new Vector2f(-79, 23));
             //collider.SetPoint(4, new Vector2f(63, 30));
             //collider.SetPoint(5, new Vector2f(-80, 28));
             
@@ -95,7 +95,7 @@ namespace Havier_Than_Air_S
             collider.SetPoint(8, new Vector2f(0, 25));
             collider.SetPoint(9, new Vector2f(-63, 30));
             */
-            collider.FillColor = Color.Green;
+            colliderConvexShape.FillColor = Color.Green;
 
             //marker = new Marker(collider, Color.Red, 3);
 

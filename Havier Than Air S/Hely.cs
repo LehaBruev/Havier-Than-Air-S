@@ -175,7 +175,7 @@ namespace Havier_Than_Air_S
 
         #region Colliders
         protected Vector2f colliderOrigin = new Vector2f(0, 0);
-        public ConvexShape collider;
+        public ConvexShape colliderConvexShape;
 
         #endregion
 
@@ -228,19 +228,19 @@ namespace Havier_Than_Air_S
                                            new RocketSNRLauncher(250, this, TypeOfObject.sr) };
 
             //Коллайдер
-            collider = new ConvexShape(10);
-            collider.SetPoint(0, new Vector2f(-27, 5));
-            collider.SetPoint(1, new Vector2f(-23, 15));
-            collider.SetPoint(2, new Vector2f(10, 15));
-            collider.SetPoint(3, new Vector2f(15,10));
-            collider.SetPoint(4, new Vector2f(55,10));
-            collider.SetPoint(5, new Vector2f(66,15));
-            collider.SetPoint(6, new Vector2f(60,30));
-            collider.SetPoint(7, new Vector2f(5,30));
-            collider.SetPoint(8, new Vector2f(0,25));
-            collider.SetPoint(9, new Vector2f(-23,20));
-            collider.FillColor = Color.Yellow;
-            collider.Origin = colliderOrigin;
+            colliderConvexShape = new ConvexShape(10);
+            colliderConvexShape.SetPoint(0, new Vector2f(-27, 5));
+            colliderConvexShape.SetPoint(1, new Vector2f(-23, 15));
+            colliderConvexShape.SetPoint(2, new Vector2f(10, 15));
+            colliderConvexShape.SetPoint(3, new Vector2f(15,10));
+            colliderConvexShape.SetPoint(4, new Vector2f(55,10));
+            colliderConvexShape.SetPoint(5, new Vector2f(66,15));
+            colliderConvexShape.SetPoint(6, new Vector2f(60,30));
+            colliderConvexShape.SetPoint(7, new Vector2f(5,30));
+            colliderConvexShape.SetPoint(8, new Vector2f(0,25));
+            colliderConvexShape.SetPoint(9, new Vector2f(-23,20));
+            colliderConvexShape.FillColor = Color.Yellow;
+            colliderConvexShape.Origin = colliderOrigin;
 
 
             SpawnRotors();
@@ -329,9 +329,9 @@ namespace Havier_Than_Air_S
             rearRotorOrigin = rearRotorOrigin * (-1);
             helySprite.Scale = new Vector2f(helySprite.Scale.X * (-1), helySprite.Scale.Y);
 
-            for (int i = 0; i < collider.GetPointCount(); i++)
+            for (int i = 0; i < colliderConvexShape.GetPointCount(); i++)
             {
-                collider.SetPoint((uint)i, new Vector2f(-collider.GetPoint((uint)i).X, collider.GetPoint((uint)i).Y));
+                colliderConvexShape.SetPoint((uint)i, new Vector2f(-colliderConvexShape.GetPoint((uint)i).X, colliderConvexShape.GetPoint((uint)i).Y));
 
             }
             flip *= -1;
@@ -374,8 +374,8 @@ namespace Havier_Than_Air_S
 
         private void UpdateCollider()
         {
-            collider.Position = positionOfHely;
-            collider.Rotation = angle;
+            colliderConvexShape.Position = positionOfHely;
+            colliderConvexShape.Rotation = angle;
             // Program.window.Draw(collider);
         }
 
