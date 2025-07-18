@@ -37,6 +37,9 @@ namespace Havier_Than_Air_S
         Vector2f scopeOrigin = new Vector2f(350, 30);
         Vector2i scopeMemory;
 
+
+        // scales
+        Vector2f scaleVector = new Vector2f();
         public Avionika()
         {
             
@@ -272,6 +275,15 @@ namespace Havier_Than_Air_S
             inertiavector.Color = Color.Yellow;
             inertiavector.Position = new Vector2f(hely.position.X, hely.position.Y);
             */
+            float scaleOfLine = 10;
+            float longOfVehicle = 21.3f;
+            Vertex[] linScale = new Vertex[]
+            {
+               new Vertex(new Vector2f(hely.positionOfHely.X-longOfVehicle/2*scaleOfLine-35, hely.positionOfHely.Y-15)),
+               new Vertex(new Vector2f(hely.positionOfHely.X+ longOfVehicle/2*scaleOfLine, hely.positionOfHely.Y-15 ),Color.Yellow)
+            };
+            Program.window.Draw(linScale, PrimitiveType.Lines);
+
 
         }
 

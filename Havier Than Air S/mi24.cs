@@ -13,18 +13,13 @@ namespace Havier_Than_Air_S
 
         Marker marker;
 
-        public mi24()
-        {
-           
-
-
-        }
+      
 
         protected override void SpawnHely()
         {
 
             textureName = "ми24_1.png";
-            spriteScale = new Vector2f(0.4f, 0.4f);
+            spriteScale = new Vector2f(0.3f, 0.3f);
 
             //Позиции деталей 
             spriteOrigin = new Vector2f(540,0);
@@ -34,13 +29,15 @@ namespace Havier_Than_Air_S
             //Настройки верталета
             maxpowery = 300000; //Максимальная сила влияет на вертолет
             maxpowerx = 30000; // 
-            shagRUD = 50; // шаг увеличения мощности двигателя
+            shagRUD = 20; // шаг увеличения мощности двигателя
             shagAngle = 1.1f; // шаг изменения угла атаки
             shagAngleSpeed = 1f; // отклик рукоятки угла
             maxspeedhor = 240;
             maxspeedvert = 200;
             maxheigh = 400; // потолок полета
-            speedxmax = 4.5f;
+            speedxmax = 6.5f;
+            Weight = 2500;
+
 
             //Характеристики мотора и проч
             helilifemax = 1000;// максимальные жизни Вертолета
@@ -49,7 +46,7 @@ namespace Havier_Than_Air_S
             inertia = 2f;// управляемость //5 это ИНЕРЦИЯ
             maxangle = 37; // Максимальный угол атаки
             helifuelmax = 2000; // Максимальное топливо в баках
-            engineMaxPower = 6250; // максимальное ускорение от двигателя //11250
+            engineMaxPower = 46250; // максимальное ускорение от двигателя //11250
             holdRPM = 12000; // Холостые обороты мотора
 
             maxRPM = 70000; //Максимальные обороты двигателя

@@ -31,7 +31,7 @@ namespace Havier_Than_Air_S
         protected Texture heliTexture;
         public Sprite helySprite;
         protected string textureName = "uh61.png";
-        protected Vector2f spriteScale =  new Vector2f(0.7f,0.7f);
+        protected Vector2f spriteScale =  new Vector2f(0.6f,0.6f);
         protected Vector2f spriteOrigin = new Vector2f(175, -10);
 
         //Настройки верталета
@@ -54,7 +54,7 @@ namespace Havier_Than_Air_S
         protected float inertia = 5f;// управляемость //5 это ИНЕРЦИЯ
         protected float maxangle = 60; // Максимальный угол атаки
         protected float helifuelmax = 1300; // Максимальное топливо в баках
-        protected float engineMaxPower = 18250; // максимальное ускорение от двигателя //11250
+        protected float engineMaxPower = 24250; // максимальное ускорение от двигателя //11250
         protected float holdRPM = 12000; // Холостые обороты мотора
 
         protected float maxRPM = 60000; //Максимальные обороты двигателя
@@ -193,7 +193,7 @@ namespace Havier_Than_Air_S
         
         float ground = 700; // уровень земли
 
-        float fuelWeight = 26; //вес топл
+        float fuelWeight = 1; //вес топл
 
         public Hely()
         {
@@ -359,6 +359,7 @@ namespace Havier_Than_Air_S
 
             FliapUpdate();
 
+            AngleCheck();
             CheckRUD();
             PlayerMove();
             EngineUpdate();
@@ -480,50 +481,63 @@ namespace Havier_Than_Air_S
             channel.Play();
         }
 
-       
+       private void AngleCheck()
+        {
+            //Управление углом атаки
+            if (Keyboard.IsKeyPressed(Keyboard.Key.D) == true)
+            {
+                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta();
+                if (currentShagAngleSpeed > shagAngle)
+                    currentShagAngleSpeed = shagAngle;
+
+                angle = (angle + currentShagAngleSpeed * Program.deltaTimer.Delta() * Program.gameSpeed);
+                if (angle > maxangle)
+                    angle = maxangle;
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.A) == true)
+            {
+                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta();
+                if (currentShagAngleSpeed > shagAngle)
+                    currentShagAngleSpeed = shagAngle;
+
+                angle = (angle - currentShagAngleSpeed * Program.deltaTimer.Delta() * Program.gameSpeed);
+                if (angle < -maxangle)
+                    angle = -maxangle;
+            }
+            else
+            {
+                currentShagAngleSpeed = 0;
+            }
+        }
+
 
         void PlayerMove() // коэффициент живучести двигателя
         {
-            currentWeight = Weight;
+            // Текущий вес
+            currentWeight = Weight + helifuelCurrent*fuelWeight;
 
             ChechRotorSound();
-            ratioenginespeed = currentEnginelife * 1.25f / 100;
-            if (ratioenginespeed > 1) ratioenginespeed = 1;
-
-            //расчет плотности воздуха, на выходе получаем = airP
-             altitude = ground - positionOfHely.Y;
+            
+            //расчет высоты
+            altitude = ground - positionOfHely.Y;
             if (altitude < 0) altitude = 0;
-
 
 
             //расчет вертикальной скорости
             //расчет подъемной силы
-
-
-            //угол атаки уменьшает подъемную силу
-            //power.Y = (RPM * ratioenginespeed / 114 * airP) - gravityweight - helifuelCurrent * fuelWeight - allWeaponsWeight; // подъемная сила
-
-            //boost.Y = power.Y / 200;       // вертиклаьное ускорение
-
             RPM = currentRUDposition / 100 * maxRPM ;
             if (maxRPM < RPM) RPM = maxRPM;
+
             currentRotorPower = RPM/maxRPM * (currentEnginelife / 100) * engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);
-            powerRTR.Y = currentRotorPower;// + currentRotorPower / 90* (float)Math.Sqrt(angle*angle)/20;
-            
-            //if (speed.X > 0 && angle<0) powerRTR.Y = currentRotorPower + currentRotorPower / 90 * (float)Math.Sqrt(angle * angle) / 10;
-            
+            powerRTR.Y = currentRotorPower;
             powerRTR.X = currentRotorPower - (currentRotorPower - currentRotorPower / 90 * (float)Math.Sqrt(angle * angle) / 10);
+
             gravityPower = Program.m_Pogoda.gravity * currentWeight;
-            boost.Y = (powerRTR.Y - gravityPower)/ currentWeight* bladesEffectiveness*Program.m_Pogoda.GetCurrentAirP(altitude);
+            boost.Y = (powerRTR.Y - gravityPower)/currentWeight* bladesEffectiveness*Program.m_Pogoda.GetCurrentAirP(altitude);
 
-            //if (boost.Y > (maxRPM / 100 * 75)) boost.Y = engineMaxPower;
-
-            //speed.Y = (speed.Y + boost.Y * Program.deltaTimer.Delta() * Program.gameSpeed); // вертикальная скорость
-           // if (speed.Y > maxVSpeed) speed.Y = maxVSpeed;
-            //if (speed.Y < -maxVSpeed) speed.Y = - maxVSpeed;
-
-
-            positionOfHely.Y = (positionOfHely.Y - boost.Y * Program.deltaTimer.Delta() * Program.gameSpeed);
+            speed.Y = boost.Y; // вертикальная скорость
+           
+            positionOfHely.Y = (positionOfHely.Y - speed.Y * Program.deltaTimer.Delta() * Program.gameSpeed);
             
             if (positionOfHely.Y > 770) positionOfHely.Y = 770;
             if (positionOfHely.Y < 50) 
@@ -536,41 +550,12 @@ namespace Havier_Than_Air_S
             }
 
             // Расчет ГОРИЗОНТАЛЬНОГО ПОЛЕТА угол атаки
-            // Вылет за зону полётов
-            //Управление углом атаки
-            if (Keyboard.IsKeyPressed(Keyboard.Key.D) == true)
-            {
-                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta() ;
-                if (currentShagAngleSpeed > shagAngle) 
-                    currentShagAngleSpeed = shagAngle;
-
-                angle = (angle + currentShagAngleSpeed * Program.deltaTimer.Delta() * Program.gameSpeed);
-                if (angle > maxangle) 
-                    angle = maxangle;
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.A) == true)
-            {
-                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta() ;
-                if (currentShagAngleSpeed > shagAngle) 
-                    currentShagAngleSpeed = shagAngle;
-
-                angle = (angle - currentShagAngleSpeed * Program.deltaTimer.Delta()  *Program.gameSpeed);
-                if (angle < -maxangle) 
-                    angle = -maxangle;
-            }
-            else
-            {
-                currentShagAngleSpeed = 0;
-            }
-
             speed.X = speed.X + powerRTR.X *Math.Sign(angle) * Program.deltaTimer.Delta()/(Weight/inertia)*
                 bladesEffectiveness * Program.m_Pogoda.GetCurrentAirP(altitude); // ФОРМУЛА РАСЧЕТА ГОРИЗОНТАЛЬНОЙ СКОРОСТИ (ПОМЕНЯТЬ)
             if (speed.X > speedxmax) speed.X = speedxmax;
             if (speed.X < -speedxmax) speed.X = -speedxmax;
 
             positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta()*Program.gameSpeed; //wind
-
-           
 
             helySprite.Position = positionOfHely;
         }

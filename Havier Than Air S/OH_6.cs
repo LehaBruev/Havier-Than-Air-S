@@ -22,10 +22,10 @@ namespace Havier_Than_Air_S
         {
 
             textureName = "OH-6_1.png";
-            spriteScale = new Vector2f(0.32f, 0.32f);
+            spriteScale = new Vector2f(0.33f, 0.33f);
 
             //Позиции деталей 
-            spriteOrigin = new Vector2f(300,0);
+            spriteOrigin = new Vector2f(250,0);
             colliderOrigin = new Vector2f(0, 0);
             rearRotorOrigin = new Vector2f(-50,0);
 
@@ -39,6 +39,7 @@ namespace Havier_Than_Air_S
             maxspeedvert = 240;
             maxheigh = 500; // потолок полета
             speedxmax = 3.5f;
+            Weight = 0.7f;
 
             //Характеристики мотора и проч
             helilifemax = 200;// максимальные жизни Вертолета
@@ -47,7 +48,7 @@ namespace Havier_Than_Air_S
             inertia = 6f;// управляемость //5 это ИНЕРЦИЯ
             maxangle = 85; // Максимальный угол атаки
             helifuelmax = 800; // Максимальное топливо в баках
-            engineMaxPower = 10250; // максимальное ускорение от двигателя //11250
+            engineMaxPower = 18000; // максимальное ускорение от двигателя //11250
             holdRPM = 12000; // Холостые обороты мотора
 
             maxRPM = 50000; //Максимальные обороты двигателя
