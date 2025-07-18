@@ -161,6 +161,7 @@
     <Compile Include="Timer.cs" />
     <Compile Include="Weapon\SNRocket.cs" />
     <Compile Include="Weapon\WeaponBase.cs" />
+    <Compile Include="ПереносДанных.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

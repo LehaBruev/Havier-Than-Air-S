@@ -24,8 +24,6 @@ namespace Havier_Than_Air_S
     public class Hely : GameObject, IMoovable
     {
 
-        float maxVSpeed = 1f;
-
         #region Параметры_Heli
 
         // Картинка верталета
@@ -71,7 +69,7 @@ namespace Havier_Than_Air_S
         public float altitude = 0; // высота
         public float helifuelCurrent; // тек топливо
         int bang1 = 0;
-        protected float currentWeight = 1; // вес машины
+        protected float currentWeight = 1; // текущий вес машины
         public Vector2f positionOfHely = new Vector2f(50,700); // позиция в пространстве
         public Vector2f speed = new Vector2f(0,0); // скорость
         
@@ -148,17 +146,26 @@ namespace Havier_Than_Air_S
         #endregion
 
         #region Rotors
+        //Верхний винт
+        protected Vector2f topVintPosition = new Vector2f();
+        protected RectangleShape topRotorRectShape;
+        protected Vector2f topVintOrigin = new Vector2f(45, 1);
+        protected Vector2f topVintSize = new Vector2f(90, 2);
+        protected Color topRotorColor = Color.Yellow;
+        protected float topVintSpeed = 1545;
+
+
+
         //Задний винт
         Sprite rearVintSprite;
+        protected Vector2f rearVintPosition = new Vector2f();
         protected RectangleShape rearRotorRectShape;
-        float rearVintSpeed = 41;
-        protected Vector2f rearRotorOrigin = new Vector2f( -58,0);
+        protected Vector2f rearRotorOrigin = new Vector2f(-58, 0);
+        protected Vector2f rearRotorSize = new Vector2f(90, 2);
+        protected Color rearRotorColor = Color.Yellow;
+        protected float rearVintSpeed = 41;
+        
 
-
-        //Верхний винт
-        protected RectangleShape topRotorRectShape;
-        protected float topVintSpeed = 1545;
-        protected Vector2f topVintOrigin = new Vector2f(0, 0);
 
         #endregion
 
@@ -258,35 +265,29 @@ namespace Havier_Than_Air_S
 
         private void SpawnRotors()
         {
+            //topVint
+            topRotorRectShape = new RectangleShape();
+            topRotorRectShape.Origin = topVintOrigin;
+            topRotorRectShape.Size = topVintSize;
+            topRotorRectShape.FillColor = topRotorColor;
+
             //rearVintSprite.
             rearRotorRectShape = new RectangleShape();
-            rearRotorRectShape.Size = new Vector2f(2, 18);
-            rearRotorRectShape.FillColor = new Color(Color.Yellow);
-            rearRotorRectShape.Origin = new Vector2f(1,9f);
+            rearRotorRectShape.Origin = rearRotorOrigin;
+            rearRotorRectShape.Size = rearRotorSize;
+            rearRotorRectShape.FillColor = rearRotorColor;
 
-            topRotorRectShape = new RectangleShape();
-            topRotorRectShape.Size = new Vector2f(90, 2);
-            topRotorRectShape.Origin = new Vector2f(45, 1);
-            topRotorRectShape.FillColor = new Color(Color.Yellow);
 
-            
         }
 
  
         public void RotorAnimatioUpdate()
         {
-            //ротор rear
-            rearRotorPositionNewVector = Matematika.searchAB(angle, rearRotorOrigin.X);
-            rearRotorRectShape.Position = new Vector2f((positionOfHely.X) + rearRotorPositionNewVector.X,
-                                                 (positionOfHely.Y) + rearRotorPositionNewVector.Y);
-            rearRotorRectShape.Rotation += rearVintSpeed * Program.deltaTimer.Delta() * 100*
-                                            RPM/maxRPM*1.7f;
-
             //ротор top
             topRotorRectShape.Position = positionOfHely;
             topRotorRectShape.Rotation = angle;
 
-            float RotorX = topRotorRectShape.Scale.X + topVintSpeed * Program.deltaTimer.Delta() / 100*
+            float RotorX = topRotorRectShape.Scale.X + topVintSpeed * Program.deltaTimer.Delta() / 100 *
                                    RPM / maxRPM * 2.7f;
             if (RotorX > 1)
             {
@@ -301,13 +302,25 @@ namespace Havier_Than_Air_S
 
             topRotorRectShape.Scale = new Vector2f(RotorX, topRotorRectShape.Scale.Y);
 
+            //ротор rear
+            rearRotorPositionNewVector = Matematika.searchAB(angle, rearRotorOrigin.X);
+            rearRotorRectShape.Position = new Vector2f((positionOfHely.X) + rearRotorPositionNewVector.X,
+                                                 (positionOfHely.Y) + rearRotorPositionNewVector.Y);
+            rearRotorRectShape.Rotation += rearVintSpeed * Program.deltaTimer.Delta() * 100 *
+                                            RPM / maxRPM * 1.7f;
 
-            Program.window.Draw(rearRotorRectShape);
             Program.window.Draw(topRotorRectShape);
+            Program.window.Draw(rearRotorRectShape);
 
-            
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.R) && rPressed==false)
+
+        }
+
+        private void FliapUpdate()
+        {
+
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.R) && rPressed == false)
             {
                 CheckFlip();
                 rPressed = true;
@@ -315,11 +328,10 @@ namespace Havier_Than_Air_S
             else
             {
                 if (!Keyboard.IsKeyPressed(Keyboard.Key.R))
-                 {
+                {
                     rPressed = false;
                 }
             }
-
         }
 
         private void CheckFlip()
@@ -344,6 +356,8 @@ namespace Havier_Than_Air_S
                 tGround = ground;
                 inGround = false;
             }
+
+            FliapUpdate();
 
             CheckRUD();
             PlayerMove();
@@ -505,8 +519,8 @@ namespace Havier_Than_Air_S
             //if (boost.Y > (maxRPM / 100 * 75)) boost.Y = engineMaxPower;
 
             //speed.Y = (speed.Y + boost.Y * Program.deltaTimer.Delta() * Program.gameSpeed); // вертикальная скорость
-            if (speed.Y > maxVSpeed) speed.Y = maxVSpeed;
-            if (speed.Y < -maxVSpeed) speed.Y = - maxVSpeed;
+           // if (speed.Y > maxVSpeed) speed.Y = maxVSpeed;
+            //if (speed.Y < -maxVSpeed) speed.Y = - maxVSpeed;
 
 
             positionOfHely.Y = (positionOfHely.Y - boost.Y * Program.deltaTimer.Delta() * Program.gameSpeed);

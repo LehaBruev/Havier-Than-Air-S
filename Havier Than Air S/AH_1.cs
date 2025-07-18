@@ -54,7 +54,7 @@ namespace Havier_Than_Air_S
 
 
             //Верхний винт
-            topRotorOrigin = new Vector2f(48, 1);
+            topVintOrigin = new Vector2f(48, 1);
             topVintSize = new Vector2f(96, 2);
             topRotorColor = new Color(Color.Red);
             topVintSpeed = 1137;
