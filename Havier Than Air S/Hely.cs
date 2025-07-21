@@ -162,17 +162,27 @@ namespace Havier_Than_Air_S
         protected Vector2f rearRotorOrigin = new Vector2f(1.5f, 13);
         protected Color rearRotorColor = Color.Yellow;
         protected float rearVintSpeed = 41;
-        
+
 
 
         #endregion
 
 
         #region Weapons
-        protected Vector2f weaponPositionOrigin = new Vector2f(-9, 35); // позиция подвесок оружия
+        protected Vector2f[] weaponPositionsOrigins = new Vector2f[2] 
+                                                                    { new Vector2f(-9, 35), // подвески
+                                                                      new Vector2f(34, 40) }; // носовая пушка
         public WeaponBase[] m_Weapons;
-        public Vector2f weaponPositionCurrentPoint;
-
+        public Vector2f[] weaponPositionsCurrentPoints;
+        
+        //GUN
+        protected RectangleShape GunTrunk;
+        protected Vector2f gunTrunkSize = new Vector2f(2,20);
+        protected Vector2f gunTrunkOrigin = new Vector2f(1, 10);
+        Color gunTrunkColor = Color.Yellow;
+        float gunMaxAngle = -15;
+        float gunMinAngle = 60;
+        int gunFix = 0;
 
 
         #endregion
@@ -249,6 +259,7 @@ namespace Havier_Than_Air_S
 
             SpawnRotors();
             SpawnSounds();
+            
 
         }
 
@@ -259,6 +270,7 @@ namespace Havier_Than_Air_S
             channelSoundRita = new Sound();
             channelSoundTex = new Sound();
         }
+
 
         private void SpawnRotors()
         {
@@ -274,6 +286,11 @@ namespace Havier_Than_Air_S
             rearRotorRectShape.Size = rearRotorSize;
             rearRotorRectShape.FillColor = rearRotorColor;
 
+            //GunTrunk
+            GunTrunk = new RectangleShape();
+            GunTrunk.Origin = gunTrunkOrigin;
+            GunTrunk.Size = gunTrunkSize;
+            GunTrunk.FillColor = gunTrunkColor;
 
         }
 
@@ -382,7 +399,7 @@ namespace Havier_Than_Air_S
         {
             
             weaponPositionCurrentPoint = Matematika.GlobalpointOfLocalPoint(positionOfHely,
-                                                                            new Vector2f(weaponPositionOrigin.X*flip, weaponPositionOrigin.Y),
+                                                                            new Vector2f(weaponPositionsOrigins.X*flip, weaponPositionsOrigins.Y),
                                                                             angle);
 
 
