@@ -36,10 +36,12 @@ namespace Havier_Than_Air_S
         private RectangleShape rectangleShape;
         private Drawable NR;
 
+        // Trunk
+        Vector2f trunkOrigin = new Vector2f(25, 0);
+        public float currentTrankAngle;
 
-        
 
-        public GunLauncher(int ammo, Hely hely, TypeOfObject type) : base(type)
+        public GunLauncher(int ammo, Hely hely, TypeOfObject type, int weaponSlot) : base(type)
         {
             parentHely = hely; // base
             currentAmmCount = ammo;
@@ -49,6 +51,8 @@ namespace Havier_Than_Air_S
 
             sound.SoundBuffer = new SoundBuffer(shotSound);
             sound.Volume = 20;
+
+            slotInHely = weaponSlot;
         }
 
 
@@ -56,8 +60,41 @@ namespace Havier_Than_Air_S
 
         public override void Fire()
         {
-           base.Fire();
+            if (!(currentAmmCount <= 0) && clock.ElapsedTime.AsSeconds() > skorostrelnost)
+            {
+                float a = parentHely.angle + currentTrankAngle;
+                if (parentHely.flip < 0) a += 179;
+
+                // Позиция вертолета
+                //parentHely.positionOfHely
+                // Позиция оружия
+                Vector2f posOrujiya = Matematika.GlobalPointOfLocalPoint(parentHely.positionOfHely,
+                                                                         parentHely.weaponPositionsOrigins[slotInHely],
+                                                                         parentHely.angle);
+
+                // Позиция кончика ствола
+
+                Vector2f posDulo = Matematika.GlobalPointOfLocalPoint(posOrujiya,
+                                                                      trunkOrigin,
+                                                                      parentHely.angle+ currentTrankAngle);
+
+                // Суммарный угол
+
+                
+
+                Program.m_PullObjects.StartObject(posDulo,
+                                                a,
+                                                parentHely.speed,
+                                                weaponType);
+                currentAmmCount -= 1;
+                clock.Restart();
+
+                if (sound != null) sound.Play();
+                CheckWeight();
+            }
         }
+
+
 
     }
 

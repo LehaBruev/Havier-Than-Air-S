@@ -28,12 +28,13 @@ namespace Havier_Than_Air_S
        
         
 
-        public RocketNRLauncher(int ammo,Hely hely, TypeOfObject type) : base(type)
+        public RocketNRLauncher(int ammo,Hely hely, TypeOfObject type, int slot) : base(type)
         {
             parentHely = hely; // base
             currentAmmCount = ammo;
             //+ тип передается в базу
             skorostrelnost = skorostrel;
+            slotInHely = slot;
         }
 
         public override void Fire()

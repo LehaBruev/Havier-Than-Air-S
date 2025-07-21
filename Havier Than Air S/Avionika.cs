@@ -212,8 +212,8 @@ namespace Havier_Than_Air_S
 
 
 
-            if (hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.nr ||
-                hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.gun)
+            if (hely.m_Weapons[hely.currentWeapon].weaponType == TypeOfObject.nr ||
+                hely.m_Weapons[hely.currentWeapon].weaponType == TypeOfObject.gun)
             {
             Vector2f pos = Matematika.LocalPointOfRotationObject(new Vector2f(scopeOrigin.X*hely.flip, scopeOrigin.Y), hely.angle);
             scopeSprite.Position = new Vector2f(hely.positionOfHely.X + pos.X, hely.positionOfHely.Y + pos.Y);
@@ -222,7 +222,7 @@ namespace Havier_Than_Air_S
             }
 
 
-            if (hely.m_Weapons[hely.currentWeapon].weaponTyte == TypeOfObject.sr)
+            if (hely.m_Weapons[hely.currentWeapon].weaponType == TypeOfObject.sr)
             {
 
                 if (Program.m_MouseController.LeftButton)

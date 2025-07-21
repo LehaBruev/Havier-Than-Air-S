@@ -54,7 +54,7 @@ namespace Havier_Than_Air_S
             maxRPM = 50000; //Максимальные обороты двигателя
             RPMLimit = 39000; //Предельные обороты двигателя
 
-            weaponPositionsOrigins = new Vector2f(-5, 20); //Позиция подвесок оружия
+            weaponPositionsOrigins[0] = new Vector2f(-5, 20); //Позиция подвесок оружия
 
             base.SpawnHely();
 

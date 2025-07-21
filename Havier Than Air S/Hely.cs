@@ -169,7 +169,7 @@ namespace Havier_Than_Air_S
 
 
         #region Weapons
-        protected Vector2f[] weaponPositionsOrigins = new Vector2f[2] 
+        public Vector2f[] weaponPositionsOrigins = new Vector2f[2] 
                                                                     { new Vector2f(-9, 35), // подвески
                                                                       new Vector2f(34, 40) }; // носовая пушка
         public WeaponBase[] m_Weapons;
@@ -180,9 +180,7 @@ namespace Havier_Than_Air_S
         protected Vector2f gunTrunkSize = new Vector2f(2,20);
         protected Vector2f gunTrunkOrigin = new Vector2f(1, 10);
         Color gunTrunkColor = Color.Yellow;
-        float gunMaxAngle = -15;
-        float gunMinAngle = 60;
-        int gunFix = 0;
+        
 
 
         #endregion
@@ -201,6 +199,9 @@ namespace Havier_Than_Air_S
         float ground = 700; // уровень земли
 
         float fuelWeight = 1; //вес топл
+
+
+        
 
         public Hely()
         {
@@ -237,9 +238,9 @@ namespace Havier_Than_Air_S
             CircleShapeRotorPoint.Origin = new Vector2f(2, 2);
 
             //Оружие
-            m_Weapons = new WeaponBase[] { new GunLauncher(1000, this, TypeOfObject.gun),
-                                           new RocketNRLauncher(250, this, TypeOfObject.nr), 
-                                           new RocketSNRLauncher(250, this, TypeOfObject.sr) };
+            m_Weapons = new WeaponBase[] { new GunLauncher(1000, this, TypeOfObject.gun,1),
+                                           new RocketNRLauncher(250, this, TypeOfObject.nr,0), 
+                                           new RocketSNRLauncher(250, this, TypeOfObject.sr,0)};
 
             //Коллайдер
             colliderConvexShape = new ConvexShape(10);
@@ -317,7 +318,7 @@ namespace Havier_Than_Air_S
             topRotorRectShape.Scale = new Vector2f(RotorX, topRotorRectShape.Scale.Y);
 
             //ротор rear
-            rearRotorRectShape.Position = Matematika.GlobalpointOfLocalPoint(positionOfHely,
+            rearRotorRectShape.Position = Matematika.GlobalPointOfLocalPoint(positionOfHely,
                (new Vector2f(rearVintPositionOrigin.X*flip, rearVintPositionOrigin.Y)), angle);
             rearRotorRectShape.Rotation += rearVintSpeed * Program.deltaTimer.Delta() * 100 *
                                             RPM / maxRPM * 1.7f;
@@ -373,10 +374,9 @@ namespace Havier_Than_Air_S
             AngleCheck();
             CheckRUD();
             PlayerMove();
-            WeaponPositionUpdate();
             EngineUpdate();
             SpriteDraw();
-            
+            UpdateGunAngle();
 
             if (!Program.TestModeP)
             {
@@ -395,16 +395,6 @@ namespace Havier_Than_Air_S
 
         }
 
-        private void WeaponPositionUpdate()
-        {
-            
-            weaponPositionCurrentPoint = Matematika.GlobalpointOfLocalPoint(positionOfHely,
-                                                                            new Vector2f(weaponPositionsOrigins.X*flip, weaponPositionsOrigins.Y),
-                                                                            angle);
-
-
-
-        }
 
         private void UpdateCollider()
         {
@@ -413,7 +403,14 @@ namespace Havier_Than_Air_S
             // Program.window.Draw(collider);
         }
 
+        private void UpdateGunAngle()
+        {
+           // angle = 
 
+
+
+
+        }
 
         private void CheckRUD()
         {
@@ -650,15 +647,13 @@ namespace Havier_Than_Air_S
 
         private void CheckWeaponsWeight()
         {
-            allWeaponsWeight = 0;
-            for (int i = 0; i < m_Weapons.Length; i++)
-            {
+         
 
-                allWeaponsWeight += m_Weapons[i].ammWeight;
-            }
+
 
         }
 
+       
 
         private void CheckGunMode()
         {

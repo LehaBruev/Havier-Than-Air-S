@@ -68,7 +68,8 @@ namespace Havier_Than_Air_S
             rearVintSpeed = 55;
 
             // weapons
-            weaponPositionsOrigins = new Vector2f(0, 22); //Позиция подвесок оружия
+            weaponPositionsOrigins[0] = new Vector2f(0, 22); //Позиция подвесок оружия
+            weaponPositionsOrigins[1] = new Vector2f(75, 30); //Позиция пушки
 
             base.SpawnHely();
 

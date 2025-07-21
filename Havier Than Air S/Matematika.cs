@@ -117,7 +117,7 @@ namespace Havier_Than_Air_S
         // Принимает угол наклона материнского объекта
         // Возвращает глобальную координату точки на материнском объекте
 
-        static public Vector2f GlobalpointOfLocalPoint(Vector2f MotherPos, Vector2f DoterOrigin, float MotherAngle)
+        static public Vector2f GlobalPointOfLocalPoint(Vector2f MotherPos, Vector2f DoterOrigin, float MotherAngle)
         {
             // Дистанция от MotherOrigin До DoterOrigin
            float distance =  searchdistance(new Vector2f(0, 0), DoterOrigin);

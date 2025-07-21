@@ -13,25 +13,27 @@ namespace Havier_Than_Air_S.Weapon
 
     public class WeaponBase
     {
-        public TypeOfObject weaponTyte;
+        public TypeOfObject weaponType;
         
         public Hely parentHely;
 
-        public int currentAmmCount;
-        public float ammWeight; //вес ракеты
-        public int weaponWeight;
+        public int currentAmmCount = 50;
+        public float ammWeight = 1; //вес ракеты
+        public int weaponWeight = 50;
+        public float AllWeight = 0;
         public float skorostrelnost; // скорострельность
 
 
         // Сервисные
-        Clock clock;
+        protected Clock clock;
+        public int slotInHely = 0;
 
         // Звуки
         protected Sound sound;
 
         public WeaponBase(TypeOfObject type)
         {
-            weaponTyte = type;
+            weaponType = type;
             clock = new Clock();
             sound = new Sound();
         }
@@ -40,21 +42,30 @@ namespace Havier_Than_Air_S.Weapon
         {
             if(!(currentAmmCount<=0) && clock.ElapsedTime.AsSeconds()>skorostrelnost)
             {
-                float a = parentHely.angle;
-                if (parentHely.helySprite.Scale.X < 0) a += 179;
+                float a = parentHely.angle ;
+                if (parentHely.flip < 0) a += 179;
 
-               Program.m_PullObjects.StartObject(parentHely.weaponPositionCurrentPoint,
+                Vector2f posOrujiya = Matematika.GlobalPointOfLocalPoint(parentHely.positionOfHely,
+                                                                         parentHely.weaponPositionsOrigins[slotInHely],
+                                                                         parentHely.angle);
+
+                Program.m_PullObjects.StartObject(posOrujiya,
                                                 a,  
-                                                new Vector2f(parentHely.speed.X, parentHely.speed.Y),
-                                                weaponTyte);
+                                                parentHely.speed,
+                                                weaponType);
                 currentAmmCount -= 1;
                 clock.Restart();
 
                 if (sound!=null) sound.Play();
+                CheckWeight();
             }
 
         }
 
+        public void CheckWeight()
+        {
+            AllWeight = weaponWeight + ammWeight * currentAmmCount;
 
+        }
     }
 }
