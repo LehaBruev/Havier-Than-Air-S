@@ -147,21 +147,19 @@ namespace Havier_Than_Air_S
 
         #region Rotors
         //Верхний винт
-        protected Vector2f topVintPosition = new Vector2f();
+        protected Vector2f topVintPositionOrigin = new Vector2f();
         protected RectangleShape topRotorRectShape;
-        protected Vector2f topVintOrigin = new Vector2f(45, 1);
-        protected Vector2f topVintSize = new Vector2f(90, 2);
+        protected Vector2f topVintOrigin = new Vector2f(80, 1);
+        protected Vector2f topVintSize = new Vector2f(160, 2);
         protected Color topRotorColor = Color.Yellow;
         protected float topVintSpeed = 1545;
 
-
-
         //Задний винт
         Sprite rearVintSprite;
-        protected Vector2f rearVintPosition = new Vector2f();
+        protected Vector2f rearVintPositionOrigin = new Vector2f(-104,8);
         protected RectangleShape rearRotorRectShape;
-        protected Vector2f rearRotorOrigin = new Vector2f(-58, 0);
-        protected Vector2f rearRotorSize = new Vector2f(90, 2);
+        protected Vector2f rearRotorSize = new Vector2f(3, 26);
+        protected Vector2f rearRotorOrigin = new Vector2f(1.5f, 13);
         protected Color rearRotorColor = Color.Yellow;
         protected float rearVintSpeed = 41;
         
@@ -171,12 +169,11 @@ namespace Havier_Than_Air_S
 
 
         #region Weapons
-        protected Vector2f weaponPositionOrigin = new Vector2f(-5, 20); // позиция подвесок оружия
-        public Vector2f weaponPositionCurrentPoint;
+        protected Vector2f weaponPositionOrigin = new Vector2f(-9, 35); // позиция подвесок оружия
         public WeaponBase[] m_Weapons;
-        
-        
-        
+        public Vector2f weaponPositionCurrentPoint;
+
+
 
         #endregion
 
@@ -303,9 +300,8 @@ namespace Havier_Than_Air_S
             topRotorRectShape.Scale = new Vector2f(RotorX, topRotorRectShape.Scale.Y);
 
             //ротор rear
-            rearRotorPositionNewVector = Matematika.searchAB(angle, rearRotorOrigin.X);
-            rearRotorRectShape.Position = new Vector2f((positionOfHely.X) + rearRotorPositionNewVector.X,
-                                                 (positionOfHely.Y) + rearRotorPositionNewVector.Y);
+            rearRotorRectShape.Position = Matematika.GlobalpointOfLocalPoint(positionOfHely,
+               (new Vector2f(rearVintPositionOrigin.X*flip, rearVintPositionOrigin.Y)), angle);
             rearRotorRectShape.Rotation += rearVintSpeed * Program.deltaTimer.Delta() * 100 *
                                             RPM / maxRPM * 1.7f;
 
@@ -336,9 +332,7 @@ namespace Havier_Than_Air_S
 
         private void CheckFlip()
         {
-            weaponPositionCurrentPoint = new Vector2f(weaponPositionCurrentPoint.X * (-1),
-                                                        weaponPositionCurrentPoint.Y);
-            rearRotorOrigin = rearRotorOrigin * (-1);
+            
             helySprite.Scale = new Vector2f(helySprite.Scale.X * (-1), helySprite.Scale.Y);
 
             for (int i = 0; i < colliderConvexShape.GetPointCount(); i++)
@@ -362,6 +356,7 @@ namespace Havier_Than_Air_S
             AngleCheck();
             CheckRUD();
             PlayerMove();
+            WeaponPositionUpdate();
             EngineUpdate();
             SpriteDraw();
             
@@ -375,15 +370,22 @@ namespace Havier_Than_Air_S
                                                  positionOfHely.Y);
 
 
-            Vector2f localpos = Matematika.LocalPointOfRotationObject(weaponPositionOrigin, angle);
-            weaponPositionCurrentPoint = new Vector2f(positionOfHely.X + localpos.X,
-                                                 positionOfHely.Y + localpos.Y);
-
 
             CheckGunMode();
 
             // Collider
             UpdateCollider();
+
+        }
+
+        private void WeaponPositionUpdate()
+        {
+            
+            weaponPositionCurrentPoint = Matematika.GlobalpointOfLocalPoint(positionOfHely,
+                                                                            new Vector2f(weaponPositionOrigin.X*flip, weaponPositionOrigin.Y),
+                                                                            angle);
+
+
 
         }
 

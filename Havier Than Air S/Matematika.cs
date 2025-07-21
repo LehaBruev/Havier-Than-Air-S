@@ -13,7 +13,10 @@ namespace Havier_Than_Air_S
         public static Vector2f vectorGeneral = new Vector2f(1,0);
         
 
-        static public float searchdistance(Vector2i point_1, Vector2i point_2) // Вычисление расстояния между двумя точками
+        // Принимает Точку_01
+        // Принимает Точку_02
+        // Возвращает дистанцию между точками
+        static public float searchdistance(Vector2f point_1, Vector2f point_2) // Вычисление расстояния между двумя точками
         {
             float distance = (float)Math.Sqrt((point_1.X - point_2.X) * (point_1.X - point_2.X) + (point_1.Y - point_2.Y) * (point_1.Y - point_2.Y));
 
@@ -21,34 +24,37 @@ namespace Havier_Than_Air_S
         }
 
 
-
-        // Принимает дистанцию до цели и угол наклона ПРАВОЕ = 0. 
-        // Возвращает корректные координаты на Х и У
-        // searchline длина прицела, ракеты (расстояние без углов до крайней точки)
-        // вычисляем поправки координат синусом и косинусом стороны А и Б прямоугольника ()
-        static public Vector2f searchAB(float searchangle, float searchline) 
+        // Принимает угол до цели ПРАВОЕ = 0. 
+        // Принимает дистанцию до цели 
+        // Возвращает уточненные координаты Х и У (cos, sin)
+        // (searchline длина прицела, ракеты (расстояние без углов до крайней точки))
+        static public Vector2f searchLocalVector(float searchAngle, float searchLine) 
         {
             const float pi = 3.14f;
-            float rad = searchangle / 180 * pi; //Радиальный угол
+            float rad = searchAngle / 180 * pi; //Радиальный угол
             
             // вычисление x
             double cos = Math.Cos(rad); //косинус а
             double cos2 = Math.Sqrt(cos * cos);
-            double xside = searchline * cos2;
+            double xside = searchLine * cos2;
             float searchA = (float)xside; // вертикальная поправка для X
-            if (270 > searchangle && searchangle > 90 || -270 < searchangle && searchangle < -90) searchA = -searchA;
+            if (270 > searchAngle && searchAngle > 90 || -270 < searchAngle && searchAngle < -90) searchA = -searchA;
 
             // вычисление y
             double sin = Math.Sin(rad); //синус а
             double sin2 = Math.Sqrt(sin * sin);
-            double yside = searchline * sin2;
+            double yside = searchLine * sin2;
             float searchB = (float)yside;//перевод во float, горизонтальная поправка для Y
-            if ((360 > searchangle && searchangle > 180) || (0>searchangle && searchangle>-180)) searchB = -searchB;
+            if ((360 > searchAngle && searchAngle > 180) || (0>searchAngle && searchAngle>-180)) searchB = -searchB;
 
          
             return new Vector2f(searchA, searchB);
         }
 
+
+        // Принимает вектор
+        // Возвращает угол наклона вектора
+        // (Ноль отсчитывается от горизонтальной линии врпаво)
         static public float AngleOfVector(Vector2f vector)
         {
             float angle;
@@ -92,20 +98,37 @@ namespace Havier_Than_Air_S
         }
 
 
-
-        static public Vector2f LocalPointOfRotationObject(Vector2f pos, float angleOfObject)
+        // Принимает origin дочернего объекта
+        // Принимает угол материнского объекта
+        // Возвращает локальную координату дочерней точки
+        static public Vector2f LocalPointOfRotationObject(Vector2f DaughterOrigin, float MotherAngle)
         {
+            float dist = searchdistance(new Vector2f(0,0), DaughterOrigin); // дистанция до точки
+            float ang = AngleOfVector(DaughterOrigin);  // угол к точке
 
-            float dist = searchdistance(new Vector2i(0,0), new Vector2i((int)pos.X, (int)pos.Y)); // дистанция до точки
-            float ang = AngleOfVector(new Vector2f(pos.X, pos.Y));                     // угол к точке
-
-
-
-            Vector2f localCoordinate = searchAB(ang + angleOfObject, dist);
-
+            Vector2f localCoordinate = searchLocalVector(ang + MotherAngle, dist);
 
             return localCoordinate;
         }
+
+
+        // Принимает позицию материнского объекта
+        // Принимает origin точки на материнском объекте
+        // Принимает угол наклона материнского объекта
+        // Возвращает глобальную координату точки на материнском объекте
+
+        static public Vector2f GlobalpointOfLocalPoint(Vector2f MotherPos, Vector2f DoterOrigin, float MotherAngle)
+        {
+            // Дистанция от MotherOrigin До DoterOrigin
+           float distance =  searchdistance(new Vector2f(0, 0), DoterOrigin);
+           float angle = AngleOfVector(DoterOrigin);
+
+            Vector2f localCoordinate = searchLocalVector(angle + MotherAngle, distance);
+
+            return (MotherPos + localCoordinate);
+        }
+
+
 
     }
 }

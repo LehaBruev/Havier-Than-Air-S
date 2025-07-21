@@ -61,7 +61,7 @@ namespace Havier_Than_Air_S
             topVintSpeed = 1137;
 
             //Задний винт
-            rearVintPosition = new Vector2f();
+            rearVintPositionOrigin = new Vector2f();
             rearRotorOrigin = new Vector2f(1, 9f);
             rearRotorSize = new Vector2f(2, 18);
             rearRotorColor = new Color(Color.Yellow);

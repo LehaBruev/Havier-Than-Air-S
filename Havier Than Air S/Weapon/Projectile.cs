@@ -55,7 +55,7 @@ namespace Havier_Than_Air_S.Weapon
             position = pos;
             currentProjectileAngle = angle;
             if (projectileSound != null) projectileSound.Play();
-            currentProjectileSpeed = Matematika.searchdistance((Vector2i)speed, new Vector2i(0, 0));
+            currentProjectileSpeed = Matematika.searchdistance(speed, new Vector2f(0, 0));
            //marker = new Marker(m_Rectangleshape, Color.Green, 3);
         }
 
@@ -65,7 +65,7 @@ namespace Havier_Than_Air_S.Weapon
 
             //Вычисление позиции
             deltaProjectileSpeed = currentProjectileSpeed * (float)Program.deltaTimer.Delta();
-            position = position + Matematika.searchAB(currentProjectileAngle, deltaProjectileSpeed);
+            position = position + Matematika.searchLocalVector(currentProjectileAngle, deltaProjectileSpeed);
             
 
             //Расход
