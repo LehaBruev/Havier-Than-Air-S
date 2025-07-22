@@ -67,5 +67,12 @@ namespace Havier_Than_Air_S.Weapon
             AllWeight = weaponWeight + ammWeight * currentAmmCount;
 
         }
+
+        public virtual void Update()
+        {
+        
+
+        }
+
     }
 }

@@ -373,10 +373,10 @@ namespace Havier_Than_Air_S
 
             AngleCheck();
             CheckRUD();
-            PlayerMove();
             EngineUpdate();
+            PlayerMove();
             SpriteDraw();
-            UpdateGunAngle();
+            WeaponUpdate();
 
             if (!Program.TestModeP)
             {
@@ -395,6 +395,14 @@ namespace Havier_Than_Air_S
 
         }
 
+        private void WeaponUpdate()
+        {
+            for (int i = 0; i < m_Weapons.Length; i++)
+            {
+                m_Weapons[i].Update();
+
+            }
+        }
 
         private void UpdateCollider()
         {
@@ -403,14 +411,7 @@ namespace Havier_Than_Air_S
             // Program.window.Draw(collider);
         }
 
-        private void UpdateGunAngle()
-        {
-           // angle = 
-
-
-
-
-        }
+       
 
         private void CheckRUD()
         {

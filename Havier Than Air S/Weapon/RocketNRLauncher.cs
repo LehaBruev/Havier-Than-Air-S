@@ -25,8 +25,6 @@ namespace Havier_Than_Air_S
 
        
 
-       
-        
 
         public RocketNRLauncher(int ammo,Hely hely, TypeOfObject type, int slot) : base(type)
         {

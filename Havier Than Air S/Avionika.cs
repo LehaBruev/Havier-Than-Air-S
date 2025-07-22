@@ -120,13 +120,7 @@ namespace Havier_Than_Air_S
                 DrawText("Fuel: " + (int)hely.helifuelCurrent, new Vector2f(22, 66), fuelColor, 2);
 
                 // Panel_3
-                DrawText("X: " + (int)hely.positionOfHely.X, new Vector2f(22, 15), Color.Green, 3);
-                DrawText("Y: " + (int)hely.positionOfHely.Y, new Vector2f(22, 32), Color.Green, 3);
-                DrawText("X: " + Mouse.GetPosition().X + " Y: " + Mouse.GetPosition().Y, new Vector2f(22, 49), Color.Green, 3);
-                DrawText("X: " + Mouse.GetPosition(Program.window).X + " Y: " + Mouse.GetPosition(Program.window).Y, new Vector2f(22, 66), Color.Yellow, 3);
-                DrawText("X: " + (Mouse.GetPosition(Program.window).X - hely.positionOfHely.X + Program.offset.X - Program.vMode.Width / 2) +
-                    " Y: " + (Mouse.GetPosition(Program.window).Y - hely.positionOfHely.Y + Program.offset.Y - Program.vMode.Height / 2), new Vector2f(22, 83), Color.White, 3);
-                DrawText("X: " + Program.offset.X + " Y: " + Program.offset.Y, new Vector2f(22, 130), Color.Green, 3);
+                Panel3Check();
 
                 // Panel_4
                 Panel4Check();
@@ -134,6 +128,22 @@ namespace Havier_Than_Air_S
                 PricelDraw();
                 UpdateInertia();
             }            
+        }
+
+
+        public void Panel3Check()
+        {
+            DrawText("hely X: " + (int)hely.positionOfHely.X + " Y: " + (int)hely.positionOfHely.Y, new Vector2f(22, 15), Color.Green, 3);
+            DrawText("msGL X: " + (int)(Mouse.GetPosition(Program.window).X - Program.vMode.Width/2 + Program.offset.X ) + 
+                     " Y: " + (int)(Mouse.GetPosition(Program.window).Y - Program.vMode.Width / 2 + Program.offset.Y), 
+                     new Vector2f(22, 32), Color.Green, 3);
+            DrawText("X: " + Mouse.GetPosition().X + " Y: " + Mouse.GetPosition().Y, new Vector2f(22, 49), Color.Green, 3);
+            DrawText("msW X: " + Mouse.GetPosition(Program.window).X + " Y: " + Mouse.GetPosition(Program.window).Y, new Vector2f(22, 66), Color.Yellow, 3);
+            DrawText("X: " + (Mouse.GetPosition(Program.window).X - hely.positionOfHely.X + Program.offset.X - Program.vMode.Width / 2) +
+                " Y: " + (Mouse.GetPosition(Program.window).Y - hely.positionOfHely.Y + Program.offset.Y - Program.vMode.Height / 2), new Vector2f(22, 83), Color.White, 3);
+            DrawText("offset X: " + Program.offset.X + " Y: " + Program.offset.Y, new Vector2f(22, 130), Color.Green, 3);
+
+
         }
 
         public void Panel4Check()

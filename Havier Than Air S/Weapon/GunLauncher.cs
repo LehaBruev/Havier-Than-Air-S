@@ -29,17 +29,16 @@ namespace Havier_Than_Air_S
         string shotSound = "gun2shot.wav";
 
         //Отрисовка
-        private Color nrColor = new Color(255, 161, 0);
+        
         private Texture rocketTexture;
 
-        private Sprite rocketSprite;
-        private RectangleShape rectangleShape;
-        private Drawable NR;
-
+  
         // Trunk
-        Vector2f trunkOrigin = new Vector2f(25, 0);
-        public float currentTrankAngle;
-
+        public float currentTrankAngle = 30;
+        RectangleShape trunkShape;
+        Vector2f trunkSize = new Vector2f(20, 4);
+        Vector2f trunkOrigin = new Vector2f(2, 2);
+        private Color trunkColor = new Color(255, 161, 0);
 
         public GunLauncher(int ammo, Hely hely, TypeOfObject type, int weaponSlot) : base(type)
         {
@@ -53,8 +52,17 @@ namespace Havier_Than_Air_S
             sound.Volume = 20;
 
             slotInHely = weaponSlot;
+            TrunkSpawn();
+
         }
 
+        private void TrunkSpawn()
+        {
+            trunkShape = new RectangleShape();
+            trunkShape.Size = trunkSize;
+            trunkShape.Origin = trunkOrigin;
+            trunkShape.FillColor = trunkColor;
+        }
 
 
 
@@ -78,10 +86,6 @@ namespace Havier_Than_Air_S
                                                                       trunkOrigin,
                                                                       parentHely.angle+ currentTrankAngle);
 
-                // Суммарный угол
-
-                
-
                 Program.m_PullObjects.StartObject(posDulo,
                                                 a,
                                                 parentHely.speed,
@@ -95,6 +99,16 @@ namespace Havier_Than_Air_S
         }
 
 
+        public override void Update()
+        {
+            Vector2f posOrujiya = Matematika.GlobalPointOfLocalPoint(parentHely.positionOfHely,
+                                                                         parentHely.weaponPositionsOrigins[slotInHely],
+                                                                         parentHely.angle);
+            trunkShape.Position = posOrujiya;
+            trunkShape.Rotation = parentHely.angle + currentTrankAngle;
+
+            Program.window.Draw(trunkShape);
+        }
 
     }
 

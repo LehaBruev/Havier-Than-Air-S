@@ -23,10 +23,7 @@ namespace Havier_Than_Air_S
          int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
         float skorostrel = 0.3f; //Скорострельность
 
-       
 
-       
-        
 
         public RocketSNRLauncher(int ammo,Hely hely, TypeOfObject type, int slot) : base(type)
         {
