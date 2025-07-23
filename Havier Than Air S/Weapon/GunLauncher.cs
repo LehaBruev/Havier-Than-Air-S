@@ -9,6 +9,7 @@ using Havier_Than_Air_S.Weapon;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 
 namespace Havier_Than_Air_S
 {
@@ -28,17 +29,32 @@ namespace Havier_Than_Air_S
         //Sounds
         string shotSound = "gun2shot.wav";
 
-        //Отрисовка
-        
-        private Texture rocketTexture;
-
-  
         // Trunk
         public float currentTrankAngle = 30;
         RectangleShape trunkShape;
         Vector2f trunkSize = new Vector2f(20, 4);
         Vector2f trunkOrigin = new Vector2f(2, 2);
         private Color trunkColor = new Color(255, 161, 0);
+        float targeTrunkAngle = 0;
+        float trunkAngleSpeed = 1f;
+        float trunkMinAngle = 65;
+        float trunkMaxAngle = -15;
+
+        private void TrunkAngleUpdate()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.LShift))
+            {
+                currentTrankAngle -= trunkAngleSpeed * Program.deltaTimer.Delta()*Program.gameSpeed;
+                if (currentTrankAngle < trunkMaxAngle) currentTrankAngle = trunkMaxAngle;
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.LControl))
+            {
+                currentTrankAngle += trunkAngleSpeed * Program.deltaTimer.Delta() * Program.gameSpeed;
+                if (currentTrankAngle > trunkMinAngle) currentTrankAngle = trunkMinAngle;
+
+            }
+            
+        }
 
         public GunLauncher(int ammo, Hely hely, TypeOfObject type, int weaponSlot) : base(type)
         {
@@ -70,21 +86,22 @@ namespace Havier_Than_Air_S
         {
             if (!(currentAmmCount <= 0) && clock.ElapsedTime.AsSeconds() > skorostrelnost)
             {
-                float a = parentHely.angle + currentTrankAngle;
+                float a = parentHely.angle + currentTrankAngle*parentHely.flip;
                 if (parentHely.flip < 0) a += 179;
 
                 // Позиция вертолета
                 //parentHely.positionOfHely
                 // Позиция оружия
                 Vector2f posOrujiya = Matematika.GlobalPointOfLocalPoint(parentHely.positionOfHely,
-                                                                         parentHely.weaponPositionsOrigins[slotInHely],
-                                                                         parentHely.angle);
+                                                                     new Vector2f(parentHely.weaponPositionsOrigins[slotInHely].X * parentHely.flip,
+                                                                                    parentHely.weaponPositionsOrigins[slotInHely].Y),
+                                                                    parentHely.angle);
 
                 // Позиция кончика ствола
 
                 Vector2f posDulo = Matematika.GlobalPointOfLocalPoint(posOrujiya,
-                                                                      trunkOrigin,
-                                                                      parentHely.angle+ currentTrankAngle);
+                                                                      new Vector2f(trunkOrigin.X*parentHely.flip, trunkOrigin.Y),
+                                                                      parentHely.angle + currentTrankAngle);
 
                 Program.m_PullObjects.StartObject(posDulo,
                                                 a,
@@ -101,11 +118,15 @@ namespace Havier_Than_Air_S
 
         public override void Update()
         {
+            TrunkAngleUpdate();
             Vector2f posOrujiya = Matematika.GlobalPointOfLocalPoint(parentHely.positionOfHely,
-                                                                         parentHely.weaponPositionsOrigins[slotInHely],
-                                                                         parentHely.angle);
+                                                                     new Vector2f(parentHely.weaponPositionsOrigins[slotInHely].X * parentHely.flip, 
+                                                                                    parentHely.weaponPositionsOrigins[slotInHely].Y),
+                                                                    parentHely.angle);
             trunkShape.Position = posOrujiya;
-            trunkShape.Rotation = parentHely.angle + currentTrankAngle;
+            trunkShape.Rotation = parentHely.angle + currentTrankAngle*parentHely.flip;
+            trunkShape.Scale = new Vector2f( parentHely.flip, trunkShape.Scale.Y );
+
 
             Program.window.Draw(trunkShape);
         }
