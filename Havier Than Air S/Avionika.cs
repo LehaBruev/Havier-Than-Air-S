@@ -226,19 +226,31 @@ namespace Havier_Than_Air_S
             }
 
 
+            if (hely.m_Weapons[hely.currentWeapon].weaponType == TypeOfObject.gun)
+            {
+                Vector2f posOrujiya = Matematika.GlobalPointOfLocalPoint(hely.positionOfHely,
+                                                                    new Vector2f(hely.weaponPositionsOrigins[0].X * hely.flip,
+                                                                                   hely.weaponPositionsOrigins[0].Y),
+                                                                   hely.angle);
+
+                Vector2f pos = Matematika.GlobalPointOfLocalPoint(posOrujiya,
+                                                                    new Vector2f(145*hely.flip,-15),
+                                                                    hely.angle + (hely.m_Weapons[0] as GunLauncher).currentTrankAngle*hely.flip );
+                
+                scopeSprite.Position = pos;
+                scopeSprite.Color = Color.Green;
+                Program.window.Draw(scopeSprite);
 
 
-            if (hely.m_Weapons[hely.currentWeapon].weaponType == TypeOfObject.nr ||
-                hely.m_Weapons[hely.currentWeapon].weaponType == TypeOfObject.gun)
+            }
+            else if (hely.m_Weapons[hely.currentWeapon].weaponType == TypeOfObject.nr )
             {
             Vector2f pos = Matematika.LocalPointOfRotationObject(new Vector2f(scopeOrigin.X*hely.flip, scopeOrigin.Y), hely.angle);
             scopeSprite.Position = new Vector2f(hely.positionOfHely.X + pos.X, hely.positionOfHely.Y + pos.Y);
                 scopeSprite.Color = Color.White;
                 Program.window.Draw(scopeSprite);
             }
-
-
-            if (hely.m_Weapons[hely.currentWeapon].weaponType == TypeOfObject.sr)
+            else if(hely.m_Weapons[hely.currentWeapon].weaponType == TypeOfObject.sr)
             {
 
                 if (Program.m_MouseController.LeftButton)

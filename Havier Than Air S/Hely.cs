@@ -54,7 +54,7 @@ namespace Havier_Than_Air_S
         protected float inertia = 5f;// управляемость //5 это ИНЕРЦИЯ
         protected float maxangle = 60; // Максимальный угол атаки
         protected float helifuelmax = 1300; // Максимальное топливо в баках
-        protected float engineMaxPower = 24250; // максимальное ускорение от двигателя //11250
+        protected float engineMaxPower = 39250; // максимальное ускорение от двигателя //11250
         protected float holdRPM = 12000; // Холостые обороты мотора
 
         protected float maxRPM = 60000; //Максимальные обороты двигателя

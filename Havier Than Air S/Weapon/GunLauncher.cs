@@ -32,28 +32,75 @@ namespace Havier_Than_Air_S
         // Trunk
         public float currentTrankAngle = 30;
         RectangleShape trunkShape;
-        Vector2f trunkSize = new Vector2f(20, 4);
-        Vector2f trunkOrigin = new Vector2f(2, 2);
+        Vector2f trunkSize = new Vector2f(20, 3);
+        Vector2f trunkOrigin = new Vector2f(2, 1.5f);
         private Color trunkColor = new Color(255, 161, 0);
         float targeTrunkAngle = 0;
         float trunkAngleSpeed = 1f;
         float trunkMinAngle = 65;
         float trunkMaxAngle = -15;
 
+        int hiroscopeMode = 0;
+        float helyAngleMemory = 0;
+        Clock keyClock = new Clock();
+
         private void TrunkAngleUpdate()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.LShift))
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.M) && keyClock.ElapsedTime.AsSeconds()>0.5f)
             {
-                currentTrankAngle -= trunkAngleSpeed * Program.deltaTimer.Delta()*Program.gameSpeed;
-                if (currentTrankAngle < trunkMaxAngle) currentTrankAngle = trunkMaxAngle;
+                if (hiroscopeMode == 1)
+                {
+                    hiroscopeMode = 0;
+                }
+                else
+                {
+                    hiroscopeMode = 1;
+                    helyAngleMemory = parentHely.angle;
+                }
+                keyClock.Restart();
+            }    
+
+
+                if (Keyboard.IsKeyPressed(Keyboard.Key.LShift))
+            {
+                targeTrunkAngle -= trunkAngleSpeed * Program.deltaTimer.Delta()*Program.gameSpeed;
+                if (targeTrunkAngle < trunkMaxAngle) targeTrunkAngle = trunkMaxAngle;
+                
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.LControl))
             {
-                currentTrankAngle += trunkAngleSpeed * Program.deltaTimer.Delta() * Program.gameSpeed;
-                if (currentTrankAngle > trunkMinAngle) currentTrankAngle = trunkMinAngle;
-
+                targeTrunkAngle += trunkAngleSpeed * Program.deltaTimer.Delta() * Program.gameSpeed;
+                if (targeTrunkAngle > trunkMinAngle) targeTrunkAngle = trunkMinAngle;
+                
             }
             
+
+            if (hiroscopeMode ==1)
+            {
+                if (parentHely.angle> helyAngleMemory)
+                {
+                    float delta = helyAngleMemory - parentHely.angle;
+                    currentTrankAngle = targeTrunkAngle + delta;
+                    if (currentTrankAngle < trunkMaxAngle) currentTrankAngle = trunkMaxAngle;
+
+               }
+                else
+                {
+                    float delta = parentHely.angle - helyAngleMemory ;
+                    currentTrankAngle = targeTrunkAngle - delta;
+                    if (currentTrankAngle > trunkMinAngle) currentTrankAngle = trunkMinAngle;
+                }
+               
+            }
+            else
+            {
+                currentTrankAngle = targeTrunkAngle;
+            }
+
+
+
+
         }
 
         public GunLauncher(int ammo, Hely hely, TypeOfObject type, int weaponSlot) : base(type)
