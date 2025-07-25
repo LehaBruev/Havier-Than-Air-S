@@ -98,9 +98,6 @@ namespace Havier_Than_Air_S
                 currentTrankAngle = targeTrunkAngle;
             }
 
-
-
-
         }
 
         public GunLauncher(int ammo, Hely hely, TypeOfObject type, int weaponSlot) : base(type)
