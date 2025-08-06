@@ -171,7 +171,7 @@ namespace Havier_Than_Air_S
         #region Weapons
         public Vector2f[] weaponPositionsOrigins = new Vector2f[2] 
                                                                     { new Vector2f(-9, 35), // подвески
-                                                                      new Vector2f(34, 40) }; // носовая пушка
+                                                                      new Vector2f(-6, 35) }; // носовая пушка
         public WeaponBase[] m_Weapons;
         public Vector2f[] weaponPositionsCurrentPoints;
         

@@ -55,21 +55,21 @@ namespace Havier_Than_Air_S
 
 
             //Верхний винт
-            topVintOrigin = new Vector2f(48, 1);
-            topVintSize = new Vector2f(96, 2);
+            topVintOrigin = new Vector2f(105, 1.25f);
+            topVintSize = new Vector2f(210, 2.5f);
             topRotorColor = new Color(Color.Red);
             topVintSpeed = 1137;
 
             //Задний винт
-            rearVintPositionOrigin = new Vector2f();
-            rearRotorOrigin = new Vector2f(1, 9f);
-            rearRotorSize = new Vector2f(2, 18);
-            rearRotorColor = new Color(Color.Yellow);
+            rearVintPositionOrigin = new Vector2f(-130f,12f);
+            rearRotorOrigin = new Vector2f(1.5f, 15f);
+            rearRotorSize = new Vector2f(3f, 30);
+            rearRotorColor = new Color(Color.Red);
             rearVintSpeed = 55;
 
             // weapons
             weaponPositionsOrigins[0] = new Vector2f(0, 22); //Позиция подвесок оружия
-            weaponPositionsOrigins[1] = new Vector2f(75, 30); //Позиция пушки
+            weaponPositionsOrigins[1] = new Vector2f(46, 44); //Позиция пушки
 
             base.SpawnHely();
 
