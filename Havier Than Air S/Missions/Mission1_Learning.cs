@@ -12,7 +12,7 @@ namespace Havier_Than_Air_S
     {
 
         // Бэкграунд 
-        Texture backgroundLevel1 = new Texture("BackGroundLevel1.png");
+        Texture backgroundLevel1 = new Texture("Images\\BackGroundLevel1.png");
         Sprite backGroundSprite = new Sprite();
 
 

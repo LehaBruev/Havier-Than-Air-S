@@ -13,11 +13,11 @@ namespace Havier_Than_Air_S.Weapon
     {
         CircleShape circleshape;
 
-        //string bangsound = LoadSound("explode4.wav"); //взрыв
+        //string bangsound = LoadSound("Sounds\\explode4.wav"); //взрыв
         public TypeOfObject typeOfObject;
 
         private Texture[] bangTextures;
-        private Image uhImage = new Image("uh61all.png");
+        private Image uhImage = new Image("Images\\uh61all.png");
         Sprite bangSprite;
 
         public PullStatus pullStatus;
@@ -38,7 +38,7 @@ namespace Havier_Than_Air_S.Weapon
 
         public Bang(Vector2f pPosition)
         {
-            soundBuffer = new SoundBuffer("explode4.wav");
+            soundBuffer = new SoundBuffer("Sounds\\explode4.wav");
             sound = new Sound(soundBuffer);
             
             

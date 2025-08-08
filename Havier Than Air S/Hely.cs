@@ -30,7 +30,7 @@ namespace Havier_Than_Air_S
         
         protected Texture heliTexture;
         public Sprite helySprite;
-        protected string textureName = "uh61.png";
+        protected string textureName = "Images\\uh61.png";
         protected Vector2f spriteScale =  new Vector2f(0.6f,0.6f);
         protected Vector2f spriteOrigin = new Vector2f(175, -10);
 
@@ -110,9 +110,9 @@ namespace Havier_Than_Air_S
 
         #region Sounds
         //SOUND
-        SoundBuffer engineStartSoundBuffer = new SoundBuffer("zapusk2.wav"); //запуск
-        //SoundBuffer engineStopSoundBuffer = new SoundBuffer("zapusk2.wav"); //остановка
-        SoundBuffer engineStopSoundBuffer = new SoundBuffer("hw_spindown.wav"); //остановка
+        SoundBuffer engineStartSoundBuffer = new SoundBuffer("Sounds\\zapusk2.wav"); //запуск
+        //SoundBuffer engineStopSoundBuffer = new SoundBuffer("Sounds\\zapusk2.wav"); //остановка
+        SoundBuffer engineStopSoundBuffer = new SoundBuffer("Sounds\\hw_spindown.wav"); //остановка
         Sound engineStartStopSound;
         Sound channelSoundRita;
         Sound channelSoundTex;
@@ -121,15 +121,15 @@ namespace Havier_Than_Air_S
 
         public int otkazpojardvig= 0;
 
-
-        SoundBuffer ostalos500kg = new SoundBuffer("Fuel500.wav"); // Осталось 500 кг звук
-        SoundBuffer ostalos800kg = new SoundBuffer("Fuel800.wav"); // Осталось 800 кг звук
+        
+        SoundBuffer ostalos500kg = new SoundBuffer("Sounds\\Fuel500.wav"); // Осталось 500 кг звук
+        SoundBuffer ostalos800kg = new SoundBuffer("Sounds\\Fuel800.wav"); // Осталось 800 кг звук
 
         //звуки доп
-        SoundBuffer metal1Sound = new SoundBuffer("metal1.wav"); // касание земли
-        SoundBuffer metal2Sound = new SoundBuffer("metal2.wav"); // касание земли 2
-        SoundBuffer bangsound = new SoundBuffer("explode4.wav"); //взрыв
-        SoundBuffer grass1 = new SoundBuffer("glass3.wav"); // стекло
+        SoundBuffer metal1Sound = new SoundBuffer("Sounds\\metal1.wav"); // касание земли
+        SoundBuffer metal2Sound = new SoundBuffer("Sounds\\metal2.wav"); // касание земли 2
+        SoundBuffer bangsound = new SoundBuffer("Sounds\\explode4.wav"); //взрыв
+        SoundBuffer grass1 = new SoundBuffer("Sounds\\glass3.wav"); // стекло
 
 
         #endregion
@@ -675,10 +675,10 @@ namespace Havier_Than_Air_S
 
         }
 
-        string rotorSound1 = "ap_rotorhigh.wav";
-        string rotorSound2 = "ap_rotor2earth.wav";
-        string rotorSound3 = "ap_rotor3down.wav";
-        string rotorSound4 = "ap_rotor4on.wav";
+        string rotorSound1 = "Sounds\\ap_rotorhigh.wav";
+        string rotorSound2 = "Sounds\\ap_rotor2earth.wav";
+        string rotorSound3 = "Sounds\\ap_rotor3down.wav";
+        string rotorSound4 = "Sounds\\ap_rotor4on.wav";
 
         Sound rotorSound = new Sound();
         float prevAltitude = 100;

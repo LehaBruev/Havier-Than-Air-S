@@ -178,95 +178,237 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="bin\x86\Debug\AH1_1.png" />
-    <Content Include="bin\x86\Debug\aim.png" />
-    <Content Include="bin\x86\Debug\airvolfbig.wav" />
-    <Content Include="bin\x86\Debug\ap_rotor2earth.wav" />
-    <Content Include="bin\x86\Debug\ap_rotor3down.wav" />
-    <Content Include="bin\x86\Debug\ap_rotor4on.wav" />
-    <Content Include="bin\x86\Debug\ap_rotorhigh.wav" />
-    <Content Include="bin\x86\Debug\BackGroundLevel1.png" />
-    <Content Include="bin\x86\Debug\BackGroundLevel3.png" />
-    <Content Include="bin\x86\Debug\Bingo.wav" />
-    <Content Include="bin\x86\Debug\button2.wav" />
-    <Content Include="bin\x86\Debug\buttonclick.wav" />
-    <Content Include="bin\x86\Debug\buttonclickrelease.wav" />
-    <Content Include="bin\x86\Debug\cansel.wav" />
-    <Content Include="bin\x86\Debug\cansel2.wav" />
+    <Content Include="Images\AH1_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\aim.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\score.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\score1back.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\airvolfbig.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\ap_rotor2earth.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\ap_rotor3down.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\ap_rotor4on.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\ap_rotorhigh.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BackGroundLevel1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BackGroundLevel3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Bingo.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\button2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\buttonclick.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\buttonclickrelease.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\cansel.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\cansel2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="bin\x86\Debug\csfml-audio-2.dll" />
     <Content Include="bin\x86\Debug\csfml-graphics-2.dll" />
     <Content Include="bin\x86\Debug\csfml-system-2.dll" />
     <Content Include="bin\x86\Debug\csfml-window-2.dll" />
-    <Content Include="bin\x86\Debug\EngineFire.wav" />
-    <Content Include="bin\x86\Debug\explode4.wav" />
-    <Content Include="bin\x86\Debug\finalmusic.wav" />
-    <Content Include="bin\x86\Debug\FlightControls.wav" />
-    <Content Include="bin\x86\Debug\Fuel500.wav" />
-    <Content Include="bin\x86\Debug\Fuel800.wav" />
-    <Content Include="bin\x86\Debug\glass3.wav" />
-    <Content Include="bin\x86\Debug\glass4.wav" />
+    <Content Include="Sounds\EngineFire.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\explode4.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\finalmusic.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\FlightControls.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Fuel800.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\glass3.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\glass4.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="bin\x86\Debug\gun2shot.wav" />
-    <Content Include="bin\x86\Debug\gun1shot.wav" />
+    <Content Include="Sounds\gun1shot.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="bin\x86\Debug\gun3shot.wav" />
     <Content Include="bin\x86\Debug\gun4shot.wav" />
     <Content Include="bin\x86\Debug\gun5shot.wav" />
     <Content Include="bin\x86\Debug\Havier Than Air S.exe" />
     <Content Include="bin\x86\Debug\Havier Than Air S.pdb" />
-    <Content Include="bin\x86\Debug\hw_spindown.wav" />
-    <Content Include="bin\x86\Debug\hw_spinup.wav" />
-    <Content Include="bin\x86\Debug\Hydro.wav" />
+    <Content Include="Sounds\gun2shot.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\hw_spindown.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\hw_spinup.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Hydro.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="bin\x86\Debug\ico1.ico" />
-    <Content Include="bin\x86\Debug\Level1Music.wav" />
-    <Content Include="bin\x86\Debug\mainmenu.png" />
-    <Content Include="bin\x86\Debug\mainmenu2.png" />
-    <Content Include="bin\x86\Debug\mainmenumusic.wav" />
-    <Content Include="bin\x86\Debug\MasterWarning.wav" />
-    <Content Include="bin\x86\Debug\metal1.wav" />
-    <Content Include="bin\x86\Debug\metal2.wav" />
-    <Content Include="bin\x86\Debug\mgun_burst3.wav" />
-    <Content Include="bin\x86\Debug\mine_deploy.wav" />
-    <Content Include="bin\x86\Debug\minus.wav" />
-    <Content Include="bin\x86\Debug\MissileMissile.wav" />
-    <Content Include="bin\x86\Debug\musicotkazsistem.wav" />
-    <Content Include="bin\x86\Debug\Nrocket_01.png" />
+    <Content Include="Sounds\Level1Music.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\mainmenu.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\mainmenu2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\mainmenumusic.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\MasterWarning.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\metal1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\metal2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\mgun_burst3.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\mine_deploy.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\minus.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\MissileMissile.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\musicotkazsistem.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Nrocket_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="bin\x86\Debug\nrpusto.wav" />
-    <Content Include="bin\x86\Debug\OH-6_1.png" />
+    <Content Include="Images\OH-6_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="bin\x86\Debug\OLS.wav" />
     <Content Include="bin\x86\Debug\openal32.dll" />
     <Content Include="bin\x86\Debug\OpenTK.dll" />
-    <Content Include="bin\x86\Debug\peregruzka.wav" />
-    <Content Include="bin\x86\Debug\pumper.wav" />
-    <Content Include="bin\x86\Debug\pvo1.wav" />
-    <Content Include="bin\x86\Debug\ric_metal-2.wav" />
-    <Content Include="bin\x86\Debug\rocket1.wav" />
-    <Content Include="bin\x86\Debug\rocketflame1.wav" />
-    <Content Include="bin\x86\Debug\rotormachine.wav" />
-    <Content Include="bin\x86\Debug\sbrosoboroti.wav" />
+    <Content Include="Sounds\peregruzka.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\pumper.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\pvo1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\ric_metal-2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\rocket1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\rocketflame1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\rotormachine.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\sbrosoboroti.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="bin\x86\Debug\score1back.png" />
     <Content Include="bin\x86\Debug\sfml-audio.dll" />
     <Content Include="bin\x86\Debug\sfml-graphics.dll" />
     <Content Include="bin\x86\Debug\sfml-system.dll" />
     <Content Include="bin\x86\Debug\sfml-window.dll" />
-    <Content Include="bin\x86\Debug\shilka.png" />
-    <Content Include="bin\x86\Debug\ShootShoot.wav" />
-    <Content Include="bin\x86\Debug\signalgear1.wav" />
-    <Content Include="bin\x86\Debug\siren.wav" />
+    <Content Include="Images\shilka.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\ShootShoot.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\signalgear1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\siren.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="bin\x86\Debug\score.png" />
-    <Content Include="bin\x86\Debug\tankidle2.wav" />
-    <Content Include="bin\x86\Debug\topgun3.wav" />
-    <Content Include="bin\x86\Debug\topol.png" />
-    <Content Include="bin\x86\Debug\tu_active.wav" />
-    <Content Include="bin\x86\Debug\uh61.png" />
-    <Content Include="bin\x86\Debug\uh612.png" />
-    <Content Include="bin\x86\Debug\uh61all.png" />
-    <Content Include="bin\x86\Debug\vty.2.png" />
-    <Content Include="bin\x86\Debug\warn3.wav" />
-    <Content Include="bin\x86\Debug\WarningWarning.wav" />
-    <Content Include="bin\x86\Debug\zapmachine.wav" />
-    <Content Include="bin\x86\Debug\zapusk2.wav" />
-    <Content Include="bin\x86\Debug\Горы1.png" />
-    <Content Include="bin\x86\Debug\ми24_1.png" />
-    <Content Include="bin\x86\Debug\Пещера_01.jpg" />
+    <Content Include="Sounds\tankidle2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\topgun3.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\topol.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\tu_active.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\uh61.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\uh612.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\uh61all.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\vty.2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\warn3.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\WarningWarning.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\zapmachine.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\zapusk2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Горы1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ми24_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Пещера_01.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Havier Than Air 1.1\aim.png" />
     <Content Include="Havier Than Air 1.1\airvolfbig.wav" />
     <Content Include="Havier Than Air 1.1\ap_rotor2earth.wav" />
@@ -345,6 +487,9 @@
     <Content Include="Havier Than Air 1.1\WarningWarning.wav" />
     <Content Include="Havier Than Air 1.1\zapmachine.wav" />
     <Content Include="Havier Than Air 1.1\zapusk2.wav" />
+    <Content Include="Sounds\Fuel500.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

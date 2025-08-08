@@ -31,18 +31,18 @@ namespace Havier_Than_Air_S
         public TextureManager()
         {
             _gameMode = GameMode.MainMenu;
-             backgroundLevel1 = new Texture("BackGroundLevel1.png");
-             backgroundLevel3 = new Texture("BackGroundLevel3.png");
+             backgroundLevel1 = new Texture("Images\\BackGroundLevel1.png");
+             backgroundLevel3 = new Texture("Images\\BackGroundLevel3.png");
 
            // BackgroundSprite = new Sprite();
 
             //Техника
-             uh61 = new Texture("uh61all.png");
-             aiming = new Texture("aim.png");
+             uh61 = new Texture("Images\\uh61all.png");
+             aiming = new Texture("Images\\aim.png");
 
             //Меню
-            // mainmenutexture = new Texture("mainmenu.png");
-            // scoresprite = new Texture("score1back.png");
+            // mainmenutexture = new Texture("Images\\mainmenu.png");
+            // scoresprite = new Texture("Images\\score1back.png");
 
         }
 
@@ -77,13 +77,13 @@ namespace Havier_Than_Air_S
 
         /*
         //ТЕКСТУРЫ
-        static string backgroundLevel3 = LoadTexture("BackGroundLevel3.png");
-        //static string backgroundLevel2 = LoadTexture("BackGroundLevel2.png");
-        static string backgroundLevel1 = LoadTexture("BackGroundLevel1.png");
-        static string uh61 = LoadTexture("uh61all.png");
-        static string aiming = LoadTexture("aim.png");
-        static string maimenutexture = LoadTexture("mainmenu.png");
-        static string scoresprite = LoadTexture("score1back.png");
+        static string backgroundLevel3 = LoadTexture("Images\\BackGroundLevel3.png");
+        //static string backgroundLevel2 = LoadTexture("Images\\BackGroundLevel2.png");
+        static string backgroundLevel1 = LoadTexture("Images\\BackGroundLevel1.png");
+        static string uh61 = LoadTexture("Images\\uh61all.png");
+        static string aiming = LoadTexture("Images\\aim.png");
+        static string maimenutexture = LoadTexture("Images\\mainmenu.png");
+        static string scoresprite = LoadTexture("Images\\score1back.png");
 
 
         */

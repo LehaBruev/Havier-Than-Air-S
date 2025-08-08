@@ -30,7 +30,7 @@ namespace Havier_Than_Air_S.Weapon
         Texture rocketTexture;
 
         // Звуки
-        string rocketSound = "rocket1.wav";
+        string rocketSound = "Sounds\\rocket1.wav";
 
         public NRocket()
         {
@@ -40,7 +40,7 @@ namespace Havier_Than_Air_S.Weapon
             currentProjectileSpeed = rocketSpeed;
             currentProjectilefuel = rocketFuel;
             currentProjectileRashod = rocketRashod;
-            rocketTexture = new Texture("Nrocket_01.png");
+            rocketTexture = new Texture("Images\\Nrocket_01.png");
             
 
             //shape

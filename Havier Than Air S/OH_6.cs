@@ -21,7 +21,7 @@ namespace Havier_Than_Air_S
         protected override void SpawnHely()
         {
 
-            textureName = "OH-6_1.png";
+            textureName = "Images\\OH-6_1.png";
             spriteScale = new Vector2f(0.33f, 0.33f);
 
             //Позиции деталей 

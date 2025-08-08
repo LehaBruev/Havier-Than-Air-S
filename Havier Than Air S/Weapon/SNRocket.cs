@@ -43,7 +43,7 @@ namespace Havier_Than_Air_S.Weapon
         
 
         // Звуки
-        string rocketSound = "rocket1.wav";
+        string rocketSound = "Sounds\\rocket1.wav";
 
         // Настройки для снр
         SNRmode snrmode = SNRmode.checkMousePosition;
@@ -59,7 +59,7 @@ namespace Havier_Than_Air_S.Weapon
             currentProjectileSpeed = rocketSpeed;
             currentProjectilefuel = rocketFuel;
             currentProjectileRashod = rocketRashod;
-            rocketTexture = new Texture("Nrocket_01.png");
+            rocketTexture = new Texture("Images\\Nrocket_01.png");
 
 
             //shape

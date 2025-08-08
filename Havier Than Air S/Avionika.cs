@@ -21,7 +21,7 @@ namespace Havier_Than_Air_S
 
         Font font;
 
-        Image imageAll = new Image("uh61all.png");
+        Image imageAll = new Image("Images\\uh61all.png");
         Texture avionikaTexture;
         Sprite panelAvionikaSprite;
         Sprite panelAvionikaSprite2;
@@ -65,8 +65,8 @@ namespace Havier_Than_Air_S
 
 
             // Priceles
-            pricMod2Texture = new Texture("uh61all.png", new IntRect(305, 302, 37, 37));
-            pricMod3Texture = new Texture("aim.png");
+            pricMod2Texture = new Texture("Images\\uh61all.png", new IntRect(305, 302, 37, 37));
+            pricMod3Texture = new Texture("Images\\aim.png");
             scopeSprite = new Sprite(pricMod2Texture);
             scopeSprite.Color = Color.White;
             scopeSprite.Origin = new Vector2f(18.5f, 18.5f);

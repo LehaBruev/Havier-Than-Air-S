@@ -27,7 +27,7 @@ namespace Havier_Than_Air_S
         float projectileWeight = 100;
 
         //Sounds
-        string shotSound = "gun2shot.wav";
+        string shotSound = "Sounds\\gun2shot.wav";
 
         // Trunk
         public float currentTrankAngle = 30;

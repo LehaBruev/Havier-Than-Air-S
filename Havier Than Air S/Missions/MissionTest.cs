@@ -15,8 +15,8 @@ namespace Havier_Than_Air_S.Missions
     {
         MouseController mouseController;
 
-        Texture background = new Texture("BackGroundLevel3.png");
-        Texture paralax = new Texture("Горы1.png");
+        Texture background = new Texture("Images\\BackGroundLevel3.png");
+        Texture paralax = new Texture("Images\\Горы1.png");
         Sprite backgroundSprite;
         Sprite paralaxSprite;
         Sprite paralaxSprite2;

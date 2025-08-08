@@ -32,7 +32,7 @@ namespace Havier_Than_Air_S.Enemies
         Vector2f tankPosition;
         float tankAngle;
 
-        Image allImage = new Image("uh61all.png");
+        Image allImage = new Image("Images\\uh61all.png");
         Texture body;
         Texture head;
         Texture Gun;

@@ -18,7 +18,7 @@ namespace Havier_Than_Air_S
         Texture mountTexture;
 
 
-        // Текстура сверху
+        // Текстура сверху 
         Image caveImage;
         Texture caveTexture;
 
@@ -33,7 +33,7 @@ namespace Havier_Than_Air_S
 
         public Mountains()
         {
-            caveImage = new Image("Пещера_01.jpg");
+            caveImage = new Image("Images\\Пещера_01.jpg");
 
             caveTexture = new Texture(caveImage);
 
