@@ -110,9 +110,9 @@ namespace Havier_Than_Air_S
 
         #region Sounds
         //SOUND
-        SoundBuffer engineStartSoundBuffer = new SoundBuffer("Sounds\\zapusk2.wav"); //запуск
-        //SoundBuffer engineStopSoundBuffer = new SoundBuffer("Sounds\\zapusk2.wav"); //остановка
-        SoundBuffer engineStopSoundBuffer = new SoundBuffer("Sounds\\hw_spindown.wav"); //остановка
+        SoundBuffer engineStartSoundBuffer = new SoundBuffer("Sounds\\Engine\\zapusk2.wav"); //запуск
+        //SoundBuffer engineStopSoundBuffer = new SoundBuffer("Sounds\\Engine\\zapusk2.wav"); //остановка
+        SoundBuffer engineStopSoundBuffer = new SoundBuffer("Sounds\\Engine\\hw_spindown.wav"); //остановка
         Sound engineStartStopSound;
         Sound channelSoundRita;
         Sound channelSoundTex;
@@ -122,13 +122,13 @@ namespace Havier_Than_Air_S
         public int otkazpojardvig= 0;
 
         
-        SoundBuffer ostalos500kg = new SoundBuffer("Sounds\\Fuel500.wav"); // Осталось 500 кг звук
-        SoundBuffer ostalos800kg = new SoundBuffer("Sounds\\Fuel800.wav"); // Осталось 800 кг звук
+        SoundBuffer ostalos500kg = new SoundBuffer("Sounds\\Rita\\Fuel500.wav"); // Осталось 500 кг звук
+        SoundBuffer ostalos800kg = new SoundBuffer("Sounds\\Rita\\Fuel800.wav"); // Осталось 800 кг звук
 
         //звуки доп
         SoundBuffer metal1Sound = new SoundBuffer("Sounds\\metal1.wav"); // касание земли
         SoundBuffer metal2Sound = new SoundBuffer("Sounds\\metal2.wav"); // касание земли 2
-        SoundBuffer bangsound = new SoundBuffer("Sounds\\explode4.wav"); //взрыв
+        SoundBuffer bangsound = new SoundBuffer("Sounds\\Weapons\\explode4.wav"); //взрыв
         SoundBuffer grass1 = new SoundBuffer("Sounds\\glass3.wav"); // стекло
 
 
@@ -675,10 +675,10 @@ namespace Havier_Than_Air_S
 
         }
 
-        string rotorSound1 = "Sounds\\ap_rotorhigh.wav";
-        string rotorSound2 = "Sounds\\ap_rotor2earth.wav";
-        string rotorSound3 = "Sounds\\ap_rotor3down.wav";
-        string rotorSound4 = "Sounds\\ap_rotor4on.wav";
+        string rotorSound1 = "Sounds\\Engine\\ap_rotorhigh.wav";
+        string rotorSound2 = "Sounds\\Engine\\ap_rotor2earth.wav";
+        string rotorSound3 = "Sounds\\Engine\\ap_rotor3down.wav";
+        string rotorSound4 = "Sounds\\Engine\\ap_rotor4on.wav";
 
         Sound rotorSound = new Sound();
         float prevAltitude = 100;

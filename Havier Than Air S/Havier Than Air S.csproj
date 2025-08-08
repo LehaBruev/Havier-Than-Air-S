@@ -190,19 +190,19 @@
     <Content Include="Images\score1back.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\airvolfbig.wav">
+    <Content Include="Sounds\Music\airvolfbig.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\ap_rotor2earth.wav">
+    <Content Include="Sounds\Engine\ap_rotor2earth.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\ap_rotor3down.wav">
+    <Content Include="Sounds\Engine\ap_rotor3down.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\ap_rotor4on.wav">
+    <Content Include="Sounds\Engine\ap_rotor4on.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\ap_rotorhigh.wav">
+    <Content Include="Sounds\Engine\ap_rotorhigh.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\BackGroundLevel1.png">
@@ -233,19 +233,19 @@
     <Content Include="bin\x86\Debug\csfml-graphics-2.dll" />
     <Content Include="bin\x86\Debug\csfml-system-2.dll" />
     <Content Include="bin\x86\Debug\csfml-window-2.dll" />
-    <Content Include="Sounds\EngineFire.wav">
+    <Content Include="Sounds\Rita\EngineFire.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\explode4.wav">
+    <Content Include="Sounds\Weapons\explode4.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\finalmusic.wav">
+    <Content Include="Sounds\Music\finalmusic.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\FlightControls.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\Fuel800.wav">
+    <Content Include="Sounds\Rita\Fuel800.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\glass3.wav">
@@ -255,7 +255,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="bin\x86\Debug\gun2shot.wav" />
-    <Content Include="Sounds\gun1shot.wav">
+    <Content Include="Sounds\Weapons\gun1shot.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="bin\x86\Debug\gun3shot.wav" />
@@ -263,10 +263,10 @@
     <Content Include="bin\x86\Debug\gun5shot.wav" />
     <Content Include="bin\x86\Debug\Havier Than Air S.exe" />
     <Content Include="bin\x86\Debug\Havier Than Air S.pdb" />
-    <Content Include="Sounds\gun2shot.wav">
+    <Content Include="Sounds\Weapons\gun2shot.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\hw_spindown.wav">
+    <Content Include="Sounds\Engine\hw_spindown.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\hw_spinup.wav">
@@ -276,7 +276,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="bin\x86\Debug\ico1.ico" />
-    <Content Include="Sounds\Level1Music.wav">
+    <Content Include="Sounds\Music\Level1Music.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\mainmenu.png">
@@ -285,7 +285,7 @@
     <Content Include="Images\mainmenu2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\mainmenumusic.wav">
+    <Content Include="Sounds\Music\mainmenumusic.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\MasterWarning.wav">
@@ -297,7 +297,7 @@
     <Content Include="Sounds\metal2.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\mgun_burst3.wav">
+    <Content Include="Sounds\Weapons\mgun_burst3.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\mine_deploy.wav">
@@ -306,10 +306,10 @@
     <Content Include="Sounds\minus.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\MissileMissile.wav">
+    <Content Include="Sounds\Rita\MissileMissile.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\musicotkazsistem.wav">
+    <Content Include="Sounds\Music\musicotkazsistem.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Nrocket_01.png">
@@ -322,28 +322,34 @@
     <Content Include="bin\x86\Debug\OLS.wav" />
     <Content Include="bin\x86\Debug\openal32.dll" />
     <Content Include="bin\x86\Debug\OpenTK.dll" />
-    <Content Include="Sounds\peregruzka.wav">
+    <Content Include="Sounds\Weapons\nrpusto.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Rita\OLS.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Rita\peregruzka.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\pumper.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\pvo1.wav">
+    <Content Include="Sounds\Weapons\pvo1.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\ric_metal-2.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\rocket1.wav">
+    <Content Include="Sounds\Weapons\rocket1.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\rocketflame1.wav">
+    <Content Include="Sounds\Weapons\rocketflame1.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\rotormachine.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\sbrosoboroti.wav">
+    <Content Include="Sounds\Rita\sbrosoboroti.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="bin\x86\Debug\score1back.png" />
@@ -354,10 +360,10 @@
     <Content Include="Images\shilka.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\ShootShoot.wav">
+    <Content Include="Sounds\Rita\ShootShoot.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\signalgear1.wav">
+    <Content Include="Sounds\Rita\signalgear1.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\siren.wav">
@@ -367,7 +373,7 @@
     <Content Include="Sounds\tankidle2.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\topgun3.wav">
+    <Content Include="Sounds\Music\topgun3.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\topol.png">
@@ -397,7 +403,7 @@
     <Content Include="Sounds\zapmachine.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\zapusk2.wav">
+    <Content Include="Sounds\Engine\zapusk2.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Горы1.png">
@@ -487,7 +493,7 @@
     <Content Include="Havier Than Air 1.1\WarningWarning.wav" />
     <Content Include="Havier Than Air 1.1\zapmachine.wav" />
     <Content Include="Havier Than Air 1.1\zapusk2.wav" />
-    <Content Include="Sounds\Fuel500.wav">
+    <Content Include="Sounds\Rita\Fuel500.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

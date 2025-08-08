@@ -38,7 +38,7 @@ namespace Havier_Than_Air_S.Weapon
 
         public Bang(Vector2f pPosition)
         {
-            soundBuffer = new SoundBuffer("Sounds\\explode4.wav");
+            soundBuffer = new SoundBuffer("Sounds\\Weapons\\explode4.wav");
             sound = new Sound(soundBuffer);
             
             

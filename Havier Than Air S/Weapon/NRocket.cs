@@ -30,7 +30,7 @@ namespace Havier_Than_Air_S.Weapon
         Texture rocketTexture;
 
         // Звуки
-        string rocketSound = "Sounds\\rocket1.wav";
+        string rocketSound = "Sounds\\Weapons\\rocket1.wav";
 
         public NRocket()
         {

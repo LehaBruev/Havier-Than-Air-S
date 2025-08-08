@@ -10,16 +10,16 @@ namespace Havier_Than_Air_S
 
     public class Magnitola
     {
-        static string Music3Level = ("Sounds\\airvolfbig.wav"); // Музыка аирвольв
-        static string Level1Music = ("Sounds\\Level1Music.wav"); //Левел 1 музыка
-        static string StoreMusic = ("Sounds\\topgun3.wav"); //Магазинчик
-                                                            //static string mainmenumusic = ("Sounds\\mainmenumusic.wav"); //Вертолет рабочий режим звука
-        static string mainmenumusic = ("Sounds\\airvolfbig.wav"); //Вертолет рабочий режим звука
+        static string Music3Level = ("Sounds\\Music\\airvolfbig.wav"); // Музыка аирвольв
+        static string Level1Music = ("Sounds\\Music\\Level1Music.wav"); //Левел 1 музыка
+        static string StoreMusic = ("Sounds\\Music\\topgun3.wav"); //Магазинчик
+                                                                   //static string mainmenumusic = ("Sounds\\Music\\mainmenumusic.wav"); //Вертолет рабочий режим звука
+        static string mainmenumusic = ("Sounds\\Music\\airvolfbig.wav"); //Вертолет рабочий режим звука
         static string finalmusic = ("Sounds\\finalmusic.wav"); //Вертолет рабочий режим звука
 
         //Муз дорожки
         private Music _Music;
-        Music musicotkazsistem = new Music("Sounds\\musicotkazsistem.wav");
+        Music musicotkazsistem = new Music("Sounds\\Music\\musicotkazsistem.wav");
 
         public void PlayMusic()
         {
