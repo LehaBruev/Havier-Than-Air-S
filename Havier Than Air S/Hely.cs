@@ -121,6 +121,7 @@ namespace Havier_Than_Air_S
 
         public int otkazpojardvig= 0;
 
+
         SoundBuffer ostalos500kg = new SoundBuffer("Fuel500.wav"); // Осталось 500 кг звук
         SoundBuffer ostalos800kg = new SoundBuffer("Fuel800.wav"); // Осталось 800 кг звук
 
