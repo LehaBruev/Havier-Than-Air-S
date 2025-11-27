@@ -14,6 +14,7 @@ namespace Havier_Than_Air_S
     internal class Program
     {
         public static float gameSpeed = 50;
+        public static float helyScale = 0.75f;
         // Режим разработчки
        public static bool TestModeP = false;
        static ContextSettings _Settings = new ContextSettings();

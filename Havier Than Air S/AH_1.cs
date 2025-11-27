@@ -23,7 +23,7 @@ namespace Havier_Than_Air_S
 
 
             textureName = "Images\\AH1_1.png";
-            spriteScale = new Vector2f(0.27f, 0.27f);
+            spriteScale = new Vector2f(0.27f*Program.helyScale, 0.27f* Program.helyScale);
 
             //Позиции деталей 
             spriteOrigin = new Vector2f(500, 0);
@@ -56,21 +56,21 @@ namespace Havier_Than_Air_S
 
 
             //Верхний винт
-            topVintOrigin = new Vector2f(105, 1.25f);
-            topVintSize = new Vector2f(210, 2.5f);
+            topVintOrigin = new Vector2f(105 *Program.helyScale, 1.25f * Program.helyScale);
+            topVintSize = new Vector2f(210 * Program.helyScale, 2.5f * Program.helyScale);
             topRotorColor = new Color(Color.Red);
             topVintSpeed = 1137;
 
             //Задний винт
-            rearVintPositionOrigin = new Vector2f(-130f,12f);
-            rearRotorOrigin = new Vector2f(1.5f, 15f);
-            rearRotorSize = new Vector2f(3f, 30);
+            rearVintPositionOrigin = new Vector2f(-130f*Program.helyScale, 12f* Program.helyScale);
+            rearRotorOrigin = new Vector2f(1.5f * Program.helyScale, 15f * Program.helyScale);
+            rearRotorSize = new Vector2f(3f * Program.helyScale, 30 * Program.helyScale);
             rearRotorColor = new Color(Color.Red);
             rearVintSpeed = 55;
 
             // weapons
-            weaponPositionsOrigins[0] = new Vector2f(0, 22); //Позиция подвесок оружия
-            weaponPositionsOrigins[1] = new Vector2f(46, 44); //Позиция пушки
+            weaponPositionsOrigins[0] = new Vector2f(0 * Program.helyScale, 22 * Program.helyScale); //Позиция подвесок оружия
+            weaponPositionsOrigins[1] = new Vector2f(46 * Program.helyScale, 44 * Program.helyScale); //Позиция пушки
 
             base.SpawnHely();
 

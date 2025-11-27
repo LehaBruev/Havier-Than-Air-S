@@ -134,8 +134,6 @@
     <Compile Include="Missions\MissionTest.cs" />
     <Compile Include="Mountains.cs" />
     <Compile Include="MouseController.cs" />
-    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
-    <Compile Include="obj\x64\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="PlanetSettings.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Pogoda.cs" />
