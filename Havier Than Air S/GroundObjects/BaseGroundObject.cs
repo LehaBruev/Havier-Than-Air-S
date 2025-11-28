@@ -14,8 +14,8 @@ namespace Havier_Than_Air_S.GroundObjects
         public Vector2f position;
 
         // Коллайдеры столкновения
-        public ConvexShape[] MountColliders;
-        public Marker mark_1;
+        public ConvexShape[] m_Colliders;
+        public Marker[] m_Markers;
 
         public BaseGroundObject() 
         {
@@ -26,7 +26,10 @@ namespace Havier_Than_Air_S.GroundObjects
         
         }
 
+        public virtual void Update()
+        {
 
+        }
 
 
 

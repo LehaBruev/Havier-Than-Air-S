@@ -184,6 +184,12 @@
     <Content Include="Images\aim.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\BackGroundLevel1 - Копировать %282%29.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BackGroundLevel1 - Копировать.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Ground_Back_01.png" />
     <Content Include="Images\score.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

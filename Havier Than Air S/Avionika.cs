@@ -175,7 +175,7 @@ namespace Havier_Than_Air_S
                 {
                     mouseIsPressed = true;
                     mousPoint1 = Program.m_MouseController.currentMousePoint;
-                    /*
+                    //Глобальная позиция окне программы для конвексШейп
                     Program.log.WriteXY("colliderConvexShape.SetPoint(" + 
                                         lognum + 
                                         ", new Vector2f(" + 
@@ -183,7 +183,10 @@ namespace Havier_Than_Air_S
                                         " , " + 
                                         Mouse.GetPosition(Program.window).Y + 
                                         " ));");
-                    */
+                    
+
+                    /*
+                     //Привязка к ротору вертолета
                     Program.log.WriteXY("colliderConvexShape.SetPoint(" +
                                        lognum +
                                        ", new Vector2f(" +
@@ -191,7 +194,7 @@ namespace Havier_Than_Air_S
                                        " , " +
                                        (Mouse.GetPosition(Program.window).Y - hely.positionOfHely.Y + Program.offset.Y - Program.vMode.Height / 2) +
                                        " ));");
-
+                    */
 
 
                     lognum += 1;

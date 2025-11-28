@@ -1,4 +1,5 @@
 ﻿using Havier_Than_Air_S.Enemies;
+using Havier_Than_Air_S.GroundObjects;
 using Havier_Than_Air_S.Weapon;
 using SFML.Graphics;
 using SFML.System;
@@ -13,14 +14,15 @@ namespace Havier_Than_Air_S.Missions
 {
     public class MissionTest : MissionBase
     {
-        
 
         Texture background = new Texture("Images\\BackGroundLevel3.png");
+        Texture background_01 = new Texture("Images\\BackGroundLevel1 - Копировать.png");
         Texture paralax = new Texture("Images\\Горы1.png");
         Sprite backgroundSprite;
         Sprite paralaxSprite;
         Sprite paralaxSprite2;
         Sprite paralaxSprite3;
+        Sprite background_01_Sprite;
 
         Clock clock;
 
@@ -57,9 +59,17 @@ namespace Havier_Than_Air_S.Missions
         //Mountains
         Mountains mounts;
 
+
+        //GroundObjects
+        BaseGroundObject[] gorundObjects;
+
+
         public MissionTest()
         {
             mounts = new Mountains();
+            gorundObjects = new BaseGroundObject[1];
+            gorundObjects[0] = new Ground_01();
+
 
             backgroundSprite = new Sprite(background);
             backgroundSprite.Scale = new Vector2f(1.6f, 1.6f);
@@ -77,12 +87,15 @@ namespace Havier_Than_Air_S.Missions
             paralaxSprite3.Scale = new Vector2f(3.5f, 3.5f);
             paralaxSprite3.Position = new Vector2f(300, 150);
 
-
+            background_01_Sprite = new Sprite(background_01);
+            background_01_Sprite.Scale = new Vector2f(2f, 2f);
+            background_01_Sprite.Position = new Vector2f(-500,260);
 
             rand = new Random();
 
             
             clock = new Clock();
+
             
 
             /*
@@ -151,6 +164,8 @@ namespace Havier_Than_Air_S.Missions
         {
             backgroundSprite.Position = Program.offset - new Vector2f(Program.vMode.Width/2, Program.vMode.Height / 2);
             Program.window.Draw(backgroundSprite);
+            Program.window.Draw(background_01_Sprite);
+
 
             float n = Program.offset.X / paralaxSprite.GetLocalBounds().Width;
 
@@ -192,9 +207,12 @@ namespace Havier_Than_Air_S.Missions
             }
             */
             Program.window.Draw(paralaxSprite3);
+            Program.window.Draw(background_01_Sprite);
 
             mounts.Update();
+            gorundObjects[0].Update();
 
+            
 
             //collisions
             for (int i = 0; i < mounts.MountColliders.Length; i++)
