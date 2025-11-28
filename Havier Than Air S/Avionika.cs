@@ -1,17 +1,26 @@
-﻿using System;
+﻿using Havier_Than_Air_S;
+using SFML.Graphics;
+using SFML.System;
+using SFML.Window;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
 
 namespace Havier_Than_Air_S
 {
     internal class Avionika
     {
+
+        //мышка тест
+        int lognum = 0;
+        private Vector2f mousPoint1;
+        private Vector2f mousPoint2;
+        private bool mouseIsPressed;
+
+
         private Hely hely;
         Vector2f origin = new Vector2f(0,0);
         Vector2f panel1Posi = new Vector2f(10,10);
@@ -100,6 +109,9 @@ namespace Havier_Than_Air_S
 
                 PricelDraw();
                 UpdateInertia();
+
+                //Запись точек в файл
+                UpdateMouse();
             }            
         }
 
@@ -145,14 +157,57 @@ namespace Havier_Than_Air_S
                      new Vector2f(22, 32), Color.Green, 3);
             DrawText("X: " + Mouse.GetPosition().X + " Y: " + Mouse.GetPosition().Y, new Vector2f(22, 49), Color.Green, 3);
             DrawText("msW X: " + Mouse.GetPosition(Program.window).X + " Y: " + Mouse.GetPosition(Program.window).Y, new Vector2f(22, 66), Color.Yellow, 3);
-            DrawText("X: " + (Mouse.GetPosition(Program.window).X - hely.positionOfHely.X + Program.offset.X - Program.vMode.Width / 2) +
+             // Положение относительно ротора (для коллайдеров и прочего)
+            DrawText("colliders X: " + (Mouse.GetPosition(Program.window).X - hely.positionOfHely.X + Program.offset.X - Program.vMode.Width / 2) +
                 " Y: " + (Mouse.GetPosition(Program.window).Y - hely.positionOfHely.Y + Program.offset.Y - Program.vMode.Height / 2), new Vector2f(22, 83), Color.White, 3);
             DrawText("offset X: " + Program.offset.X + " Y: " + Program.offset.Y, new Vector2f(22, 130), Color.Green, 3);
 
 
         }
 
-        public void Panel4Check()
+        private void UpdateMouse()
+        {
+            if (Program.m_MouseController.LeftButton == true)
+            {
+
+               
+                if (mouseIsPressed == false)
+                {
+                    mouseIsPressed = true;
+                    mousPoint1 = Program.m_MouseController.currentMousePoint;
+                    /*
+                    Program.log.WriteXY("colliderConvexShape.SetPoint(" + 
+                                        lognum + 
+                                        ", new Vector2f(" + 
+                                        Mouse.GetPosition(Program.window).X + 
+                                        " , " + 
+                                        Mouse.GetPosition(Program.window).Y + 
+                                        " ));");
+                    */
+                    Program.log.WriteXY("colliderConvexShape.SetPoint(" +
+                                       lognum +
+                                       ", new Vector2f(" +
+                                       (Mouse.GetPosition(Program.window).X - hely.positionOfHely.X + Program.offset.X - Program.vMode.Width / 2) +
+                                       " , " +
+                                       (Mouse.GetPosition(Program.window).Y - hely.positionOfHely.Y + Program.offset.Y - Program.vMode.Height / 2) +
+                                       " ));");
+
+
+
+                    lognum += 1;
+                }
+            }
+            else if (mouseIsPressed == true)
+            {
+                mouseIsPressed = false;// по одному
+                mousPoint2 = Program.m_MouseController.currentMousePoint;
+                mousPoint1 = Program.m_MouseController.currentMousePoint;
+            }
+        }
+
+
+
+public void Panel4Check()
         {
             
             DrawText("RPM: " + (int)hely.RPM, new Vector2f(22, 15), Color.Green, 4);
@@ -271,6 +326,7 @@ namespace Havier_Than_Air_S
 
         }
 
+
         Vertex inertiavector = new Vertex();
         Color vColor = Color.Green;
         private void UpdateInertia()
@@ -303,12 +359,14 @@ namespace Havier_Than_Air_S
             inertiavector.Color = Color.Yellow;
             inertiavector.Position = new Vector2f(hely.position.X, hely.position.Y);
             */
+
+            // Размер объекта
             float scaleOfLine = 10;
-            float longOfVehicle = 21.3f;
+            float longOfVehicle = 13.59f*Program.helyScale;
             Vertex[] linScale = new Vertex[]
             {
-               new Vertex(new Vector2f(hely.positionOfHely.X-longOfVehicle/2*scaleOfLine-35, hely.positionOfHely.Y-15)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+ longOfVehicle/2*scaleOfLine, hely.positionOfHely.Y-15 ),Color.Yellow)
+               new Vertex(new Vector2f(hely.positionOfHely.X-longOfVehicle/2*scaleOfLine-20, hely.positionOfHely.Y-15)),
+               new Vertex(new Vector2f(hely.positionOfHely.X+ longOfVehicle/2*scaleOfLine-20, hely.positionOfHely.Y-15 ),Color.Yellow)
             };
             Program.window.Draw(linScale, PrimitiveType.Lines);
 

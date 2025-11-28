@@ -19,7 +19,8 @@ namespace Havier_Than_Air_S
         Texture uh61;
         Texture aiming;
 
-       
+        //Текстуры Ground
+        Texture ground_01;
 
        
 

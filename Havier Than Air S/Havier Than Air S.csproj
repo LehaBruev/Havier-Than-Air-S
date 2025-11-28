@@ -115,6 +115,8 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Gita.cs" />
+    <Compile Include="GroundObjects\BaseGroundObject.cs" />
+    <Compile Include="GroundObjects\Ground_01.cs" />
     <Compile Include="Hely.cs" />
     <Compile Include="HelyControl.cs" />
     <Compile Include="IMoovable.cs" />
@@ -182,6 +184,7 @@
     <Content Include="Images\aim.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Ground_Back_01.png" />
     <Content Include="Images\score.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

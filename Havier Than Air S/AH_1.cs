@@ -10,7 +10,7 @@ namespace Havier_Than_Air_S
 {
     public class AH_1 : Hely
     {
-
+        //длинна 13.59
         Marker marker;
 
         public AH_1()
@@ -18,12 +18,18 @@ namespace Havier_Than_Air_S
 
         }
 
+
+
         protected override void SpawnHely()
         {
 
 
             textureName = "Images\\AH1_1.png";
-            spriteScale = new Vector2f(0.27f*Program.helyScale, 0.27f* Program.helyScale);
+            scaleMasterSize =  0.67f;
+            scaleMasterSize = scaleMasterSize * Program.helyScale;
+            spriteScale = new Vector2f(0.27f, 0.27f)* scaleMasterSize;
+
+
 
             //Позиции деталей 
             spriteOrigin = new Vector2f(500, 0);
@@ -56,26 +62,28 @@ namespace Havier_Than_Air_S
 
 
             //Верхний винт
-            topVintOrigin = new Vector2f(105 *Program.helyScale, 1.25f * Program.helyScale);
-            topVintSize = new Vector2f(210 * Program.helyScale, 2.5f * Program.helyScale);
+            topVintOrigin = new Vector2f(105, 1.25f ) * scaleMasterSize;
+            topVintSize = new Vector2f(210, 2.5f) * scaleMasterSize;
             topRotorColor = new Color(Color.Red);
             topVintSpeed = 1137;
 
             //Задний винт
-            rearVintPositionOrigin = new Vector2f(-130f*Program.helyScale, 12f* Program.helyScale);
-            rearRotorOrigin = new Vector2f(1.5f * Program.helyScale, 15f * Program.helyScale);
-            rearRotorSize = new Vector2f(3f * Program.helyScale, 30 * Program.helyScale);
+            rearVintPositionOrigin = new Vector2f(-130f, 12f) * scaleMasterSize;
+            rearRotorOrigin = new Vector2f(1.5f, 15f) * scaleMasterSize;
+            rearRotorSize = new Vector2f(3f, 30) * scaleMasterSize;
             rearRotorColor = new Color(Color.Red);
             rearVintSpeed = 55;
 
             // weapons
-            weaponPositionsOrigins[0] = new Vector2f(0 * Program.helyScale, 22 * Program.helyScale); //Позиция подвесок оружия
-            weaponPositionsOrigins[1] = new Vector2f(46 * Program.helyScale, 44 * Program.helyScale); //Позиция пушки
+            weaponPositionsOrigins[0] = new Vector2f(0 , 22 ) * scaleMasterSize; //Позиция подвесок оружия
+            weaponPositionsOrigins[1] = new Vector2f(46, 44) * scaleMasterSize; //Позиция пушки
 
             base.SpawnHely();
 
             //Коллайдер
-            colliderConvexShape = new ConvexShape(8);
+            
+            colliderConvexShape = new ConvexShape(15);
+            /*
             colliderConvexShape.SetPoint(0, new Vector2f(-98, 5));
             colliderConvexShape.SetPoint(1, new Vector2f(-72, 14));
             colliderConvexShape.SetPoint(2, new Vector2f(-24, 14));
@@ -84,6 +92,27 @@ namespace Havier_Than_Air_S
             colliderConvexShape.SetPoint(5, new Vector2f(50, 36));
             colliderConvexShape.SetPoint(6, new Vector2f(-13, 34));
             colliderConvexShape.SetPoint(7, new Vector2f(-79, 23));
+            */
+            colliderConvexShape.SetPoint(0, new Vector2f(-130, 10));
+            colliderConvexShape.SetPoint(1, new Vector2f(-111, 24));
+            colliderConvexShape.SetPoint(2, new Vector2f(-54, 26));
+            colliderConvexShape.SetPoint(3, new Vector2f(-30, 7));
+            colliderConvexShape.SetPoint(4, new Vector2f(9, 8));
+            colliderConvexShape.SetPoint(5, new Vector2f(63, 28));
+            colliderConvexShape.SetPoint(6, new Vector2f(62, 38));
+            colliderConvexShape.SetPoint(7, new Vector2f(41, 47));
+            colliderConvexShape.SetPoint(8, new Vector2f(26, 51));
+            colliderConvexShape.SetPoint(9, new Vector2f(-17, 51));
+            colliderConvexShape.SetPoint(10, new Vector2f(-17, 45));
+            colliderConvexShape.SetPoint(11, new Vector2f(-119, 36));
+            colliderConvexShape.SetPoint(12, new Vector2f(-131, 38));
+            colliderConvexShape.SetPoint(13, new Vector2f(-126, 30));
+            colliderConvexShape.SetPoint(14, new Vector2f(-134, 17));
+
+            for (int i=0; i< colliderConvexShape.GetPointCount(); i++)
+            {
+                colliderConvexShape.SetPoint((uint)i,colliderConvexShape.GetPoint((uint)i)* scaleMasterSize);
+            }
             //collider.SetPoint(4, new Vector2f(63, 30));
             //collider.SetPoint(5, new Vector2f(-80, 28));
 
@@ -106,7 +135,7 @@ namespace Havier_Than_Air_S
         {
             base.Update();
 
-            //marker.Update();
+            marker.Update();
             //Program.window.Draw(collider);
 
         }

@@ -56,6 +56,7 @@ namespace Havier_Than_Air_S
 
             weaponPositionsOrigins[0] = new Vector2f(-5, 20); //Позиция подвесок оружия
 
+           
             base.SpawnHely();
 
             //Верхний винт

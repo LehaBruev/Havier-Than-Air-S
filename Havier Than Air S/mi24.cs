@@ -10,7 +10,7 @@ namespace Havier_Than_Air_S
 {
     public class mi24: Hely
     {
-
+        //Длинна 21.35
         Marker marker;
 
       

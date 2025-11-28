@@ -13,7 +13,7 @@ namespace Havier_Than_Air_S.Missions
 {
     public class MissionTest : MissionBase
     {
-        MouseController mouseController;
+        
 
         Texture background = new Texture("Images\\BackGroundLevel3.png");
         Texture paralax = new Texture("Images\\Горы1.png");
@@ -80,8 +80,8 @@ namespace Havier_Than_Air_S.Missions
 
 
             rand = new Random();
+
             
-            mouseController = Program.m_MouseController;
             clock = new Clock();
             
 
@@ -146,7 +146,7 @@ namespace Havier_Than_Air_S.Missions
             */
         }
 
-        int lognum = 0;
+        
         public void Update()
         {
             backgroundSprite.Position = Program.offset - new Vector2f(Program.vMode.Width/2, Program.vMode.Height / 2);
@@ -165,37 +165,22 @@ namespace Havier_Than_Air_S.Missions
 
            
             
-
-
             
 
-            if (mouseController == null)
-            {
-                mouseController = Program.m_MouseController;
-            }
-
-            
-
-            if (mouseController.LeftButton == true)
+            if (Program.m_MouseController.LeftButton == true)
             {
 
                 if (m_Hely!=null) SpawnRocket();
                 //Program.m_PullObjects.StartObject(mouseController.currentMousePoint, 0, new Vector2f(0,0), TypeOfObject.bang);
 
-                if (mouseIsPressed == false)
-                {
-                    mouseIsPressed = true;
-                    mousPoint1 = mouseController.currentMousePoint;
-                    //Program.log.WriteXY("mount1.SetPoint(0" + lognum + ", new Vector2f(" + Mouse.GetPosition(Program.window).X + " , " + Mouse.GetPosition(Program.window).Y + " ));");
-                    lognum += 1;
-                }
+               
             }
             else if (mouseIsPressed == true)
             {
                 mouseIsPressed = false;// по одному
-                mousPoint2 = mouseController.currentMousePoint;
+                mousPoint2 = Program.m_MouseController.currentMousePoint;
                 //SpawnRocket();
-                mousPoint1 = mouseController.currentMousePoint;
+                mousPoint1 = Program.m_MouseController.currentMousePoint;
             }
             // if (tank!=null) tank.Update();
 

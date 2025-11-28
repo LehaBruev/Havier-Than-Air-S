@@ -14,7 +14,7 @@ namespace Havier_Than_Air_S
     internal class Program
     {
         public static float gameSpeed = 50;
-        public static float helyScale = 0.75f;
+        public static float helyScale = 1f;
         // Режим разработчки
        public static bool TestModeP = false;
        static ContextSettings _Settings = new ContextSettings();
@@ -31,6 +31,7 @@ namespace Havier_Than_Air_S
        public static MouseController m_MouseController = new MouseController();
        public static SoundManager soundManager = new SoundManager();
        public static Magnitola mMagnitola = new Magnitola();
+        public static TextureManager m_TextureManager = new TextureManager();
 
         // Вывод изображения
 

@@ -25,10 +25,10 @@ namespace Havier_Than_Air_S
         // Коллайдер для активации второй текстуры
         public ConvexShape ColliderActivation;
 
-
         // Коллайдеры столкновения
         public ConvexShape[] MountColliders;
         Marker mark_1;
+
 
 
         public Mountains()

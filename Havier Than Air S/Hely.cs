@@ -25,7 +25,7 @@ namespace Havier_Than_Air_S
     {
 
         #region Параметры_Heli
-
+        
         // Картинка верталета
         
         protected Texture heliTexture;
@@ -63,7 +63,7 @@ namespace Havier_Than_Air_S
         #endregion
 
         #region переменные
-
+        
         //Переменные hely
         public float helylifeCurrent;// жизни
         public float altitude = 0; // высота
@@ -142,6 +142,7 @@ namespace Havier_Than_Air_S
         #region Testirovanie
         //Точка крепления ротора
         CircleShape CircleShapeRotorPoint;
+        protected float scaleMasterSize = 1.0f;
 
 
         #endregion
@@ -238,32 +239,43 @@ namespace Havier_Than_Air_S
             CircleShapeRotorPoint.FillColor = new Color(Color.Yellow);
             CircleShapeRotorPoint.Origin = new Vector2f(2, 2);
 
-            //Оружие
-            m_Weapons = new WeaponBase[] { new GunLauncher(1000, this, TypeOfObject.gun,1),
-                                           new RocketNRLauncher(250, this, TypeOfObject.nr,0), 
-                                           new RocketSNRLauncher(250, this, TypeOfObject.sr,0)};
 
-            //Коллайдер
-            colliderConvexShape = new ConvexShape(10);
-            colliderConvexShape.SetPoint(0, new Vector2f(-27, 5));
-            colliderConvexShape.SetPoint(1, new Vector2f(-23, 15));
-            colliderConvexShape.SetPoint(2, new Vector2f(10, 15));
-            colliderConvexShape.SetPoint(3, new Vector2f(15,10));
-            colliderConvexShape.SetPoint(4, new Vector2f(55,10));
-            colliderConvexShape.SetPoint(5, new Vector2f(66,15));
-            colliderConvexShape.SetPoint(6, new Vector2f(60,30));
-            colliderConvexShape.SetPoint(7, new Vector2f(5,30));
-            colliderConvexShape.SetPoint(8, new Vector2f(0,25));
-            colliderConvexShape.SetPoint(9, new Vector2f(-23,20));
-            colliderConvexShape.FillColor = Color.Yellow;
-            colliderConvexShape.Origin = colliderOrigin;
-
-
+            WeaponsInit();
+            SpawnColliders();
             SpawnRotors();
             SpawnSounds();
             
 
         }
+
+        private void WeaponsInit()
+        {
+            //Оружие
+            m_Weapons = new WeaponBase[] { new GunLauncher(1000, this, TypeOfObject.gun,1),
+                                           new RocketNRLauncher(250, this, TypeOfObject.nr,0),
+                                           new RocketSNRLauncher(250, this, TypeOfObject.sr,0)};
+
+
+        }
+
+        private void SpawnColliders()
+        {
+            //Коллайдер
+            colliderConvexShape = new ConvexShape(10);
+            colliderConvexShape.SetPoint(0, new Vector2f(-27, 5));
+            colliderConvexShape.SetPoint(1, new Vector2f(-23, 15));
+            colliderConvexShape.SetPoint(2, new Vector2f(10, 15));
+            colliderConvexShape.SetPoint(3, new Vector2f(15, 10));
+            colliderConvexShape.SetPoint(4, new Vector2f(55, 10));
+            colliderConvexShape.SetPoint(5, new Vector2f(66, 15));
+            colliderConvexShape.SetPoint(6, new Vector2f(60, 30));
+            colliderConvexShape.SetPoint(7, new Vector2f(5, 30));
+            colliderConvexShape.SetPoint(8, new Vector2f(0, 25));
+            colliderConvexShape.SetPoint(9, new Vector2f(-23, 20));
+            colliderConvexShape.FillColor = Color.Yellow;
+            colliderConvexShape.Origin = colliderOrigin;
+        }
+
 
         private void SpawnSounds()
         {
