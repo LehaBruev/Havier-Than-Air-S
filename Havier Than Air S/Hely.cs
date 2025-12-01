@@ -43,7 +43,7 @@ namespace Havier_Than_Air_S
         protected float maxspeedhor = 50;
         protected float maxspeedvert = 300;
         protected float maxheigh = 575; // потолок полета
-        protected float speedxmax = 4.5f;
+        protected Vector2f speedxmax = new Vector2f(4.5f,2);
         protected float Weight = 1000; // вес машины
         protected float bladesEffectiveness = 3f; // эффективность лопастей
 
@@ -70,7 +70,7 @@ namespace Havier_Than_Air_S
         public float helifuelCurrent; // тек топливо
         int bang1 = 0;
         protected float currentWeight = 1; // текущий вес машины
-        public Vector2f positionOfHely = new Vector2f(50,700); // позиция в пространстве
+        public Vector2f positionOfHely = new Vector2f(50,500); // позиция в пространстве
         public Vector2f speed = new Vector2f(0,0); // скорость
         
         int helidestroy = 0; // верталет разрушен
@@ -216,8 +216,8 @@ namespace Havier_Than_Air_S
             //Начальные настройки верталета
             
             engineswitch = 0;
-            RPM = 0;
-            helistop = 1;
+            RPM = 30000;
+            helistop = 0;
             helifuelCurrent = helifuelmax;
             helylifeCurrent = helilifemax;
         }
@@ -343,7 +343,7 @@ namespace Havier_Than_Air_S
 
         }
 
-        private void FliapUpdate()
+        private void FlipUpdate()
         {
 
 
@@ -378,11 +378,11 @@ namespace Havier_Than_Air_S
         {
             if (groundClock.ElapsedTime.AsSeconds()>0.3)
             {
-                tGround = ground;
+                //tGround = ground;
                 inGround = false;
             }
 
-            FliapUpdate();
+            FlipUpdate();
 
             AngleCheck();
             CheckRUD();
@@ -566,10 +566,13 @@ namespace Havier_Than_Air_S
             boost.Y = (powerRTR.Y - gravityPower)/currentWeight* bladesEffectiveness*Program.m_Pogoda.GetCurrentAirP(altitude);
 
             speed.Y = boost.Y; // вертикальная скорость
-           
+            if (speed.Y > speedxmax.Y) speed.Y = speedxmax.Y;
+            if (speed.Y < -speedxmax.Y) speed.Y = -speedxmax.Y;
+
+
             positionOfHely.Y = (positionOfHely.Y - speed.Y * Program.deltaTimer.Delta() * Program.gameSpeed);
             
-            if (positionOfHely.Y > 770) positionOfHely.Y = 770;
+           // if (positionOfHely.Y > 770) positionOfHely.Y = 770;
             if (positionOfHely.Y < 50) 
                 positionOfHely.Y = 50;
 
@@ -582,8 +585,8 @@ namespace Havier_Than_Air_S
             // Расчет ГОРИЗОНТАЛЬНОГО ПОЛЕТА угол атаки
             speed.X = speed.X + powerRTR.X *Math.Sign(angle) * Program.deltaTimer.Delta()/(Weight/inertia)*
                 bladesEffectiveness * Program.m_Pogoda.GetCurrentAirP(altitude); // ФОРМУЛА РАСЧЕТА ГОРИЗОНТАЛЬНОЙ СКОРОСТИ (ПОМЕНЯТЬ)
-            if (speed.X > speedxmax) speed.X = speedxmax;
-            if (speed.X < -speedxmax) speed.X = -speedxmax;
+            if (speed.X > speedxmax.X) speed.X = speedxmax.X;
+            if (speed.X < -speedxmax.X) speed.X = -speedxmax.X;
 
             positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta()*Program.gameSpeed; //wind
 
@@ -591,7 +594,7 @@ namespace Havier_Than_Air_S
         }
 
         bool inGround = false;
-        float tGround = 750;
+        //float tGround  = 750;
         Clock groundClock = new Clock();
 
         private void groundDamage()
@@ -599,16 +602,17 @@ namespace Havier_Than_Air_S
             groundClock.Restart();
             if ( inGround == false)
             {
-                tGround = positionOfHely.Y;
+                //tGround = positionOfHely.Y;
                 inGround = true;
             }
+            /*
             //ЗЕМЛЯ столкновение
              if (positionOfHely.Y >= tGround)
              {
                positionOfHely.Y = tGround;
 
              }
-
+            */
             
             speed.X = 0;
           //      boost.Y = 0;

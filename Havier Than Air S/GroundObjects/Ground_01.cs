@@ -13,6 +13,8 @@ namespace Havier_Than_Air_S.GroundObjects
 
        public  Ground_01()
        {
+            position = new Vector2f(0, 0);
+
             m_Colliders = new ConvexShape[1];
 
             m_Colliders[0] = new ConvexShape();
@@ -38,7 +40,7 @@ namespace Havier_Than_Air_S.GroundObjects
             colliderConvexShape.SetPoint(14, new Vector2f(541, 790));
 
 
-            colliderConvexShape.Position = new Vector2f(-450,-30);
+            colliderConvexShape.Position = new Vector2f(-750,-30);
 
             m_Markers = new Marker[1];
             m_Markers[0] = new Marker(colliderConvexShape, Color.Blue, 5);

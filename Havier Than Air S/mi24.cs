@@ -35,7 +35,7 @@ namespace Havier_Than_Air_S
             maxspeedhor = 240;
             maxspeedvert = 200;
             maxheigh = 400; // потолок полета
-            speedxmax = 6.5f;
+            speedxmax = new Vector2f(6.5f,2);
             Weight = 2500;
 
 

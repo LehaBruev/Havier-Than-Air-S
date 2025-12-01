@@ -21,7 +21,7 @@ namespace Havier_Than_Air_S
 
         //Текстуры Ground
         Texture ground_01;
-
+        public Texture MountainTexture_01;
        
 
         private GameMode _gameMode;
@@ -34,6 +34,9 @@ namespace Havier_Than_Air_S
             _gameMode = GameMode.MainMenu;
              backgroundLevel1 = new Texture("Images\\BackGroundLevel1.png");
              backgroundLevel3 = new Texture("Images\\BackGroundLevel3.png");
+
+            //Наземные текстуры
+            MountainTexture_01 = new Texture("Images\\Пещера_01.jpg");
 
            // BackgroundSprite = new Sprite();
 

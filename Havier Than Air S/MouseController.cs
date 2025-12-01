@@ -59,12 +59,6 @@ namespace Havier_Than_Air_S
 
 
 
-            if(LeftButton)
-            {
-                
-               // Console.WriteLine(Program.deltaTimer.Delta());
-            }
-
         }
 
         public bool CheckKeyboardKey(Keyboard.Key key)

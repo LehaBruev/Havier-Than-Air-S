@@ -52,9 +52,17 @@ namespace Havier_Than_Air_S
         Vector2f scaleVector = new Vector2f();
 
 
+        // Конвекс для отрисовки онлайн
+        uint numOfPoints = 0;
+        Vector2f[] pointsOfShape;
+        ConvexShape colliderConvexShape;
+
         public Avionika()
         {
-            
+            colliderConvexShape = new ConvexShape();
+            colliderConvexShape.OutlineColor = Color.Yellow;
+            colliderConvexShape.FillColor = new Color(255,255,255,100);
+
             font = new Font("comic.ttf");
             avionikaTexture = new Texture(imageAll, new IntRect(new Vector2i(140, 679), new Vector2i(158, 131)));
             panelAvionikaSprite = new Sprite(avionikaTexture);
@@ -100,6 +108,7 @@ namespace Havier_Than_Air_S
                 Program.window.Draw(panelAvionikaSprite2);
                 Program.window.Draw(panelAvionikaSprite3);
                 Program.window.Draw(panelAvionikaSprite4);
+                Program.window.Draw(colliderConvexShape);
 
                 
                 Panel1Check();
@@ -165,6 +174,39 @@ namespace Havier_Than_Air_S
 
         }
 
+     
+
+        private void AddPointToConvex()
+        {
+            numOfPoints = colliderConvexShape.GetPointCount();
+            pointsOfShape = new Vector2f[numOfPoints];
+
+            for (uint i = 0; i < numOfPoints; i++)
+            {
+                pointsOfShape[i] = colliderConvexShape.GetPoint(i);
+
+            }
+
+            numOfPoints = numOfPoints + 1;
+
+
+            colliderConvexShape = new ConvexShape(numOfPoints);
+            for (uint i = 0; i < numOfPoints-1; i++)
+            {
+                colliderConvexShape.SetPoint(i, pointsOfShape[i]); 
+
+            }
+
+            Vector2f Newpoint = new Vector2f(Mouse.GetPosition(Program.window).X- Program.vMode.Width / 2 + Program.offset.X,
+                                             Mouse.GetPosition(Program.window).Y);
+
+            colliderConvexShape.SetPoint(numOfPoints - 1, Newpoint);
+
+
+        }
+
+
+
         private void UpdateMouse()
         {
             if (Program.m_MouseController.LeftButton == true)
@@ -175,15 +217,19 @@ namespace Havier_Than_Air_S
                 {
                     mouseIsPressed = true;
                     mousPoint1 = Program.m_MouseController.currentMousePoint;
+                    AddPointToConvex(); // Прорисовка новой фигуры
+
+                    /*
                     //Глобальная позиция окне программы для конвексШейп
                     Program.log.WriteXY("colliderConvexShape.SetPoint(" + 
                                         lognum + 
-                                        ", new Vector2f(" + 
+                                        ", new Vector2f(" +
                                         Mouse.GetPosition(Program.window).X + 
                                         " , " + 
                                         Mouse.GetPosition(Program.window).Y + 
                                         " ));");
                     
+                    */
 
                     /*
                      //Привязка к ротору вертолета
@@ -195,6 +241,17 @@ namespace Havier_Than_Air_S
                                        (Mouse.GetPosition(Program.window).Y - hely.positionOfHely.Y + Program.offset.Y - Program.vMode.Height / 2) +
                                        " ));");
                     */
+                    
+                    //Привязка к глобальной точке НАЖМИ F2
+                   Program.log.WriteXY("MountShape1.SetPoint(" +
+                                      lognum +
+                                      ", new Vector2f(" +
+                                      (int)(Mouse.GetPosition(Program.window).X + Program.offset.X - Program.vMode.Width / 2 - 850) +
+                                      " , " +
+                                      (Mouse.GetPosition(Program.window).Y) +
+                                      " ));");
+                   
+
 
 
                     lognum += 1;
