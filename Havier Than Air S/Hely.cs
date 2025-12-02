@@ -190,10 +190,13 @@ namespace Havier_Than_Air_S
         #region Colliders
         protected Vector2f colliderOrigin = new Vector2f(0, 0);
         public ConvexShape colliderConvexShape;
-
+        List<ConvexShape> ShapesCollisionsWithHelyPrevious;
+        public List<Shape> BlockListOfShapes;
+        public Dictionary<Shape, float> DicShapesInCollidingPrev;
+        public Dictionary<Shape, float> DicShapesInCollidingReal;
         #endregion
 
-       
+
 
         float ratioenginespeed = 1; //Пожар двигателя
         //Данные для учета столкновения с землей
@@ -207,7 +210,12 @@ namespace Havier_Than_Air_S
 
         public Hely()
         {
-            
+            //Коллайдеры гор для столкновения
+
+            BlockListOfShapes = new List<Shape>();
+            DicShapesInCollidingPrev = new Dictionary<Shape, float>();
+            DicShapesInCollidingReal = new Dictionary<Shape, float>();
+
             SpawnHely();
             SpawnEngineSound();
             Program.m_Avionika.SetHely(this);
@@ -543,6 +551,9 @@ namespace Havier_Than_Air_S
 
         void PlayerMove() // коэффициент живучести двигателя
         {
+            //Учитывать эти столкновения
+            ColliderPhisicsCompensation();
+
             // Текущий вес
             currentWeight = Weight + helifuelCurrent*fuelWeight;
 
@@ -575,13 +586,13 @@ namespace Havier_Than_Air_S
            // if (positionOfHely.Y > 770) positionOfHely.Y = 770;
             if (positionOfHely.Y < 50) 
                 positionOfHely.Y = 50;
-
-            if (positionOfHely.Y >= ground)
+            /*
+            if (positionOfHely.Y >= grodund)
             {
                 groundDamage();
 
             }
-
+            */
             // Расчет ГОРИЗОНТАЛЬНОГО ПОЛЕТА угол атаки
             speed.X = speed.X + powerRTR.X *Math.Sign(angle) * Program.deltaTimer.Delta()/(Weight/inertia)*
                 bladesEffectiveness * Program.m_Pogoda.GetCurrentAirP(altitude); // ФОРМУЛА РАСЧЕТА ГОРИЗОНТАЛЬНОЙ СКОРОСТИ (ПОМЕНЯТЬ)
@@ -590,8 +601,62 @@ namespace Havier_Than_Air_S
 
             positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta()*Program.gameSpeed; //wind
 
+            
+
+
             helySprite.Position = positionOfHely;
         }
+
+      
+
+        private void ColliderPhisicsCompensation()
+        {
+            
+
+            foreach (var previous in DicShapesInCollidingPrev)
+            {
+                foreach (var real in DicShapesInCollidingReal)
+                {
+                    //Если совпало
+                    if(previous.Key==real.Key)
+                    {
+                        //если дистанция сократилась
+                        if (previous.Value > real.Value)
+                        {
+                            BlockListOfShapes.Add(real.Key);
+
+                        }
+                    }
+
+                    bool removeInBlackList = true;
+                    foreach (var blocked in BlockListOfShapes)
+                    {
+                        if (blocked== real.Key)
+                        {
+                            removeInBlackList = false;
+                        }
+
+                    }
+                    if (removeInBlackList)
+                    {
+                        BlockListOfShapes.Remove(real.Key);
+
+                    }
+
+                }
+
+            }
+
+            DicShapesInCollidingPrev = DicShapesInCollidingReal;
+
+
+
+
+
+        }
+
+
+
 
         bool inGround = false;
         //float tGround  = 750;

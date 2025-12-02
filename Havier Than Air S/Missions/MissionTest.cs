@@ -96,7 +96,7 @@ namespace Havier_Than_Air_S.Missions
             
             clock = new Clock();
 
-            
+
 
             /*
             housesPositions = new Vector2f[]
@@ -112,6 +112,9 @@ namespace Havier_Than_Air_S.Missions
             };
             */
             //tank = new Tnk1();
+
+            
+            
 
         }
 
@@ -159,6 +162,8 @@ namespace Havier_Than_Air_S.Missions
             */
         }
 
+
+        
         
         public void Update()
         {
@@ -212,15 +217,30 @@ namespace Havier_Than_Air_S.Missions
             mounts.Update();
             gorundObjects[0].Update();
 
-            
+
 
             //collisions
+            
             for (int i = 0; i < mounts.MountColliders.Length; i++)
             {
                 bool d = Program.collisions.CheckShapesForCollision(mounts.MountColliders[i], m_Hely.colliderConvexShape);
                 if (d == true)
                 {
                     m_Hely.SetDamage(m_Hely);
+                    if (m_Hely.DicShapesInCollidingReal.ContainsKey(mounts.MountColliders[i]))
+                    {
+                        m_Hely.DicShapesInCollidingReal[mounts.MountColliders[i]] = Matematika.searchdistance(m_Hely.positionOfHely, mounts.MountColliders[i].Position);
+
+                    }
+                    else
+                    {
+
+
+                        m_Hely.DicShapesInCollidingReal.Add(mounts.MountColliders[i], Matematika.searchdistance(m_Hely.positionOfHely, mounts.MountColliders[i].Position));
+                    
+                    }
+                    
+                    
                 }
             }
             if (m_Hely != null) m_Hely.Update();
