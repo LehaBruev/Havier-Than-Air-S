@@ -126,9 +126,9 @@ namespace Havier_Than_Air_S
                     {
                         if (IMoovables[k].GetTypeOfObject() == TypeOfObject.enemy && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
                         {
-                           bool d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
+                           Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
 
-                            if (d == true)
+                            if (d.GetLength(0)>0)
                             {
 
                                 IMoovables[i].SetDamage(IMoovables[k]);
@@ -139,9 +139,9 @@ namespace Havier_Than_Air_S
                         }
                         if (IMoovables[k].GetTypeOfObject() == TypeOfObject.house && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
                         {
-                            bool d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
+                            Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
 
-                            if (d == true)
+                            if (d.GetLength(0) > 0)
                             {
 
                                 IMoovables[i].SetDamage(IMoovables[k]);

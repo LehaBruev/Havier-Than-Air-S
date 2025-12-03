@@ -192,8 +192,8 @@ namespace Havier_Than_Air_S
         public ConvexShape colliderConvexShape;
         List<ConvexShape> ShapesCollisionsWithHelyPrevious;
         public List<Shape> BlockListOfShapes;
-        public Dictionary<Shape, float> DicShapesInCollidingPrev;
-        public Dictionary<Shape, float> DicShapesInCollidingReal;
+        public Dictionary<Shape, Vector2f[,]> DicShapesInCollidingOld;
+        public Dictionary<Shape, Vector2f[,]> DictionaryOfShapesReal;
         #endregion
 
 
@@ -213,8 +213,10 @@ namespace Havier_Than_Air_S
             //Коллайдеры гор для столкновения
 
             BlockListOfShapes = new List<Shape>();
-            DicShapesInCollidingPrev = new Dictionary<Shape, float>();
-            DicShapesInCollidingReal = new Dictionary<Shape, float>();
+
+            DicShapesInCollidingOld = new Dictionary<Shape, Vector2f[,] >();
+            DictionaryOfShapesReal = new Dictionary<Shape, Vector2f[,]>();
+            
 
             SpawnHely();
             SpawnEngineSound();
@@ -609,11 +611,48 @@ namespace Havier_Than_Air_S
 
       
 
+        private void MirrorVector(Shape mount, Vector2f pointsOfGrany)
+        {
+
+            //Получить вектор грани (Б-А)
+            Vector2f grany = mount.GetPoint((uint)pointsOfGrany.X) - mount.GetPoint((uint)pointsOfGrany.Y);
+            //Получить длину вектора скорости вертолета
+            float distanceOfGrany = Matematika.searchdistance(new Vector2f(0, 0), grany);
+            //Получить угол вектора скорости вертолета
+
+            //Получить угол наклона грани
+
+            //Отнять угол наклона грани от угла наклона вектора скорости
+
+            //Найти локальный вектор (длина есть, угол наклона из пред. пункта умножить на -1)
+
+
+
+
+
+        }
+
         private void ColliderPhisicsCompensation()
         {
-            
 
-            foreach (var previous in DicShapesInCollidingPrev)
+            foreach (var real in DictionaryOfShapesReal)
+            {
+                for (int i = 0;i< real.Value.GetLength(0);i++)
+                {
+                    //Получить вектор противодействия
+                    MirrorVector(real.Key, real.Value[i, 0]);
+
+                    //Добавить вектор к вектору скорости
+
+                }
+
+
+            }
+
+
+
+            /*
+            foreach (var previous in DicShapesInCollidingOld)
             {
                 foreach (var real in DicShapesInCollidingReal)
                 {
@@ -647,9 +686,9 @@ namespace Havier_Than_Air_S
 
             }
 
-            DicShapesInCollidingPrev = DicShapesInCollidingReal;
+            DicShapesInCollidingOld = DicShapesInCollidingReal;
 
-
+            */
 
 
 

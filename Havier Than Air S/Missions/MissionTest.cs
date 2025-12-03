@@ -223,21 +223,25 @@ namespace Havier_Than_Air_S.Missions
             
             for (int i = 0; i < mounts.MountColliders.Length; i++)
             {
-                bool d = Program.collisions.CheckShapesForCollision(mounts.MountColliders[i], m_Hely.colliderConvexShape);
-                if (d == true)
+                //Проверка столкновений возвращает массив пересечений, двумерный массив номеров точек первой фигуры и второй
+                //0=вектор с двумя номерами грани первой фигуры, 1=вектор с номерами грани второй фигуры
+                Vector2f[,] m_2dmassiveNums = Program.collisions.CheckShapesForCollision(mounts.MountColliders[i], m_Hely.colliderConvexShape);
+                if (m_2dmassiveNums.GetLength(0) > 0)
                 {
-                    m_Hely.SetDamage(m_Hely);
-                    if (m_Hely.DicShapesInCollidingReal.ContainsKey(mounts.MountColliders[i]))
+                    //m_Hely.SetDamage(m_Hely);
+                    // Если гора уже содержится в словаре
+                    if (m_Hely.DictionaryOfShapesReal.ContainsKey(mounts.MountColliders[i])) // Если содержится уже данная форма
                     {
-                        m_Hely.DicShapesInCollidingReal[mounts.MountColliders[i]] = Matematika.searchdistance(m_Hely.positionOfHely, mounts.MountColliders[i].Position);
+                        m_Hely.DictionaryOfShapesReal[mounts.MountColliders[i]] = m_2dmassiveNums;
 
                     }
-                    else
+                    else //Если горы нет сейчас в словаре
                     {
+                        //Добавляет форму горы в словарь + массив номеров точек граней с пересечениями (vector(точка1,точка2) vs vector(точка1, точка2))
+                        m_Hely.DictionaryOfShapesReal.Add(mounts.MountColliders[i], m_2dmassiveNums);
 
 
-                        m_Hely.DicShapesInCollidingReal.Add(mounts.MountColliders[i], Matematika.searchdistance(m_Hely.positionOfHely, mounts.MountColliders[i].Position));
-                    
+
                     }
                     
                     

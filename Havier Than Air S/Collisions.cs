@@ -83,12 +83,12 @@ namespace Havier_Than_Air_S
         }
 
 
-        public bool CheckShapesForCollision(Shape Shape1, Shape Shape2)
+        public Vector2f[,] CheckShapesForCollision(Shape Shape1, Shape Shape2)
         {
             points1 = GetShapePoints(Shape1);
             points2 = GetShapePoints(Shape2);
 
-            bool peresechenie = CheckColisions(points1, points2);
+            Vector2f[,] peresechenie = CheckColisions(points1, points2);
             return peresechenie;
 
         }
@@ -108,50 +108,49 @@ namespace Havier_Than_Air_S
         }
       
 
-        /*
-        private Vector2f[] GetRectanglePoints(RectangleShape col)
-        {
-            Vector2f a = Matematika.LocalPointOfRotationObject(-col.Origin, col.Rotation) + col.Position;
-            Vector2f b = Matematika.LocalPointOfRotationObject(-col.Origin + new Vector2f(col.Size.X,0), col.Rotation) + col.Position; 
-            Vector2f c = Matematika.LocalPointOfRotationObject(-col.Origin.X + col.Size.X, -col.Origin.Y + col.Size.Y, col.Rotation) + col.Position;
-            Vector2f d = Matematika.LocalPointOfRotationObject(-col.Origin.X, -col.Origin.Y + col.Size.Y, col.Rotation) + col.Position;
 
+        private Vector2f[,] CheckColisions(Vector2f[] pointsToCheck1, Vector2f[] pointsToCheck2)
+        {
             
-            return new Vector2f[]{ a, b, c, d };
-        }
-        */
+            Vector2f[,] intersectionsOld = new Vector2f[0,2]; //Массив двумерный, запись значений
+            Vector2f[,] intersectionsReal = intersectionsOld; //Массив двумерный, перезапись значений
 
-        private bool CheckColisions(Vector2f[] pointsToCheck1, Vector2f[] pointsToCheck2)
-        {
-            int numerator1 = 0;
-            int numerator2 = 0;
+            int numerator1 = 0; // Нумератор для перебора точек в первой фигуре
+            int numerator2 = 0; //Нумератор для перебора точек во второй фигуре
             bool intersected = false;
-            for (int i = 0; i < pointsToCheck1.Length; i++)
+            for (int i = 0; i < pointsToCheck1.Length; i++) // Подбор грани из первой фигуры
             {
-                if (i == pointsToCheck1.Length - 1) numerator1 = 0;
+                if (i == pointsToCheck1.Length - 1) numerator1 = 0; //Проверка на последнюю точку в массиве фигуры
                 else numerator1 = i + 1;
 
 
-                for (int k = 0; k < pointsToCheck2.Length; k++)
+                for (int k = 0; k < pointsToCheck2.Length; k++) //Подбор грани из второй фигуры
                 {
-                    if (k == pointsToCheck2.Length - 1) numerator2 = 0;
+                    if (k == pointsToCheck2.Length - 1) numerator2 = 0; //Проверка на последнюю точку в массиве фигуры
                     else numerator2 = k + 1;
 
+                    //Стандартная проверка пересечения
                     intersected = Matematika.Intersection(pointsToCheck1[i].X, pointsToCheck1[i].Y,
                                      pointsToCheck1[numerator1].X, pointsToCheck1[numerator1].Y,
                                      pointsToCheck2[k].X, pointsToCheck2[k].Y,
                                      pointsToCheck2[numerator2].X, pointsToCheck2[numerator2].Y);
 
-                    if (intersected)
+                    if (intersected) // Столкновение граней есть
                     {
-                        return true;
-                    }
+                        intersectionsReal = new Vector2f[intersectionsOld.GetLength(0)+1, 2]; // Задается размер массива
+                        intersectionsReal[intersectionsOld.GetLength(0), 0] = new Vector2f(i, numerator1); //в 1 добавляются номера точек грани первой фигуры
+                        intersectionsReal[intersectionsOld.GetLength(0), 1] = new Vector2f(k, numerator2); //в 2 добавляются номера точек грани второй фигуры
 
+
+                        //intersectionsOld = new Vector2f[intersectionsReal.GetLength(0), 2];
+                        intersectionsOld = intersectionsReal; //Сохранение массива точек для последующего добавления
+                        
+                    }
                 }
 
             }
 
-            return false;
+            return intersectionsReal;
         }
 
         
