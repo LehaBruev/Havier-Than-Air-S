@@ -71,7 +71,7 @@ namespace Havier_Than_Air_S
 
             angle = 180*(float)Math.Acos(cos)/3.14f;
 
-            if(Math.Sign(vector.Y)<0)
+            if(Math.Sign((float)vector.Y)<0)
             {
                 // angle = 180 + (180 - angle);
                 angle = -angle;

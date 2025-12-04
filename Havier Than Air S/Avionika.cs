@@ -4,6 +4,7 @@ using SFML.System;
 using SFML.Window;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
@@ -118,6 +119,7 @@ namespace Havier_Than_Air_S
 
                 PricelDraw();
                 UpdateInertia();
+                //UpdateColliderTester();
 
                 //Запись точек в файл
                 UpdateMouse();
@@ -427,12 +429,74 @@ public void Panel4Check()
             {
                new Vertex(new Vector2f(hely.positionOfHely.X-longOfVehicle/2*scaleOfLine-20, hely.positionOfHely.Y-15)),
                new Vertex(new Vector2f(hely.positionOfHely.X+ longOfVehicle/2*scaleOfLine-20, hely.positionOfHely.Y-15 ),Color.Yellow)
+
             };
             Program.window.Draw(linScale, PrimitiveType.Lines);
-
-
         }
 
+        Vertex cooliderTesterVector = new Vertex();
+        Color cvColor = Color.Green;
+        Color cvColor2 = Color.Yellow;
+        Color cvColor3 = Color.Red;
+
+        private void UpdateColliderTester()
+        {
+            //Получить вектор прикрученный к нолю из двух точек
+            // Вектор препятствие
+            Vector2f pregrada_t1 = new Vector2f(0,0);
+            Vector2f pregrada_t2 = new Vector2f(-50,-50);
+            Vector2f trueVectorPregrada = pregrada_t2;
+
+            //Перенос точки отсчета вектора
+            if (pregrada_t2.X < pregrada_t1.X)
+            {
+                 trueVectorPregrada = new Vector2f(-pregrada_t2.X, pregrada_t2.Y);
+            }
+            if (pregrada_t2.Y < pregrada_t1.Y)
+            {
+                trueVectorPregrada = new Vector2f(trueVectorPregrada.X, -pregrada_t2.Y);
+            }
+
+                //Вектор противодействия инерции
+                //1Длина вектора инерции
+                float vectorInertiaDist = Matematika.searchdistance(new Vector2f(0, 0), hely.speed);
+            //2Угол вектора инерции
+            float angle1 = Matematika.AngleOfVector(new Vector2f(hely.speed.X,-hely.speed.Y));
+            //3угол наклона препятствия
+            float angle2 = Matematika.AngleOfVector(trueVectorPregrada);
+            //Разница углов
+            float angle3 = angle1 - angle2;
+            //Нормальный вектор
+            Vector2f normalVector = Matematika.searchLocalVector(-angle3,vectorInertiaDist);
+            //Новый вектор
+            Vector2f vectorKompensator = normalVector * vectorInertiaDist * 40;// * Program.deltaTimer.Delta() * Program.gameSpeed;
+
+
+            cooliderTesterVector.Position = new Vector2f(hely.positionOfHely.X, hely.positionOfHely.Y);
+
+            // ParkovkaAssistance
+            Vertex[] line = new Vertex[]
+            {
+                //Инерция
+               new Vertex(new Vector2f(hely.positionOfHely.X+100, hely.positionOfHely.Y+10-100)),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.speed.X*40, hely.positionOfHely.Y + 10-100 - hely.speed.Y*40),cvColor3),
+               //Препятствие
+                new Vertex(new Vector2f(hely.positionOfHely.X+100 + pregrada_t1.X, hely.positionOfHely.Y+10-100+pregrada_t1.Y)),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + trueVectorPregrada.X, hely.positionOfHely.Y + 10-100+trueVectorPregrada.Y),cvColor2),
+               //Вектор противодействия
+                new Vertex(new Vector2f(hely.positionOfHely.X+100 , hely.positionOfHely.Y+10-100)),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + vectorKompensator.X, hely.positionOfHely.Y + 10-100+vectorKompensator.Y),cvColor)
+            };
+
+            Program.window.Draw(line, PrimitiveType.Lines);
+
+
+            /*
+            inertiaVector = new Vector2f(hely.speed.X, hely.speed.Y);
+            inertiavector.Color = Color.Yellow;
+            inertiavector.Position = new Vector2f(hely.position.X, hely.position.Y);
+            */
+        }
 
     }
 }

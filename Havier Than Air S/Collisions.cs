@@ -138,6 +138,14 @@ namespace Havier_Than_Air_S
                     if (intersected) // Столкновение граней есть
                     {
                         intersectionsReal = new Vector2f[intersectionsOld.GetLength(0)+1, 2]; // Задается размер массива
+                        
+                        for (int n = 0; n < intersectionsOld.GetLength(0);n++)
+                        {
+                            intersectionsReal[n, 0] = intersectionsOld[n, 0];
+                            intersectionsReal[n, 1] = intersectionsOld[n, 1];
+
+                        }
+                        
                         intersectionsReal[intersectionsOld.GetLength(0), 0] = new Vector2f(i, numerator1); //в 1 добавляются номера точек грани первой фигуры
                         intersectionsReal[intersectionsOld.GetLength(0), 1] = new Vector2f(k, numerator2); //в 2 добавляются номера точек грани второй фигуры
 

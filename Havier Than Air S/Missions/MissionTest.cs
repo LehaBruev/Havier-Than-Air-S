@@ -220,7 +220,7 @@ namespace Havier_Than_Air_S.Missions
 
 
             //collisions
-            
+            m_Hely.DictionaryOfShapesReal.Clear();
             for (int i = 0; i < mounts.MountColliders.Length; i++)
             {
                 //Проверка столкновений возвращает массив пересечений, двумерный массив номеров точек первой фигуры и второй
@@ -240,12 +240,14 @@ namespace Havier_Than_Air_S.Missions
                         //Добавляет форму горы в словарь + массив номеров точек граней с пересечениями (vector(точка1,точка2) vs vector(точка1, точка2))
                         m_Hely.DictionaryOfShapesReal.Add(mounts.MountColliders[i], m_2dmassiveNums);
 
-
-
                     }
                     
                     
                 }
+                
+                    
+
+                
             }
             if (m_Hely != null) m_Hely.Update();
         }

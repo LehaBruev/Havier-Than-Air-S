@@ -70,9 +70,11 @@ namespace Havier_Than_Air_S
         public float helifuelCurrent; // тек топливо
         int bang1 = 0;
         protected float currentWeight = 1; // текущий вес машины
-        public Vector2f positionOfHely = new Vector2f(50,500); // позиция в пространстве
+        public Vector2f positionOfHely = new Vector2f(50,50); // позиция в пространстве
         public Vector2f speed = new Vector2f(0,0); // скорость
-        
+        Vector2f vectorKompensator = new Vector2f(0,0);//вектор для столкновений
+
+
         int helidestroy = 0; // верталет разрушен
         int helistop = 0; // вертолет обесточен
 
@@ -583,8 +585,7 @@ namespace Havier_Than_Air_S
             if (speed.Y < -speedxmax.Y) speed.Y = -speedxmax.Y;
 
 
-            positionOfHely.Y = (positionOfHely.Y - speed.Y * Program.deltaTimer.Delta() * Program.gameSpeed);
-            
+           
            // if (positionOfHely.Y > 770) positionOfHely.Y = 770;
             if (positionOfHely.Y < 50) 
                 positionOfHely.Y = 50;
@@ -601,10 +602,15 @@ namespace Havier_Than_Air_S
             if (speed.X > speedxmax.X) speed.X = speedxmax.X;
             if (speed.X < -speedxmax.X) speed.X = -speedxmax.X;
 
-            positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta()*Program.gameSpeed; //wind
-
+            if (vectorKompensator.X > 0 || vectorKompensator.Y > 0)
+            {
+                speed = -vectorKompensator/2;
+            }
             
-
+            
+            positionOfHely.Y = (positionOfHely.Y - speed.Y * Program.deltaTimer.Delta() * Program.gameSpeed);
+            positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta()*Program.gameSpeed; //wind
+            
 
             helySprite.Position = positionOfHely;
         }
@@ -615,26 +621,46 @@ namespace Havier_Than_Air_S
         {
 
             //Получить вектор грани (Б-А)
-            Vector2f grany = mount.GetPoint((uint)pointsOfGrany.X) - mount.GetPoint((uint)pointsOfGrany.Y);
-            //Получить длину вектора скорости вертолета
-            float distanceOfGrany = Matematika.searchdistance(new Vector2f(0, 0), grany);
-            //Получить угол вектора скорости вертолета
+           
+            // Вектор препятствие
+            Vector2f pregrada_t1 = new Vector2f(0, 0);
+            Vector2f pregrada_t2 = mount.GetPoint((uint)pointsOfGrany.X) - mount.GetPoint((uint)pointsOfGrany.Y);
+            Vector2f trueVectorPregrada = pregrada_t2;
 
-            //Получить угол наклона грани
+            //Перенос точки отсчета вектора
+            if (pregrada_t2.X < pregrada_t1.X)
+            {
+                trueVectorPregrada = new Vector2f(-pregrada_t2.X, pregrada_t2.Y);
+            }
+            if (pregrada_t2.Y < pregrada_t1.Y)
+            {
+                trueVectorPregrada = new Vector2f(trueVectorPregrada.X, -pregrada_t2.Y);
+            }
 
-            //Отнять угол наклона грани от угла наклона вектора скорости
-
-            //Найти локальный вектор (длина есть, угол наклона из пред. пункта умножить на -1)
-
-
-
-
+            //Вектор противодействия инерции
+            //1Длина вектора инерции
+            float vectorInertiaDist = Matematika.searchdistance(new Vector2f(0, 0), speed);
+            //2Угол вектора инерции
+            float angle1 = Matematika.AngleOfVector(new Vector2f(speed.X, -speed.Y));
+            //3угол наклона препятствия
+            float angle2 = Matematika.AngleOfVector(trueVectorPregrada);
+            //Разница углов
+            float angle3 = angle1 - angle2+15;
+            //Нормальный вектор
+            Vector2f normalVector = Matematika.searchLocalVector(-angle3, vectorInertiaDist);
+            //Новый вектор
+            vectorKompensator = normalVector * vectorInertiaDist ;// * Program.deltaTimer.Delta() * Program.gameSpeed;
 
         }
 
         private void ColliderPhisicsCompensation()
         {
 
+            if (DictionaryOfShapesReal.Count==0)
+            {
+                vectorKompensator = new Vector2f(0,0);
+                return;
+            }
             foreach (var real in DictionaryOfShapesReal)
             {
                 for (int i = 0;i< real.Value.GetLength(0);i++)
