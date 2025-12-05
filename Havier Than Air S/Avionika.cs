@@ -119,7 +119,7 @@ namespace Havier_Than_Air_S
 
                 PricelDraw();
                 UpdateInertia();
-                //UpdateColliderTester();
+                UpdateColliderTester();
 
                 //Запись точек в файл
                 UpdateMouse();
@@ -444,9 +444,10 @@ public void Panel4Check()
             //Получить вектор прикрученный к нолю из двух точек
             // Вектор препятствие
             Vector2f pregrada_t1 = new Vector2f(0,0);
-            Vector2f pregrada_t2 = new Vector2f(-50,-50);
+            Vector2f pregrada_t2 = new Vector2f(-50,0);
             Vector2f trueVectorPregrada = pregrada_t2;
 
+            
             //Перенос точки отсчета вектора
             if (pregrada_t2.X < pregrada_t1.X)
             {
@@ -454,22 +455,22 @@ public void Panel4Check()
             }
             if (pregrada_t2.Y < pregrada_t1.Y)
             {
-                trueVectorPregrada = new Vector2f(trueVectorPregrada.X, -pregrada_t2.Y);
+                trueVectorPregrada = new Vector2f(trueVectorPregrada.X, pregrada_t2.Y);
             }
 
                 //Вектор противодействия инерции
                 //1Длина вектора инерции
-                float vectorInertiaDist = Matematika.searchdistance(new Vector2f(0, 0), hely.speed);
+            float vectorInertiaDist = Matematika.searchdistance(new Vector2f(0, 0), hely.speed);
             //2Угол вектора инерции
-            float angle1 = Matematika.AngleOfVector(new Vector2f(hely.speed.X,-hely.speed.Y));
+            float angle1_inertia = Matematika.AngleOfVector(new Vector2f(hely.speed.X,-hely.speed.Y));
             //3угол наклона препятствия
-            float angle2 = Matematika.AngleOfVector(trueVectorPregrada);
+            float angle2_grany = Matematika.AngleOfVector(trueVectorPregrada);
             //Разница углов
-            float angle3 = angle1 - angle2;
+            float angle3 =  angle1_inertia - angle2_grany;
             //Нормальный вектор
-            Vector2f normalVector = Matematika.searchLocalVector(-angle3,vectorInertiaDist);
+            Vector2f normalVector = Matematika.searchLocalVector(-angle3 + angle2_grany, vectorInertiaDist);
             //Новый вектор
-            Vector2f vectorKompensator = normalVector * vectorInertiaDist * 40;// * Program.deltaTimer.Delta() * Program.gameSpeed;
+            Vector2f vectorKompensator = normalVector  ;// * Program.deltaTimer.Delta() * Program.gameSpeed;
 
 
             cooliderTesterVector.Position = new Vector2f(hely.positionOfHely.X, hely.positionOfHely.Y);
@@ -479,13 +480,13 @@ public void Panel4Check()
             {
                 //Инерция
                new Vertex(new Vector2f(hely.positionOfHely.X+100, hely.positionOfHely.Y+10-100)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.speed.X*40, hely.positionOfHely.Y + 10-100 - hely.speed.Y*40),cvColor3),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.speed.X*10, hely.positionOfHely.Y + 10-100 - hely.speed.Y*10),cvColor3),
                //Препятствие
                 new Vertex(new Vector2f(hely.positionOfHely.X+100 + pregrada_t1.X, hely.positionOfHely.Y+10-100+pregrada_t1.Y)),
                new Vertex(new Vector2f(hely.positionOfHely.X+100 + trueVectorPregrada.X, hely.positionOfHely.Y + 10-100+trueVectorPregrada.Y),cvColor2),
                //Вектор противодействия
                 new Vertex(new Vector2f(hely.positionOfHely.X+100 , hely.positionOfHely.Y+10-100)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + vectorKompensator.X, hely.positionOfHely.Y + 10-100+vectorKompensator.Y),cvColor)
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + vectorKompensator.X*10, hely.positionOfHely.Y + 10-100+vectorKompensator.Y*10),cvColor)
             };
 
             Program.window.Draw(line, PrimitiveType.Lines);

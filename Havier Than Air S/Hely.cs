@@ -581,33 +581,28 @@ namespace Havier_Than_Air_S
             boost.Y = (powerRTR.Y - gravityPower)/currentWeight* bladesEffectiveness*Program.m_Pogoda.GetCurrentAirP(altitude);
 
             speed.Y = boost.Y; // вертикальная скорость
-            if (speed.Y > speedxmax.Y) speed.Y = speedxmax.Y;
-            if (speed.Y < -speedxmax.Y) speed.Y = -speedxmax.Y;
-
+            
 
            
-           // if (positionOfHely.Y > 770) positionOfHely.Y = 770;
+           // Потолок полета
             if (positionOfHely.Y < 50) 
                 positionOfHely.Y = 50;
-            /*
-            if (positionOfHely.Y >= grodund)
-            {
-                groundDamage();
-
-            }
-            */
+           
             // Расчет ГОРИЗОНТАЛЬНОГО ПОЛЕТА угол атаки
             speed.X = speed.X + powerRTR.X *Math.Sign(angle) * Program.deltaTimer.Delta()/(Weight/inertia)*
                 bladesEffectiveness * Program.m_Pogoda.GetCurrentAirP(altitude); // ФОРМУЛА РАСЧЕТА ГОРИЗОНТАЛЬНОЙ СКОРОСТИ (ПОМЕНЯТЬ)
+            
+
+            if (vectorKompensator.X != 0 || vectorKompensator.Y != 0)
+            {
+                speed = -vectorKompensator*2;
+            }
+
             if (speed.X > speedxmax.X) speed.X = speedxmax.X;
             if (speed.X < -speedxmax.X) speed.X = -speedxmax.X;
+            if (speed.Y > speedxmax.Y) speed.Y = speedxmax.Y;
+            if (speed.Y < -speedxmax.Y) speed.Y = -speedxmax.Y;
 
-            if (vectorKompensator.X > 0 || vectorKompensator.Y > 0)
-            {
-                speed = -vectorKompensator/2;
-            }
-            
-            
             positionOfHely.Y = (positionOfHely.Y - speed.Y * Program.deltaTimer.Delta() * Program.gameSpeed);
             positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta()*Program.gameSpeed; //wind
             
@@ -619,6 +614,8 @@ namespace Havier_Than_Air_S
 
         private void MirrorVector(Shape mount, Vector2f pointsOfGrany)
         {
+
+            
 
             //Получить вектор грани (Б-А)
            
@@ -634,7 +631,7 @@ namespace Havier_Than_Air_S
             }
             if (pregrada_t2.Y < pregrada_t1.Y)
             {
-                trueVectorPregrada = new Vector2f(trueVectorPregrada.X, -pregrada_t2.Y);
+                trueVectorPregrada = new Vector2f(trueVectorPregrada.X, pregrada_t2.Y);
             }
 
             //Вектор противодействия инерции
@@ -645,11 +642,11 @@ namespace Havier_Than_Air_S
             //3угол наклона препятствия
             float angle2 = Matematika.AngleOfVector(trueVectorPregrada);
             //Разница углов
-            float angle3 = angle1 - angle2+15;
+            float angle3 = angle1 - angle2;
             //Нормальный вектор
-            Vector2f normalVector = Matematika.searchLocalVector(-angle3, vectorInertiaDist);
+            Vector2f normalVector = Matematika.searchLocalVector(-angle3+ angle2, vectorInertiaDist);
             //Новый вектор
-            vectorKompensator = normalVector * vectorInertiaDist ;// * Program.deltaTimer.Delta() * Program.gameSpeed;
+            vectorKompensator = normalVector  ;// * Program.deltaTimer.Delta() * Program.gameSpeed;
 
         }
 
@@ -661,16 +658,29 @@ namespace Havier_Than_Air_S
                 vectorKompensator = new Vector2f(0,0);
                 return;
             }
-            foreach (var real in DictionaryOfShapesReal)
-            {
-                for (int i = 0;i< real.Value.GetLength(0);i++)
-                {
-                    //Получить вектор противодействия
-                    MirrorVector(real.Key, real.Value[i, 0]);
+            // Ключ=форма, значение=два номера точек грани
 
+          
+
+            foreach (var shape in DictionaryOfShapesReal)
+            {
+
+                //Получить вектор противодействия
+
+                if (shape.Value.GetLength(0) > 1)
+                {
+                    Vector2f granToMatematica = new Vector2f(shape.Value[0, 0].X, shape.Value[shape.Value.GetLength(0)-1, 0].Y);
+                    MirrorVector(shape.Key, granToMatematica);
+                }
+                else
+                {
+
+
+                    MirrorVector(shape.Key, shape.Value[0, 0]);
+                }  
                     //Добавить вектор к вектору скорости
 
-                }
+                
 
 
             }

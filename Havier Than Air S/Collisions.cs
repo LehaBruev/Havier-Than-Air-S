@@ -83,7 +83,7 @@ namespace Havier_Than_Air_S
         }
 
 
-        public Vector2f[,] CheckShapesForCollision(Shape Shape1, Shape Shape2)
+        public Vector2f[,] CheckShapesForCollision(Shape Shape1, Shape Shape2) //гора вертолет
         {
             points1 = GetShapePoints(Shape1);
             points2 = GetShapePoints(Shape2);
@@ -109,7 +109,7 @@ namespace Havier_Than_Air_S
       
 
 
-        private Vector2f[,] CheckColisions(Vector2f[] pointsToCheck1, Vector2f[] pointsToCheck2)
+        private Vector2f[,] CheckColisions(Vector2f[] pointsToCheck1, Vector2f[] pointsToCheck2) // гора вертолет
         {
             
             Vector2f[,] intersectionsOld = new Vector2f[0,2]; //Массив двумерный, запись значений

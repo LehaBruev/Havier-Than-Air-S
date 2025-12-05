@@ -28,7 +28,7 @@ namespace Havier_Than_Air_S
 
         public Mountains()
         {
-            MountColliders = new ConvexShape[6];
+            MountColliders = new ConvexShape[7];
 
             ConvexShape MountShape1 = new ConvexShape();
             #region m1
@@ -179,6 +179,18 @@ namespace Havier_Than_Air_S
             MountShape1.SetPoint(12, new Vector2f(2654, 804));
             MountShape1.SetPoint(13, new Vector2f(2659, 892));
             MountShape1.SetPoint(14, new Vector2f(1338, 890));
+            SetMountain(MountShape1);
+            #endregion
+            
+            
+            #region m3
+            //mount2
+            MountShape1 = new ConvexShape();
+            MountShape1.SetPointCount(4);
+            MountShape1.SetPoint(0, new Vector2f(-468, 455));
+            MountShape1.SetPoint(1, new Vector2f(-592, 529));
+            MountShape1.SetPoint(2, new Vector2f(-458, 636));
+            MountShape1.SetPoint(3, new Vector2f(-316, 564));
             SetMountain(MountShape1);
             #endregion
             
