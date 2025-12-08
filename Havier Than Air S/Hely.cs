@@ -79,7 +79,7 @@ namespace Havier_Than_Air_S
         int helistop = 0; // вертолет обесточен
 
         // силы
-        public float gravityPower = 0;
+        public Vector2f gravityPower = new Vector2f(0,0);
 
         // rotor
         public float currentRotorPower = 0;
@@ -553,21 +553,25 @@ namespace Havier_Than_Air_S
         }
 
 
+        Vector2f dempferSpeed = new Vector2f(1f,1f);
+        float compensatorcoef = 2.1f;
+
         void PlayerMove() // коэффициент живучести двигателя
         {
-            //Учитывать эти столкновения
-            ColliderPhisicsCompensation();
+            
 
             // Текущий вес
             currentWeight = Weight + helifuelCurrent*fuelWeight;
 
-            ChechRotorSound();
+            //ChechRotorSound();
             
             //расчет высоты
             altitude = ground - positionOfHely.Y;
-            if (altitude < 0) altitude = 0;
+            //if (altitude < 0) altitude = 0;
 
 
+            Alternative_PlayerMoove();
+            /* Альтернативный расчет передвижения
             //расчет вертикальной скорости
             //расчет подъемной силы
             RPM = currentRUDposition / 100 * maxRPM ;
@@ -594,8 +598,23 @@ namespace Havier_Than_Air_S
             
 
             if (vectorKompensator.X != 0 || vectorKompensator.Y != 0)
-            {
-                speed = -vectorKompensator*2;
+            { 
+                if (speed.X> dempferSpeed.X|| speed.X < -dempferSpeed.X)
+                {
+                    speed.X = -vectorKompensator.X*compensatorcoef; 
+                }
+                else
+                {
+                    speed.X = 0;
+                }
+                if (speed.Y > dempferSpeed.Y || speed.Y < -dempferSpeed.Y)
+                {
+                    speed.Y = -vectorKompensator.Y * compensatorcoef;
+                }
+                else
+                {
+                    speed.Y = 0;
+                }
             }
 
             if (speed.X > speedxmax.X) speed.X = speedxmax.X;
@@ -604,12 +623,81 @@ namespace Havier_Than_Air_S
             if (speed.Y < -speedxmax.Y) speed.Y = -speedxmax.Y;
 
             positionOfHely.Y = (positionOfHely.Y - speed.Y * Program.deltaTimer.Delta() * Program.gameSpeed);
-            positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta()*Program.gameSpeed; //wind
+            positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta() * Program.gameSpeed; //wind
             
 
             helySprite.Position = positionOfHely;
+            */
         }
 
+        Vector2f F = new Vector2f(0,0);
+        Vector2f Ek = new Vector2f(0,0);
+        Vector2f AeroAntiPower = new Vector2f(0,0);
+
+        private void Alternative_PlayerMoove()
+        {
+            currentWeight = Weight + helifuelCurrent * fuelWeight;
+            Ek = new Vector2f(0.5f * speed.X * speed.X * currentWeight, 0.5f * speed.Y * speed.Y * currentWeight);
+            //Гравитация
+            gravityPower = new Vector2f(0,Program.m_Pogoda.gravity * currentWeight);
+            //Сопротивление воздуха
+            AeroAntiPower = new Vector2f(speed.X* speed.X*0.5f*(-Math.Sign(speed.X)), speed.Y* speed.Y * 500 * 0.5f*(-Math.Sign(speed.X)));
+
+            RPM = currentRUDposition / 100 * maxRPM;
+            if (maxRPM < RPM) RPM = maxRPM;
+
+            //Сила ротора
+            currentRotorPower = RPM / maxRPM * (currentEnginelife / 100) * engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);
+            powerRTR.Y = currentRotorPower;
+            powerRTR.X = currentRotorPower - (currentRotorPower - currentRotorPower / 90 * (float)Math.Sqrt(angle * angle) / 10);
+
+            F = Ek + powerRTR - gravityPower; // кинетика и мотор
+
+            //(v-v0)/deltaTime = F/currentWeight;
+            speed = speed + F/currentWeight*Program.deltaTimer.Delta();
+
+            //Учитывать эти столкновения
+            ColliderPhisicsCompensation(); // Расчет вектора компенсатора при столкновениях
+            if (vectorKompensator.X != 0 || vectorKompensator.Y != 0)
+            {
+                if (speed.X > dempferSpeed.X || speed.X < -dempferSpeed.X)
+                {
+                    speed.X = -vectorKompensator.X * compensatorcoef;
+                }
+                else
+                {
+                    speed.X = 0;
+                }
+                if (speed.Y > dempferSpeed.Y || speed.Y < -dempferSpeed.Y)
+                {
+                    speed.Y = -vectorKompensator.Y * compensatorcoef;
+                }
+                else
+                {
+                    speed.Y = 0;
+                }
+            }
+
+
+
+
+
+            if (speed.X > speedxmax.X) speed.X = speedxmax.X;
+            if (speed.X < -speedxmax.X) speed.X = -speedxmax.X;
+            if (speed.Y > speedxmax.Y) speed.Y = speedxmax.Y;
+            if (speed.Y < -speedxmax.Y) speed.Y = -speedxmax.Y;
+
+
+            positionOfHely.Y = (positionOfHely.Y - speed.Y * Program.deltaTimer.Delta() * Program.gameSpeed);
+            positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta() * Program.gameSpeed; //wind
+
+
+            if (positionOfHely.Y < 50)
+                positionOfHely.Y = 50;
+
+            helySprite.Position = positionOfHely;
+
+        }
       
 
         private void MirrorVector(Shape mount, Vector2f pointsOfGrany)

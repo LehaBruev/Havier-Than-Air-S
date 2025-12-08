@@ -274,7 +274,7 @@ public void Panel4Check()
             
             DrawText("RPM: " + (int)hely.RPM, new Vector2f(22, 15), Color.Green, 4);
             DrawText("currentRotorPower: " + (int)hely.currentRotorPower, new Vector2f(22, 32), Color.Green, 4);
-            DrawText("gravityPower: " + (int)hely.gravityPower, new Vector2f(22, 49), Color.Green, 4);
+            DrawText("gravityPower: " + (int)hely.gravityPower.Y, new Vector2f(22, 49), Color.Green, 4);
             DrawText("airP: " + Program.m_Pogoda.GetCurrentAirP(hely.altitude), new Vector2f(22, 66), Color.Yellow, 4);
             DrawText("boost.Y: " + hely.boost.Y, new Vector2f(22, 83), Color.White, 4);
             DrawText("powerRTR.Y: " + hely.powerRTR.Y, new Vector2f(22, 130), Color.Green, 4);
