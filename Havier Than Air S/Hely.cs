@@ -69,7 +69,7 @@ namespace Havier_Than_Air_S
         public float altitude = 0; // высота
         public float helifuelCurrent; // тек топливо
         int bang1 = 0;
-        protected float currentWeight = 1; // текущий вес машины
+        public float currentWeight = 1; // текущий вес машины
         public Vector2f positionOfHely = new Vector2f(50,50); // позиция в пространстве
         public Vector2f speed = new Vector2f(0,0); // скорость
         Vector2f vectorKompensator = new Vector2f(0,0);//вектор для столкновений
@@ -630,18 +630,18 @@ namespace Havier_Than_Air_S
             */
         }
 
-        Vector2f F = new Vector2f(0,0);
-        Vector2f Ek = new Vector2f(0,0);
-        Vector2f AeroAntiPower = new Vector2f(0,0);
+        public Vector2f F = new Vector2f(0,0);
+        public Vector2f Ek = new Vector2f(0,0);
+        public Vector2f AeroAntiPower = new Vector2f(0,0);
 
         private void Alternative_PlayerMoove()
         {
             currentWeight = Weight + helifuelCurrent * fuelWeight;
-            Ek = new Vector2f(0.5f * speed.X * speed.X * currentWeight, 0.5f * speed.Y * speed.Y * currentWeight);
+            Ek = new Vector2f(0.5f * speed.X * speed.X * currentWeight*Math.Sign(speed.X), 0.5f * speed.Y * speed.Y * currentWeight*Math.Sign(speed.Y));
             //Гравитация
             gravityPower = new Vector2f(0,Program.m_Pogoda.gravity * currentWeight);
             //Сопротивление воздуха
-            AeroAntiPower = new Vector2f(speed.X* speed.X*0.5f*(-Math.Sign(speed.X)), speed.Y* speed.Y * 500 * 0.5f*(-Math.Sign(speed.X)));
+            AeroAntiPower = new Vector2f(speed.X* speed.X*5000*0.5f*(Math.Sign(speed.X)), speed.Y* speed.Y * 50000 * 0.5f*(Math.Sign(speed.Y)));
 
             RPM = currentRUDposition / 100 * maxRPM;
             if (maxRPM < RPM) RPM = maxRPM;
@@ -649,9 +649,10 @@ namespace Havier_Than_Air_S
             //Сила ротора
             currentRotorPower = RPM / maxRPM * (currentEnginelife / 100) * engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);
             powerRTR.Y = currentRotorPower;
-            powerRTR.X = currentRotorPower - (currentRotorPower - currentRotorPower / 90 * (float)Math.Sqrt(angle * angle) / 10);
+            powerRTR.X = currentRotorPower - (currentRotorPower - currentRotorPower / 90 * (float)Math.Sqrt(angle * angle) / 10*30);
+            powerRTR.X = powerRTR.X * Math.Sign(angle);
 
-            F = Ek + powerRTR - gravityPower; // кинетика и мотор
+            F =  powerRTR - gravityPower - AeroAntiPower; // Ek убрал /  кинетика и мотор
 
             //(v-v0)/deltaTime = F/currentWeight;
             speed = speed + F/currentWeight*Program.deltaTimer.Delta();
@@ -688,7 +689,7 @@ namespace Havier_Than_Air_S
             if (speed.Y < -speedxmax.Y) speed.Y = -speedxmax.Y;
 
 
-            positionOfHely.Y = (positionOfHely.Y - speed.Y * Program.deltaTimer.Delta() * Program.gameSpeed);
+            positionOfHely.Y = positionOfHely.Y - speed.Y * Program.deltaTimer.Delta() * Program.gameSpeed;
             positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta() * Program.gameSpeed; //wind
 
 
