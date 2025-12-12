@@ -244,17 +244,17 @@ namespace Havier_Than_Air_S
                     
                     */
 
-                    /*
+                    
                      //Привязка к ротору вертолета
                     Program.log.WriteXY("colliderConvexShape.SetPoint(" +
                                        lognum +
                                        ", new Vector2f(" +
-                                       (Mouse.GetPosition(Program.window).X - hely.positionOfHely.X + Program.offset.X - Program.vMode.Width / 2) +
+                                       (int)(Mouse.GetPosition(Program.window).X - hely.positionOfHely.X + Program.offset.X - Program.vMode.Width / 2) +
                                        " , " +
-                                       (Mouse.GetPosition(Program.window).Y - hely.positionOfHely.Y + Program.offset.Y - Program.vMode.Height / 2) +
+                                       (int)(Mouse.GetPosition(Program.window).Y - hely.positionOfHely.Y + Program.offset.Y - Program.vMode.Height / 2) +
                                        " ));");
-                    */
                     
+                    /*
                     //Привязка к глобальной точке НАЖМИ F2
                    Program.log.WriteXY("MountShape1.SetPoint(" +
                                       lognum +
@@ -263,7 +263,7 @@ namespace Havier_Than_Air_S
                                       " , " +
                                       (Mouse.GetPosition(Program.window).Y) +
                                       " ));");
-                   
+                   */
 
 
 
@@ -292,14 +292,14 @@ public void Panel4Check()
 
 }
 
-        public void SetHely(Hely helycopter)
-        {
+public void SetHely(Hely helycopter)
+{
             hely = helycopter;
 
-        }
+}
 
-        private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
-        {
+private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
+{
             Vector2f posGlobal = new Vector2f(0,0);
             if (panelNumber == 1)
             {
@@ -499,7 +499,7 @@ public void Panel4Check()
             //Нормальный вектор
             Vector2f normalVector = Matematika.searchLocalVector(-angle3 + angle2_grany, vectorInertiaDist);
             //Новый вектор
-            Vector2f vectorKompensator = normalVector  ;// * Program.deltaTimer.Delta() * Program.gameSpeed;
+            Vector2f vectorKompensator = normalVector;// * Program.deltaTimer.Delta() * Program.gameSpeed;
 
 
             cooliderTesterVector.Position = new Vector2f(hely.positionOfHely.X, hely.positionOfHely.Y);
@@ -508,14 +508,14 @@ public void Panel4Check()
             Vertex[] line = new Vertex[]
             {
                 //Инерция
-               new Vertex(new Vector2f(hely.positionOfHely.X+100, hely.positionOfHely.Y+10-100)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.speed.X*10, hely.positionOfHely.Y + 10-100 - hely.speed.Y*10),cvColor3),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100, hely.positionOfHely.Y-100)),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.speed.X*100, hely.positionOfHely.Y -100 - hely.speed.Y*100),cvColor3),
                //Препятствие
-                new Vertex(new Vector2f(hely.positionOfHely.X+100 + pregrada_t1.X, hely.positionOfHely.Y+10-100+pregrada_t1.Y)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + trueVectorPregrada.X, hely.positionOfHely.Y + 10-100+trueVectorPregrada.Y),cvColor2),
+                new Vertex(new Vector2f(hely.positionOfHely.X+100 + pregrada_t1.X, hely.positionOfHely.Y-100+pregrada_t1.Y)),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + trueVectorPregrada.X, hely.positionOfHely.Y -100+trueVectorPregrada.Y),cvColor2),
                //Вектор противодействия
-                new Vertex(new Vector2f(hely.positionOfHely.X+100 , hely.positionOfHely.Y+10-100)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + vectorKompensator.X*10, hely.positionOfHely.Y + 10-100+vectorKompensator.Y*10),cvColor)
+                new Vertex(new Vector2f(hely.positionOfHely.X+100 , hely.positionOfHely.Y-100)),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + vectorKompensator.X*100, hely.positionOfHely.Y -100+vectorKompensator.Y*100),cvColor)
             };
 
             Program.window.Draw(line, PrimitiveType.Lines);
