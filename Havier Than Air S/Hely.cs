@@ -26,7 +26,7 @@ namespace Havier_Than_Air_S
 
         Marker marker;
 
-        public Vector2f centerOfMass = new Vector2f(0, 25);
+        public Vector2f centerOfMass = new Vector2f(0, 15);
 
         #region Параметры_Heli
         
@@ -566,7 +566,7 @@ namespace Havier_Than_Air_S
 
 
         Vector2f dempferSpeed = new Vector2f(0.1f,1f); // Это для аэродинамики
-        float compensatorForce = 1f;
+        float compensatorForce = 0.5f;
 
         void PlayerMove() // коэффициент живучести двигателя
         {
@@ -701,8 +701,10 @@ namespace Havier_Than_Air_S
                 }
                 */
 
-                speed.X = -vectorKompensator.X * compensatorForce * Math.Sign(-speed.X);
-                speed.Y = -vectorKompensator.Y * compensatorForce * Math.Sign(-speed.Y);
+                //speed.X = -vectorKompensator.X * compensatorForce * Math.Sign(-speed.X);
+                speed.X = -vectorKompensator.X * compensatorForce ;
+                //speed.Y = -vectorKompensator.Y * compensatorForce * Math.Sign(-speed.Y);
+                speed.Y = -vectorKompensator.Y * compensatorForce ;
                 
             }
 
@@ -731,11 +733,11 @@ namespace Havier_Than_Air_S
 
         }
       
-        //Принимает объектСтолкновения, номера двух точек для построения линии, векторВертолета от центра масс до касания
-        private void MirrorVector(Shape mount, Vector2f pointsOfGrany, Vector2f vnVector)
-        {
+        public Vector2f vectorToDamage_01 = new Vector2f(0,0);
 
-            
+        //Принимает объектСтолкновения, номера двух точек для построения линии, векторВертолета от центра масс до касания
+        private void MirrorVector(Shape mount, Vector2f pointsOfGrany, Vector2f helyVector)
+        {
 
             //Получить вектор грани (Б-А)
            
@@ -765,16 +767,26 @@ namespace Havier_Than_Air_S
             float angle3 = angle1 - angle2;
             //Нормальный вектор
             Vector2f normalVector = Matematika.searchLocalVector(-angle3 + angle2, vectorInertiaDist);
-            //Новый вектор
-            vectorKompensator = normalVector  ;// * Program.deltaTimer.Delta() * Program.gameSpeed;
+            
 
 
             //Проверка направления
             Vector2f centerOfHely = new Vector2f();
-            centerOfHely = Matematika.GlobalPointOfLocalPoint(positionOfHely, centerOfMass, angle);
+            Vector2f vectorHelyToCollider = new Vector2f();
+            centerOfHely = Matematika.LocalPointOfRotationObject(centerOfMass, angle);
+            vectorHelyToCollider = Matematika.LocalPointOfRotationObject(helyVector, angle);
+            vectorToDamage_01 = vectorHelyToCollider - centerOfHely;
 
-            Vector2f vectorDoKasania = new Vector2f();
-            
+            //Vector2f centerOfHelyGlobal = Matematika.GlobalPointOfLocalPoint(positionOfHely, centerOfHely, angle);
+            //float dista = Matematika.searchdistance(centerOfHelyGlobal, centerOfHely);
+
+            //float angleD = Matematika.AngleOfVector()
+            //Vector2f vectorCenterToDamage  = Matematika.searchLocalVector()
+
+
+            //Новый вектор
+           // vectorKompensator = new Vector2f(Math.Abs(normalVector.X)*Math.Sign(-vectorToDamage_01.X), Math.Abs(normalVector.Y) * Math.Sign(-vectorToDamage_01.Y));// * Program.deltaTimer.Delta() * Program.gameSpeed;
+            vectorKompensator = new Vector2f(-vectorToDamage_01.X, -vectorToDamage_01.Y);// * Program.deltaTimer.Delta() * Program.gameSpeed;
 
         }
 
@@ -784,6 +796,7 @@ namespace Havier_Than_Air_S
             if (DictionaryOfShapesReal.Count==0)
             {
                 vectorKompensator = new Vector2f(0,0);
+                vectorToDamage_01 = new Vector2f(0,0);
                 return;
             }
             // Ключ=форма, значение=два номера точек грани
@@ -792,58 +805,58 @@ namespace Havier_Than_Air_S
 
             foreach (var shape in DictionaryOfShapesReal)
             {
-
                 
 
-                //Определение вектора к месту касания у верталета
-                Vector2f vnVector = new Vector2f(0,0); // вектор с точками
+                //Вектор от центра масс до коллайдеров вертолета, сумма векторов до граней коллайдера
+                List <Vector2f> skladVectorov = new List<Vector2f>();
+                Vector2f obshiyVector = new Vector2f(0,0);
+                int numOfVector = 0;
 
-                if (shape.Value.GetLength(1)>1)
+                for (int i = 0; i < shape.Value.GetLength(0); i++)
                 {
-                    if (shape.Value.GetLength(1)%2==0)
+                    //vnVector += shape.Value[1, i];
+
+                    //Номера точки
+                    int point_01 = (int)shape.Value[i, 1].X;
+                    int point_02 = (int)shape.Value[i, 1].Y;
+
+                    //Координаты точек
+                    Vector2f point_Vector_01 = colliderConvexShape.GetPoint((uint)point_01);
+                    Vector2f point_Vector_02 = colliderConvexShape.GetPoint((uint)point_02);
+
+                    //Центр вектора
+                    Vector2f g_01 = new Vector2f((point_Vector_01.X + point_Vector_01.X) / 2,
+                                                 (point_Vector_02.Y + point_Vector_02.Y) / 2);
+
+                    //Вектор ...
+                    Vector2f correctVector = g_01; ;
+
+                    //Складировать вектор в массив или лист
+                    if (!skladVectorov.Contains(correctVector))
                     {
-                        int tt = shape.Value.GetLength(1) / 2;
-                        vnVector = new Vector2f(shape.Value[1, tt-1].Y, shape.Value[1, tt].X);
+                        skladVectorov.Add(correctVector);
+                        obshiyVector = obshiyVector + correctVector;
+
+                        numOfVector += 1;
                     }
-                    else
-                    {
-                        int tt = (shape.Value.GetLength(1) + 1) / 2;
-                        vnVector = new Vector2f(shape.Value[1, tt - 1].X, shape.Value[1, tt-1].Y);
-                    }
+
                 }
 
-                //Получаем очень локальный вектор (вектор между двумя точками на грани или вектор точки)
-                Vector2f rvVector = colliderConvexShape.GetPoint((uint)vnVector.X)+
-                                                 new Vector2f((colliderConvexShape.GetPoint((uint)vnVector.X).X + 
-                                                                colliderConvexShape.GetPoint((uint)vnVector.Y).X) / 2,
-                                                              (colliderConvexShape.GetPoint((uint)vnVector.X).Y + 
-                                                                colliderConvexShape.GetPoint((uint)vnVector.Y).Y) / 2);
-
-                
-
-
-
-
-                    for (int i = 0; i < shape.Value.GetLength(1); i++)
-                    {
-                        vnVector += shape.Value[1, i];
-
-                    }
-
-
+                //Построить новый вектор из листа
+                obshiyVector = obshiyVector / numOfVector;
 
 
                 //Получить вектор противодействия
                 if (shape.Value.GetLength(0) > 1)
                 {
-                    Vector2f granToMatematica = new Vector2f(shape.Value[0, 0].X, shape.Value[shape.Value.GetLength(0)-1, 0].Y);
+                    Vector2f granToMatematica = new Vector2f(shape.Value[0, 0].X, shape.Value[shape.Value.GetLength(0)-1, 0].Y); // в этомместе могут быть ошибки, грани предмета могут быть маленькими и неправильно отрабатывать
                  
-                    MirrorVector(shape.Key, granToMatematica, vnVector);
+                    MirrorVector(shape.Key, granToMatematica, obshiyVector);
 
                 }
                 else
                 {
-                    MirrorVector(shape.Key, shape.Value[0, 0], vnVector);
+                    MirrorVector(shape.Key, shape.Value[0, 0], obshiyVector);
                 }  
                     //Добавить вектор к вектору скорости
 
@@ -894,7 +907,11 @@ namespace Havier_Than_Air_S
 
         }
 
+        private void RaskladShape()
+        {
 
+
+        }
 
 
         bool inGround = false;

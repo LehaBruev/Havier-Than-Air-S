@@ -519,13 +519,32 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
             };
 
             Program.window.Draw(line, PrimitiveType.Lines);
-
+            VectorToDamage();
 
             /*
             inertiaVector = new Vector2f(hely.speed.X, hely.speed.Y);
             inertiavector.Color = Color.Yellow;
             inertiavector.Position = new Vector2f(hely.position.X, hely.position.Y);
             */
+        }
+
+        private void VectorToDamage()
+        {
+            Vertex[] line = new Vertex[]
+                        {
+                //Инерция
+               //new Vertex(new Vector2f(hely.positionOfHely.X+100, hely.positionOfHely.Y-100)),
+              // new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.speed.X*100, hely.positionOfHely.Y -100 - hely.speed.Y*100),cvColor3),
+               //Препятствие
+               // new Vertex(new Vector2f(hely.positionOfHely.X+100 + pregrada_t1.X, hely.positionOfHely.Y-100+pregrada_t1.Y)),
+              // new Vertex(new Vector2f(hely.positionOfHely.X+100 + trueVectorPregrada.X, hely.positionOfHely.Y -100+trueVectorPregrada.Y),cvColor2),
+               //Вектор противодействия
+                new Vertex(new Vector2f(hely.positionOfHely.X-100 , hely.positionOfHely.Y-100)),
+               new Vertex(new Vector2f(hely.positionOfHely.X-100 + hely.vectorToDamage_01.X*100, hely.positionOfHely.Y -100+hely.vectorToDamage_01.Y*100),cvColor)
+                        };
+
+            Program.window.Draw(line, PrimitiveType.Lines);
+
         }
 
     }
