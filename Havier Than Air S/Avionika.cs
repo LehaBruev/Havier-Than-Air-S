@@ -515,7 +515,11 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
                new Vertex(new Vector2f(hely.positionOfHely.X+100 + trueVectorPregrada.X, hely.positionOfHely.Y -100+trueVectorPregrada.Y),cvColor2),
                //Вектор противодействия
                 new Vertex(new Vector2f(hely.positionOfHely.X+100 , hely.positionOfHely.Y-100)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + vectorKompensator.X*100, hely.positionOfHely.Y -100+vectorKompensator.Y*100),cvColor)
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + vectorKompensator.X*1000, hely.positionOfHely.Y -100+vectorKompensator.Y*1000),cvColor),
+
+               //нормал вектор с вертолета
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 , hely.positionOfHely.Y+50-100)),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.normalVector.X*1000, hely.positionOfHely.Y+50 -100+hely.normalVector.Y*1000),cvColor)
             };
 
             Program.window.Draw(line, PrimitiveType.Lines);

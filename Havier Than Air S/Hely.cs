@@ -41,7 +41,7 @@ namespace Havier_Than_Air_S
         //Настройки верталета
         protected float maxpowery = 300000; //Максимальная сила влияет на вертолет
         protected float maxpowerx = 30000; // 
-        protected float shagRUD = 0.3f; // шаг увеличения мощности двигателя
+        protected float shagRUD = 1.3f; // шаг увеличения мощности двигателя
         protected float shagAngle = 2.5f; // шаг изменения угла атаки
         protected float shagAngleSpeed = 15f; // отклик рукоятки угла
         protected float maxspeedhor = 50;
@@ -566,7 +566,7 @@ namespace Havier_Than_Air_S
 
 
         Vector2f dempferSpeed = new Vector2f(0.1f,1f); // Это для аэродинамики
-        float compensatorForce = 0.5f;
+        float compensatorForce = 0.01f;
 
         void PlayerMove() // коэффициент живучести двигателя
         {
@@ -702,7 +702,7 @@ namespace Havier_Than_Air_S
                 */
 
                 //speed.X = -vectorKompensator.X * compensatorForce * Math.Sign(-speed.X);
-                speed.X = -vectorKompensator.X * compensatorForce ;
+                speed.X = vectorKompensator.X * compensatorForce ;
                 //speed.Y = -vectorKompensator.Y * compensatorForce * Math.Sign(-speed.Y);
                 speed.Y = -vectorKompensator.Y * compensatorForce ;
                 
@@ -734,6 +734,7 @@ namespace Havier_Than_Air_S
         }
       
         public Vector2f vectorToDamage_01 = new Vector2f(0,0);
+        public Vector2f normalVector = new Vector2f(0, 0);
 
         //Принимает объектСтолкновения, номера двух точек для построения линии, векторВертолета от центра масс до касания
         private void MirrorVector(Shape mount, Vector2f pointsOfGrany, Vector2f helyVector)
@@ -766,7 +767,7 @@ namespace Havier_Than_Air_S
             //Разница углов
             float angle3 = angle1 - angle2;
             //Нормальный вектор
-            Vector2f normalVector = Matematika.searchLocalVector(-angle3 + angle2, vectorInertiaDist);
+            normalVector = Matematika.searchLocalVector(-angle3 + angle2, vectorInertiaDist);
             
 
 
@@ -777,16 +778,27 @@ namespace Havier_Than_Air_S
             vectorHelyToCollider = Matematika.LocalPointOfRotationObject(helyVector, angle);
             vectorToDamage_01 = vectorHelyToCollider - centerOfHely;
 
-            //Vector2f centerOfHelyGlobal = Matematika.GlobalPointOfLocalPoint(positionOfHely, centerOfHely, angle);
-            //float dista = Matematika.searchdistance(centerOfHelyGlobal, centerOfHely);
+            float dmgAngle = Matematika.AngleOfVector(vectorToDamage_01);
+            float mirrorAngle = Matematika.AngleOfVector(normalVector);
 
-            //float angleD = Matematika.AngleOfVector()
-            //Vector2f vectorCenterToDamage  = Matematika.searchLocalVector()
+            if (dmgAngle > 180) dmgAngle = 180 - dmgAngle;
+            if (mirrorAngle > 180) mirrorAngle = 180 - mirrorAngle;
 
+
+            if (dmgAngle +90> mirrorAngle || mirrorAngle > dmgAngle-90)
+            {
+                vectorKompensator = -normalVector;// new Vector2f(Math.Abs(normalVector.X)*Math.Sign(-vectorToDamage_01.X), Math.Abs(normalVector.Y) * Math.Sign(-vectorToDamage_01.Y));// * Program.deltaTimer.Delta() * Program.gameSpeed;
+                //vectorKompensator = new Vector2f(0, 0.00001f);
+            }
+            else
+            {
+                //vectorKompensator = -normalVector;// new Vector2f(Math.Abs(normalVector.X)*Math.Sign(-vectorToDamage_01.X), Math.Abs(normalVector.Y) * Math.Sign(-vectorToDamage_01.Y));// * Program.deltaTimer.Delta() * Program.gameSpeed;
+                vectorKompensator = new Vector2f(0, 0.00001f);
+            }
 
             //Новый вектор
-           // vectorKompensator = new Vector2f(Math.Abs(normalVector.X)*Math.Sign(-vectorToDamage_01.X), Math.Abs(normalVector.Y) * Math.Sign(-vectorToDamage_01.Y));// * Program.deltaTimer.Delta() * Program.gameSpeed;
-            vectorKompensator = new Vector2f(-vectorToDamage_01.X, -vectorToDamage_01.Y);// * Program.deltaTimer.Delta() * Program.gameSpeed;
+            // vectorKompensator = new Vector2f(Math.Abs(normalVector.X)*Math.Sign(-vectorToDamage_01.X), Math.Abs(normalVector.Y) * Math.Sign(-vectorToDamage_01.Y));// * Program.deltaTimer.Delta() * Program.gameSpeed;
+            //vectorKompensator = new Vector2f(-vectorToDamage_01.X, -vectorToDamage_01.Y);// * Program.deltaTimer.Delta() * Program.gameSpeed;
 
         }
 
