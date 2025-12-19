@@ -17,6 +17,7 @@ namespace Havier_Than_Air_S
         public static float helyScale = 1f;
         // Режим разработчки
        public static bool TestModeP = false;
+        //public static Vectora Vect = new Vectora();
        static ContextSettings _Settings = new ContextSettings();
         public static Collisions collisions = new Collisions();
         public static Font font = new Font("comic.ttf");

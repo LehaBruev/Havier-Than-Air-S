@@ -148,6 +148,7 @@
     <Compile Include="Rita.cs" />
     <Compile Include="Tehnika.cs" />
     <Compile Include="TestBaseClass.cs" />
+    <Compile Include="Vectora.cs" />
     <Compile Include="Visualistion\Salut.cs" />
     <Compile Include="Weapon\Bang.cs" />
     <Compile Include="Weapon\GunBullet.cs" />

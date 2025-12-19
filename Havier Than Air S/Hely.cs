@@ -26,7 +26,7 @@ namespace Havier_Than_Air_S
 
         Marker marker;
 
-        public Vector2f centerOfMass = new Vector2f(0, 15);
+        public Vector2f centerOfMass = new Vector2f(0, 30);
 
         #region Параметры_Heli
         
@@ -284,8 +284,8 @@ namespace Havier_Than_Air_S
             colliderConvexShape.SetPoint(0, new Vector2f(-104, 4));
             colliderConvexShape.SetPoint(1, new Vector2f(-87, 23));
             colliderConvexShape.SetPoint(2, new Vector2f(-28, 24));
-            colliderConvexShape.SetPoint(3, new Vector2f(-24, -13));
-            colliderConvexShape.SetPoint(4, new Vector2f(26, -16));
+            colliderConvexShape.SetPoint(3, new Vector2f(-24, 15));
+            colliderConvexShape.SetPoint(4, new Vector2f(26, 15));
             colliderConvexShape.SetPoint(5, new Vector2f(40, 29));
             colliderConvexShape.SetPoint(6, new Vector2f(27, 44));
             colliderConvexShape.SetPoint(7, new Vector2f(-14, 45));
@@ -566,7 +566,7 @@ namespace Havier_Than_Air_S
 
 
         Vector2f dempferSpeed = new Vector2f(0.1f,1f); // Это для аэродинамики
-        float compensatorForce = 0.01f;
+       
 
         void PlayerMove() // коэффициент живучести двигателя
         {
@@ -709,9 +709,6 @@ namespace Havier_Than_Air_S
             }
 
 
-
-
-
             if (speed.X > speedxmax.X) speed.X = speedxmax.X;
             if (speed.X < -speedxmax.X) speed.X = -speedxmax.X;
             if (speed.Y > speedxmax.Y) speed.Y = speedxmax.Y;
@@ -735,194 +732,155 @@ namespace Havier_Than_Air_S
       
         public Vector2f vectorToDamage_01 = new Vector2f(0,0);
         public Vector2f normalVector = new Vector2f(0, 0);
+        float compensatorForce = 0.5f;
 
-        //Принимает объектСтолкновения, номера двух точек для построения линии, векторВертолета от центра масс до касания
-        private void MirrorVector(Shape mount, Vector2f pointsOfGrany, Vector2f helyVector)
+        //Принимает объектСтолкновения, номера двух точек для построения линии, векторВертолета от центра до касаний
+        private void VectorCompensatory()
         {
-
-            //Получить вектор грани (Б-А)
-           
-            // Вектор препятствие
-            Vector2f pregrada_t1 = new Vector2f(0, 0);
-            Vector2f pregrada_t2 = mount.GetPoint((uint)pointsOfGrany.X) - mount.GetPoint((uint)pointsOfGrany.Y);
-            Vector2f trueVectorPregrada = pregrada_t2;
-
-            //Перенос точки отсчета вектора
-            if (pregrada_t2.X < pregrada_t1.X)
-            {
-                trueVectorPregrada = new Vector2f(-pregrada_t2.X, pregrada_t2.Y);
-            }
-            if (pregrada_t2.Y < pregrada_t1.Y)
-            {
-                trueVectorPregrada = new Vector2f(trueVectorPregrada.X, pregrada_t2.Y);
-            }
-
-            //Вектор противодействия инерции
-            //1Длина вектора инерции
-            float vectorInertiaDist = Matematika.searchdistance(new Vector2f(0, 0), speed);
-            //2Угол вектора инерции
-            float angle1 = Matematika.AngleOfVector(new Vector2f(speed.X, -speed.Y));
-            //3угол наклона препятствия
-            float angle2 = Matematika.AngleOfVector(trueVectorPregrada);
-            //Разница углов
-            float angle3 = angle1 - angle2;
-            //Нормальный вектор
-            normalVector = Matematika.searchLocalVector(-angle3 + angle2, vectorInertiaDist);
-            
-
-
             //Проверка направления
             Vector2f centerOfHely = new Vector2f();
-            Vector2f vectorHelyToCollider = new Vector2f();
-            centerOfHely = Matematika.LocalPointOfRotationObject(centerOfMass, angle);
-            vectorHelyToCollider = Matematika.LocalPointOfRotationObject(helyVector, angle);
-            vectorToDamage_01 = vectorHelyToCollider - centerOfHely;
+            Vector2f touchUtotchVector = new Vector2f();
+            centerOfHely =  Matematika.LocalPointOfRotationObject(centerOfMass, angle);
+            //centerOfHely = new Vector2f(centerOfHely.X, centerOfHely.Y);
 
-            float dmgAngle = Matematika.AngleOfVector(vectorToDamage_01);
-            float mirrorAngle = Matematika.AngleOfVector(normalVector);
+            touchUtotchVector = Matematika.LocalPointOfRotationObject(touchVector, angle);
+            //vectorHelyToCollider = new Vector2f(vectorHelyToCollider.X, vectorHelyToCollider.Y);
+            //vectorToDamage_01 = vectorHelyToCollider - centerOfHely;
 
-            if (dmgAngle > 180) dmgAngle = 180 - dmgAngle;
+            //float pregradaAngle = Matematika.AngleOfVector(GranPregrada);
+            float mirrorAngle = Matematika.AngleOfVector(MirrorVector);
+            float touch2Angle = Matematika.AngleOfVector(touchUtotchVector);
+
+            if (touch2Angle > 180) touch2Angle = 180 - touch2Angle;
             if (mirrorAngle > 180) mirrorAngle = 180 - mirrorAngle;
 
 
-            if (dmgAngle +90> mirrorAngle || mirrorAngle > dmgAngle-90)
+            if (touch2Angle + 90> mirrorAngle || mirrorAngle > touch2Angle - 90)
             {
-                vectorKompensator = -normalVector;// new Vector2f(Math.Abs(normalVector.X)*Math.Sign(-vectorToDamage_01.X), Math.Abs(normalVector.Y) * Math.Sign(-vectorToDamage_01.Y));// * Program.deltaTimer.Delta() * Program.gameSpeed;
+                vectorKompensator = new Vector2f(MirrorVector.X*Math.Sign(GranPregrada.X), MirrorVector.Y) ;// * Program.deltaTimer.Delta() * Program.gameSpeed;
                 //vectorKompensator = new Vector2f(0, 0.00001f);
             }
             else
             {
                 //vectorKompensator = -normalVector;// new Vector2f(Math.Abs(normalVector.X)*Math.Sign(-vectorToDamage_01.X), Math.Abs(normalVector.Y) * Math.Sign(-vectorToDamage_01.Y));// * Program.deltaTimer.Delta() * Program.gameSpeed;
-                vectorKompensator = new Vector2f(0, 0.00001f);
+                vectorKompensator = new Vector2f(0.0f,0.0f);
             }
 
-            //Новый вектор
-            // vectorKompensator = new Vector2f(Math.Abs(normalVector.X)*Math.Sign(-vectorToDamage_01.X), Math.Abs(normalVector.Y) * Math.Sign(-vectorToDamage_01.Y));// * Program.deltaTimer.Delta() * Program.gameSpeed;
-            //vectorKompensator = new Vector2f(-vectorToDamage_01.X, -vectorToDamage_01.Y);// * Program.deltaTimer.Delta() * Program.gameSpeed;
-
+           
         }
+
+
+        private Vector2f  poiskVectoraNapravlKasaniya(Vector2f[,] shapeMatrix)
+        {
+            //Вектор до граней коллайдера / сумма векторов до центров граней
+            List<Vector2f> skladVectorov = new List<Vector2f>();
+            Vector2f summaVectorov = new Vector2f();
+            int numOfVector = 0;
+
+            for (int i = 0; i < shapeMatrix.GetLength(0); i++)
+            {
+                //Вектор до центра грани (отрицательный У)
+                Vector2f centerGrany = Vectora.VectorToCenterGranyOfConvex(shapeMatrix[i, 1], colliderConvexShape);
+
+                //Складировать вектор в массив или лист
+                if (!skladVectorov.Contains(centerGrany))
+                {
+                    skladVectorov.Add(centerGrany);
+                    summaVectorov = summaVectorov + centerGrany;
+                 
+
+                    numOfVector += 1;
+                }
+
+            }
+            //centerOfMass - colliderConvexShape.GetPoint(3)
+
+            //Построить новый вектор из листа
+            summaVectorov = new Vector2f(summaVectorov.X, summaVectorov.Y)  / numOfVector;
+            summaVectorov =  summaVectorov - centerOfMass;
+            
+
+
+            return summaVectorov; 
+        }
+
+        //Используются в авионике
+        public Vector2f touchVector = new Vector2f();
+        public Vector2f GranPregrada = new Vector2f();
+        public Vector2f MirrorVector = new Vector2f();
 
         private void ColliderPhisicsCompensation()
         {
-
             if (DictionaryOfShapesReal.Count==0)
             {
                 vectorKompensator = new Vector2f(0,0);
                 vectorToDamage_01 = new Vector2f(0,0);
-                return;
             }
+
             // Ключ=форма, значение=два номера точек грани
-
-          
-
             foreach (var shape in DictionaryOfShapesReal)
             {
-                
+                //Суммарный точ вектор до обшивки
+                touchVector = poiskVectoraNapravlKasaniya(shape.Value);
 
-                //Вектор от центра масс до коллайдеров вертолета, сумма векторов до граней коллайдера
-                List <Vector2f> skladVectorov = new List<Vector2f>();
-                Vector2f obshiyVector = new Vector2f(0,0);
-                int numOfVector = 0;
+                //Грань препятствия из точек препятствия
+                GranPregrada = granSkala(shape.Value, shape.Key);
 
-                for (int i = 0; i < shape.Value.GetLength(0); i++)
-                {
-                    //vnVector += shape.Value[1, i];
+                //Вектор отражение от препятствия / отражаем скорость от препятствия
+                MirrorVector = Vectora.MirrorVector(GranPregrada, speed);
 
-                    //Номера точки
-                    int point_01 = (int)shape.Value[i, 1].X;
-                    int point_02 = (int)shape.Value[i, 1].Y;
-
-                    //Координаты точек
-                    Vector2f point_Vector_01 = colliderConvexShape.GetPoint((uint)point_01);
-                    Vector2f point_Vector_02 = colliderConvexShape.GetPoint((uint)point_02);
-
-                    //Центр вектора
-                    Vector2f g_01 = new Vector2f((point_Vector_01.X + point_Vector_01.X) / 2,
-                                                 (point_Vector_02.Y + point_Vector_02.Y) / 2);
-
-                    //Вектор ...
-                    Vector2f correctVector = g_01; ;
-
-                    //Складировать вектор в массив или лист
-                    if (!skladVectorov.Contains(correctVector))
-                    {
-                        skladVectorov.Add(correctVector);
-                        obshiyVector = obshiyVector + correctVector;
-
-                        numOfVector += 1;
-                    }
-
-                }
-
-                //Построить новый вектор из листа
-                obshiyVector = obshiyVector / numOfVector;
-
-
-                //Получить вектор противодействия
-                if (shape.Value.GetLength(0) > 1)
-                {
-                    Vector2f granToMatematica = new Vector2f(shape.Value[0, 0].X, shape.Value[shape.Value.GetLength(0)-1, 0].Y); // в этомместе могут быть ошибки, грани предмета могут быть маленькими и неправильно отрабатывать
-                 
-                    MirrorVector(shape.Key, granToMatematica, obshiyVector);
-
-                }
-                else
-                {
-                    MirrorVector(shape.Key, shape.Value[0, 0], obshiyVector);
-                }  
-                    //Добавить вектор к вектору скорости
+                VectorCompensatory();
 
             }
-
-
-
-            /*
-            foreach (var previous in DicShapesInCollidingOld)
-            {
-                foreach (var real in DicShapesInCollidingReal)
-                {
-                    //Если совпало
-                    if(previous.Key==real.Key)
-                    {
-                        //если дистанция сократилась
-                        if (previous.Value > real.Value)
-                        {
-                            BlockListOfShapes.Add(real.Key);
-
-                        }
-                    }
-
-                    bool removeInBlackList = true;
-                    foreach (var blocked in BlockListOfShapes)
-                    {
-                        if (blocked== real.Key)
-                        {
-                            removeInBlackList = false;
-                        }
-
-                    }
-                    if (removeInBlackList)
-                    {
-                        BlockListOfShapes.Remove(real.Key);
-
-                    }
-
-                }
-
-            }
-
-            DicShapesInCollidingOld = DicShapesInCollidingReal;
-
-            */
-
-
 
         }
 
-        private void RaskladShape()
+       private Vector2f granSkala(Vector2f[,] shapeMatrix,Shape shape)
         {
+            List<Vector2f> Points = new List<Vector2f>();
+            List<int> skladTochek = new List<int>();
+            List<int> obshieTochki = new List<int>();
+            Vector2f summaVectorov = new Vector2f();
 
+            for (int f=0;f< shapeMatrix.GetLength(0); f++)
+            {
+                if (!Points.Contains(shapeMatrix[f, 0])) Points.Add(shapeMatrix[f, 0]);
+            }
 
+           //Добавляем в лист все точки которые строят грани
+           for (int i = 0; i < Points.Count; i++)
+           {
+
+                if (!skladTochek.Contains((int)Points[i].X)) 
+                    skladTochek.Add((int)Points[i].X); 
+                else obshieTochki.Add((int)Points[i].X);
+               if (!skladTochek.Contains((int)Points[i].Y)) 
+                    skladTochek.Add((int)Points[i].Y); 
+                else obshieTochki.Add((int)Points[i].Y);
+           }
+                
+            obshieTochki.Sort();
+
+            //Перебираем общие
+            for (int z = 0; z < obshieTochki.Count; z++)
+            {
+                skladTochek.Remove(obshieTochki[z]);
+            }
+            skladTochek.Sort();
+            
+            Vector2f tochka_01 = shape.GetPoint((uint)skladTochek[0]);
+            Vector2f tochka_02 = shape.GetPoint((uint)skladTochek[skladTochek.Count() - 1]);
+
+            summaVectorov = tochka_02 - tochka_01;
+
+            //Перенос точки отсчета вектора
+            if (tochka_02.X < tochka_01.X)
+            {
+                summaVectorov = new Vector2f(-summaVectorov.X, -summaVectorov.Y);
+            }
+            
+
+            return summaVectorov;
         }
 
 

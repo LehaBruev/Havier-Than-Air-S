@@ -470,37 +470,11 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
 
         private void UpdateColliderTester()
         {
-            //Получить вектор прикрученный к нолю из двух точек
-            // Вектор препятствие
-            Vector2f pregrada_t1 = new Vector2f(0,0);
-            Vector2f pregrada_t2 = new Vector2f(-50,0);
-            Vector2f trueVectorPregrada = pregrada_t2;
+            Vector2f mirrorVector = Vectora.MirrorVector(hely.GranPregrada * 5, hely.speed);
 
-            
-            //Перенос точки отсчета вектора
-            if (pregrada_t2.X < pregrada_t1.X)
-            {
-                 trueVectorPregrada = new Vector2f(-pregrada_t2.X, pregrada_t2.Y);
-            }
-            if (pregrada_t2.Y < pregrada_t1.Y)
-            {
-                trueVectorPregrada = new Vector2f(trueVectorPregrada.X, pregrada_t2.Y);
-            }
-
-                //Вектор противодействия инерции
-                //1Длина вектора инерции
-            float vectorInertiaDist = Matematika.searchdistance(new Vector2f(0, 0), hely.speed);
-            //2Угол вектора инерции
-            float angle1_inertia = Matematika.AngleOfVector(new Vector2f(hely.speed.X,-hely.speed.Y));
-            //3угол наклона препятствия
-            float angle2_grany = Matematika.AngleOfVector(trueVectorPregrada);
-            //Разница углов
-            float angle3 =  angle1_inertia - angle2_grany;
-            //Нормальный вектор
-            Vector2f normalVector = Matematika.searchLocalVector(-angle3 + angle2_grany, vectorInertiaDist);
-            //Новый вектор
-            Vector2f vectorKompensator = normalVector;// * Program.deltaTimer.Delta() * Program.gameSpeed;
-
+            Vector2f pregrada_t1 = new Vector2f(0, 0);
+            Vector2f pregrada_t2 = hely.GranPregrada * 5;
+           
 
             cooliderTesterVector.Position = new Vector2f(hely.positionOfHely.X, hely.positionOfHely.Y);
 
@@ -512,14 +486,23 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
                new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.speed.X*100, hely.positionOfHely.Y -100 - hely.speed.Y*100),cvColor3),
                //Препятствие
                 new Vertex(new Vector2f(hely.positionOfHely.X+100 + pregrada_t1.X, hely.positionOfHely.Y-100+pregrada_t1.Y)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + trueVectorPregrada.X, hely.positionOfHely.Y -100+trueVectorPregrada.Y),cvColor2),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + pregrada_t2.X, hely.positionOfHely.Y -100+pregrada_t2.Y),cvColor2),
                //Вектор противодействия
                 new Vertex(new Vector2f(hely.positionOfHely.X+100 , hely.positionOfHely.Y-100)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + vectorKompensator.X*1000, hely.positionOfHely.Y -100+vectorKompensator.Y*1000),cvColor),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + mirrorVector.X*1000, hely.positionOfHely.Y -100+mirrorVector.Y*1000),cvColor),
 
                //нормал вектор с вертолета
                new Vertex(new Vector2f(hely.positionOfHely.X+100 , hely.positionOfHely.Y+50-100)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.normalVector.X*1000, hely.positionOfHely.Y+50 -100+hely.normalVector.Y*1000),cvColor)
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.normalVector.X*1000, hely.positionOfHely.Y+50 -100+hely.normalVector.Y*1000),cvColor),
+            
+                //napravlenieDoGrani
+               new Vertex(new Vector2f(hely.positionOfHely.X , hely.positionOfHely.Y+100)),
+               new Vertex(new Vector2f(hely.positionOfHely.X + hely.touchVector.X*1000, hely.positionOfHely.Y +100+hely.touchVector.Y*1000),cvColor),
+
+               //GranPregrada
+              // new Vertex(new Vector2f(hely.positionOfHely.X , hely.positionOfHely.Y+100)),
+               //new Vertex(new Vector2f(hely.positionOfHely.X + hely.summaVectorovDoGrany.X*1000, hely.positionOfHely.Y +100+hely.summaVectorovDoGrany.Y*1000),cvColor)
+
             };
 
             Program.window.Draw(line, PrimitiveType.Lines);
