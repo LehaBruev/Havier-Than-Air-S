@@ -59,15 +59,17 @@ namespace Havier_Than_Air_S
         {
             float angle;
 
-            double podval = (Math.Sqrt(vectorGeneral.X * vectorGeneral.X + vectorGeneral.Y * vectorGeneral.Y) *
-            Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y));
+            //double podval = (Math.Sqrt(vectorGeneral.X * vectorGeneral.X + vectorGeneral.Y * vectorGeneral.Y) *
+            // Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y));
+            double podval = Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
 
             if (podval == 0)
             {
                 return 0;
             }
 
-            double cos = (vectorGeneral.X * vector.X + vectorGeneral.Y * vector.Y) / podval;
+            //double cos = (vectorGeneral.X * vector.X + vectorGeneral.Y * vector.Y) / podval;
+            double cos = vector.X / podval;
 
             angle = 180*(float)Math.Acos(cos)/3.14f;
 

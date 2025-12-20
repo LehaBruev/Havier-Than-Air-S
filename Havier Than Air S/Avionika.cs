@@ -468,36 +468,52 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
         Color cvColor2 = Color.Yellow;
         Color cvColor3 = Color.Red;
 
+        //Слепок векторов
+        Vector2f mirrorSlepok = new Vector2f();
+        Vector2f speedSlepok = new Vector2f();
+        Vector2f touchSlepok = new Vector2f();
+
         private void UpdateColliderTester()
         {
-            Vector2f mirrorVector = Vectora.MirrorVector(hely.GranPregrada * 5, hely.speed);
+            touchSlepok = hely.touch2Vector;
+            mirrorSlepok = hely.MirrorVector*1000;
+            speedSlepok = hely.speed*1000;
 
-            Vector2f pregrada_t1 = new Vector2f(0, 0);
+
             Vector2f pregrada_t2 = hely.GranPregrada * 5;
-           
+
+            Vector2f mirrorVector = Vectora.MirrorVector(pregrada_t2, speedSlepok);
+
 
             cooliderTesterVector.Position = new Vector2f(hely.positionOfHely.X, hely.positionOfHely.Y);
+
+            
+                
+            
 
             // ParkovkaAssistance
             Vertex[] line = new Vertex[]
             {
                 //Инерция
-               new Vertex(new Vector2f(hely.positionOfHely.X+100, hely.positionOfHely.Y-100)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.speed.X*100, hely.positionOfHely.Y -100 - hely.speed.Y*100),cvColor3),
+               new Vertex(hely.center2PosGlobal,cvColor2),
+               new Vertex(hely.center2PosGlobal + new Vector2f(speedSlepok.X, - speedSlepok.Y), cvColor2),
+
                //Препятствие
-                new Vertex(new Vector2f(hely.positionOfHely.X+100 + pregrada_t1.X, hely.positionOfHely.Y-100+pregrada_t1.Y)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + pregrada_t2.X, hely.positionOfHely.Y -100+pregrada_t2.Y),cvColor2),
+               new Vertex(hely.center2PosGlobal),
+               new Vertex(hely.center2PosGlobal + new Vector2f(pregrada_t2.X, pregrada_t2.Y), cvColor2),
+
                //Вектор противодействия
-                new Vertex(new Vector2f(hely.positionOfHely.X+100 , hely.positionOfHely.Y-100)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + mirrorVector.X*1000, hely.positionOfHely.Y -100+mirrorVector.Y*1000),cvColor),
+                new Vertex(hely.center2PosGlobal,cvColor),
+               //new Vertex(new Vector2f(hely.center2PosGlobal.X + mirrorSlepok.X*1000, hely.positionOfHely.Y -mirrorSlepok.Y*1000),cvColor),
+               new Vertex(hely.center2PosGlobal + new Vector2f(mirrorVector.X, mirrorVector.Y), cvColor),
 
                //нормал вектор с вертолета
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 , hely.positionOfHely.Y+50-100)),
-               new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.normalVector.X*1000, hely.positionOfHely.Y+50 -100+hely.normalVector.Y*1000),cvColor),
+               //new Vertex(new Vector2f(hely.positionOfHely.X+100 , hely.positionOfHely.Y+50-100)),
+              // new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.normalVector.X*1000, hely.positionOfHely.Y+50 -100+hely.normalVector.Y*1000),cvColor),
             
                 //napravlenieDoGrani
-               new Vertex(new Vector2f(hely.positionOfHely.X , hely.positionOfHely.Y+100)),
-               new Vertex(new Vector2f(hely.positionOfHely.X + hely.touchVector.X*1000, hely.positionOfHely.Y +100+hely.touchVector.Y*1000),cvColor),
+               new Vertex(new Vector2f(hely.center2PosGlobal.X , hely.center2PosGlobal.Y)),
+               new Vertex(new Vector2f(hely.center2PosGlobal.X + touchSlepok.X*10000, hely.center2PosGlobal.Y +touchSlepok.Y*10000),cvColor3),
 
                //GranPregrada
               // new Vertex(new Vector2f(hely.positionOfHely.X , hely.positionOfHely.Y+100)),

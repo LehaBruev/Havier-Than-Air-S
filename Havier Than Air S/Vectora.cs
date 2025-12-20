@@ -2,6 +2,7 @@
 using SFML.System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System;
 
 
 namespace Havier_Than_Air_S
@@ -29,6 +30,7 @@ namespace Havier_Than_Air_S
 
         static public Vector2f MirrorVector(Vector2f pregrada,Vector2f workVector)
         {
+
             //Получить вектор прикрученный к нолю из двух точек
             // Вектор препятствие
             Vector2f pregrada_t1 = new Vector2f(0, 0);
@@ -60,6 +62,99 @@ namespace Havier_Than_Air_S
             //Новый вектор
 
             return normalVector;
+
+
+
+
+
+
+
+
+
+
+            /*
+            //Получить вектор прикрученный к нолю из двух точек
+            // Вектор препятствие
+            Vector2f pregrada_t2 = pregrada;
+
+            //Перенос точки отсчета вектора
+            if (pregrada_t2.X < 0)
+            {
+                pregrada_t2 =  - pregrada_t2;
+            }
+            
+            //3угол наклона препятствия
+            float angle1_speed = Matematika.AngleOfVector(speedVector);
+            float angle2_pregrada = Matematika.AngleOfVector(pregrada_t2);
+
+            //////
+            //float dl2 = Matematika.searchdistance(normalVector2, new Vector2f());
+            //1Длина вектора инерции
+            float vectorInertiaDist = Matematika.searchdistance(new Vector2f(0, 0), speedVector);
+            //2Угол вектора инерции
+            float angle1_inertia = Matematika.AngleOfVector(new Vector2f(speedVector.X, speedVector.Y)); //-
+            //Разница углов
+            //float angle3 = angle1_inertia - angle2_grany;
+            float angle3_Correct = angle1_inertia - angle2_pregrada;
+            //Нормальный вектор
+            Vector2f normalVector = Matematika.searchLocalVector(-angle3_Correct, vectorInertiaDist);
+            //Новый вектор
+            Vector2f mirrorVector = new Vector2f(normalVector.X, -normalVector.Y) ;
+            Vector2f normalVector2 = Matematika.searchLocalVector(angle3_Correct, vectorInertiaDist);
+
+            //угол коррекции
+            //float angle3_Correct = angle1_inertia- angle2_grany;
+
+
+
+            /*
+             * 
+
+
+            Vector2f coordVec = Matematika.LocalPointOfRotationObject(new Vector2f(speedVector.X, speedVector.Y), -angle2_pregrada);
+            Vector2f mirrorVector = new Vector2f(coordVec.X, -coordVec.Y);
+            Vector2f normalVector2 = Matematika.LocalPointOfRotationObject(mirrorVector, -angle1_speed);
+            normalVector2 = new Vector2f(normalVector2.X, -normalVector2.Y);
+
+            float angle1 = Matematika.AngleOfVector(speedVector);
+            float angle3 = Matematika.AngleOfVector(normalVector2);
+
+            float sum1 = angle1 -angle2_pregrada;
+            float sum2 = angle3 -angle2_pregrada;
+
+            */
+
+            /*
+            return normalVector2;
+            */
         }
     }
 }
+
+
+
+/*
+ * 
+ * 
+ * 
+ * //Вектор противодействия инерции
+ * 
+ * float dl2 = Matematika.searchdistance(normalVector2, new Vector2f());
+            //1Длина вектора инерции
+            float vectorInertiaDist = Matematika.searchdistance(new Vector2f(0, 0), workVector);
+            //2Угол вектора инерции
+            float angle1_inertia = Matematika.AngleOfVector(new Vector2f(workVector.X, workVector.Y)); //-
+            //Разница углов
+            //float angle3 = angle1_inertia - angle2_grany;
+            float angle3_Correct = angle1_inertia- angle2_grany
+            //Нормальный вектор
+            //Vector2f normalVector = Matematika.searchLocalVector(-angle3_Correct, vectorInertiaDist);
+            //Новый вектор
+            //Vector2f mirrorVector = new Vector2f(normalVector.X, -normalVector.Y) ;
+            //Vector2f normalVector2 = Matematika.searchLocalVector(angle3_Correct, vectorInertiaDist);
+
+            //угол коррекции
+            //float angle3_Correct = angle1_inertia- angle2_grany;
+
+
+ */
