@@ -202,7 +202,6 @@ namespace Havier_Than_Air_S
 
             numOfPoints = numOfPoints + 1;
 
-
             colliderConvexShape = new ConvexShape(numOfPoints);
             for (uint i = 0; i < numOfPoints-1; i++)
             {
@@ -218,55 +217,52 @@ namespace Havier_Than_Air_S
 
         }
 
-
+        int typeOfWriteXY = 2;
 
         private void UpdateMouse()
         {
             if (Program.m_MouseController.LeftButton == true)
             {
-
-               
                 if (mouseIsPressed == false)
                 {
                     mouseIsPressed = true;
                     mousPoint1 = Program.m_MouseController.currentMousePoint;
                     AddPointToConvex(); // Прорисовка новой фигуры
 
-                    /*
-                    //Глобальная позиция окне программы для конвексШейп
-                    Program.log.WriteXY("colliderConvexShape.SetPoint(" + 
-                                        lognum + 
-                                        ", new Vector2f(" +
-                                        Mouse.GetPosition(Program.window).X + 
-                                        " , " + 
-                                        Mouse.GetPosition(Program.window).Y + 
-                                        " ));");
-                    
-                    */
 
-                    
-                     //Привязка к ротору вертолета
-                    Program.log.WriteXY("colliderConvexShape.SetPoint(" +
-                                       lognum +
-                                       ", new Vector2f(" +
-                                       (int)(Mouse.GetPosition(Program.window).X - hely.positionOfHely.X + Program.offset.X - Program.vMode.Width / 2) +
-                                       " , " +
-                                       (int)(Mouse.GetPosition(Program.window).Y - hely.positionOfHely.Y + Program.offset.Y - Program.vMode.Height / 2) +
-                                       " ));");
-                    
-                    /*
+                    //Глобальная позиция окне программы для конвексШейп
+                    if (typeOfWriteXY == 1)
+                    {
+                        Program.log.WriteXY("colliderConvexShape.SetPoint(" +
+                                            lognum +
+                                            ", new Vector2f(" +
+                                            Mouse.GetPosition(Program.window).X +
+                                            " , " +
+                                            Mouse.GetPosition(Program.window).Y +
+                                            " ));");
+                    }
+                    //Привязка к ротору вертолета
+                    else if (typeOfWriteXY == 2)
+                    {
+                        Program.log.WriteXY("colliderConvexShape.SetPoint(" +
+                                           lognum +
+                                           ", new Vector2f(" +
+                                           (int)(Mouse.GetPosition(Program.window).X - hely.positionOfHely.X + Program.offset.X - Program.vMode.Width / 2) +
+                                           " , " +
+                                           (int)(Mouse.GetPosition(Program.window).Y - hely.positionOfHely.Y + Program.offset.Y - Program.vMode.Height / 2) +
+                                           " ));");
+                    }
                     //Привязка к глобальной точке НАЖМИ F2
-                   Program.log.WriteXY("MountShape1.SetPoint(" +
+                    else if (typeOfWriteXY == 2)
+                    {
+                        Program.log.WriteXY("MountShape1.SetPoint(" +
                                       lognum +
                                       ", new Vector2f(" +
                                       (int)(Mouse.GetPosition(Program.window).X + Program.offset.X - Program.vMode.Width / 2 - 850) +
                                       " , " +
                                       (Mouse.GetPosition(Program.window).Y) +
                                       " ));");
-                   */
-
-
-
+                    }
                     lognum += 1;
                 }
             }

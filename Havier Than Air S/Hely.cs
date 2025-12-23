@@ -198,10 +198,17 @@ namespace Havier_Than_Air_S
         #region Colliders
         protected Vector2f colliderOrigin = new Vector2f(0, 0);
         public ConvexShape colliderConvexShape;
-        List<ConvexShape> ShapesCollisionsWithHelyPrevious;
+
         public List<Shape> BlockListOfShapes;
         public Dictionary<Shape, Vector2f[,]> DicShapesInCollidingOld;
         public Dictionary<Shape, Vector2f[,]> DictionaryOfShapesReal;
+
+        //Ротор коллайдеры
+        Vector2f rearColliderOrigin = new Vector2f(0, 0);
+        Vector2f topColliderOrigin = new Vector2f(0, 0);
+        public ConvexShape rearColliderConvexShape;
+        public ConvexShape topColliderConvexShape;
+
         #endregion
 
 
@@ -280,7 +287,7 @@ namespace Havier_Than_Air_S
         {
 
 
-            //Коллайдер
+            //Коллайдер вертолета
             colliderConvexShape = new ConvexShape(11);
             colliderConvexShape.SetPoint(0, new Vector2f(-104, 4));
             colliderConvexShape.SetPoint(1, new Vector2f(-87, 23));
@@ -296,7 +303,13 @@ namespace Havier_Than_Air_S
             colliderConvexShape.FillColor = Color.Yellow;
             colliderConvexShape.Origin = colliderOrigin;
 
-            marker = new Marker(colliderConvexShape, Color.Red, 3);
+            //Коллайдер винта
+            topColliderConvexShape = new ConvexShape(2);
+            topColliderConvexShape.SetPoint(0, new Vector2f(-79, -2));
+            topColliderConvexShape.SetPoint(1, new Vector2f(75, -1));
+            topColliderConvexShape.FillColor = Color.Yellow;
+
+            marker = new Marker(topColliderConvexShape, Color.Red, 3);
 
         } 
 
@@ -444,6 +457,8 @@ namespace Havier_Than_Air_S
         {
             colliderConvexShape.Position = positionOfHely;
             colliderConvexShape.Rotation = angle;
+            topColliderConvexShape.Position = positionOfHely;
+            topColliderConvexShape.Rotation = angle;
             // Program.window.Draw(collider);
         }
 
@@ -701,8 +716,8 @@ namespace Havier_Than_Air_S
 
             //speed = new Vector2f(speed.X, -speed.Y);
             //positionOfHely += speed;
-            positionOfHely.Y = positionOfHely.Y - speed.Y ;
-            positionOfHely.X = positionOfHely.X + speed.X ; //wind
+            positionOfHely.Y = positionOfHely.Y - speed.Y * Program.deltaTimer.Delta() * Program.gameSpeed ;
+            positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta() * Program.gameSpeed ; //wind
 
 
 

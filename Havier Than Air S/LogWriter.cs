@@ -17,19 +17,17 @@ namespace Havier_Than_Air_S
         {
             
         }
-        
+
+
         public async void WriteXY(string t)
         {
-            /*
+            
             using (StreamWriter writer = new StreamWriter(path, true))
             {
-            //    await writer.WriteLineAsync(t);
+                await writer.WriteLineAsync(t);
             }
-            */
+            
         }
-
-          
-
 
 
     }
