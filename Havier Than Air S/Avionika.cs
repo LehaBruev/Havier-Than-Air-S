@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -300,7 +301,7 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
             if (panelNumber == 1)
             {
                 posGlobal = new Vector2f(pos.X + panelAvionikaSprite.Position.X, 
-                                pos.Y + panelAvionikaSprite.Position.Y + 5);
+                                pos.Y + (panelAvionikaSprite.Position).Y + 5);
             }
             else if (panelNumber == 2)
             {
@@ -339,6 +340,7 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
             DrawText("RotorP: " + (int)hely.currentRotorPower, new Vector2f(22, 66), Color.Yellow, 5);
             DrawText("F: " + hely.F, new Vector2f(22, 83), Color.White, 5);
             DrawText("SPeed: " + hely.speed.X + " | " + hely.speed.Y, new Vector2f(22, 130), Color.Green, 5);
+            DrawText("Correct: " + hely.vectorKompensator.X + " | " + hely.vectorKompensator.Y, new Vector2f(22, 150), Color.Green, 5);
 
         }
 
@@ -463,6 +465,7 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
         Color cvColor = Color.Green;
         Color cvColor2 = Color.Yellow;
         Color cvColor3 = Color.Red;
+        Color cvColor4 = Color.Blue;
 
         //Слепок векторов
         Vector2f mirrorSlepok = new Vector2f();
@@ -471,7 +474,7 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
 
         private void UpdateColliderTester()
         {
-            touchSlepok = hely.touch2Vector;
+            touchSlepok = hely.touchVector;
             mirrorSlepok = hely.MirrorVector*1000;
             speedSlepok = hely.speed*1000;
 
@@ -508,8 +511,8 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
               // new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.normalVector.X*1000, hely.positionOfHely.Y+50 -100+hely.normalVector.Y*1000),cvColor),
             
                 //napravlenieDoGrani
-               new Vertex(new Vector2f(hely.center2PosGlobal.X , hely.center2PosGlobal.Y)),
-               new Vertex(new Vector2f(hely.center2PosGlobal.X + touchSlepok.X*10000, hely.center2PosGlobal.Y +touchSlepok.Y*10000),cvColor3),
+               new Vertex(new Vector2f(hely.center2PosGlobal.X , hely.center2PosGlobal.Y),cvColor4),
+               new Vertex(new Vector2f(hely.center2PosGlobal.X + touchSlepok.X*10000, hely.center2PosGlobal.Y +touchSlepok.Y*10000),cvColor4),
 
                //GranPregrada
               // new Vertex(new Vector2f(hely.positionOfHely.X , hely.positionOfHely.Y+100)),
@@ -538,11 +541,11 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
                // new Vertex(new Vector2f(hely.positionOfHely.X+100 + pregrada_t1.X, hely.positionOfHely.Y-100+pregrada_t1.Y)),
               // new Vertex(new Vector2f(hely.positionOfHely.X+100 + trueVectorPregrada.X, hely.positionOfHely.Y -100+trueVectorPregrada.Y),cvColor2),
                //Вектор противодействия
-                new Vertex(new Vector2f(hely.positionOfHely.X-100 , hely.positionOfHely.Y-100)),
-               new Vertex(new Vector2f(hely.positionOfHely.X-100 + hely.vectorToDamage_01.X*100, hely.positionOfHely.Y -100+hely.vectorToDamage_01.Y*100),cvColor)
+               // new Vertex(new Vector2f(hely.positionOfHely.X-100 , hely.positionOfHely.Y-100)),
+             //  new Vertex(new Vector2f(hely.positionOfHely.X-100 + hely.vectorToDamage_01.X*1000, hely.positionOfHely.Y -100+hely.vectorToDamage_01.Y*1000),cvColor)
                         };
 
-            Program.window.Draw(line, PrimitiveType.Lines);
+           // Program.window.Draw(line, PrimitiveType.Lines);
 
         }
 

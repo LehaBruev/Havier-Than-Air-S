@@ -13,7 +13,7 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
-        public static float gameSpeed = 100;
+        public static float gameSpeed = 50;
         public static float helyScale = 1f;
         // Режим разработчки
        public static bool TestModeP = false;

@@ -45,10 +45,11 @@ namespace Havier_Than_Air_S
         protected float shagRUD = 1.3f; // шаг увеличения мощности двигателя
         protected float shagAngle = 2.5f; // шаг изменения угла атаки
         protected float shagAngleSpeed = 15f; // отклик рукоятки угла
-        protected float maxspeedhor = 50;
-        protected float maxspeedvert = 300;
+        protected float maxspeedhor = 100;
+        protected float maxspeedvert = 500;
         protected float maxheigh = 575; // потолок полета
-        protected Vector2f speedxmax = new Vector2f(0.4f,2);
+        protected Vector2f speedxmax = new Vector2f(8f,3);
+        protected Vector2f speedMin = new Vector2f(0.001f,0.015f);
         protected float Weight = 1000; // вес машины
         protected float bladesEffectiveness = 3f; // эффективность лопастей
 
@@ -199,8 +200,6 @@ namespace Havier_Than_Air_S
         protected Vector2f colliderOrigin = new Vector2f(0, 0);
         public ConvexShape colliderConvexShape;
 
-        public List<Shape> BlockListOfShapes;
-        public Dictionary<Shape, Vector2f[,]> DicShapesInCollidingOld;
         public Dictionary<Shape, Vector2f[,]> DictionaryOfShapesReal;
 
         //Ротор коллайдеры
@@ -211,28 +210,19 @@ namespace Havier_Than_Air_S
 
         #endregion
 
-
-
         float ratioenginespeed = 1; //Пожар двигателя
         //Данные для учета столкновения с землей
         
-        float ground = 700; // уровень земли
-
         float fuelWeight = 1; //вес топл
 
 
-        
 
         public Hely()
         {
             //Коллайдеры гор для столкновения
 
-            BlockListOfShapes = new List<Shape>();
-
-            DicShapesInCollidingOld = new Dictionary<Shape, Vector2f[,] >();
             DictionaryOfShapesReal = new Dictionary<Shape, Vector2f[,]>();
             
-
             SpawnHely();
             //SpawnEngineSound();
             Program.m_Avionika.SetHely(this);
@@ -240,13 +230,12 @@ namespace Havier_Than_Air_S
             currentWeapon = 0;
             //Начальные настройки верталета
             
-            engineswitch = 0;
+            engineswitch = 1;
             RPM = 30000;
             helistop = 0;
             helifuelCurrent = helifuelmax;
             helylifeCurrent = helilifemax;
         }
-
 
 
         virtual protected void SpawnHely()
@@ -258,7 +247,6 @@ namespace Havier_Than_Air_S
             helySprite.Scale = spriteScale;
             helySprite.Origin = spriteOrigin; 
 
-                
             //Точка для ротора
             CircleShapeRotorPoint = new CircleShape(2);
             CircleShapeRotorPoint.FillColor = new Color(Color.Yellow);
@@ -285,7 +273,6 @@ namespace Havier_Than_Air_S
 
         private void SpawnColliders()
         {
-
 
             //Коллайдер вертолета
             colliderConvexShape = new ConvexShape(11);
@@ -383,7 +370,11 @@ namespace Havier_Than_Air_S
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.R) && rPressed == false)
             {
+                if (DictionaryOfShapesReal.Count == 0)
+                { 
                 CheckFlip();
+                }
+
                 rPressed = true;
             }
             else
@@ -410,20 +401,21 @@ namespace Havier_Than_Air_S
 
         public virtual void Update()
         {
-            if (groundClock.ElapsedTime.AsSeconds()>0.3)
-            {
-                //tGround = ground;
-                inGround = false;
-            }
-
             delta = Program.deltaTimer.Delta() * Program.gameSpeed;
+            
             currentCenterOfMassLoc = Matematika.LocalPointOfRotationObject(centerOfMass, angle);
             center2PosGlobal = currentCenterOfMassLoc + positionOfHely;
-            FlipUpdate();
+            // Текущий вес
+            currentWeight = Weight + helifuelCurrent * fuelWeight;
+            //расчет высоты
+            altitude = 700 - positionOfHely.Y;
 
+            FlipUpdate();
             AngleCheck();
             CheckRUD();
+            CheckEngineSwitch();
             EngineUpdate();
+            //ChechRotorSound();
             UpdateCollider();
             PlayerMove();
             SpriteDraw();
@@ -434,13 +426,10 @@ namespace Havier_Than_Air_S
                 RotorAnimatioUpdate();
             }
 
-            CircleShapeRotorPoint.Position = new Vector2f( positionOfHely.X,
-                                                 positionOfHely.Y);
+            CircleShapeRotorPoint.Position = positionOfHely;
 
             CheckGunMode();
 
-            // Collider
-            
             marker.Update();
 
         }
@@ -473,7 +462,7 @@ namespace Havier_Than_Air_S
         }
 
 
-        private void EngineUpdate()
+        private void CheckEngineSwitch()
         {
             // вкл/выкл двигателя
             if (Keyboard.IsKeyPressed(Keyboard.Key.I) == true && keyStartIsPressed == false)
@@ -487,7 +476,7 @@ namespace Havier_Than_Air_S
 
                     if (engineswitch == 1 && helifuelCurrent > 0 && helidestroy != 1)
                     {
-                       // PlaySound(engineStartStopSound, engineStartSoundBuffer);
+                        // PlaySound(engineStartStopSound, engineStartSoundBuffer);
                     }
                     keyPressClock.Restart();
                 }
@@ -505,7 +494,7 @@ namespace Havier_Than_Air_S
             {
                 if (RPM > 0)
                 {
-                    RPM = RPM - 150*Program.deltaTimer.Delta()*100;
+                    RPM = RPM - 150 * Program.deltaTimer.Delta() * 100;
                     if (helistop != 1)
                     {
                         helistop = 1;
@@ -520,25 +509,30 @@ namespace Havier_Than_Air_S
             {
                 if (RPM < holdRPM)
                 {
-                    RPM = RPM + shagRUD / 2 * delta*100;
+                    RPM = RPM + shagRUD / 2 * delta * 100;
                     if (helistop == 1)
                     {
                         helistop = 0;
                     }
                 }
             }
+        }
+
+        private void EngineUpdate()
+        {
+            
 
             //Расход топлива
-            helifuelCurrent = helifuelCurrent - (RPM / 100) * (RPM / 100) / 1000000 * fuelrashod * Program.deltaTimer.Delta();
-            fuelusedup = fuelusedup + (RPM / 100) * (RPM / 100) / 1000000 * fuelrashod * Program.deltaTimer.Delta();
+            helifuelCurrent = helifuelCurrent - (RPM / 100) * (RPM / 100) / 1000000 * fuelrashod * delta;
+            fuelusedup = fuelusedup + (RPM / 100) * (RPM / 100) / 1000000 * fuelrashod * delta;
             if (helifuelCurrent < 0) helifuelCurrent = 0;
             if (helifuelCurrent < 510 && helifuelCurrent > 507) PlaySound(channelSoundRita, ostalos500kg);
             if (helifuelCurrent < 810 && helifuelCurrent > 805) PlaySound(channelSoundRita, ostalos800kg);
             //if (helifuel < 150 && helifuel > 145) PlaySound(rubejvozvrata); //рубеж возврата предупреждение голосовое
 
-
+            //Обороты
             RPM = currentRUDposition / 100 * maxRPM;
-            if (maxRPM < RPM) RPM = maxRPM;
+            if (RPM > maxRPM ) RPM = maxRPM;
 
         }
 
@@ -554,21 +548,21 @@ namespace Havier_Than_Air_S
             //Управление углом атаки
             if (Keyboard.IsKeyPressed(Keyboard.Key.D) == true)
             {
-                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta();
+                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * delta;
                 if (currentShagAngleSpeed > shagAngle)
                     currentShagAngleSpeed = shagAngle;
 
-                angle = (angle + currentShagAngleSpeed * Program.deltaTimer.Delta() * Program.gameSpeed);
+                angle = (angle + currentShagAngleSpeed * delta);
                 if (angle > maxangle)
                     angle = maxangle;
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.A) == true)
             {
-                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * Program.deltaTimer.Delta();
+                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * delta;
                 if (currentShagAngleSpeed > shagAngle)
                     currentShagAngleSpeed = shagAngle;
 
-                angle = (angle - currentShagAngleSpeed * Program.deltaTimer.Delta() * Program.gameSpeed);
+                angle = angle - currentShagAngleSpeed * delta;
                 if (angle < -maxangle)
                     angle = -maxangle;
             }
@@ -579,21 +573,11 @@ namespace Havier_Than_Air_S
         }
 
 
-        Vector2f dempferSpeed = new Vector2f(0.1f,1f); // Это для аэродинамики
+        Vector2f aeroTormozMinSpeed = new Vector2f(0.1f,1f); // Это для аэродинамики
        
 
         void PlayerMove() // коэффициент живучести двигателя
         {
-            // Текущий вес
-            currentWeight = Weight + helifuelCurrent*fuelWeight;
-
-            //ChechRotorSound();
-            
-            //расчет высоты
-            altitude = ground - positionOfHely.Y;
-            //if (altitude < 0) altitude = 0;
-
-
             Alternative_PlayerMoove();
             /*
             // Альтернативный расчет передвижения
@@ -666,7 +650,7 @@ namespace Havier_Than_Air_S
             gravityPower = new Vector2f(0,Program.m_Pogoda.gravity * currentWeight);
             //Сопротивление воздуха
             float xx;
-            if (speed.X > dempferSpeed.X || speed.X < -dempferSpeed.X)
+            if (speed.X > aeroTormozMinSpeed.X || speed.X < -aeroTormozMinSpeed.X)
             {
                 xx = (speed.X * speed.X * 100 * 0.5f) * (Math.Sign(speed.X)); 
             }
@@ -680,26 +664,25 @@ namespace Havier_Than_Air_S
             //Сила ротора
             currentRotorPower = RPM / maxRPM * (currentEnginelife / 100) * engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);
             
-            powerRTR.X = currentRotorPower - (currentRotorPower - currentRotorPower / 15000 * (float)Math.Sqrt(angle * angle) );
+            powerRTR.X = currentRotorPower - (currentRotorPower - currentRotorPower / 1500 * (float)Math.Sqrt(angle * angle) );
             powerRTR.X = powerRTR.X * Math.Sign(angle);
             powerRTR.Y = currentRotorPower - powerRTR.X * Math.Sign(angle);
 
             F = powerRTR - gravityPower - AeroAntiPower; // Ek убрал /  кинетика и мотор
-            //F = new Vector2f(F.X, F.Y);
+            
+            speed =  F * delta / currentWeight + speed; //(v-v0)/deltaTime = F/currentWeight;
 
-            //(v-v0)/deltaTime = F/currentWeight;
-            speed =  F * delta / currentWeight + speed ;
             
-            
-            //Учитывать эти столкновения
             ColliderPhisicsCompensation(); // Расчет вектора компенсатора при столкновениях
+
             if (vectorKompensator.X != 0 || vectorKompensator.Y != 0)
             {
                 
-                speed.X = vectorKompensator.X * compensatorForce ;
-               // speed.Y = -vectorKompensator.Y * compensatorForce * Math.Sign(-speed.Y);
-                speed.Y = -vectorKompensator.Y * compensatorForce ;
-                
+                speed.X = vectorKompensator.X * compensatorForce;
+                speed.Y = -vectorKompensator.Y * compensatorForce;
+
+                if (Math.Abs(speed.X) < speedMin.X) speed.X = 0;
+                if (Math.Abs(speed.Y) < speedMin.Y) speed.Y = 0;
             }
 
 
@@ -708,16 +691,17 @@ namespace Havier_Than_Air_S
             if (speed.Y > speedxmax.Y) speed.Y = speedxmax.Y;
             if (speed.Y < -speedxmax.Y) speed.Y = -speedxmax.Y;
 
+            
+
             if (positionOfHely.Y < 50)
             {
                 positionOfHely.Y = 50;
                 speed.Y = 0;
             }
 
-            //speed = new Vector2f(speed.X, -speed.Y);
-            //positionOfHely += speed;
-            positionOfHely.Y = positionOfHely.Y - speed.Y * Program.deltaTimer.Delta() * Program.gameSpeed ;
-            positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta() * Program.gameSpeed ; //wind
+            
+            positionOfHely.X = positionOfHely.X + speed.X * delta; 
+            positionOfHely.Y = positionOfHely.Y - speed.Y * delta;
 
 
 
@@ -726,59 +710,33 @@ namespace Havier_Than_Air_S
         }
       
         public Vector2f vectorToDamage_01 = new Vector2f(0,0);
-        public Vector2f normalVector = new Vector2f(0, 0);
-        float compensatorForce = 0.21f;
-        public Vector2f touch2Vector = new Vector2f();
+        float compensatorForce = 0.01f;
         public Vector2f center2PosGlobal = new Vector2f();
 
 
         //Принимает объектСтолкновения, номера двух точек для построения линии, векторВертолета от центра до касаний
         private void VectorCompensatory()
         {
-
-             int signalCentraMass = ZnakPregrady(GranPregradaPosGlob,currentCenterOfMassLoc+positionOfHely, Matematika.AngleOfVector(GranPregrada));
-             int signalMirrorVector = ZnakPregrady(GranPregradaPosGlob, GranPregradaPosGlob + new Vector2f(MirrorVector.X, MirrorVector.Y), Matematika.AngleOfVector(GranPregrada));
-
-            if (signalCentraMass== signalMirrorVector)
+            if (DictionaryOfShapesReal.Count > 0)
             {
-                vectorKompensator = MirrorVector;
+                int signalCentraMass = ZnakPregrady(GranPregradaPosGlob, currentCenterOfMassLoc + positionOfHely, Matematika.AngleOfVector(GranPregrada));
+                int signalMirrorVector = ZnakPregrady(GranPregradaPosGlob, GranPregradaPosGlob + new Vector2f(MirrorVector.X, MirrorVector.Y), Matematika.AngleOfVector(GranPregrada));
 
+                if (signalCentraMass == signalMirrorVector)
+                {
+                    vectorKompensator = MirrorVector;
+
+                }
+                else
+                {
+                    vectorKompensator = new Vector2f();
+                }
             }
-
-
-            /*
-
-            //Проверка направления
-            Vector2f touchUtotchVector = new Vector2f();
-
-            touchUtotchVector = Matematika.LocalPointOfRotationObject(touchVector, angle);
-            //vectorHelyToCollider = new Vector2f(vectorHelyToCollider.X, vectorHelyToCollider.Y);
-            //vectorToDamage_01 = vectorHelyToCollider - centerOfHely;
-
-            //float pregradaAngle = Matematika.AngleOfVector(GranPregrada);
-            float mirrorAngle = Matematika.AngleOfVector(MirrorVector);
-            float touch2Angle = Matematika.AngleOfVector(touchUtotchVector);
-            
-            center2PosGlobal = positionOfHely + centerOfMass;
-            touch2Vector = Matematika.searchLocalVector(touch2Angle, 10);
-
-            if (touch2Angle > 180) touch2Angle = 180 - touch2Angle;
-            if (mirrorAngle > 180) mirrorAngle = 180 - mirrorAngle;
-            
-
-            if (touch2Angle + 90> mirrorAngle || mirrorAngle > touch2Angle - 90)
-            {
-               // vectorKompensator = new Vector2f(MirrorVector.X, -MirrorVector.Y) ;// * Program.deltaTimer.Delta() * Program.gameSpeed;
-                //vectorKompensator = new Vector2f(0, 0.00001f);
-            }
-            /*
             else
             {
-                //vectorKompensator = -normalVector;// new Vector2f(Math.Abs(normalVector.X)*Math.Sign(-vectorToDamage_01.X), Math.Abs(normalVector.Y) * Math.Sign(-vectorToDamage_01.Y));// * Program.deltaTimer.Delta() * Program.gameSpeed;
-                vectorKompensator = new Vector2f(0.0f,0.0f);
+                vectorKompensator = new Vector2f();
             }
-            */
-           
+
         }
 
         private int ZnakPregrady(Vector2f posPregradaGlobal, Vector2f pointToCheckGlob,float alfaPregrada) // вычисляем центр масс за препятствием или перед
@@ -822,10 +780,10 @@ namespace Havier_Than_Air_S
 
 
         //Используются в авионике
-        public Vector2f touchVector = new Vector2f();
-        public Vector2f GranPregrada = new Vector2f();
-        public Vector2f GranPregradaPosGlob = new Vector2f();
-        public Vector2f MirrorVector = new Vector2f(-150,50);
+        public Vector2f touchVector = new Vector2f(); // нужен
+        public Vector2f GranPregrada = new Vector2f(); // нужен
+        public Vector2f GranPregradaPosGlob = new Vector2f(); // нужен
+        public Vector2f MirrorVector = new Vector2f(-150,50); // нужен
 
         private void ColliderPhisicsCompensation()
         {
@@ -905,7 +863,7 @@ namespace Havier_Than_Air_S
 
 
         bool inGround = false;
-        //float tGround  = 750;
+
         Clock groundClock = new Clock();
 
         private void groundDamage()
@@ -916,14 +874,7 @@ namespace Havier_Than_Air_S
                 //tGround = positionOfHely.Y;
                 inGround = true;
             }
-            /*
-            //ЗЕМЛЯ столкновение
-             if (positionOfHely.Y >= tGround)
-             {
-               positionOfHely.Y = tGround;
-
-             }
-            */
+            
             
             /*
             speed.X = 0;
@@ -964,11 +915,8 @@ namespace Havier_Than_Air_S
 
         void SpriteDraw() // отрисовка Верталета
         {
-            
             helySprite.Rotation = angle;
             Program.window.Draw(helySprite);
-           
-
         }
     
         public void Fire()
@@ -976,19 +924,9 @@ namespace Havier_Than_Air_S
             m_Weapons[currentWeapon].Fire();
         }
 
-        private void CheckWeaponsWeight()
-        {
-         
-
-
-
-        }
-
        
-
         private void CheckGunMode()
         {
-            
             if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num1)) currentWeapon = 0;
             if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num2))
             {
@@ -1053,8 +991,6 @@ namespace Havier_Than_Air_S
         }
 
         
-
-
         private void ChangeSound(string soundString)
         {
             rotorSound.Stop();
@@ -1062,10 +998,9 @@ namespace Havier_Than_Air_S
             rotorSound.SoundBuffer = rotorBufer;
             rotorSound.Loop = true;
             rotorSound.Play();
-
-
         }
 
+        #region objectives
         public void Start(Vector2f pos, float angle, Vector2f speed)
         {
             throw new NotImplementedException();
@@ -1095,7 +1030,6 @@ namespace Havier_Than_Air_S
         {
             if (obj is Hely)
             {
-
                 groundDamage();
             }
         }
@@ -1104,5 +1038,6 @@ namespace Havier_Than_Air_S
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }
