@@ -12,6 +12,10 @@ namespace Havier_Than_Air_S.Enemies
     public class Tnk1: IMoovable
     {
         bool colliderStatus;
+        int currentpoint = 0;
+        float deltaPointa = 5;
+
+        Marshrut myMarshrut; 
 
         RectangleShape shape;
         PullStatus status = PullStatus.inPool;
@@ -56,7 +60,7 @@ namespace Havier_Than_Air_S.Enemies
 
         public Tnk1()
         {
-            
+            myMarshrut = new Marshrut();
 
             body = new Texture(allImage, new IntRect(39, 884, 85, 24));
             head = new Texture(allImage, new IntRect(159, 878, 45, 12));
@@ -88,7 +92,11 @@ namespace Havier_Than_Air_S.Enemies
 
         public void Update()
         {
-            tankPosition = new Vector2f(tankPosition.X - tank1speed*Program.deltaTimer.Delta(),tankPosition.Y);
+
+
+
+            //tankPosition = new Vector2f(tankPosition.X - tank1speed*Program.deltaTimer.Delta(),tankPosition.Y);
+            tankPosition = tankPosition + ;
             shape.Position = tankPosition;
 
 

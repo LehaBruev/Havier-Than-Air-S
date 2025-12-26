@@ -11,9 +11,7 @@ namespace Havier_Than_Air_S
 {
     public class Mountains
     {
-        Vector2i position = new Vector2i(50,50);
-
-       
+      
         // Коллайдер для активации второй текстуры
         public ConvexShape ColliderActivation;
 
@@ -28,7 +26,7 @@ namespace Havier_Than_Air_S
 
         public Mountains()
         {
-            MountColliders = new ConvexShape[7];
+            MountColliders = new ConvexShape[14];
 
             ConvexShape MountShape1 = new ConvexShape();
             #region m1
@@ -193,7 +191,147 @@ namespace Havier_Than_Air_S
             MountShape1.SetPoint(3, new Vector2f(-316, 564));
             SetMountain(MountShape1);
             #endregion
+
             
+            #region m4
+            //mount2
+            MountShape1 = new ConvexShape();
+            MountShape1.SetPointCount(11);
+            MountShape1.SetPoint(0, new Vector2f(2657, 889));
+            MountShape1.SetPoint(1, new Vector2f(2653, 805));
+            MountShape1.SetPoint(2, new Vector2f(2721, 780));
+            MountShape1.SetPoint(3, new Vector2f(2827, 689));
+            MountShape1.SetPoint(4, new Vector2f(2943, 543));
+            MountShape1.SetPoint(5, new Vector2f(2993, 486));
+            MountShape1.SetPoint(6, new Vector2f(3056, 463));
+            MountShape1.SetPoint(7, new Vector2f(3159, 484));
+            MountShape1.SetPoint(8, new Vector2f(3224, 530));
+            MountShape1.SetPoint(9, new Vector2f(3250, 556));
+            MountShape1.SetPoint(10, new Vector2f(3335, 888));
+
+            SetMountain(MountShape1);
+            #endregion
+            
+
+            
+            #region m5
+            //mount2
+            MountShape1 = new ConvexShape();
+            MountShape1.SetPointCount(10);
+            MountShape1.SetPoint(0, new Vector2f(3455, 464));
+            MountShape1.SetPoint(1, new Vector2f(3508, 413));
+            MountShape1.SetPoint(2, new Vector2f(3581, 385));
+            MountShape1.SetPoint(3, new Vector2f(3650, 401));
+            MountShape1.SetPoint(4, new Vector2f(3697, 442));
+            MountShape1.SetPoint(5, new Vector2f(3764, 568));
+            MountShape1.SetPoint(6, new Vector2f(3801, 676));
+            MountShape1.SetPoint(7, new Vector2f(3794, 707));
+            MountShape1.SetPoint(8, new Vector2f(3645, 723));
+            MountShape1.SetPoint(9, new Vector2f(3497, 602));
+            SetMountain(MountShape1);
+            #endregion
+            
+         
+            
+            #region m6
+            //mount2
+            MountShape1 = new ConvexShape();
+            MountShape1.SetPointCount(10);
+            MountShape1.SetPoint(0, new Vector2f(-1139, 895));
+            MountShape1.SetPoint(1, new Vector2f(-1141, 794));
+            MountShape1.SetPoint(2, new Vector2f(-1353, 781));
+            MountShape1.SetPoint(3, new Vector2f(-1528, 707));
+            MountShape1.SetPoint(4, new Vector2f(-1708, 469));
+            MountShape1.SetPoint(5, new Vector2f(-1846, 150));
+            MountShape1.SetPoint(6, new Vector2f(-2001, 71));
+            MountShape1.SetPoint(7, new Vector2f(-2442, 127));
+            MountShape1.SetPoint(8, new Vector2f(-2716, 292));
+            MountShape1.SetPoint(9, new Vector2f(-2579, 892));
+            SetMountain(MountShape1);
+            #endregion
+            
+
+            
+            #region m7
+            //mount2
+            MountShape1 = new ConvexShape();
+            MountShape1.SetPointCount(8);
+            MountShape1.SetPoint(0, new Vector2f(3329, 890));
+            MountShape1.SetPoint(1, new Vector2f(3283, 735));
+            MountShape1.SetPoint(2, new Vector2f(3422, 771));
+            MountShape1.SetPoint(3, new Vector2f(3583, 814));
+            MountShape1.SetPoint(4, new Vector2f(3776, 858));
+            MountShape1.SetPoint(5, new Vector2f(3964, 820));
+            MountShape1.SetPoint(6, new Vector2f(4031, 798));
+            MountShape1.SetPoint(7, new Vector2f(4025, 893));
+            SetMountain(MountShape1);
+            #endregion
+            
+
+            
+            #region m8
+            //mount2
+            MountShape1 = new ConvexShape();
+            MountShape1.SetPointCount(8);
+            MountShape1.SetPoint(0, new Vector2f(4017, 894));
+            MountShape1.SetPoint(1, new Vector2f(4016, 798));
+            MountShape1.SetPoint(2, new Vector2f(4160, 802));
+            MountShape1.SetPoint(3, new Vector2f(4312, 785));
+            MountShape1.SetPoint(4, new Vector2f(4539, 786));
+            MountShape1.SetPoint(5, new Vector2f(4615, 801));
+            MountShape1.SetPoint(6, new Vector2f(4644, 804));
+            MountShape1.SetPoint(7, new Vector2f(4635, 894));
+            SetMountain(MountShape1);
+            #endregion
+
+
+            
+            #region m9
+            //mount2
+            MountShape1 = new ConvexShape();
+            MountShape1.SetPointCount(14);
+            MountShape1.SetPoint(0, new Vector2f(4613, 894));
+            MountShape1.SetPoint(1, new Vector2f(4613, 799));
+            MountShape1.SetPoint(2, new Vector2f(4841, 759));
+            MountShape1.SetPoint(3, new Vector2f(4931, 684));
+            MountShape1.SetPoint(4, new Vector2f(5019, 584));
+            MountShape1.SetPoint(5, new Vector2f(5120, 504));
+            MountShape1.SetPoint(6, new Vector2f(5297, 490));
+            MountShape1.SetPoint(7, new Vector2f(5426, 507));
+            MountShape1.SetPoint(8, new Vector2f(5475, 580));
+            MountShape1.SetPoint(9, new Vector2f(5539, 669));
+            MountShape1.SetPoint(10, new Vector2f(5605, 724));
+            MountShape1.SetPoint(11, new Vector2f(5712, 807));
+            MountShape1.SetPoint(12, new Vector2f(5866, 875));
+            MountShape1.SetPoint(13, new Vector2f(5920, 882));
+            SetMountain(MountShape1);
+            #endregion
+            
+
+            #region m10
+            //mount2
+            MountShape1 = new ConvexShape();
+            MountShape1.SetPointCount(14);
+            MountShape1.SetPoint(0, new Vector2f(5735, 877));
+            MountShape1.SetPoint(1, new Vector2f(5839, 820));
+            MountShape1.SetPoint(2, new Vector2f(6047, 650));
+            MountShape1.SetPoint(3, new Vector2f(6343, 498));
+            MountShape1.SetPoint(4, new Vector2f(6539, 420));
+            MountShape1.SetPoint(5, new Vector2f(6777, 344));
+            MountShape1.SetPoint(6, new Vector2f(6928, 277));
+            MountShape1.SetPoint(7, new Vector2f(7344, 214));
+            MountShape1.SetPoint(8, new Vector2f(7452, 20));
+            MountShape1.SetPoint(9, new Vector2f(7632, 30));
+            MountShape1.SetPoint(10, new Vector2f(7921, 153));
+            MountShape1.SetPoint(11, new Vector2f(8016, 360));
+            MountShape1.SetPoint(12, new Vector2f(8057, 704));
+            MountShape1.SetPoint(13, new Vector2f(8541, 877));
+            SetMountain(MountShape1);
+            #endregion
+            
+
+
+
             /*
             #region m3
             //mount2
@@ -203,6 +341,19 @@ namespace Havier_Than_Air_S
             SetMountain(MountShape1);
             #endregion
             */
+
+
+
+            /*
+            #region m3
+            //mount2
+            MountShape1 = new ConvexShape();
+            MountShape1.SetPointCount(18);
+
+            SetMountain(MountShape1);
+            #endregion
+            */
+
         }
 
         private void SetMountain(ConvexShape shape)
@@ -213,6 +364,7 @@ namespace Havier_Than_Air_S
             shape.Position = new Vector2f(850, 0);
             MountColliders[numOfMount] = shape;
             numOfMount += 1;
+
         }
 
 

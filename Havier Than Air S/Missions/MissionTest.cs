@@ -68,7 +68,7 @@ namespace Havier_Than_Air_S.Missions
         {
             mounts = new Mountains();
             gorundObjects = new BaseGroundObject[1];
-            gorundObjects[0] = new Ground_01();
+            //gorundObjects[0] = new Ground_01();
 
 
             backgroundSprite = new Sprite(background);
@@ -93,28 +93,7 @@ namespace Havier_Than_Air_S.Missions
 
             rand = new Random();
 
-            
             clock = new Clock();
-
-
-
-            /*
-            housesPositions = new Vector2f[]
-            {
-                new Vector2f(1100, 750),
-                new Vector2f(1300, 750),
-                new Vector2f(1400, rand.Next(730,770)),
-                new Vector2f(1470, rand.Next(730,770)),
-                new Vector2f(1700, rand.Next(730,770)),
-                new Vector2f(2200, rand.Next(500,700)),
-                new Vector2f(2500, rand.Next(500,700)),
-                new Vector2f(3000, rand.Next(500,700)),
-            };
-            */
-            //tank = new Tnk1();
-
-            
-            
 
         }
 
@@ -131,6 +110,7 @@ namespace Havier_Than_Air_S.Missions
             //m_Hely = new mi24();
             //m_Hely = new OH_6();
             //m_Hely = new AH_1();
+
             Program.cameraController.SetCameraObject(m_Hely);
 
             // tanks
@@ -139,7 +119,6 @@ namespace Havier_Than_Air_S.Missions
                 Program.m_PullObjects.StartObject(new Vector2f(rnd.Next(1500,3500) , 750), 0, new Vector2f(rnd2.Next(5, 50),0), TypeOfObject.enemy);
             }
 
-           
 
             // houses
             housesPositions = new Vector2f[hCount];
@@ -152,14 +131,6 @@ namespace Havier_Than_Air_S.Missions
             {
                 Program.m_PullObjects.StartObject(housesPositions[i], 0, new Vector2f(0, 0), TypeOfObject.house);
             }
-            /*
-            houses = new Hous[housesPositions.Length];
-            for (int i = 0; i < housesPositions.Length; i++)
-            {
-                houses[i] = new Hous();
-                houses[i].rectShape.Position = housesPositions[i];
-            }
-            */
         }
 
 
@@ -184,16 +155,10 @@ namespace Havier_Than_Air_S.Missions
             Program.window.Draw(paralaxSprite2);
 
            
-            
-            
 
             if (Program.m_MouseController.LeftButton == true)
             {
-
                 if (m_Hely!=null) SpawnRocket();
-                //Program.m_PullObjects.StartObject(mouseController.currentMousePoint, 0, new Vector2f(0,0), TypeOfObject.bang);
-
-               
             }
             else if (mouseIsPressed == true)
             {
@@ -215,7 +180,6 @@ namespace Havier_Than_Air_S.Missions
             Program.window.Draw(background_01_Sprite);
 
             mounts.Update();
-            gorundObjects[0].Update();
 
 
 
@@ -243,11 +207,7 @@ namespace Havier_Than_Air_S.Missions
                     }
                     
                     
-                }
-                
-                    
-
-                
+                } 
             }
             if (m_Hely != null) m_Hely.Update();
         }

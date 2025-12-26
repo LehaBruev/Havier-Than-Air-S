@@ -20,22 +20,11 @@ namespace Havier_Than_Air_S.GroundObjects
         public BaseGroundObject() 
         {
         
-        
-        
-        
-        
         }
 
         public virtual void Update()
         {
 
         }
-
-
-
-
-
-
-
     }
 }

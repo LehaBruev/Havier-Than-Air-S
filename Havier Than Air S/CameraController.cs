@@ -26,7 +26,7 @@ namespace Havier_Than_Air_S
         float currentCamAimPos;
 
         // perem
-        CameraMode currentCameraMode = CameraMode.hold;
+        CameraMode currentCameraMode = CameraMode.hely;
 
         public CameraController()
         {  
