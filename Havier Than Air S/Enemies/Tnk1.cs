@@ -15,16 +15,21 @@ namespace Havier_Than_Air_S.Enemies
         int currentpoint = 0;
         float deltaPointa = 5;
 
-        Marshrut myMarshrut; 
+        //Маршрут движения
+        Marshrut myMarshrut;
+        int currentMarshrutPoint = 0;
+        float minDistToMarshPoint = 5f;
 
         RectangleShape shape;
         PullStatus status = PullStatus.inPool;
         TypeOfObject typeofObject = TypeOfObject.enemy;
+
         // Параметры Танка1
         float maxLifes = 100;
 
         // Переменные 
         float currentLifes;
+        float angle = 0;
 
          float tank1sizex = 82;
          float tank1sizey = 30;
@@ -57,6 +62,15 @@ namespace Havier_Than_Air_S.Enemies
         Marker marker;
         Text lifeText;
 
+        public void ChangeMarshrutPoint(int numberOfMarshrutPoint)
+        {
+            currentMarshrutPoint = numberOfMarshrutPoint;
+            if (numberOfMarshrutPoint>myMarshrut.marshrutPoints.Length-1)
+            {
+                currentMarshrutPoint = myMarshrut.marshrutPoints.Length - 1;
+            }
+
+        }
 
         public Tnk1()
         {
@@ -92,11 +106,16 @@ namespace Havier_Than_Air_S.Enemies
 
         public void Update()
         {
-
+            //если дистанция до точки меньше чем
+            if (minDistToMarshPoint>Matematika.searchdistance(bodySprite.Position, myMarshrut.marshrutPoints[currentMarshrutPoint]))
+            {
+                ChangeMarshrutPoint(currentMarshrutPoint+1);
+            }
 
 
             //tankPosition = new Vector2f(tankPosition.X - tank1speed*Program.deltaTimer.Delta(),tankPosition.Y);
-            tankPosition = tankPosition + ;
+            Vector2f stepVector = new Vector2f();
+            tankPosition = tankPosition + stepVector;
             shape.Position = tankPosition;
 
 
@@ -171,35 +190,5 @@ namespace Havier_Than_Air_S.Enemies
         }
 
 
-
-        /*
-static void tank1Draw() // Танк1 (1=x танка, 2=y танка, 3=проявлен, 4=х назначения, 5=у назначения, 6=жизни танка) [1=проявлен 2=побдит]
-{
-
-for (int i = 0; i < Tank1cicles.GetLength(1); i++)
-{
-if (Tank1cicles[3, i] == 1) // танк целый
-{
-PlaySound(tank1motorsound2, volume);
-DrawSprite(uh61, Tank1cicles[1, i] - 30, Tank1cicles[2, i], 8, 462, 120, 42); // спрайт танка
-                                                                       //FillCircle(Tank1cicles[1, i], Tank1cicles[2, i], 3);
-                                                                       //FillCircle(Tank1cicles[1, i] + tank1sizex, Tank1cicles[2, i] + tank1sizey, 3);
-SetFillColor(Color.Yellow);
-DrawText((int)Tank1cicles[1, i] - 20, (int)Tank1cicles[2, i] - 20, "" + Tank1cicles[7, i], 12);
-}
-
-if (Tank1cicles[3, i] == 2) //танк разрушен
-{
-
-DrawSprite(uh61, Tank1cicles[1, i] - 30, Tank1cicles[2, i], 135, 519, 114, 35); // спрайт танка разрушенного
-                                                                         //FillCircle(Tank1cicles[1, i], Tank1cicles[2, i], 3);
-                                                                         // FillCircle(Tank1cicles[1, i] + tank1sizex, Tank1cicles[2, i] + tank1sizey, 3);
-
-}
-
-}
-
-}
-*/
     }
 }

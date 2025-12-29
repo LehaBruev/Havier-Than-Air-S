@@ -12,11 +12,11 @@ namespace Havier_Than_Air_S
     public class Marshrut
     {
         VertexArray marsh_01;
-        Vector2f[] marshrutPoints;
+        public Vector2f[] marshrutPoints;
         public Marshrut()
         {
 
-            marshrutPoints = new Vector2f[49];
+            marshrutPoints = new Vector2f[51];
 
             marshrutPoints[0] = new Vector2f(2585, 798);
             marshrutPoints[1] = new Vector2f(2504, 764);
