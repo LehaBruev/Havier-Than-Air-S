@@ -292,7 +292,7 @@ namespace Havier_Than_Air_S
                             Program.log.WriteXY("marshrutPoints[" +
                                           lognum +
                                           "] = new Vector2f(" +
-                                          (int)(Mouse.GetPosition(Program.window).X + Program.offset.X - Program.vMode.Width / 2 - 850) +
+                                          (int)(Mouse.GetPosition(Program.window).X + Program.offset.X - Program.vMode.Width / 2 ) +
                                           " , " +
                                           (Mouse.GetPosition(Program.window).Y) +
                                           " );");

@@ -76,7 +76,7 @@ namespace Havier_Than_Air_S
         public float helifuelCurrent; // тек топливо
         int bang1 = 0;
         public float currentWeight = 1; // текущий вес машины
-        public Vector2f positionOfHely = new Vector2f(50,50); // позиция в пространстве
+        public Vector2f positionOfHely = new Vector2f(2200,50); // позиция в пространстве
         public Vector2f speed = new Vector2f(0,0); // скорость
         public Vector2f vectorKompensator = new Vector2f(0,0);//вектор для столкновений
 

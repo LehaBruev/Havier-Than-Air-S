@@ -19,6 +19,8 @@ namespace Havier_Than_Air_S.Enemies
         Marshrut myMarshrut;
         int currentMarshrutPoint = 0;
         float minDistToMarshPoint = 5f;
+        Vector2f centerOfMass = new Vector2f(35,20);
+        
 
         RectangleShape shape;
         PullStatus status = PullStatus.inPool;
@@ -30,16 +32,16 @@ namespace Havier_Than_Air_S.Enemies
         // Переменные 
         float currentLifes;
         float angle = 0;
+        Vector2f position;
 
-         float tank1sizex = 82;
+        float tank1sizex = 82;
          float tank1sizey = 30;
          float tank1live = 250;
          float tank1speed = 5;
          float tank1cource = 790;
          float tank1destroy = 0;
          int tank1maxquantity = 62;
-        Vector2f tankPosition;
-        float tankAngle;
+        
 
         Image allImage = new Image("Images\\uh61all.png");
         Texture body;
@@ -50,8 +52,11 @@ namespace Havier_Than_Air_S.Enemies
         Sprite headSprite;
         Sprite gunSprite;
 
-        Vector2f headPosition = new Vector2f(35,-10); 
+        Vector2f headPosition = new Vector2f(35,0); 
+        Vector2f currentHeadPosition = new Vector2f(35,-10); 
+
         Vector2f gunPosition = new Vector2f(5,8);
+        Vector2f currentGunPosition = new Vector2f(5,8);
         float gunAngle = 35;
 
         int napravlenie = 1;
@@ -68,7 +73,14 @@ namespace Havier_Than_Air_S.Enemies
             if (numberOfMarshrutPoint>myMarshrut.marshrutPoints.Length-1)
             {
                 currentMarshrutPoint = myMarshrut.marshrutPoints.Length - 1;
+                
             }
+            angle = Matematika.AngleOfVector((position + centerOfMass) - myMarshrut.marshrutPoints[currentMarshrutPoint]);
+
+            bodySprite.Rotation = angle;
+            bodySprite.Origin = centerOfMass;
+            headSprite.Rotation = angle;
+            gunSprite.Rotation = gunAngle+ angle;
 
         }
 
@@ -81,7 +93,9 @@ namespace Havier_Than_Air_S.Enemies
             Gun = new Texture(allImage, new IntRect(154, 857, 59, 6));
 
             bodySprite = new Sprite(body);
+
             headSprite = new Sprite(head);
+            headSprite.Origin = new Vector2f(12,7);
             gunSprite = new Sprite(Gun);
             gunSprite.Origin = new Vector2f(58, 3);
 
@@ -97,8 +111,7 @@ namespace Havier_Than_Air_S.Enemies
         {
             rand = new Random();
             currentLifes = rand.Next(50,200);
-            tankPosition = pos;
-            tankAngle = angle;
+            position = pos;
             tank1speed = speed.X;//speed.X;
             status = PullStatus.inAir;
             colliderStatus = true;
@@ -107,23 +120,31 @@ namespace Havier_Than_Air_S.Enemies
         public void Update()
         {
             //если дистанция до точки меньше чем
-            if (minDistToMarshPoint>Matematika.searchdistance(bodySprite.Position, myMarshrut.marshrutPoints[currentMarshrutPoint]))
+            if (minDistToMarshPoint>Matematika.searchdistance(position+centerOfMass, myMarshrut.marshrutPoints[currentMarshrutPoint]))
             {
                 ChangeMarshrutPoint(currentMarshrutPoint+1);
             }
 
+            //пройденное расстояние
+            float distance = tank1speed * Program.deltaTimer.Delta();
 
-            //tankPosition = new Vector2f(tankPosition.X - tank1speed*Program.deltaTimer.Delta(),tankPosition.Y);
-            Vector2f stepVector = new Vector2f();
-            tankPosition = tankPosition + stepVector;
-            shape.Position = tankPosition;
+            //угол до цели
+            float angleToTarget = Matematika.AngleOfVector(myMarshrut.marshrutPoints[currentMarshrutPoint] - (position + centerOfMass));
 
+            //вектор до цели
+            Vector2f moveVector = Matematika.searchLocalVector(angleToTarget, distance);
 
+            //перемещение
+            position = position + moveVector;
+            shape.Position = position;
+            bodySprite.Position = position;
 
-            bodySprite.Position = tankPosition;
-            headSprite.Position = bodySprite.Position + headPosition;
-            gunSprite.Position = headSprite.Position + gunPosition;
-            gunSprite.Rotation = gunAngle;
+            currentHeadPosition = Matematika.LocalPointOfRotationObject(headPosition, angleToTarget);
+            currentGunPosition = Matematika.LocalPointOfRotationObject(gunPosition, angleToTarget);
+            headSprite.Position = position + currentHeadPosition;
+            
+            gunSprite.Position = position + currentGunPosition;
+            
             Program.window.Draw(bodySprite);
             Program.window.Draw(headSprite);
             Program.window.Draw(gunSprite);
@@ -131,7 +152,7 @@ namespace Havier_Than_Air_S.Enemies
             marker.Update();
             
             lifeText = new Text(currentLifes.ToString(), Program.font, 10);
-            lifeText.Position = tankPosition + new Vector2f(50, -10);
+            lifeText.Position = position + new Vector2f(50, -10);
             lifeText.FillColor = Color.Yellow;
             Program.window.Draw(lifeText);
 
@@ -156,7 +177,7 @@ namespace Havier_Than_Air_S.Enemies
 
         public Vector2f GetPosition()
         {
-            return tankPosition;
+            return position;
         }
 
 
@@ -180,7 +201,7 @@ namespace Havier_Than_Air_S.Enemies
         private void ReturnToPull()
         {
             status = PullStatus.inPool;
-            tankPosition = Program.m_PullObjects.position;
+            position = Program.m_PullObjects.position;
 
         }
 

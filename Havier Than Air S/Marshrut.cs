@@ -70,7 +70,11 @@ namespace Havier_Than_Air_S
             marshrutPoints[49] = new Vector2f(-1494, 660);
             marshrutPoints[50] = new Vector2f(-1594, 620);
 
+            for (int i = 0; i < marshrutPoints.Length; i++)
+            {
 
+                marshrutPoints[i].X += 850;
+            }
 
         }
 
