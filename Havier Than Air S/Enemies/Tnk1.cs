@@ -1,9 +1,11 @@
-﻿using Havier_Than_Air_S.Weapon;
+﻿using Havier_Than_Air_S.Vehicle_parts;
+using Havier_Than_Air_S.Weapon;
 using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,9 +13,10 @@ namespace Havier_Than_Air_S.Enemies
 {
     public class Tnk1: IMoovable
     {
+        //Тип объекта
+        TypeOfObject typeofObject = TypeOfObject.enemy;
+
         bool colliderStatus;
-        int currentpoint = 0;
-        float deltaPointa = 5;
 
         //Маршрут движения
         Marshrut myMarshrut;
@@ -21,51 +24,73 @@ namespace Havier_Than_Air_S.Enemies
         float minDistToMarshPoint = 5f;
         Vector2f centerOfMass = new Vector2f(35,20);
         
-
+        //Параметры формы коллайдера
         RectangleShape shape;
         PullStatus status = PullStatus.inPool;
-        TypeOfObject typeofObject = TypeOfObject.enemy;
+
+        //Запчасти
+        Detal[] detaly;
+        Vector2f[] detalyPoints;
+
 
         // Параметры Танка1
         float maxLifes = 100;
+        float tank1speed = 5;
 
         // Переменные 
-        float currentLifes;
+        float currentLifes = 0;
         float angle = 0;
-        Vector2f position;
+        Vector2f position = new Vector2f(0,0);
 
-        float tank1sizex = 82;
-         float tank1sizey = 30;
-         float tank1live = 250;
-         float tank1speed = 5;
-         float tank1cource = 790;
-         float tank1destroy = 0;
-         int tank1maxquantity = 62;
-        
-
-        Image allImage = new Image("Images\\uh61all.png");
         Texture body;
-        Texture head;
-        Texture Gun;
 
         Sprite bodySprite;
-        Sprite headSprite;
-        Sprite gunSprite;
 
-        Vector2f headPosition = new Vector2f(35,0); 
-        Vector2f currentHeadPosition = new Vector2f(35,-10); 
+        //Позиции
+        Vector2f headPosition = new Vector2f(0,-25); 
+        Vector2f gunPosition = new Vector2f(-4,-23);
 
-        Vector2f gunPosition = new Vector2f(5,8);
         Vector2f currentGunPosition = new Vector2f(5,8);
         float gunAngle = 35;
 
-        int napravlenie = 1;
-
-
-
+       
         //marker
         Marker marker;
         Text lifeText;
+
+        //Наклон на кочках
+        float targetAngleNaklon = 0;
+        float angleNaklonSpeed = 1;
+
+
+
+        public Tnk1()
+        {
+
+            detaly = new Detal[2];
+            detalyPoints = new Vector2f[detaly.Length];
+            detaly[0] = new Head_Tank_1();
+            detalyPoints[0] = headPosition;
+            detaly[1] = new Gun_Tank_1();
+            detalyPoints[1] = gunPosition;
+
+
+            myMarshrut = new Marshrut();
+
+            body = new Texture(Program.m_TextureManager.allImage, new IntRect(39, 884, 85, 24));
+
+            bodySprite = new Sprite(body);
+            bodySprite.Origin = centerOfMass;
+
+            shape = new RectangleShape(new Vector2f(85, 24));
+            shape.Origin = centerOfMass;
+
+            marker = new Marker(shape, Color.Yellow, 3);
+
+            angleNaklonSpeed = new Random().Next(1,3);
+        }
+
+
 
         public void ChangeMarshrutPoint(int numberOfMarshrutPoint)
         {
@@ -75,36 +100,15 @@ namespace Havier_Than_Air_S.Enemies
                 currentMarshrutPoint = myMarshrut.marshrutPoints.Length - 1;
                 
             }
-            angle = Matematika.AngleOfVector((position + centerOfMass) - myMarshrut.marshrutPoints[currentMarshrutPoint]);
+            int t = currentMarshrutPoint;
+            if (currentMarshrutPoint == myMarshrut.marshrutPoints.Length) t -= 1;
+            targetAngleNaklon = Matematika.AngleOfVector(myMarshrut.marshrutPoints[t-1 ] - myMarshrut.marshrutPoints[currentMarshrutPoint]);
 
-            bodySprite.Rotation = angle;
-            bodySprite.Origin = centerOfMass;
-            headSprite.Rotation = angle;
-            gunSprite.Rotation = gunAngle+ angle;
+            
 
         }
 
-        public Tnk1()
-        {
-            myMarshrut = new Marshrut();
-
-            body = new Texture(allImage, new IntRect(39, 884, 85, 24));
-            head = new Texture(allImage, new IntRect(159, 878, 45, 12));
-            Gun = new Texture(allImage, new IntRect(154, 857, 59, 6));
-
-            bodySprite = new Sprite(body);
-
-            headSprite = new Sprite(head);
-            headSprite.Origin = new Vector2f(12,7);
-            gunSprite = new Sprite(Gun);
-            gunSprite.Origin = new Vector2f(58, 3);
-
-            shape = new RectangleShape(new Vector2f(85,24));
-            
-            marker = new Marker(shape,Color.Yellow,3);
-            
-            
-        }
+       
 
         Random rand;
         public void Start(Vector2f pos, float angle, Vector2f speed)
@@ -120,7 +124,7 @@ namespace Havier_Than_Air_S.Enemies
         public void Update()
         {
             //если дистанция до точки меньше чем
-            if (minDistToMarshPoint>Matematika.searchdistance(position+centerOfMass, myMarshrut.marshrutPoints[currentMarshrutPoint]))
+            if (minDistToMarshPoint>Matematika.searchdistance(position, myMarshrut.marshrutPoints[currentMarshrutPoint]))
             {
                 ChangeMarshrutPoint(currentMarshrutPoint+1);
             }
@@ -129,25 +133,43 @@ namespace Havier_Than_Air_S.Enemies
             float distance = tank1speed * Program.deltaTimer.Delta();
 
             //угол до цели
-            float angleToTarget = Matematika.AngleOfVector(myMarshrut.marshrutPoints[currentMarshrutPoint] - (position + centerOfMass));
+            float angleToTarget = Matematika.AngleOfVector(myMarshrut.marshrutPoints[currentMarshrutPoint] - position );
 
             //вектор до цели
             Vector2f moveVector = Matematika.searchLocalVector(angleToTarget, distance);
 
+
+            if (angle != targetAngleNaklon)
+            {
+                if (angle > targetAngleNaklon)
+                {
+                    angle -= angleNaklonSpeed*Program.deltaTimer.Delta()*Program.gameSpeed;
+                }
+                if (angle < targetAngleNaklon)
+                {
+                    angle += angleNaklonSpeed * Program.deltaTimer.Delta() * Program.gameSpeed;
+                }
+
+                if (Math.Abs(angle - targetAngleNaklon) < 0.03f) angle = targetAngleNaklon;
+            }
+
+
             //перемещение
             position = position + moveVector;
             shape.Position = position;
+            shape.Rotation = angle;
+            bodySprite.Rotation = angle;
             bodySprite.Position = position;
 
-            currentHeadPosition = Matematika.LocalPointOfRotationObject(headPosition, angleToTarget);
-            currentGunPosition = Matematika.LocalPointOfRotationObject(gunPosition, angleToTarget);
-            headSprite.Position = position + currentHeadPosition;
-            
-            gunSprite.Position = position + currentGunPosition;
-            
+                        
+           
             Program.window.Draw(bodySprite);
-            Program.window.Draw(headSprite);
-            Program.window.Draw(gunSprite);
+            for (int i = 0; i < detaly.Length; i++)
+            {
+                Vector2f tecPointPos = Matematika.LocalPointOfRotationObject(detalyPoints[i], angle);
+                detaly[i].setPosAndAngle(tecPointPos + position, angle);
+                detaly[i].Update();
+            }
             marker.UpdatePoints(shape);
             marker.Update();
             

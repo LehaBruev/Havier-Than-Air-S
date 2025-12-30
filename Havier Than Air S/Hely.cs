@@ -539,7 +539,7 @@ namespace Havier_Than_Air_S
             //Сила ротора
             currentRotorPower = RPM / maxRPM * (currentEnginelife / 100) * engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);
 
-            powerRTR.X = currentRotorPower - (currentRotorPower - currentRotorPower / 1500 * (float)Math.Sqrt(angle * angle));
+            powerRTR.X = currentRotorPower - (currentRotorPower - currentRotorPower / 2500 * (float)Math.Sqrt(angle * angle));
             powerRTR.X = powerRTR.X * Math.Sign(angle);
             powerRTR.Y = currentRotorPower - powerRTR.X * Math.Sign(angle);
 

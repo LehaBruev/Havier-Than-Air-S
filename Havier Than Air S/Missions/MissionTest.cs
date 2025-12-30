@@ -97,7 +97,7 @@ namespace Havier_Than_Air_S.Missions
 
         }
 
-        int tankCount = 10;
+        int tankCount = 19;
 
         Random rnd;
         Random rnd2;
@@ -116,7 +116,7 @@ namespace Havier_Than_Air_S.Missions
             // tanks
             for (int i = 0; i < tankCount; i++)
             {
-                Program.m_PullObjects.StartObject(new Vector2f(rnd.Next(1500,3500) , 750), 0, new Vector2f(rnd2.Next(5, 50),0), TypeOfObject.enemy);
+                Program.m_PullObjects.StartObject(new Vector2f(rnd.Next(3500,3900) , 750), 0, new Vector2f(rnd2.Next(5, 75),0), TypeOfObject.enemy);
             }
 
 

@@ -34,7 +34,7 @@ namespace Havier_Than_Air_S
         private int NRcount = 8;
         private int SNRcount = 8;
         private int BangCount = 8;
-        private int TankCount = 10;
+        private int TankCount = 20;
         private int HousCount = 200;
         private int[] counts;
 

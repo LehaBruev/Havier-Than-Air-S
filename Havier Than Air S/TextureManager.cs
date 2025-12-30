@@ -22,7 +22,10 @@ namespace Havier_Than_Air_S
         //Текстуры Ground
         Texture ground_01;
         public Texture MountainTexture_01;
-       
+
+        //Общие текстуры 
+        public Image allImage = new Image("Images\\uh61all.png");
+
 
         private GameMode _gameMode;
 
