@@ -22,7 +22,7 @@ namespace Havier_Than_Air_S
         protected Vector2f _origin;
 
         //Маркер
-        Marker marker;
+        protected Marker marker;
         Color color = new Color(Color.Green);
         int markerON = 0;
 

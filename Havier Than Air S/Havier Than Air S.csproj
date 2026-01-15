@@ -119,6 +119,7 @@
     <Compile Include="GroundObjects\Ground_01.cs" />
     <Compile Include="Hely.cs" />
     <Compile Include="HelyControl.cs" />
+    <Compile Include="HelyParts\TopRotor_UH1.cs" />
     <Compile Include="IMoovable.cs" />
     <Compile Include="LogWriter.cs" />
     <Compile Include="Magazin.cs" />

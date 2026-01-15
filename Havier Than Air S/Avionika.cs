@@ -15,6 +15,7 @@ namespace Havier_Than_Air_S
 {
     internal class Avionika
     {
+        int otladka = 0;
 
         //мышка тест
         int lognum = 0;
@@ -509,25 +510,27 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
 
         private void UpdateColliderTester()
         {
-            touchSlepok = hely.touchVector;
-            mirrorSlepok = hely.MirrorVector*1000;
-            speedSlepok = hely.speed*1000;
-
-
-            Vector2f pregrada_t2 = hely.GranPregrada * 5;
-
-            Vector2f mirrorVector = Vectora.MirrorVector(pregrada_t2, speedSlepok);
-
-
-            cooliderTesterVector.Position = new Vector2f(hely.positionOfHely.X, hely.positionOfHely.Y);
-
-            
-                
-            
-
-            // ParkovkaAssistance
-            Vertex[] line = new Vertex[]
+            if (otladka == 1)
             {
+                touchSlepok = hely.touchVector;
+                mirrorSlepok = hely.MirrorVector * 1000;
+                speedSlepok = hely.speed * 1000;
+
+
+                Vector2f pregrada_t2 = hely.GranPregrada * 5;
+
+                Vector2f mirrorVector = Vectora.MirrorVector(pregrada_t2, speedSlepok);
+
+
+                cooliderTesterVector.Position = new Vector2f(hely.positionOfHely.X, hely.positionOfHely.Y);
+
+
+
+
+
+                // ParkovkaAssistance
+                Vertex[] line = new Vertex[]
+                {
                 //Инерция
                new Vertex(hely.center2PosGlobal,cvColor2),
                new Vertex(hely.center2PosGlobal + new Vector2f(speedSlepok.X, - speedSlepok.Y), cvColor2),
@@ -549,19 +552,23 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
                new Vertex(new Vector2f(hely.center2PosGlobal.X , hely.center2PosGlobal.Y),cvColor4),
                new Vertex(new Vector2f(hely.center2PosGlobal.X + touchSlepok.X*10000, hely.center2PosGlobal.Y +touchSlepok.Y*10000),cvColor4),
 
-               //GranPregrada
-              // new Vertex(new Vector2f(hely.positionOfHely.X , hely.positionOfHely.Y+100)),
-               //new Vertex(new Vector2f(hely.positionOfHely.X + hely.summaVectorovDoGrany.X*1000, hely.positionOfHely.Y +100+hely.summaVectorovDoGrany.Y*1000),cvColor)
+                    //GranPregrada
+                    // new Vertex(new Vector2f(hely.positionOfHely.X , hely.positionOfHely.Y+100)),
+                    //new Vertex(new Vector2f(hely.positionOfHely.X + hely.summaVectorovDoGrany.X*1000, hely.positionOfHely.Y +100+hely.summaVectorovDoGrany.Y*1000),cvColor)
 
-            };
+                };
 
-            Program.window.Draw(line, PrimitiveType.Lines);
-            VectorToDamage();
-
+                Program.window.Draw(line, PrimitiveType.Lines);
+                VectorToDamage();
+            }
             /*
+            if (otladka ==2 )
+            { 
+            
             inertiaVector = new Vector2f(hely.speed.X, hely.speed.Y);
             inertiavector.Color = Color.Yellow;
             inertiavector.Position = new Vector2f(hely.position.X, hely.position.Y);
+            }
             */
         }
 

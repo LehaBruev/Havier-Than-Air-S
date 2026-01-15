@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Havier_Than_Air_S.HelyParts;
 using Havier_Than_Air_S.Weapon;
 using SFML.Audio;
 using SFML.Graphics;
@@ -24,7 +25,16 @@ namespace Havier_Than_Air_S
     public class Hely : GameObject, IMoovable
     {
 
+        /*
+        Пустой: 2363 кг.
+        Максимальная взлётная масса: 4310 кг.
+        Масса груза на внешней подвеске: 1759 кг.
+        Внутренний запас топлива: 840 кг.
+        */  
+
         Marker marker;
+
+        Detal[] detaly;
 
         public Vector2f centerOfMass = new Vector2f(0, 30);
         public Vector2f currentCenterOfMassLoc = new Vector2f();
@@ -42,7 +52,7 @@ namespace Havier_Than_Air_S
         //Настройки верталета
         protected float maxpowery = 300000; //Максимальная сила влияет на вертолет
         protected float maxpowerx = 30000; // 
-        protected float shagRUD = 0.3f; // шаг увеличения мощности двигателя
+        protected float shagRUD = 0.25f; // шаг увеличения мощности двигателя
         protected float shagAngle = 1.5f; // шаг изменения угла атаки
         protected float shagAngleSpeed = 10f; // отклик рукоятки угла
         protected float maxspeedhor = 100;
@@ -50,16 +60,15 @@ namespace Havier_Than_Air_S
         protected float maxheigh = 575; // потолок полета
         protected Vector2f speedxmax = new Vector2f(6f,3);
         protected Vector2f speedMin = new Vector2f(0.001f,0.015f);
-        protected float Weight = 1000; // вес машины
+        protected float Weight = 2363; // вес машины
         protected float bladesEffectiveness = 3f; // эффективность лопастей
 
         //Характеристики мотора и проч
         protected float helilifemax = 300;// максимальные жизни Вертолета
         public float currentEnginelife = 100; //исправность двигателя Вертолета
-        protected float fuelrashod = 11.7f; // расход топлива
-        protected float inertia = 5f;// управляемость //5 это ИНЕРЦИЯ
+        protected float fuelrashod = 1f; // расход топлива
         protected float maxangle = 60; // Максимальный угол атаки
-        protected float helifuelmax = 1300; // Максимальное топливо в баках
+        protected float helifuelmax = 840; // Максимальное топливо в баках
         protected float engineMaxPower = 39250; // максимальное ускорение от двигателя //11250
         protected float holdRPM = 12000; // Холостые обороты мотора
 
@@ -213,7 +222,7 @@ namespace Havier_Than_Air_S
         float ratioenginespeed = 1; //Пожар двигателя
         //Данные для учета столкновения с землей
         
-        float fuelWeight = 1; //вес топл
+        float fuelWeight = 0.25f; //вес топл
 
 
 
@@ -312,11 +321,10 @@ namespace Havier_Than_Air_S
 
         private void SpawnRotors()
         {
-            //topVint
-            topRotorRectShape = new RectangleShape();
-            topRotorRectShape.Origin = topVintOrigin;
-            topRotorRectShape.Size = topVintSize;
-            topRotorRectShape.FillColor = topRotorColor;
+            
+            detaly = new Detal[1];
+            detaly[0] = new TopRotor_UH1();
+            
 
             //rearVintSprite.
             rearRotorRectShape = new RectangleShape();
@@ -336,9 +344,13 @@ namespace Havier_Than_Air_S
         public void RotorAnimatioUpdate()
         {
             //ротор top
-            topRotorRectShape.Position = positionOfHely;
-            topRotorRectShape.Rotation = angle;
+            
 
+            detaly[0].setPosAndAngle(positionOfHely, angle);
+            (detaly[0] as TopRotor_UH1).UpdateRotorSpeed(RPM / maxRPM);
+            detaly[0].Update();
+
+            /*
             float RotorX = topRotorRectShape.Scale.X + topVintSpeed * Program.deltaTimer.Delta() / 100 *
                                    RPM / maxRPM * 2.7f;
             if (RotorX > 1)
@@ -351,8 +363,11 @@ namespace Havier_Than_Air_S
                 RotorX = 0.08f;
                 topVintSpeed *= -1;
             }
-
+            
             topRotorRectShape.Scale = new Vector2f(RotorX, topRotorRectShape.Scale.Y);
+            */
+
+
 
             //ротор rear
             rearRotorRectShape.Position = Matematika.GlobalPointOfLocalPoint(positionOfHely,
@@ -360,7 +375,7 @@ namespace Havier_Than_Air_S
             rearRotorRectShape.Rotation += rearVintSpeed * Program.deltaTimer.Delta() * 100 *
                                             RPM / maxRPM * 1.7f;
 
-            Program.window.Draw(topRotorRectShape);
+           //Program.window.Draw(topRotorRectShape);
             Program.window.Draw(rearRotorRectShape);
 
 
@@ -583,69 +598,6 @@ namespace Havier_Than_Air_S
         }
 
 
-       
-       
-
-        void PlayerMove() // коэффициент живучести двигателя
-        {
-            Alternative_PlayerMoove();
-            /*
-            // Альтернативный расчет передвижения
-            //расчет вертикальной скорости
-            //расчет подъемной силы
-            RPM = currentRUDposition / 100 * maxRPM ;
-            if (maxRPM < RPM) RPM = maxRPM;
-
-            currentRotorPower = RPM/maxRPM * (currentEnginelife / 100) * engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);
-            powerRTR.Y = currentRotorPower;
-            powerRTR.X = currentRotorPower - (currentRotorPower - currentRotorPower / 90 * (float)Math.Sqrt(angle * angle) / 10);
-
-            gravityPower.Y = Program.m_Pogoda.gravity * currentWeight;
-            boost.Y = (powerRTR.Y - gravityPower.Y)/currentWeight* bladesEffectiveness*Program.m_Pogoda.GetCurrentAirP(altitude);
-
-            speed.Y = boost.Y; // вертикальная скорость
-
-           // Потолок полета
-            if (positionOfHely.Y < 50) 
-                positionOfHely.Y = 50;
-           
-            // Расчет ГОРИЗОНТАЛЬНОГО ПОЛЕТА угол атаки
-            speed.X = speed.X + powerRTR.X *Math.Sign(angle) * Program.deltaTimer.Delta()/(Weight/inertia)*
-                bladesEffectiveness * Program.m_Pogoda.GetCurrentAirP(altitude); // ФОРМУЛА РАСЧЕТА ГОРИЗОНТАЛЬНОЙ СКОРОСТИ (ПОМЕНЯТЬ)
-            
-
-            if (vectorKompensator.X != 0 || vectorKompensator.Y != 0)
-            { 
-                if (speed.X> dempferSpeed.X|| speed.X < -dempferSpeed.X)
-                {
-                    //speed.X = -vectorKompensator.X*compensatorcoef; 
-                }
-                else
-                {
-                    speed.X = 0;
-                }
-                if (speed.Y > dempferSpeed.Y || speed.Y < -dempferSpeed.Y)
-                {
-                   // speed.Y = -vectorKompensator.Y * compensatorcoef;
-                }
-                else
-                {
-                    speed.Y = 0;
-                }
-            }
-
-            if (speed.X > speedxmax.X) speed.X = speedxmax.X;
-            if (speed.X < -speedxmax.X) speed.X = -speedxmax.X;
-            if (speed.Y > speedxmax.Y) speed.Y = speedxmax.Y;
-            if (speed.Y < -speedxmax.Y) speed.Y = -speedxmax.Y;
-
-            positionOfHely.Y = (positionOfHely.Y - speed.Y * Program.deltaTimer.Delta() * Program.gameSpeed);
-            positionOfHely.X = positionOfHely.X + speed.X * Program.deltaTimer.Delta() * Program.gameSpeed; //wind
-            
-
-            helySprite.Position = positionOfHely;
-             */ 
-        }
 
         public Vector2f F = new Vector2f(0,0);
         public Vector2f Ek = new Vector2f(0,0);
@@ -653,7 +605,7 @@ namespace Havier_Than_Air_S
         Vector2f aeroTormozMinSpeed = new Vector2f(0.2f, 1f); // Это для аэродинамики
         Vector2f aeroResistance = new Vector2f(5, 1800); // Это для аэродинамики
 
-        private void Alternative_PlayerMoove()
+        private void PlayerMove()
         {
             
             //Ek = new Vector2f(0.5f * speed.X * speed.X * currentWeight*Math.Sign(speed.X), 0.5f * speed.Y * speed.Y * currentWeight*Math.Sign(speed.Y));
