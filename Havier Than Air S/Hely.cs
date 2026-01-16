@@ -168,20 +168,12 @@ namespace Havier_Than_Air_S
         #region Rotors
         //Верхний винт
         protected Vector2f topVintPositionOrigin = new Vector2f();
-        protected RectangleShape topRotorRectShape;
-        protected Vector2f topVintOrigin = new Vector2f(80, 1);
-        protected Vector2f topVintSize = new Vector2f(160, 2);
-        protected Color topRotorColor = Color.Yellow;
-        protected float topVintSpeed = 1545;
+        
 
         //Задний винт
         Sprite rearVintSprite;
         protected Vector2f rearVintPositionOrigin = new Vector2f(-104,8);
-        protected RectangleShape rearRotorRectShape;
-        protected Vector2f rearRotorSize = new Vector2f(3, 26);
-        protected Vector2f rearRotorOrigin = new Vector2f(1.5f, 13);
-        protected Color rearRotorColor = Color.Yellow;
-        protected float rearVintSpeed = 41;
+        
 
 
 
@@ -324,13 +316,8 @@ namespace Havier_Than_Air_S
             
             detaly = new Detal[1];
             detaly[0] = new TopRotor_UH1();
+            detaly[1] = new RearRotor_UH1();
             
-
-            //rearVintSprite.
-            rearRotorRectShape = new RectangleShape();
-            rearRotorRectShape.Origin = rearRotorOrigin;
-            rearRotorRectShape.Size = rearRotorSize;
-            rearRotorRectShape.FillColor = rearRotorColor;
 
             //GunTrunk
             GunTrunk = new RectangleShape();
@@ -340,44 +327,16 @@ namespace Havier_Than_Air_S
 
         }
 
- 
+        Vector2f[] DetalyPos;
+
         public void RotorAnimatioUpdate()
         {
-            //ротор top
             
-
-            detaly[0].setPosAndAngle(positionOfHely, angle);
-            (detaly[0] as TopRotor_UH1).UpdateRotorSpeed(RPM / maxRPM);
-            detaly[0].Update();
-
-            /*
-            float RotorX = topRotorRectShape.Scale.X + topVintSpeed * Program.deltaTimer.Delta() / 100 *
-                                   RPM / maxRPM * 2.7f;
-            if (RotorX > 1)
-            {
-                RotorX = 1;
-                topVintSpeed *= -1;
-            }
-            if (RotorX < 0.08f)
-            {
-                RotorX = 0.08f;
-                topVintSpeed *= -1;
-            }
-            
-            topRotorRectShape.Scale = new Vector2f(RotorX, topRotorRectShape.Scale.Y);
-            */
-
-
-
-            //ротор rear
-            rearRotorRectShape.Position = Matematika.GlobalPointOfLocalPoint(positionOfHely,
-               (new Vector2f(rearVintPositionOrigin.X*flip, rearVintPositionOrigin.Y)), angle);
-            rearRotorRectShape.Rotation += rearVintSpeed * Program.deltaTimer.Delta() * 100 *
-                                            RPM / maxRPM * 1.7f;
-
-           //Program.window.Draw(topRotorRectShape);
-            Program.window.Draw(rearRotorRectShape);
-
+            (detaly[0] as TopRotor_UH1).Update(positionOfHely, angle, RPM / maxRPM);
+            (detaly[1] as RearRotor_UH1).Update(Matematika.GlobalPointOfLocalPoint(positionOfHely,
+               new Vector2f(rearVintPositionOrigin.X * flip, rearVintPositionOrigin.Y), angle), 
+               angle, 
+               RPM / maxRPM);
 
         }
 

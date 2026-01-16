@@ -27,7 +27,7 @@ namespace Havier_Than_Air_S
             //Позиции деталей 
             spriteOrigin = new Vector2f(250,0);
             colliderOrigin = new Vector2f(0, 0);
-            rearRotorOrigin = new Vector2f(-50,0);
+            //rearRotorOrigin = new Vector2f(-50,0);
 
             //Настройки верталета
             maxpowery = 200000; //Максимальная сила влияет на вертолет
@@ -58,6 +58,7 @@ namespace Havier_Than_Air_S
            
             base.SpawnHely();
 
+            /*
             //Верхний винт
             topRotorRectShape.Size = new Vector2f(80, 2);
             topRotorRectShape.FillColor = new Color(Color.Green);
@@ -70,7 +71,7 @@ namespace Havier_Than_Air_S
             rearRotorRectShape.Size = new Vector2f(2, 18);
             rearRotorRectShape.FillColor = new Color(Color.Yellow);
             rearRotorRectShape.Origin = new Vector2f(1, 9f);
-
+            */
 
 
             //Коллайдер

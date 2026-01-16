@@ -27,8 +27,10 @@ namespace Havier_Than_Air_S.HelyParts
             marker = new Marker(_shape, Color.Green, 3);
         }
 
-        public override void Update()
+        public void Update(Vector2f pos, float ang, float RPM_procent)
         {
+            setPosAndAngle(pos, ang);
+            UpdateRotorSpeed(RPM_procent);
             _shape.Position = _position;
             _shape.Rotation = _angle;
             Program.window.Draw(_shape);
@@ -36,7 +38,7 @@ namespace Havier_Than_Air_S.HelyParts
         }
 
 
-        public void UpdateRotorSpeed(float RPM_procent)
+        private void UpdateRotorSpeed(float RPM_procent)
         {
 
             float RotorX = _shape.Scale.X + topVintSpeed * Program.deltaTimer.Delta()*Program.gameSpeed / 1000 *
