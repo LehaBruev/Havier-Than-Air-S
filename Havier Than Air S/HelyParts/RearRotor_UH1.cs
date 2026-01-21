@@ -15,7 +15,7 @@ namespace Havier_Than_Air_S.HelyParts
         Vector2f rearRotorSize = new Vector2f(3, 26);
         Vector2f rearRotorOrigin = new Vector2f(1.5f, 13);
         Color rearRotorColor = Color.Yellow;
-        float rearVintSpeed = 41;
+        float rearVintSpeed = 141;
 
         public RearRotor_UH1()
         {
@@ -23,17 +23,16 @@ namespace Havier_Than_Air_S.HelyParts
             _shape = new RectangleShape(rearRotorSize);
             _shape.Origin = rearRotorOrigin;
             _shape.FillColor = rearRotorColor;
-            marker = new Marker(_shape, Color.Green, 3);
+            //marker = new Marker(_shape, Color.Green, 3);
         }
 
         public void Update(Vector2f pos, float ang, float RPM_procent)
         {
             setPosAndAngle(pos, ang);
-            UpdateRotorSpeed(RPM_procent);
             _shape.Position = _position;
-            _shape.Rotation = _angle;
+            UpdateRotorSpeed(RPM_procent);
             Program.window.Draw(_shape);
-            marker.Update();
+            //marker.Update();
 
         }
 

@@ -30,7 +30,9 @@ namespace Havier_Than_Air_S
         Максимальная взлётная масса: 4310 кг.
         Масса груза на внешней подвеске: 1759 кг.
         Внутренний запас топлива: 840 кг.
-        */  
+        */
+
+        float angleCorrectorForse = 10;
 
         Marker marker;
 
@@ -53,7 +55,7 @@ namespace Havier_Than_Air_S
         protected float maxpowery = 300000; //Максимальная сила влияет на вертолет
         protected float maxpowerx = 30000; // 
         protected float shagRUD = 0.25f; // шаг увеличения мощности двигателя
-        protected float shagAngle = 1.5f; // шаг изменения угла атаки
+        protected float maxShagAngle = 1.5f; // шаг изменения угла атаки
         protected float shagAngleSpeed = 10f; // отклик рукоятки угла
         protected float maxspeedhor = 100;
         protected float maxspeedvert = 500;
@@ -314,7 +316,7 @@ namespace Havier_Than_Air_S
         private void SpawnRotors()
         {
             
-            detaly = new Detal[1];
+            detaly = new Detal[2];
             detaly[0] = new TopRotor_UH1();
             detaly[1] = new RearRotor_UH1();
             
@@ -384,10 +386,12 @@ namespace Havier_Than_Air_S
             //расчет высоты
             altitude = 700 - positionOfHely.Y;
 
-            FlipUpdate();
-            AngleCheck();
-            CheckRUD();
             CheckEngineSwitch();
+            FlipUpdate();
+            
+            CheckRUD();
+            AngleCheck();
+
             EngineUpdate();
             //ChechRotorSound();
             UpdateCollider();
@@ -494,7 +498,6 @@ namespace Havier_Than_Air_S
 
         private void EngineUpdate()
         {
-            
 
             //Расход топлива
             helifuelCurrent = helifuelCurrent - (RPM / 100) * (RPM / 100) / 1000000 * fuelrashod * delta;
@@ -508,15 +511,12 @@ namespace Havier_Than_Air_S
             RPM = currentRUDposition / 100 * maxRPM;
             if (RPM > maxRPM ) RPM = maxRPM;
 
-
-
             //Сила ротора
             currentRotorPower = RPM / maxRPM * (currentEnginelife / 100) * engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);
 
             powerRTR.X = currentRotorPower - (currentRotorPower - currentRotorPower / 2500 * (float)Math.Sqrt(angle * angle));
             powerRTR.X = powerRTR.X * Math.Sign(angle);
             powerRTR.Y = currentRotorPower - powerRTR.X * Math.Sign(angle);
-
 
         }
 
@@ -527,32 +527,44 @@ namespace Havier_Than_Air_S
             //channel.Play();
         }
 
+        float minRotorPowerToChangeAngle = 7000f;
+        float workRotorPowerToChangeAngle = 23000f;
+        float upravlyaemostAngle = 1;
        private void AngleCheck()
         {
-            //Управление углом атаки
-            if (Keyboard.IsKeyPressed(Keyboard.Key.D) == true)
+            if (currentRotorPower > minRotorPowerToChangeAngle)
             {
-                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * delta;
-                if (currentShagAngleSpeed > shagAngle)
-                    currentShagAngleSpeed = shagAngle;
+                if(currentRotorPower< workRotorPowerToChangeAngle)
+                {
+                    upravlyaemostAngle = currentRotorPower / workRotorPowerToChangeAngle;
 
-                angle = (angle + currentShagAngleSpeed * delta);
-                if (angle > maxangle)
-                    angle = maxangle;
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.A) == true)
-            {
-                currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * delta;
-                if (currentShagAngleSpeed > shagAngle)
-                    currentShagAngleSpeed = shagAngle;
+                }
 
-                angle = angle - currentShagAngleSpeed * delta;
-                if (angle < -maxangle)
-                    angle = -maxangle;
-            }
-            else
-            {
-                currentShagAngleSpeed = 0;
+                //Управление углом атаки
+                if (Keyboard.IsKeyPressed(Keyboard.Key.D) == true)
+                {
+                    currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * delta;
+                    if (currentShagAngleSpeed > maxShagAngle)
+                        currentShagAngleSpeed = maxShagAngle;
+
+                    angle = angle + currentShagAngleSpeed * delta* upravlyaemostAngle;
+                    if (angle > maxangle)
+                        angle = maxangle;
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.A) == true)
+                {
+                    currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * delta;
+                    if (currentShagAngleSpeed > maxShagAngle)
+                        currentShagAngleSpeed = maxShagAngle;
+
+                    angle = angle - currentShagAngleSpeed * delta* upravlyaemostAngle;
+                    if (angle < -maxangle)
+                        angle = -maxangle;
+                }
+                else
+                {
+                    currentShagAngleSpeed = 0;
+                }
             }
         }
 
@@ -592,7 +604,6 @@ namespace Havier_Than_Air_S
             ColliderPhisicsCompensation(); // Расчет вектора компенсатора при столкновениях
             
 
-
             if (speed.X > speedxmax.X) speed.X = speedxmax.X;
             if (speed.X < -speedxmax.X) speed.X = -speedxmax.X;
             if (speed.Y > speedxmax.Y) speed.Y = speedxmax.Y;
@@ -618,7 +629,7 @@ namespace Havier_Than_Air_S
 
       
         public Vector2f vectorToDamage_01 = new Vector2f(0,0);
-        float compensatorForce = 0.01f;
+        float compensatorForce = 0.3f;
         public Vector2f center2PosGlobal = new Vector2f();
 
 
@@ -654,6 +665,37 @@ namespace Havier_Than_Air_S
                 if (Math.Abs(speed.Y) < speedMin.Y) speed.Y = 0;
             }
 
+            AddAngle();
+
+        }
+
+        float rotationCoeffic = 0.05f;
+        float minForceRotation = 0.1f;
+        private void AddAngle()
+        {
+            /*
+            if (vectorKompensator.X > 0)
+                angle -= angleCorrectorForse * delta;
+            if (vectorKompensator.X < 0)
+                angle += angleCorrectorForse * delta;
+            */
+
+            float summAngle = Matematika.AngleOfVector(summaVectorov); // Угол вектора 
+            Vector2f MV0 = Matematika.LocalPointOfRotationObject(summaVectorov,angle); // Наклон вектора касания к углу вертолета
+            Vector2f MV = MV0 + MirrorVector; // Поиск точки силы
+            Vector2f MV2 = Matematika.LocalPointOfRotationObject(MV, -angle - summAngle); // Доворот точки силы в 0 градусов суммВектора
+            float F = MV2.Y;
+            float L = Matematika.searchdistance(new Vector2f(), summaVectorov);
+
+            float Moment = F * Math.Abs( L ) * rotationCoeffic* delta;
+
+            if (minForceRotation < Math.Abs(Moment))
+                {
+                angle += Moment;
+            }
+           // MirrorVector
+           // summaVectorov
+
         }
 
         private int ZnakPregrady(Vector2f posPregradaGlobal, Vector2f pointToCheckGlob,float alfaPregrada) // вычисляем центр масс за препятствием или перед
@@ -666,12 +708,12 @@ namespace Havier_Than_Air_S
             return Math.Sign(angeledMassPosition.Y);
         }
 
-
+        Vector2f summaVectorov = new Vector2f(); //Вектор до грани коллайдера, столкновения корпуса
         private Vector2f  Touch_01_Vector(Vector2f[,] shapeMatrix)
         {
             //Вектор до граней коллайдера / сумма векторов до центров граней
             List<Vector2f> skladVectorov = new List<Vector2f>();
-            Vector2f summaVectorov = new Vector2f();
+            
             int numOfVector = 0;
 
             for (int i = 0; i < shapeMatrix.GetLength(0); i++)

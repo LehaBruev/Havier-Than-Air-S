@@ -15,7 +15,8 @@ namespace Havier_Than_Air_S
 {
     internal class Avionika
     {
-        int otladka = 0;
+        int otladka = 1;
+        
 
         //мышка тест
         int lognum = 0;
@@ -526,8 +527,6 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
 
 
 
-
-
                 // ParkovkaAssistance
                 Vertex[] line = new Vertex[]
                 {
@@ -574,21 +573,23 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
 
         private void VectorToDamage()
         {
+            /*
             Vertex[] line = new Vertex[]
-                        {
+             {
+                            
                 //Инерция
-               //new Vertex(new Vector2f(hely.positionOfHely.X+100, hely.positionOfHely.Y-100)),
-              // new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.speed.X*100, hely.positionOfHely.Y -100 - hely.speed.Y*100),cvColor3),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100, hely.positionOfHely.Y-100)),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + hely.speed.X*100, hely.positionOfHely.Y -100 - hely.speed.Y*100),cvColor3),
                //Препятствие
-               // new Vertex(new Vector2f(hely.positionOfHely.X+100 + pregrada_t1.X, hely.positionOfHely.Y-100+pregrada_t1.Y)),
-              // new Vertex(new Vector2f(hely.positionOfHely.X+100 + trueVectorPregrada.X, hely.positionOfHely.Y -100+trueVectorPregrada.Y),cvColor2),
+                new Vertex(new Vector2f(hely.positionOfHely.X+100 + pregrada_t1.X, hely.positionOfHely.Y-100+pregrada_t1.Y)),
+               new Vertex(new Vector2f(hely.positionOfHely.X+100 + trueVectorPregrada.X, hely.positionOfHely.Y -100+trueVectorPregrada.Y),cvColor2),
                //Вектор противодействия
-               // new Vertex(new Vector2f(hely.positionOfHely.X-100 , hely.positionOfHely.Y-100)),
-             //  new Vertex(new Vector2f(hely.positionOfHely.X-100 + hely.vectorToDamage_01.X*1000, hely.positionOfHely.Y -100+hely.vectorToDamage_01.Y*1000),cvColor)
-                        };
+                new Vertex(new Vector2f(hely.positionOfHely.X-100 , hely.positionOfHely.Y-100)),
+               new Vertex(new Vector2f(hely.positionOfHely.X-100 + hely.vectorToDamage_01.X*1000, hely.positionOfHely.Y -100+hely.vectorToDamage_01.Y*1000),cvColor)
+             };
 
-           // Program.window.Draw(line, PrimitiveType.Lines);
-
+            Program.window.Draw(line, PrimitiveType.Lines);
+             */       
         }
 
     }

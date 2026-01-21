@@ -39,7 +39,7 @@ namespace Havier_Than_Air_S
             maxpowery = 500000; //Максимальная сила влияет на вертолет
             maxpowerx = 30000; // 
             shagRUD = 25; // шаг увеличения мощности двигателя
-            shagAngle = 1.3f; // шаг изменения угла атаки
+            maxShagAngle = 1.3f; // шаг изменения угла атаки
             maxspeedhor = 200;
             maxspeedvert = 220;
             maxheigh = 500; // потолок полета
