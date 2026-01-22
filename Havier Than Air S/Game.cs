@@ -33,12 +33,9 @@ namespace Havier_Than_Air_S
         //private MissionBase[] allMissions = new MissionBase[] { new Mission1_Learning() , new MissionTest(), new Mission3_FreeFlight() };
 
         Mission1_Learning mission1 =  new Mission1_Learning();
-        MissionTest missionTest = new MissionTest();
+        MissionBase missionTest = new Mission3_FreeFlight();
 
-        public Game()
-        {
-            
-        }
+       
 
         public void StartGame()
         {

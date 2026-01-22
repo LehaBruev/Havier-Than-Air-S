@@ -150,6 +150,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PullObjects.cs" />
     <Compile Include="Rita.cs" />
+    <Compile Include="Spawn.cs" />
     <Compile Include="Tehnika.cs" />
     <Compile Include="TestBaseClass.cs" />
     <Compile Include="Vectora.cs" />
@@ -197,6 +198,8 @@
     <Content Include="Images\BackGroundLevel1 - Копировать.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\BackgroundWindows.png" />
+    <Content Include="Images\Flag.png" />
     <Content Include="Images\Ground_Back_01.png" />
     <Content Include="Images\score.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
