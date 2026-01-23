@@ -101,7 +101,7 @@ namespace Havier_Than_Air_S.Missions
 
         Random rnd;
         Random rnd2;
-        public void StartMiss()
+        public override void StartMiss()
         {
             rnd = new Random();
             rnd2 = new Random();
@@ -136,7 +136,7 @@ namespace Havier_Than_Air_S.Missions
 
         
         
-        public void Update()
+        public override void Update()
         {
             backgroundSprite.Position = Program.offset - new Vector2f(Program.vMode.Width/2, Program.vMode.Height / 2);
             Program.window.Draw(backgroundSprite);
@@ -212,12 +212,6 @@ namespace Havier_Than_Air_S.Missions
             if (m_Hely != null) m_Hely.Update();
         }
 
-        public void CheckTargetCollider(FloatRect incoming)
-        {
-            
-            //if (targetRect.GetGlobalBounds().Intersects(incoming) == true )
-           
-        }
 
         private void SpawnRocket()
         {

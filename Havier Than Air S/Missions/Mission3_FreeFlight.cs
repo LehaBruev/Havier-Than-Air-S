@@ -11,21 +11,26 @@ namespace Havier_Than_Air_S.Missions
     internal class Mission3_FreeFlight : MissionBase
     {
 
-        Texture background = new Texture("Images\\BackgroundWindows.png");
+        Texture background = new Texture("Images\\BackGroundLevel3_2.png");
         Sprite backgroundSprite;
 
         Clock clock;
         Random rand;
 
+        //Вертал
+        Hely m_Hely;
+
         public Mission3_FreeFlight()
         {
             backgroundSprite = new Sprite(background);
-            backgroundSprite.Scale = new Vector2f(1.6f, 1.6f);
-
+            backgroundSprite.Scale = new Vector2f(1.5f, 1.5f);
+            backgroundSprite.Position = new Vector2f(-450, -50);
 
             rand = new Random();
-
             clock = new Clock();
+
+            m_Hely = new Hely();
+            Program.cameraController.SetCameraObject(m_Hely);
         }
 
 
@@ -36,14 +41,16 @@ namespace Havier_Than_Air_S.Missions
 
 
 
-
-
-
-
-
         }
 
+        public override void Update()
+        {
 
+            base.Update();
+
+            Program.window.Draw(backgroundSprite);
+            if (m_Hely != null) m_Hely.Update();
+        }
 
 
 

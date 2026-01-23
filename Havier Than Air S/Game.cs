@@ -28,11 +28,11 @@ namespace Havier_Than_Air_S
         public MainMenuController MenuController = new MainMenuController();
 
         // Переменные
-        public MissionSwitch missionSwitch = MissionSwitch.mis1;
+        public MissionSwitch missionSwitch = MissionSwitch.mis3;
 
         //private MissionBase[] allMissions = new MissionBase[] { new Mission1_Learning() , new MissionTest(), new Mission3_FreeFlight() };
 
-        Mission1_Learning mission1 =  new Mission1_Learning();
+        //Mission1_Learning mission1 =  new Mission1_Learning();
         MissionBase missionTest = new Mission3_FreeFlight();
 
        
@@ -46,7 +46,7 @@ namespace Havier_Than_Air_S
         public void ChangeGameMode(GameMode mode, MissionSwitch mission)
         {
             GameState.currentGameMode = mode;
-            missionSwitch = mission;
+            //missionSwitch = mission;
             //mission1.Start();
             //mMagnitola.PlayMusic();
 
@@ -59,18 +59,11 @@ namespace Havier_Than_Air_S
             
             MenuController.Update();
 
-            if (GameState.CurrentMode == GameMode.Play)
-            {
-                if (missionSwitch == MissionSwitch.mis1)
-                {
-                    mission1.UpdateMission_1();  
-                }
-                else if (missionSwitch == MissionSwitch.test)
-                {
+            
                     missionTest.Update();
-                }
                 
-            }
+                
+            
         }
     }
 }
