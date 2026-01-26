@@ -264,6 +264,11 @@ namespace Havier_Than_Air_S
 
         }
 
+        public void SetPosition(Vector2f pos)
+        {
+            positionOfHely = pos;
+        }
+
         private void WeaponsInit()
         {
             //Оружие

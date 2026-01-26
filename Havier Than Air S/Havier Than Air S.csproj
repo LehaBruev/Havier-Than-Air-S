@@ -198,6 +198,9 @@
     <Content Include="Images\BackGroundLevel1 - Копировать.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Trace_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\BackGroundLevel3_2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

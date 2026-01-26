@@ -221,11 +221,13 @@ namespace Havier_Than_Air_S
 
         }
 
-        int typeOfWriteXY = 4;
+        int typeOfWriteXY = 3;
 
         int logON = 0;
         Clock logONclock = new Clock();
 
+
+        //Запись точек в файл
         private void UpdateMouse()
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.L) && logONclock.ElapsedTime.AsSeconds()>0.5f)
