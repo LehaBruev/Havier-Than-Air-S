@@ -186,6 +186,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="bin\x86\Debug\Flag.png" />
     <Content Include="Images\AH1_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

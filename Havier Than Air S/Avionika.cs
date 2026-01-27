@@ -221,7 +221,7 @@ namespace Havier_Than_Air_S
 
         }
 
-        int typeOfWriteXY = 3;
+        int typeOfWriteXY = 4;
 
         int logON = 0;
         Clock logONclock = new Clock();
@@ -289,6 +289,7 @@ namespace Havier_Than_Air_S
                                           (Mouse.GetPosition(Program.window).Y) +
                                           " ));");
                         }
+                        //МАРШРУТЫ
                         //Привязка к глобальной точке НАЖМИ F2
                         else if (typeOfWriteXY == 4)
                         {

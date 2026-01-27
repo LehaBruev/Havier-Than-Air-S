@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,9 @@ namespace Havier_Than_Air_S.Missions
         // Коллайдеры столкновения
         public ConvexShape[] MountColliders;
 
+        //Спавн
+        Spawn EnemySpawn;
+
         public Mission3_FreeFlight()
         {
             backgroundSprite = new Sprite(background);
@@ -44,8 +48,9 @@ namespace Havier_Than_Air_S.Missions
 
             //Проверка столкновений
 
-
-
+            //Spawn
+            EnemySpawn = new Spawn();
+            
         }
 
 
@@ -97,8 +102,27 @@ namespace Havier_Than_Air_S.Missions
             Program.window.Draw(MountColliders[0]);
             Collisions();
             if (m_Hely != null) m_Hely.Update();
+
+
+            EnemySpawn.Update();
+
+            CheckPlayerComands();
+
         }
 
+        private void CheckPlayerComands()
+        {
+            if (clock.ElapsedTime.AsSeconds() > 0.1f)
+            {
+                if (Keyboard.IsKeyPressed(Keyboard.Key.P))
+                {
+                    EnemySpawn.SpawnEnemy();
+                }
+                clock.Restart();
+            }
+
+
+        }
 
         private void SetGround()
         {
