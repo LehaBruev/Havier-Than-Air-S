@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S.Enemies
 {
-    public class Tnk1: IMoovable
+    public class Tnk2: IMoovable
     {
         //Тип объекта
         TypeOfObject typeofObject = TypeOfObject.enemy;
@@ -64,7 +64,7 @@ namespace Havier_Than_Air_S.Enemies
 
 
 
-        public Tnk1()
+        public Tnk2()
         {
 
             detaly = new Detal[2];
@@ -77,7 +77,8 @@ namespace Havier_Than_Air_S.Enemies
 
             myMarshrut = new Marshrut();
 
-            body = new Texture(Program.m_TextureManager.allImage, new IntRect(39, 884, 85, 24));
+            Image tankImage = new Image("Images\\tank2.png");
+            body = new Texture(tankImage);
 
             bodySprite = new Sprite(body);
             bodySprite.Origin = centerOfMass;

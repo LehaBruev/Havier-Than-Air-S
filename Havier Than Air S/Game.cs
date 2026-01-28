@@ -33,14 +33,14 @@ namespace Havier_Than_Air_S
         //private MissionBase[] allMissions = new MissionBase[] { new Mission1_Learning() , new MissionTest(), new Mission3_FreeFlight() };
 
         //Mission1_Learning mission1 =  new Mission1_Learning();
-        MissionBase missionTest = new Mission3_FreeFlight();
+        public MissionBase CurrentMission = new Mission3_FreeFlight();
 
        
 
         public void StartGame()
         {
             ChangeGameMode(GameMode.Play,MissionSwitch.test);
-            missionTest.StartMiss();
+            CurrentMission.StartMiss();
         }
 
         public void ChangeGameMode(GameMode mode, MissionSwitch mission)
@@ -60,7 +60,7 @@ namespace Havier_Than_Air_S
             MenuController.Update();
 
             
-                    missionTest.Update();
+                    CurrentMission.Update();
                 
                 
             

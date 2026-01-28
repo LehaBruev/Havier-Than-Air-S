@@ -28,5 +28,11 @@ namespace Havier_Than_Air_S.Missions
 
         }
 
+        public virtual void CallSpawner(IMoovable moovableEntity)
+        {
+
+
+        }
+
     }
 }

@@ -15,13 +15,12 @@ namespace Havier_Than_Air_S
 
         Vector2f spawnPosition = new Vector2f(1300,700);
 
-        Marshrut marsh;
+       public Marshrut marsh;
 
-        GameObject[] tanks;
 
         public Spawn()
         {
-            spawnSprite = new Sprite(new Texture("Flag.png"));
+            spawnSprite = new Sprite(new Texture("Images\\Flag.png"));
             spawnSprite.Scale = new Vector2f(0.3f, 0.3f);
             spawnSprite.Origin = new Vector2f(50, 50);
             spawnSprite.Position = spawnPosition;

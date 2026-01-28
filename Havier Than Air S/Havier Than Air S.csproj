@@ -109,6 +109,7 @@
     <Compile Include="Collider.cs" />
     <Compile Include="Collisions.cs" />
     <Compile Include="DeltaTimer.cs" />
+    <Compile Include="Enemies\Tnk2.cs" />
     <Compile Include="Enemies\Tnk1.cs" />
     <Compile Include="EnemiManager.cs" />
     <Compile Include="Game.cs" />
@@ -187,6 +188,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="bin\x86\Debug\Flag.png" />
+    <Content Include="bin\x86\Debug\tank2.png" />
     <Content Include="Images\AH1_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -199,6 +201,15 @@
     <Content Include="Images\BackGroundLevel1 - Копировать.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\tank2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tank2_gun.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tank2_trunk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Trace_03.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -206,7 +217,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\BackgroundWindows.png" />
-    <Content Include="Images\Flag.png" />
+    <Content Include="Images\Flag.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Ground_Back_01.png" />
     <Content Include="Images\score.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

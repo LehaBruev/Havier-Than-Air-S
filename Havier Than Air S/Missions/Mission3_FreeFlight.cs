@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using Havier_Than_Air_S.Enemies;
+using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System;
@@ -29,6 +30,8 @@ namespace Havier_Than_Air_S.Missions
         //Спавн
         Spawn EnemySpawn;
 
+        Spawn currentSpawn;
+
         public Mission3_FreeFlight()
         {
             backgroundSprite = new Sprite(background);
@@ -52,6 +55,17 @@ namespace Havier_Than_Air_S.Missions
             EnemySpawn = new Spawn();
             
         }
+
+        public override void CallSpawner(IMoovable moovableEntity)
+        {
+            base.CallSpawner(moovableEntity);
+            
+            if (moovableEntity is Tnk1)
+            {
+                (moovableEntity as Tnk1).myMarshrut = currentSpawn.marsh;
+             }
+        }
+
 
 
         private void Collisions()
@@ -116,6 +130,7 @@ namespace Havier_Than_Air_S.Missions
             {
                 if (Keyboard.IsKeyPressed(Keyboard.Key.P))
                 {
+                    currentSpawn = EnemySpawn;
                     EnemySpawn.SpawnEnemy();
                 }
                 clock.Restart();
