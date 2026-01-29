@@ -152,6 +152,7 @@
     <Compile Include="PullObjects.cs" />
     <Compile Include="Rita.cs" />
     <Compile Include="Spawn.cs" />
+    <Compile Include="StatisticaOfLevel.cs" />
     <Compile Include="Tehnika.cs" />
     <Compile Include="TestBaseClass.cs" />
     <Compile Include="Vectora.cs" />

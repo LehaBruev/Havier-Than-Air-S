@@ -91,6 +91,7 @@ namespace Havier_Than_Air_S
                     IMoovables[i].GetTypeOfObject() == objectType)
                 {
                     IMoovables[i].Start(position, angle, speed);
+                    Program.statistica.enemySpawned += 1;
                     return;
                 }
             }

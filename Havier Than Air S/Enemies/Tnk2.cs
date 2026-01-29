@@ -22,7 +22,9 @@ namespace Havier_Than_Air_S.Enemies
         public Marshrut myMarshrut;
         int currentMarshrutPoint = 0;
         float minDistToMarshPoint = 5f;
-        Vector2f centerOfMass = new Vector2f(35,20);
+
+        //Центровка
+        Vector2f centerOfMass = new Vector2f(60,40);
         
         //Параметры формы коллайдера
         RectangleShape shape;
@@ -42,7 +44,7 @@ namespace Havier_Than_Air_S.Enemies
         float angle = 0;
         Vector2f position = new Vector2f(0,0);
 
-        Texture body;
+        Texture bodyTexture;
 
         Sprite bodySprite;
 
@@ -62,6 +64,7 @@ namespace Havier_Than_Air_S.Enemies
         float targetAngleNaklon = 0;
         float angleNaklonSpeed = 1;
 
+        Image tankImage = new Image("Images\\tank2.png");
 
 
         public Tnk2()
@@ -77,10 +80,9 @@ namespace Havier_Than_Air_S.Enemies
 
             myMarshrut = new Marshrut();
 
-            Image tankImage = new Image("Images\\tank2.png");
-            body = new Texture(tankImage);
-
-            bodySprite = new Sprite(body);
+            bodyTexture = new Texture(tankImage);
+            bodySprite = new Sprite(bodyTexture);
+            bodySprite.Scale = new Vector2f(0.75f, 0.75f);
             bodySprite.Origin = centerOfMass;
 
             shape = new RectangleShape(new Vector2f(85, 24));

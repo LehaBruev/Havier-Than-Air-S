@@ -19,7 +19,6 @@ namespace Havier_Than_Air_S.Missions
         Sprite traceSprite;
 
         Clock clock;
-        Random rand;
 
         //Вертал
         Hely m_Hely;
@@ -36,13 +35,13 @@ namespace Havier_Than_Air_S.Missions
         {
             backgroundSprite = new Sprite(background);
             backgroundSprite.Scale = new Vector2f(1.5f, 1.5f);
-            backgroundSprite.Position = new Vector2f(-450, -50);
+            backgroundSprite.Position = new Vector2f();
 
             traceSprite = new Sprite(trace);
             traceSprite.Scale = new Vector2f(1.5f, 1.5f);
             traceSprite.Position = new Vector2f(-450, 700);
 
-            rand = new Random();
+            
             clock = new Clock();
 
             m_Hely = new Hely();
@@ -60,10 +59,14 @@ namespace Havier_Than_Air_S.Missions
         {
             base.CallSpawner(moovableEntity);
             
-            if (moovableEntity is Tnk1)
+            if (moovableEntity is Tnk1 )
             {
                 (moovableEntity as Tnk1).myMarshrut = currentSpawn.marsh;
              }
+            if (moovableEntity is Tnk2)
+            {
+                (moovableEntity as Tnk2).myMarshrut = currentSpawn.marsh;
+            }
         }
 
 
@@ -132,6 +135,7 @@ namespace Havier_Than_Air_S.Missions
                 {
                     currentSpawn = EnemySpawn;
                     EnemySpawn.SpawnEnemy();
+                    Program.log.SaveCurrentGameLogFile("");
                 }
                 clock.Restart();
             }

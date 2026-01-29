@@ -13,6 +13,8 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
+        public static Random random = new Random();
+
         public static float gameSpeed = 50;
         public static float helyScale = 1f;
         // Режим разработчки
@@ -42,11 +44,12 @@ namespace Havier_Than_Air_S
        public static View view = new View(new FloatRect(50, 50, 300, 100));
        public static View view2 = new View(new FloatRect(50, 50, 300, 100));
 
-        public static Vector2f offset = new Vector2f(350,400);
+        public static Vector2f offset = new Vector2f(800,450);
 
         //
 
         public static Game Game = new Game();
+        public static StatisticaOfLevel statistica = new StatisticaOfLevel();
 
         static void Main(string[] args)
        {

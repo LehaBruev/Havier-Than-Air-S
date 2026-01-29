@@ -20,8 +20,7 @@ namespace Havier_Than_Air_S
     public class CameraController
     {
         public Vector2f offset;
-        IMoovable moovable;
-        Hely player;
+        IMoovable targetIMoovable;
         float camPosSpeed = 5;
         float currentCamAimPos;
 
@@ -29,13 +28,13 @@ namespace Havier_Than_Air_S
         CameraMode currentCameraMode = CameraMode.hold;
 
         public CameraController()
-        {  
-           //Program.view.Reset(new FloatRect(50,50,300, 100));
+        {
+            //Program.offset = new Vector2f(moovable.GetPosition().X, Program.vMode.Height / 2);
         }
 
         public void Update()
         {
-            if (moovable != null)
+            if (targetIMoovable != null)
             {
                 if (currentCameraMode == CameraMode.hold)
                 {
@@ -43,36 +42,29 @@ namespace Havier_Than_Air_S
                 }
                 else if (currentCameraMode == CameraMode.hely)
                 {
-                    currentCamAimPos = moovable.GetPosition().X;
+                    currentCamAimPos = targetIMoovable.GetPosition().X;
                     float dist = currentCamAimPos - Program.offset.X;
 
                     if (currentCamAimPos - Program.offset.X > camPosSpeed)
                     {
                         Program.offset = new Vector2f(Program.offset.X + camPosSpeed*Program.deltaTimer.Delta()* dist, Program.vMode.Height / 2);
-
                     }
                     else if ( Program.offset.X - currentCamAimPos > camPosSpeed)
                     {
                         Program.offset = new Vector2f(Program.offset.X + camPosSpeed * Program.deltaTimer.Delta()* dist, Program.vMode.Height / 2);
-
                     }
                     else
                     {
-                        Program.offset = new Vector2f(moovable.GetPosition().X, Program.vMode.Height / 2);
-
+                        Program.offset = new Vector2f(targetIMoovable.GetPosition().X, Program.vMode.Height / 2);
                     }
-                    
-
-
 
                 }
                 else if (currentCameraMode == CameraMode.helyAtack)
                 {
-                    Program.offset = new Vector2f(moovable.GetPosition().X, Program.vMode.Height/2);
-                    if (moovable is Hely)
+                    Program.offset = new Vector2f(targetIMoovable.GetPosition().X, Program.vMode.Height/2);
+                    if (targetIMoovable is Hely)
                     {
-                       
-                        Program.offset += new Vector2f((moovable as Hely).speed.X * 80, 0);
+                        Program.offset += new Vector2f((targetIMoovable as Hely).speed.X * 80, 0);
                     }
                 }
 
@@ -94,7 +86,7 @@ namespace Havier_Than_Air_S
 
         public void SetCameraObject(IMoovable obj)
         {
-            moovable = obj;
+            targetIMoovable = obj;
         }
     }
 }
