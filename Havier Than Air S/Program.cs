@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -13,21 +7,24 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
+        //константы
         public static Random random = new Random();
+        public static Font font = new Font("comic.ttf");
 
         public static float gameSpeed = 50;
         public static float helyScale = 1f;
+
         // Режим разработчки
        public static bool TestModeP = false;
-        //public static Vectora Vect = new Vectora();
+
        static ContextSettings _Settings = new ContextSettings();
-        public static Collisions collisions = new Collisions();
-        public static Font font = new Font("comic.ttf");
-        public static LogWriter log = new LogWriter();
+       public static Collisions collisions = new Collisions();
+        
+       public static LogWriter log = new LogWriter();
 
        public static CameraController cameraController = new CameraController();
-        public static TextureManager m_TextureManager = new TextureManager();
-        public static DeltaTimer deltaTimer = new DeltaTimer();
+       public static TextureManager m_TextureManager = new TextureManager();
+       public static DeltaTimer deltaTimer = new DeltaTimer();
        public static Pogoda m_Pogoda = new Pogoda();
        public static Avionika m_Avionika = new Avionika();
        
@@ -41,19 +38,16 @@ namespace Havier_Than_Air_S
 
         public static VideoMode vMode = new VideoMode(1600, 900);
         public static RenderWindow window;
-       public static View view = new View(new FloatRect(50, 50, 300, 100));
-       public static View view2 = new View(new FloatRect(50, 50, 300, 100));
-
+        public static View view = new View(new FloatRect(50, 50, 300, 100));
         public static Vector2f offset = new Vector2f(800,450);
 
         //
-
         public static Game Game = new Game();
         public static StatisticaOfLevel statistica = new StatisticaOfLevel();
 
         static void Main(string[] args)
        {
-            cameraController.Update();
+            //window
             _Settings.AntialiasingLevel = 8; // сглажывание
             //window = new RenderWindow(vMode, "Havier Than Air SFML", new Styles(), _Settings);
             window = new RenderWindow(vMode, "Havier Than Air SFML");
@@ -72,20 +66,26 @@ namespace Havier_Than_Air_S
 
             while (window.IsOpen)
             {
+                //clear and settings
                 window.Clear();
                 cameraController.Update();
                 view.Center = offset; //Move(offset);
                 window.SetView(view);
                 window.DispatchEvents();
-                
-                Game.Update();
+
+                //updates
+                deltaTimer.CheckDelta();
                 m_MouseController.CheckMouse();
+                m_Avionika.Update();
+                Game.Update();
                 m_PullObjects.Update();
                 collisions.Update();
 
-                m_Avionika.Update();
+                
+
+                //display
                 window.Display();
-                deltaTimer.CheckDelta();
+                
                 
             }
        }

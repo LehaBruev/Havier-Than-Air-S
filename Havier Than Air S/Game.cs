@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Havier_Than_Air_S.Missions;
-using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
 
 namespace Havier_Than_Air_S
 {
@@ -39,7 +31,7 @@ namespace Havier_Than_Air_S
 
         public void StartGame()
         {
-            ChangeGameMode(GameMode.Play,MissionSwitch.test);
+            ChangeGameMode(GameMode.MainMenu,MissionSwitch.test);
             CurrentMission.StartMiss();
         }
 
@@ -56,14 +48,8 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
-            
             MenuController.Update();
-
-            
-                    CurrentMission.Update();
-                
-                
-            
+            //CurrentMission.Update();
         }
     }
 }

@@ -41,18 +41,12 @@ namespace Havier_Than_Air_S
 
 
         public menuButtons currentButton;
-
-        //мышь
-        float x;
-        float y;
-
         //Текстуры
         private Texture mainmenutexture = new Texture("Images\\mainmenu.png");
-        private Texture scoreTexture = new Texture("Images\\score1back.png");
 
         //Спрайты
         private Sprite mainMenuSprite; //mainmenutexture);
-        private Sprite scoreSprite; 
+        
 
         //Тексты
         Font font;
@@ -63,6 +57,8 @@ namespace Havier_Than_Air_S
         //Звуки
         SoundBuffer buttonActivate;
         Sound ButtonActitateSound;
+
+
 
         public MainMenuController()
         {
@@ -75,7 +71,6 @@ namespace Havier_Than_Air_S
 
             //Спрайты
             mainMenuSprite = new Sprite(mainmenutexture);
-            scoreSprite = new Sprite(scoreTexture);
 
 
             //Тексты
