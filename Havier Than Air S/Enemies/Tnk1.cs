@@ -123,7 +123,7 @@ namespace Havier_Than_Air_S.Enemies
             colliderStatus = true;
 
             //Приписка спавну
-            Program.Game.CurrentMission.CallSpawner(this);
+            Program.Game.Missions[Program.Game.currentMissionNum].CallSpawner(this);
         }
 
         public void Update()

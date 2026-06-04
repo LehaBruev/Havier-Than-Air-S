@@ -19,11 +19,11 @@ namespace Havier_Than_Air_S
 
         //Муз дорожки
         private Music _Music;
-        Music musicotkazsistem = new Music("Sounds\\Music\\musicotkazsistem.wav");
+        //Music musicotkazsistem = new Music("Sounds\\Music\\musicotkazsistem.wav");
 
         public void PlayMusic()
         {
-            if (Program.Game.missionSwitch == MissionSwitch.mis1)
+            if (Program.Game.currentMissionNum == 0)
             {
                 _Music.Stop();
                 _Music = new Music(Level1Music);

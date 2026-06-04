@@ -31,7 +31,7 @@ namespace Havier_Than_Air_S
         // PlayMusic(mainmenumusic, volume);
         //playingmusic = mainmenumusic;
         //Меню
-        int mainmenuSwitch = 1;
+        public int mainmenuSwitch = 1;
         int levelchoise = 0;
         int menuchoise2 = 0;
         int newgame = 0;
@@ -107,10 +107,7 @@ namespace Havier_Than_Air_S
                 Program.window.Draw(MissionsText);
                 Program.window.Draw(FreeFlightText);
             }
-            else if(Game.GameState.currentGameMode == GameMode.Result)
-            {
-                Program.window.Draw(scoreSprite);
-            }
+            
         }
 
 
@@ -138,7 +135,7 @@ namespace Havier_Than_Air_S
 
                 if(Program.m_MouseController.LeftButton == true)
                 {
-                    Program.Game.ChangeGameMode(GameMode.Play, MissionSwitch.mis1);
+                    Program.Game.StartGame(0);
                 }
             }
             else if (x > 221 && x < 341 && y> 369 && y < 388) //2
@@ -150,7 +147,7 @@ namespace Havier_Than_Air_S
                 }
                 if (Program.m_MouseController.LeftButton == true)
                 {
-                    Program.Game.ChangeGameMode(GameMode.Play, MissionSwitch.test);
+                    Program.Game.StartGame(1);
                 }
             }
 
@@ -160,6 +157,10 @@ namespace Havier_Than_Air_S
                 {
                     ButtonMouseIn(FreeFlightText);
                     currentButton = menuButtons.freeFlight;
+                }
+                if (Program.m_MouseController.LeftButton == true)
+                {
+                    Program.Game.StartGame(2);
                 }
             }
 

@@ -16,40 +16,39 @@ namespace Havier_Than_Air_S
         public static GameState GameState = new GameState();
 
         public Random rnd = new Random();
-        public static TextureManager mTextureManager = new TextureManager();
         public MainMenuController MenuController = new MainMenuController();
+        public int currentMissionNum = 0;
 
-        // Переменные
-        public MissionSwitch missionSwitch = MissionSwitch.mis3;
+        public MissionBase[] Missions;
 
-        //private MissionBase[] allMissions = new MissionBase[] { new Mission1_Learning() , new MissionTest(), new Mission3_FreeFlight() };
-
-        //Mission1_Learning mission1 =  new Mission1_Learning();
-        public MissionBase CurrentMission = new Mission3_FreeFlight();
-
-       
-
-        public void StartGame()
+       public Game()
         {
-            ChangeGameMode(GameMode.MainMenu,MissionSwitch.test);
-            CurrentMission.StartMiss();
-        }
-
-        public void ChangeGameMode(GameMode mode, MissionSwitch mission)
-        {
-            GameState.currentGameMode = mode;
-            //missionSwitch = mission;
-            //mission1.Start();
-            //mMagnitola.PlayMusic();
+            Missions = new MissionBase[3];
+            Missions[0] = new Mission1_Learning();
+            Missions[1] = new MissionTest();
+            Missions[2] = new Mission3_FreeFlight();
 
         }
 
+        public void StartGame(int missionNum)
+        {
+            currentMissionNum = missionNum;
+            Missions[currentMissionNum].StartMiss();
+            MenuController.mainmenuSwitch = 0;
+        }
 
+        
 
         public void Update()
         {
-            MenuController.Update();
-            //CurrentMission.Update();
+            if (MenuController.mainmenuSwitch == 1)
+            {
+                MenuController.Update();
+            }
+            else
+            {
+                Missions[currentMissionNum].Update();
+            }
         }
     }
 }

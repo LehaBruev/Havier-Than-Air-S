@@ -13,12 +13,12 @@ namespace Havier_Than_Air_S
 
         // Бэкграунд 
         Texture backgroundLevel1 = new Texture("Images\\BackGroundLevel1.png");
-        Sprite backGroundSprite = new Sprite();
+        Sprite backGroundSprite;
 
 
         public void Start()
         {
-            backGroundSprite.Texture = backgroundLevel1;
+            backGroundSprite = new Sprite(backgroundLevel1);
         }
 
         public void UpdateMission_1()
@@ -31,6 +31,7 @@ namespace Havier_Than_Air_S
 
 
             // Описать верт
+
 
             // Этапы сценария
 
