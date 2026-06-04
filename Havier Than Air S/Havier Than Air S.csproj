@@ -112,9 +112,9 @@
     <Compile Include="Enemies\Tnk2.cs" />
     <Compile Include="Enemies\Tnk1.cs" />
     <Compile Include="EnemiManager.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="GameObject.cs" />
-    <Compile Include="GameState.cs" />
+    <Compile Include="Scripts\Game\Game.cs" />
+    <Compile Include="Scripts\Game\GameObject.cs" />
+    <Compile Include="Scripts\Game\GameState.cs" />
     <Compile Include="Gita.cs" />
     <Compile Include="GroundObjects\BaseGroundObject.cs" />
     <Compile Include="GroundObjects\Ground_01.cs" />
@@ -125,10 +125,10 @@
     <Compile Include="IMoovable.cs" />
     <Compile Include="Scripts\Service\LogWriter.cs" />
     <Compile Include="Magazin.cs" />
-    <Compile Include="Magnitola.cs" />
-    <Compile Include="MainMenuController.cs" />
-    <Compile Include="Marker.cs" />
-    <Compile Include="Marshrut.cs" />
+    <Compile Include="Scripts\Service\Magnitola.cs" />
+    <Compile Include="Scripts\Menu\MainMenuController.cs" />
+    <Compile Include="Scripts\Service\Marker.cs" />
+    <Compile Include="Scripts\Service\Marshrut.cs" />
     <Compile Include="Scripts\Service\Matematika.cs" />
     <Compile Include="Scripts\Helicopters\AH_1.cs" />
     <Compile Include="Scripts\Helicopters\Detal.cs" />
@@ -140,7 +140,7 @@
     <Compile Include="Missions\MissionBase.cs" />
     <Compile Include="Missions\MissionTest.cs" />
     <Compile Include="Mountains.cs" />
-    <Compile Include="MouseController.cs" />
+    <Compile Include="Scripts\Service\MouseController.cs" />
     <Compile Include="PlanetSettings.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Pogoda.cs" />

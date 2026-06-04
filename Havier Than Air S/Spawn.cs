@@ -59,8 +59,6 @@ namespace Havier_Than_Air_S
         public void Update()
         {
             Program.window.Draw(spawnSprite);
-
-
         }
 
         public void SpawnEnemy()

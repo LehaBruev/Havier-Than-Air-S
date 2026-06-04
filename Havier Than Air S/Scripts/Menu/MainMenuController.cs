@@ -99,14 +99,13 @@ namespace Havier_Than_Air_S
         public void Update()
         {
 
-            if (Game.GameState.currentGameMode == GameMode.MainMenu)
-            {
+            
                 CheckMousePosition();
                 Program.window.Draw(mainMenuSprite);
                 Program.window.Draw(ObuchenieText);
                 Program.window.Draw(MissionsText);
                 Program.window.Draw(FreeFlightText);
-            }
+            
             
         }
 

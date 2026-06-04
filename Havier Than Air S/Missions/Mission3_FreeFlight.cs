@@ -18,10 +18,9 @@ namespace Havier_Than_Air_S.Missions
         Sprite backgroundSprite;
         Sprite traceSprite;
 
+        //
         Clock clock;
 
-        //Вертал
-        Hely m_Hely;
 
         // Коллайдеры столкновения
         public ConvexShape[] MountColliders;
@@ -41,60 +40,61 @@ namespace Havier_Than_Air_S.Missions
             traceSprite.Scale = new Vector2f(1.5f, 1.5f);
             traceSprite.Position = new Vector2f(-450, 700);
 
-            
             clock = new Clock();
 
-            m_Hely = new Hely();
-            m_Hely.SetPosition(new Vector2f(50, 50));
-            Program.cameraController.SetCameraObject(m_Hely);
-
-            //Проверка столкновений
-
+            
             //Spawn
             EnemySpawn = new Spawn();
             
         }
-
+        
+        //Назначение маршрута для противников
         public override void CallSpawner(IMoovable moovableEntity)
         {
             base.CallSpawner(moovableEntity);
             
             if (moovableEntity is Tnk1 )
             {
+                //Загружает маршрут для техники из спавна
                 (moovableEntity as Tnk1).myMarshrut = currentSpawn.marsh;
              }
             if (moovableEntity is Tnk2)
             {
+                //Загружает маршрут для техники из спавна
                 (moovableEntity as Tnk2).myMarshrut = currentSpawn.marsh;
             }
         }
+        
 
 
-
+        //Столкновения с объектами земли ВЕРТОЛЕТ
         private void Collisions()
         {
-            m_Hely.DictionaryOfShapesReal.Clear();
+            //УДАЛЕНИЕ ВСЕХ ОБЪЕКТОВ СОПРИКОСНОВЕНИЯ С ВЕРТОЛЕТОМ
+            Program.Game.gameState.currentPlayerHely.DictionaryOfShapesReal.Clear();
+
+            //ПОИСК ОБЪЕКТОВ СОПРИКОСНОВЕНИЯ С ВЕРТОЛЕТОМ
             for (int i = 0; i < MountColliders.Length; i++)
             {
                 //Проверка столкновений возвращает массив пересечений, двумерный массив номеров точек первой фигуры и второй
                 //0=вектор с двумя номерами грани первой фигуры, 1=вектор с номерами грани второй фигуры
-                Vector2f[,] m_2dmassiveNums = Program.collisions.CheckShapesForCollision(MountColliders[i], m_Hely.colliderConvexShape);
+                Vector2f[,] m_2dmassiveNums = Program.collisions.CheckShapesForCollision(MountColliders[i], Program.Game.gameState.currentPlayerHely.colliderConvexShape);
                 if (m_2dmassiveNums.GetLength(0) > 0)
                 {
                     //m_Hely.SetDamage(m_Hely);
+                    //ДОБАВЛЕНИЕ ОБЪЕКТОВ СОПРИКОСНОВЕНИЯ С ВЕРТОЛЕТОМ
                     // Если гора уже содержится в словаре
-                    if (m_Hely.DictionaryOfShapesReal.ContainsKey(MountColliders[i])) // Если содержится уже данная форма
+                    if (Program.Game.gameState.currentPlayerHely.DictionaryOfShapesReal.ContainsKey(MountColliders[i])) // Если содержится уже данная форма
                     {
-                        m_Hely.DictionaryOfShapesReal[MountColliders[i]] = m_2dmassiveNums;
+                        Program.Game.gameState.currentPlayerHely.DictionaryOfShapesReal[MountColliders[i]] = m_2dmassiveNums;
 
                     }
                     else //Если горы нет сейчас в словаре
                     {
                         //Добавляет форму горы в словарь + массив номеров точек граней с пересечениями (vector(точка1,точка2) vs vector(точка1, точка2))
-                        m_Hely.DictionaryOfShapesReal.Add(MountColliders[i], m_2dmassiveNums);
+                        Program.Game.gameState.currentPlayerHely.DictionaryOfShapesReal.Add(MountColliders[i], m_2dmassiveNums);
 
                     }
-
 
                 }
             }
@@ -112,14 +112,11 @@ namespace Havier_Than_Air_S.Missions
 
             base.Update();
             
-
-
             Program.window.Draw(backgroundSprite);
             Program.window.Draw(traceSprite);
             Program.window.Draw(MountColliders[0]);
             Collisions();
-            if (m_Hely != null) m_Hely.Update();
-
+            Program.Game.gameState.currentPlayerHely.Update();
 
             EnemySpawn.Update();
 

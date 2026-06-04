@@ -6,14 +6,7 @@ using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S
 {
-    public enum GameMode
-    {
-        MainMenu,
-        Play,
-        Result,
-        Pause
-
-    }
+    
 
     public class GameState
     {
@@ -34,26 +27,16 @@ namespace Havier_Than_Air_S
         float repairings = 0; //Отремонтирован вертолет
 
 
+        public Hely currentPlayerHely;
 
-
-
-
-
-
-        public GameMode currentGameMode;
-        public GameMode CurrentMode => currentGameMode;
 
         public GameState() 
         {
-            currentGameMode = GameMode.MainMenu;
+            
 
         }
 
-        public void SetGameMode(GameMode gameMode)
-        {
-            currentGameMode = gameMode;
-
-        }
+       
 
         //награды
         float tank1reward = 10000; //Получено повреждений

@@ -1,16 +1,11 @@
-﻿using System;
-using Havier_Than_Air_S.Missions;
+﻿using Havier_Than_Air_S.Missions;
+using SFML.System;
+using SFML.Window;
+using System;
 
 namespace Havier_Than_Air_S
 {
-    public enum MissionSwitch
-    {
-        mis1,
-        mis2,
-        mis3,
-        test
-    }
-
+   
     public class Game 
     {
         public static GameState GameState = new GameState();
@@ -21,8 +16,12 @@ namespace Havier_Than_Air_S
 
         public MissionBase[] Missions;
 
+        public GameState gameState;
+
        public Game()
         {
+            gameState = new GameState();
+
             Missions = new MissionBase[3];
             Missions[0] = new Mission1_Learning();
             Missions[1] = new MissionTest();
@@ -34,6 +33,9 @@ namespace Havier_Than_Air_S
         {
             currentMissionNum = missionNum;
             Missions[currentMissionNum].StartMiss();
+            gameState.currentPlayerHely = new Hely();
+            gameState.currentPlayerHely.SetPosition(new Vector2f(50, 50));
+            Program.cameraController.SetCameraObject(gameState.currentPlayerHely);
             MenuController.mainmenuSwitch = 0;
         }
 
@@ -41,6 +43,13 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Escape) && MenuController.mainmenuSwitch==0)
+            {
+                MenuController.mainmenuSwitch = 1;
+            }
+
+
+
             if (MenuController.mainmenuSwitch == 1)
             {
                 MenuController.Update();

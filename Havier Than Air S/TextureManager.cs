@@ -27,14 +27,13 @@ namespace Havier_Than_Air_S
         public Image allImage = new Image("Images\\uh61all.png");
 
 
-        private GameMode _gameMode;
 
         public bool ChangeBackground = true;
 
 
         public TextureManager()
         {
-            _gameMode = GameMode.MainMenu;
+            
              backgroundLevel1 = new Texture("Images\\BackGroundLevel1.png");
              backgroundLevel3 = new Texture("Images\\BackGroundLevel3.png");
 
@@ -56,12 +55,12 @@ namespace Havier_Than_Air_S
 
         public void DrawBackground()
         {
-            ChangeBackgroundSprite();
+            //ChangeBackgroundSprite();
            // Program.window.Draw(BackgroundSprite);
 
 
         }
-
+        /*
         private void ChangeBackgroundSprite()
         {
             if(_gameMode == GameMode.MainMenu && ChangeBackground == true)
@@ -71,7 +70,7 @@ namespace Havier_Than_Air_S
             }
 
         }
-
+        */
 
 
         public void DrawObjectSprite(GameObject gameObject)
