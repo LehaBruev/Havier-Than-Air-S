@@ -71,28 +71,28 @@ namespace Havier_Than_Air_S.Missions
         private void Collisions()
         {
             //УДАЛЕНИЕ ВСЕХ ОБЪЕКТОВ СОПРИКОСНОВЕНИЯ С ВЕРТОЛЕТОМ
-            Program.Game.gameState.currentPlayerHely.DictionaryOfShapesReal.Clear();
+            Program.gameState.currentPlayerHely.DictionaryOfShapesReal.Clear();
 
             //ПОИСК ОБЪЕКТОВ СОПРИКОСНОВЕНИЯ С ВЕРТОЛЕТОМ
             for (int i = 0; i < MountColliders.Length; i++)
             {
                 //Проверка столкновений возвращает массив пересечений, двумерный массив номеров точек первой фигуры и второй
                 //0=вектор с двумя номерами грани первой фигуры, 1=вектор с номерами грани второй фигуры
-                Vector2f[,] m_2dmassiveNums = Program.collisions.CheckShapesForCollision(MountColliders[i], Program.Game.gameState.currentPlayerHely.colliderConvexShape);
+                Vector2f[,] m_2dmassiveNums = Program.collisions.CheckShapesForCollision(MountColliders[i], Program.gameState.currentPlayerHely.colliderConvexShape);
                 if (m_2dmassiveNums.GetLength(0) > 0)
                 {
                     //m_Hely.SetDamage(m_Hely);
                     //ДОБАВЛЕНИЕ ОБЪЕКТОВ СОПРИКОСНОВЕНИЯ С ВЕРТОЛЕТОМ
                     // Если гора уже содержится в словаре
-                    if (Program.Game.gameState.currentPlayerHely.DictionaryOfShapesReal.ContainsKey(MountColliders[i])) // Если содержится уже данная форма
+                    if (Program.gameState.currentPlayerHely.DictionaryOfShapesReal.ContainsKey(MountColliders[i])) // Если содержится уже данная форма
                     {
-                        Program.Game.gameState.currentPlayerHely.DictionaryOfShapesReal[MountColliders[i]] = m_2dmassiveNums;
+                        Program.gameState.currentPlayerHely.DictionaryOfShapesReal[MountColliders[i]] = m_2dmassiveNums;
 
                     }
                     else //Если горы нет сейчас в словаре
                     {
                         //Добавляет форму горы в словарь + массив номеров точек граней с пересечениями (vector(точка1,точка2) vs vector(точка1, точка2))
-                        Program.Game.gameState.currentPlayerHely.DictionaryOfShapesReal.Add(MountColliders[i], m_2dmassiveNums);
+                        Program.gameState.currentPlayerHely.DictionaryOfShapesReal.Add(MountColliders[i], m_2dmassiveNums);
 
                     }
 
@@ -116,7 +116,7 @@ namespace Havier_Than_Air_S.Missions
             Program.window.Draw(traceSprite);
             Program.window.Draw(MountColliders[0]);
             Collisions();
-            Program.Game.gameState.currentPlayerHely.Update();
+            Program.gameState.currentPlayerHely.Update();
 
             EnemySpawn.Update();
 

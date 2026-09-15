@@ -79,7 +79,7 @@ namespace Havier_Than_Air_S
             SetTextSettings(ObuchenieText);
             
 
-            MissionsText = new Text("2. Missions", font);
+            MissionsText = new Text("2. Mission Test", font);
             MissionsText.Position = new Vector2f(222, 370);
             SetTextSettings(MissionsText);
 

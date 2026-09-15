@@ -25,6 +25,8 @@ namespace Havier_Than_Air_S.Missions
         Sprite background_01_Sprite;
 
         Clock clock;
+        Clock clock_preMission;
+        float clock_preMission_timer = 2;
 
         //мышка тест
         private Vector2f mousPoint1;
@@ -66,6 +68,10 @@ namespace Havier_Than_Air_S.Missions
 
         public MissionTest()
         {
+
+            clock_preMission = new Clock();
+            clock_preMission.Restart();
+
             mounts = new Mountains();
             gorundObjects = new BaseGroundObject[1];
             //gorundObjects[0] = new Ground_01();
@@ -110,6 +116,11 @@ namespace Havier_Than_Air_S.Missions
             //m_Hely = new mi24();
             //m_Hely = new OH_6();
             //m_Hely = new AH_1();
+            m_Hely.SetPosition(new Vector2f(50, 50));
+            Program.gameState.currentPlayerHely = m_Hely;
+            Program.gameState.currentPlayerHely.SetPosition(new Vector2f(50, 50));
+            Program.cameraController.SetCameraObject(Program.gameState.currentPlayerHely);
+
 
             Program.cameraController.SetCameraObject(m_Hely);
 
@@ -138,11 +149,12 @@ namespace Havier_Than_Air_S.Missions
         
         public override void Update()
         {
+            //ФОН
             backgroundSprite.Position = Program.offset - new Vector2f(Program.vMode.Width/2, Program.vMode.Height / 2);
             Program.window.Draw(backgroundSprite);
             Program.window.Draw(background_01_Sprite);
 
-
+            //ПАРАЛАКС
             float n = Program.offset.X / paralaxSprite.GetLocalBounds().Width;
 
             //paralaxSprite.Position = new Vector2f(0, 300);
@@ -153,9 +165,20 @@ namespace Havier_Than_Air_S.Missions
             Program.window.Draw(paralaxSprite);
             //paralaxSprite.Position = new Vector2f(n * paralaxSprite.GetLocalBounds().Width - paralaxSprite.GetLocalBounds().Width, 300);
             Program.window.Draw(paralaxSprite2);
+            Program.window.Draw(paralaxSprite3);
+            Program.window.Draw(background_01_Sprite);
 
-           
+            //ЗЕМЛЯ
+            mounts.Update();
+            /*
+            // Houses
+            for (int i = 0; i < housesPositions.Length; i++)
+            {
+                houses[i].Update();
+            }
+            */
 
+            //МЫШЬ
             if (Program.m_MouseController.LeftButton == true)
             {
                 if (m_Hely!=null) SpawnRocket();
@@ -169,19 +192,7 @@ namespace Havier_Than_Air_S.Missions
             }
             // if (tank!=null) tank.Update();
 
-            /*
-            // Houses
-            for (int i = 0; i < housesPositions.Length; i++)
-            {
-                houses[i].Update();
-            }
-            */
-            Program.window.Draw(paralaxSprite3);
-            Program.window.Draw(background_01_Sprite);
-
-            mounts.Update();
-
-
+            
 
             //collisions
             m_Hely.DictionaryOfShapesReal.Clear();
@@ -209,7 +220,11 @@ namespace Havier_Than_Air_S.Missions
                     
                 } 
             }
-            if (m_Hely != null) m_Hely.Update();
+
+            if (clock_preMission_timer < clock_preMission.ElapsedTime.AsSeconds())
+            {
+                if (m_Hely != null) m_Hely.Update();
+            }
         }
 
 

@@ -32,7 +32,9 @@ namespace Havier_Than_Air_S
        public static MouseController m_MouseController = new MouseController();
        public static SoundManager soundManager = new SoundManager();
        public static Magnitola mMagnitola = new Magnitola();
-        
+
+        public static GameState gameState = new GameState();
+
 
         // Вывод изображения
 
@@ -76,10 +78,9 @@ namespace Havier_Than_Air_S
                 //updates
                 deltaTimer.CheckDelta();
                 m_MouseController.CheckMouse();
-                m_Avionika.Update();
+                
                 Game.Update();
-                m_PullObjects.Update();
-                collisions.Update();
+                
 
                 
 

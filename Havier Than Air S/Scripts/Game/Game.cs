@@ -12,15 +12,15 @@ namespace Havier_Than_Air_S
 
         public Random rnd = new Random();
         public MainMenuController MenuController = new MainMenuController();
-        public int currentMissionNum = 0;
+        public int currentMissionNum = 2;
 
         public MissionBase[] Missions;
 
-        public GameState gameState;
+        
 
        public Game()
         {
-            gameState = new GameState();
+            
 
             Missions = new MissionBase[3];
             Missions[0] = new Mission1_Learning();
@@ -33,9 +33,7 @@ namespace Havier_Than_Air_S
         {
             currentMissionNum = missionNum;
             Missions[currentMissionNum].StartMiss();
-            gameState.currentPlayerHely = new Hely();
-            gameState.currentPlayerHely.SetPosition(new Vector2f(50, 50));
-            Program.cameraController.SetCameraObject(gameState.currentPlayerHely);
+            
             MenuController.mainmenuSwitch = 0;
         }
 
@@ -43,6 +41,9 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
+            Program.m_Avionika.Update();
+
+
             if (Keyboard.IsKeyPressed(Keyboard.Key.Escape) && MenuController.mainmenuSwitch==0)
             {
                 MenuController.mainmenuSwitch = 1;
@@ -57,7 +58,13 @@ namespace Havier_Than_Air_S
             else
             {
                 Missions[currentMissionNum].Update();
+               // gameState.currentPlayerHely.SetPosition(new Vector2f(50, 50));
             }
+
+            Program.m_PullObjects.Update();
+            Program.collisions.Update();
+
+
         }
     }
 }
