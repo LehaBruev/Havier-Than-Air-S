@@ -105,6 +105,7 @@
     <Compile Include="Aerodrom.cs" />
     <Compile Include="Avionika.cs" />
     <Compile Include="Avtopilot.cs" />
+    <Compile Include="Scripts\Menu\Button.cs" />
     <Compile Include="Scripts\Service\CameraController.cs" />
     <Compile Include="Collider.cs" />
     <Compile Include="Collisions.cs" />
@@ -151,7 +152,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PullObjects.cs" />
     <Compile Include="Rita.cs" />
-    <Compile Include="Scripts\Button.cs" />
+    <Compile Include="Scripts\Menu\Button_old.cs" />
     <Compile Include="Scripts\PauseMenu.cs" />
     <Compile Include="Spawn.cs" />
     <Compile Include="StatisticaOfLevel.cs" />

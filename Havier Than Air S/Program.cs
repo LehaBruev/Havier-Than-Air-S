@@ -7,6 +7,9 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
+        public delegate void buttonIsPressed();
+        public event buttonIsPressed buttonEvent;
+
         //константы
         public static Random random = new Random();
         public static Font font = new Font("comic.ttf");

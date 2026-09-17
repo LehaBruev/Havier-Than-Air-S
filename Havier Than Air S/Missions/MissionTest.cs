@@ -29,8 +29,8 @@ namespace Havier_Than_Air_S.Missions
         float clock_preMission_timer = 2;
 
         //мышка тест
-        private Vector2f mousPoint1;
-        private Vector2f mousPoint2;
+        private Vector2i mousPoint1;
+        private Vector2i mousPoint2;
         private bool mouseIsPressed;
 
         //Вертал
@@ -145,10 +145,13 @@ namespace Havier_Than_Air_S.Missions
         }
 
 
+       
         
         
         public override void Update()
         {
+            base.Update();
+
             //ФОН
             backgroundSprite.Position = Program.offset - new Vector2f(Program.vMode.Width/2, Program.vMode.Height / 2);
             Program.window.Draw(backgroundSprite);
@@ -179,22 +182,22 @@ namespace Havier_Than_Air_S.Missions
             */
 
             //МЫШЬ
-            if (Program.m_MouseController.LeftButton == true)
+            if (Program.m_MouseController.LeftButtonIsPressed == true)
             {
                 if (m_Hely!=null) SpawnRocket();
             }
             else if (mouseIsPressed == true)
             {
                 mouseIsPressed = false;// по одному
-                mousPoint2 = Program.m_MouseController.currentMousePoint;
+                mousPoint2 = Program.m_MouseController.currentMousePosInWindow;
                 //SpawnRocket();
-                mousPoint1 = Program.m_MouseController.currentMousePoint;
+                mousPoint1 = Program.m_MouseController.currentMousePosInWindow;
             }
             // if (tank!=null) tank.Update();
 
             
 
-            //collisions
+            //СТОЛКНОВЕНИЯ collisions
             m_Hely.DictionaryOfShapesReal.Clear();
             for (int i = 0; i < mounts.MountColliders.Length; i++)
             {
@@ -212,7 +215,8 @@ namespace Havier_Than_Air_S.Missions
                     }
                     else //Если горы нет сейчас в словаре
                     {
-                        //Добавляет форму горы в словарь + массив номеров точек граней с пересечениями (vector(точка1,точка2) vs vector(точка1, точка2))
+                        //Добавляет форму горы в словарь +
+                        //массив номеров точек граней с пересечениями (vector(точка1,точка2) vs vector(точка1, точка2))
                         m_Hely.DictionaryOfShapesReal.Add(mounts.MountColliders[i], m_2dmassiveNums);
 
                     }

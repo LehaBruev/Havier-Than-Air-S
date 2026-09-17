@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Havier_Than_Air_S.Scripts
 {
-    internal class Button
+    internal class Button_old
     {
 
         Texture buttontexture;
@@ -26,7 +26,7 @@ namespace Havier_Than_Air_S.Scripts
         SoundBuffer bufer = new SoundBuffer("Sounds\\buttonclick.wav");
         Sound sound = new Sound();
 
-        public Button()
+        public Button_old()
         {
             shape = new RectangleShape();
             butoonText = new Text("Аааа",Program.font, 16); //Шрифт, текст, размер

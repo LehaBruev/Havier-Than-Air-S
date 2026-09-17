@@ -20,8 +20,8 @@ namespace Havier_Than_Air_S
 
         //мышка тест
         int lognum = 0;
-        private Vector2f mousPoint1;
-        private Vector2f mousPoint2;
+        private Vector2i mousPoint1;
+        private Vector2i mousPoint2;
         private bool mouseIsPressed;
 
 
@@ -247,12 +247,12 @@ namespace Havier_Than_Air_S
 
             if (logON == 1)
             {
-                if (Program.m_MouseController.LeftButton == true)
+                if (Program.m_MouseController.LeftButtonIsPressed == true)
                 {
                     if (mouseIsPressed == false)
                     {
                         mouseIsPressed = true;
-                        mousPoint1 = Program.m_MouseController.currentMousePoint;
+                        mousPoint1 = Program.m_MouseController.currentMousePosInWindow;
                         AddPointToConvex(); // Прорисовка новой фигуры
 
 
@@ -308,8 +308,8 @@ namespace Havier_Than_Air_S
                 else if (mouseIsPressed == true)
                 {
                     mouseIsPressed = false;// по одному
-                    mousPoint2 = Program.m_MouseController.currentMousePoint;
-                    mousPoint1 = Program.m_MouseController.currentMousePoint;
+                    mousPoint2 = Program.m_MouseController.currentMousePosInWindow;
+                    mousPoint1 = Program.m_MouseController.currentMousePosInWindow;
                 }
             }
         }
@@ -395,7 +395,7 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
         private void PricelDraw()
         {
             // Aiming Memoy
-            if (Program.m_MouseController.LeftButton == true)
+            if (Program.m_MouseController.LeftButtonIsPressed == true)
             {
                 if (scopeMemory == new Vector2i(-2000, -2000))
                 {
@@ -436,7 +436,7 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
             else if(hely.m_Weapons[hely.currentWeapon].weaponType == TypeOfObject.sr)
             {
 
-                if (Program.m_MouseController.LeftButton)
+                if (Program.m_MouseController.LeftButtonIsPressed)
                 {
                     //Mouse.SetPosition(scopeMemory, Program.window);
                     scopeSprite.Position = (Vector2f)scopeMemory;

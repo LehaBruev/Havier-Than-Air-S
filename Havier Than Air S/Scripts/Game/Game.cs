@@ -11,7 +11,7 @@ namespace Havier_Than_Air_S
         public static GameState GameState = new GameState();
 
         public Random rnd = new Random();
-        public MainMenuController MenuController = new MainMenuController();
+        public MainMenuController MenuController;
         public int currentMissionNum = 2;
 
         public MissionBase[] Missions;
@@ -20,49 +20,71 @@ namespace Havier_Than_Air_S
 
        public Game()
         {
+            MenuController = new MainMenuController();
+            MenuController.StartGameEvent += StartGame;
             
-
             Missions = new MissionBase[3];
             Missions[0] = new Mission1_Learning();
             Missions[1] = new MissionTest();
             Missions[2] = new Mission3_FreeFlight();
-
+            
         }
-
-        public void StartGame(int missionNum)
+        bool mainMenuOn = true;
+        public void StartGame(int missionCode, int helyCode)
         {
+            /*
             currentMissionNum = missionNum;
             Missions[currentMissionNum].StartMiss();
             
-            MenuController.mainmenuSwitch = 0;
+            //
+
+            */
+
+            switch (missionCode)
+            {
+                case 1: currentMissionNum = 0; break;
+                case 2: currentMissionNum = 1; break;
+                case 3: currentMissionNum = 2; break;
+            }
+
+            switch (helyCode)
+            {
+                case 11: break;
+                case 12: break;
+                case 13: break;
+                case 14: break;
+            }
+            mainMenuOn = false;
+            Missions[currentMissionNum].StartMiss();
         }
 
         
 
         public void Update()
         {
-            Program.m_Avionika.Update();
+           // Program.m_Avionika.Update();
 
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Escape) && MenuController.mainmenuSwitch==0)
-            {
-                MenuController.mainmenuSwitch = 1;
-            }
+           // if (Keyboard.IsKeyPressed(Keyboard.Key.Escape) && MenuController.mainmenuSwitch==0)
+           // {
+          //    MenuController.mainmenuSwitch = 1;
+          //  }
 
 
 
-            if (MenuController.mainmenuSwitch == 1)
+            if (mainMenuOn == true)
             {
                 MenuController.Update();
             }
             else
             {
                 Missions[currentMissionNum].Update();
-               // gameState.currentPlayerHely.SetPosition(new Vector2f(50, 50));
-            }
+               //Program.gameState.currentPlayerHely.SetPosition(new Vector2f(50, 50));
+               
+                }
 
-            Program.m_PullObjects.Update();
-            Program.collisions.Update();
+         //   Program.m_PullObjects.Update();
+          //  Program.collisions.Update();
 
 
         }

@@ -5,6 +5,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Havier_Than_Air_S.Scripts.Menu;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
@@ -17,61 +18,38 @@ namespace Havier_Than_Air_S
     public  class MainMenuController
     {
 
-        public enum menuButtons
-        {
-            none,
-            learning,
-            missions,
-            freeFlight,
-            test
-        }
+        //ДЕЛЕГАТЫ
+        public delegate void StartGame(int missionCode, int helycode);
+        public event StartGame StartGameEvent;
 
-
-        // SetFont("comic.ttf"); // Шрифт
-        // PlayMusic(mainmenumusic, volume);
-        //playingmusic = mainmenumusic;
-        //Меню
-        public int mainmenuSwitch = 1;
-        int levelchoise = 0;
-        int menuchoise2 = 0;
-        int newgame = 0;
-        int gameplaying = 0;
-        int menudelay = 50;
-        int podskazkaswitch = 1;
-
-
-        public menuButtons currentButton;
-        //Текстуры
-        private Texture mainmenutexture = new Texture("Images\\mainmenu.png");
-
+        //Текстуры 
         //Спрайты
+        private Texture mainmenutexture = new Texture("Images\\mainmenu.png");
         private Sprite mainMenuSprite; //mainmenutexture);
-        
-
-        //Тексты
-        Font font;
-        Text ObuchenieText;
-        Text MissionsText;
-        Text FreeFlightText;
-
+    
         //Звуки
-        SoundBuffer buttonActivate;
+        SoundBuffer buttonActivateSoundBufer;
         Sound ButtonActitateSound;
 
 
+        //КНОПКИ
+        Button[] mainMenuButtons;
+
+        //ВЫБОР ДЛЯ GAME
+        int missionCode = 0;
+        //int helyCode = 0;
 
         public MainMenuController()
         {
             
-            buttonActivate = new SoundBuffer("Sounds\\buttonclick.wav");
-            ButtonActitateSound = new Sound(buttonActivate);
-            currentButton = menuButtons.none;
+            buttonActivateSoundBufer = new SoundBuffer("Sounds\\buttonclick.wav");
+            ButtonActitateSound = new Sound(buttonActivateSoundBufer);
+            
 
-            font = new Font("comic.ttf");
 
             //Спрайты
             mainMenuSprite = new Sprite(mainmenutexture);
-
+            /*
 
             //Тексты
             ObuchenieText = new Text("1. Get pilot license", font);
@@ -86,40 +64,98 @@ namespace Havier_Than_Air_S
             FreeFlightText = new Text("3. Free flight", font);
             FreeFlightText.Position = new Vector2f(224, 410);
             SetTextSettings(FreeFlightText);
+            */
+
+            mainMenuButtons = new Button[7];
+            mainMenuButtons[0] = new Button(new RectangleShape(new Vector2f(200, 25)), "1. Get pilot license", new Vector2f(220, 330), new Vector2f(10, -4),1); // 1-3 миссии
+            mainMenuButtons[1] = new Button(new RectangleShape(new Vector2f(200, 25)), "2. Mission Test", new Vector2f(220, 370), new Vector2f(10, -4),2);
+            mainMenuButtons[2] = new Button(new RectangleShape(new Vector2f(200, 25)), "3. Free flight", new Vector2f(220, 410), new Vector2f(10, -4),3);
+
+            mainMenuButtons[3] = new Button(new RectangleShape(new Vector2f(150, 25)), "1. UH-1", new Vector2f(220, 330), new Vector2f(10, -4), 11);            // 11-14 вертолеты
+            mainMenuButtons[4] = new Button(new RectangleShape(new Vector2f(150, 25)), "2. AH-1 Cobra", new Vector2f(220, 370), new Vector2f(10, -4), 12);
+            mainMenuButtons[5] = new Button(new RectangleShape(new Vector2f(150, 25)), "3. Mi-24", new Vector2f(220, 410), new Vector2f(10, -4), 13);
+            mainMenuButtons[6] = new Button(new RectangleShape(new Vector2f(150, 25)), "3. OH-58", new Vector2f(220, 450), new Vector2f(10, -4), 14);
+
+
+
+            for (int i = 0; i < mainMenuButtons.Length; i++)
+            {
+                mainMenuButtons[i].PRESS += ButtonActivity;
+
+            }
+
         }
 
 
-        private void ButtonMouseIn(Text text)
+
+        bool helyChoiseTime = false;
+        private void ButtonActivity(int code)
         {
-            text.FillColor = new Color(Color.Red);
-            ButtonActitateSound.Play();
+            switch(code)
+            {
+                case 108:
+                    ButtonActitateSound.Play(); break;
+
+                case 1:
+                    helyChoiseTime = true; missionCode = 1; helyChoiseTime = true; break;
+                case 2:
+                    helyChoiseTime = true; missionCode = 2; helyChoiseTime = true; break;
+                case 3:
+                    helyChoiseTime = true; missionCode = 3; helyChoiseTime = true; break;
+                case 11:
+                     StartGameEvent?.Invoke(missionCode,11); break;
+                case 12:
+                    StartGameEvent?.Invoke(missionCode, 12); break;
+                case 13:
+                    StartGameEvent?.Invoke(missionCode, 13); break;
+                case 14:
+                    StartGameEvent?.Invoke(missionCode, 14); break;
+
+
+
+            }
+
+
 
         }
+
 
         public void Update()
         {
 
-            
-                CheckMousePosition();
-                Program.window.Draw(mainMenuSprite);
-                Program.window.Draw(ObuchenieText);
-                Program.window.Draw(MissionsText);
-                Program.window.Draw(FreeFlightText);
-            
-            
+            Program.window.Draw(mainMenuSprite);
+
+            if (helyChoiseTime == false)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    mainMenuButtons[i].Update();
+
+                }
+            }
+            else
+            {
+                for (int i = 3; i < mainMenuButtons.Length; i++)
+                {
+                    mainMenuButtons[i].Update();
+
+                }
+            }
+
+            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Escape) == true && helyChoiseTime == true)
+            {
+                helyChoiseTime = false;
+                ButtonActivity(108);
+            }
+
         }
 
 
-        private void SetTextSettings(Text _text)
-        {
-            _text.Scale = new Vector2f(0.7f, 0.7f);
-            _text.FillColor = new Color(Color.Green);
 
-        }
-
-
+        /*
         private void CheckMousePosition()
         {
+            
             float x = Program.m_MouseController.x;
             float y = Program.m_MouseController.y;
 
@@ -132,19 +168,19 @@ namespace Havier_Than_Air_S
                     currentButton = menuButtons.learning;
                 }
 
-                if(Program.m_MouseController.LeftButton == true)
+                if(Program.m_MouseController.LeftButtonIsPressed == true)
                 {
                     Program.Game.StartGame(0);
                 }
             }
             else if (x > 221 && x < 341 && y> 369 && y < 388) //2
             {
-                if (currentButton != menuButtons.missions)
+                if (currentButton != menuButtons.missionTest)
                 {
                     ButtonMouseIn(MissionsText);
-                    currentButton = menuButtons.missions;
+                    currentButton = menuButtons.missionTest;
                 }
-                if (Program.m_MouseController.LeftButton == true)
+                if (Program.m_MouseController.LeftButtonIsPressed == true)
                 {
                     Program.Game.StartGame(1);
                 }
@@ -157,7 +193,7 @@ namespace Havier_Than_Air_S
                     ButtonMouseIn(FreeFlightText);
                     currentButton = menuButtons.freeFlight;
                 }
-                if (Program.m_MouseController.LeftButton == true)
+                if (Program.m_MouseController.LeftButtonIsPressed == true)
                 {
                     Program.Game.StartGame(2);
                 }

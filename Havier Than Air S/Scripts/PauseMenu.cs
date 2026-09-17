@@ -12,7 +12,7 @@ namespace Havier_Than_Air_S.Scripts
 
         private Texture scoreTexture = new Texture("Images\\score1back.png");
         private Sprite scoreSprite;
-        Button[] buttons;
+        Button_old[] buttons;
 
         public PauseMenu()
         {
@@ -22,7 +22,7 @@ namespace Havier_Than_Air_S.Scripts
 
         private void SetButtons()
         {
-            buttons = new Button[2];
+            buttons = new Button_old[2];
         }
 
 

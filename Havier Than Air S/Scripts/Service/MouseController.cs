@@ -12,11 +12,12 @@ namespace Havier_Than_Air_S
     {
         public int x;
         public int y;
-        public bool LeftButton;
-        public bool RightButton;
+        public bool LeftButtonIsPressed;
+        public bool RightButtonIsPressed;
         private Timer timer;
 
-        public Vector2f currentMousePoint;
+        //ПОЗИЦИЯ WINDOW
+        public Vector2i currentMousePosInWindow;
         public Vector2i memMousePosition;
 
         public MouseController() 
@@ -39,17 +40,19 @@ namespace Havier_Than_Air_S
 
             }
 
-            LeftButton = Mouse.IsButtonPressed(Mouse.Button.Left);
-            RightButton = Mouse.IsButtonPressed(Mouse.Button.Left);
+            LeftButtonIsPressed = Mouse.IsButtonPressed(Mouse.Button.Left);
+            RightButtonIsPressed = Mouse.IsButtonPressed(Mouse.Button.Left);
 
             x = Mouse.GetPosition(Program.window).X;
             y = Mouse.GetPosition(Program.window).Y;
-            currentMousePoint = new Vector2f(x, y);
+
+            //ПОЛОЖЕНИЕ МЫШИ 
+            currentMousePosInWindow = new Vector2i(x, y);
 
             
 
 
-
+            //ОГРАНИЧЕНИЕ ПЕРЕМЕЩЕНИЯ МЫШИ
             if (x < 0)
             {
                 Mouse.SetPosition(new Vector2i(Program.window.Position.X + 8,
@@ -60,7 +63,7 @@ namespace Havier_Than_Air_S
 
 
         }
-
+        //ПРОВЕРКА КЛАВИАТУРЫ НА НАЖАТУЮ КЛАВИШУ
         public bool CheckKeyboardKey(Keyboard.Key key)
         {
             if(Keyboard.IsKeyPressed(key))
