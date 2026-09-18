@@ -85,7 +85,7 @@ namespace Havier_Than_Air_S.Scripts.Menu
                         PRESS?.Invoke(108);
                     
                 }
-                if (Program.m_MouseController.LeftButtonIsPressed == true)
+                if (Program.m_MouseController.LeftButtonIsPressed == true && Program.m_MouseController.IsButtonClicked == false)
                 {
                     PRESS?.Invoke(CodeOfButton);
                 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Havier_Than_Air_S.Scripts.Service;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -7,8 +8,9 @@ namespace Havier_Than_Air_S
 {
     internal class Program
     {
-        public delegate void buttonIsPressed();
-        public event buttonIsPressed buttonEvent;
+
+        //Миксер
+        public static MIxer Mixer = new MIxer();
 
         //константы
         public static Random random = new Random();

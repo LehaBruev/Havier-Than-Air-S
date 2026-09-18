@@ -44,7 +44,8 @@ namespace Havier_Than_Air_S
             
             buttonActivateSoundBufer = new SoundBuffer("Sounds\\buttonclick.wav");
             ButtonActitateSound = new Sound(buttonActivateSoundBufer);
-            
+            ButtonActitateSound.Volume = Program.Mixer.MasterVolume/100 * Program.Mixer.SoundsVolume/100;
+
 
 
             //Спрайты
@@ -81,7 +82,7 @@ namespace Havier_Than_Air_S
             for (int i = 0; i < mainMenuButtons.Length; i++)
             {
                 mainMenuButtons[i].PRESS += ButtonActivity;
-
+                mainMenuButtons[i].PRESS += Program.m_MouseController.CheckButton;
             }
 
         }

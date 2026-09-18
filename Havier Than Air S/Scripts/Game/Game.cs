@@ -15,7 +15,7 @@ namespace Havier_Than_Air_S
         public int currentMissionNum = 2;
 
         public MissionBase[] Missions;
-
+        public MissionBase currentMission;
         
 
        public Game()
@@ -23,53 +23,42 @@ namespace Havier_Than_Air_S
             MenuController = new MainMenuController();
             MenuController.StartGameEvent += StartGame;
             
-            Missions = new MissionBase[3];
-            Missions[0] = new Mission1_Learning();
-            Missions[1] = new MissionTest();
-            Missions[2] = new Mission3_FreeFlight();
+           // Missions = new MissionBase[3];
+            //Missions[0] = new Mission1_Learning();
+           // Missions[1] = new MissionTest();
+           // Missions[2] = new Mission3_FreeFlight();
             
         }
         bool mainMenuOn = true;
         public void StartGame(int missionCode, int helyCode)
         {
-            /*
-            currentMissionNum = missionNum;
-            Missions[currentMissionNum].StartMiss();
             
-            //
-
-            */
-
             switch (missionCode)
             {
-                case 1: currentMissionNum = 0; break;
-                case 2: currentMissionNum = 1; break;
-                case 3: currentMissionNum = 2; break;
+                case 1: currentMission = new Mission1_Learning();  break;
+                case 2: currentMission = new MissionTest(); break;
+                case 3: currentMission = new Mission3_FreeFlight(); break;
             }
 
             switch (helyCode)
             {
-                case 11: break;
-                case 12: break;
-                case 13: break;
-                case 14: break;
+                case 11: Program.gameState.currentPlayerHely = new Hely(); break;
+                case 12: Program.gameState.currentPlayerHely = new AH_1(); break;
+                case 13: Program.gameState.currentPlayerHely = new mi24(); break;
+                case 14: Program.gameState.currentPlayerHely = new OH_6(); break;
             }
             mainMenuOn = false;
-            Missions[currentMissionNum].StartMiss();
+            currentMission.StartMiss();
         }
 
         
 
         public void Update()
         {
-           // Program.m_Avionika.Update();
-
-
-           // if (Keyboard.IsKeyPressed(Keyboard.Key.Escape) && MenuController.mainmenuSwitch==0)
-           // {
-          //    MenuController.mainmenuSwitch = 1;
-          //  }
-
+          if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Escape) && mainMenuOn == false)
+            {
+                mainMenuOn = true;
+            }
 
 
             if (mainMenuOn == true)
@@ -78,13 +67,13 @@ namespace Havier_Than_Air_S
             }
             else
             {
-                Missions[currentMissionNum].Update();
-               //Program.gameState.currentPlayerHely.SetPosition(new Vector2f(50, 50));
-               
-                }
+                currentMission.Update();
 
-         //   Program.m_PullObjects.Update();
-          //  Program.collisions.Update();
+                Program.m_PullObjects.Update();
+                Program.collisions.Update();
+                Program.m_Avionika.Update();
+            }
+
 
 
         }

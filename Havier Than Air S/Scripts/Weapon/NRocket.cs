@@ -68,6 +68,7 @@ namespace Havier_Than_Air_S.Weapon
 
             //Sounds
             projectileSound.SoundBuffer = new SoundBuffer(rocketSound);
+            projectileSound.Volume = Program.Mixer.MasterVolume/100 * Program.Mixer.SoundsVolume/100;
 
         }
 

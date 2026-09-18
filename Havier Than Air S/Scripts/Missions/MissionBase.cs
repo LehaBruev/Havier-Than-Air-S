@@ -13,24 +13,20 @@ namespace Havier_Than_Air_S.Missions
         public MissionBase()
         {
 
-
         }
 
         public virtual void StartMiss()
         {
-
 
         }
 
         public virtual void Update()
         {
 
-
         }
 
         public virtual void CallSpawner(IMoovable moovableEntity)
         {
-
 
         }
 

@@ -31,7 +31,7 @@ namespace Havier_Than_Air_S
     {
         //Количество
         private int GunBulletCount = 75;
-        private int NRcount = 8;
+        private int NRcount = 20;
         private int SNRcount = 8;
         private int BangCount = 8;
         private int TankCount = 20;
@@ -73,7 +73,7 @@ namespace Havier_Than_Air_S
                     if (m==1) IMoovables[n] = new NRocket();
                     if (m==2) IMoovables[n] = new SNRocket();
                     if (m==3) IMoovables[n] = new Bang(position);
-                    if (m==4) IMoovables[n] = new Tnk2();
+                    if (m==4) IMoovables[n] = new Tnk1();
                     if (m==5) IMoovables[n] = new Hous();
                     n += 1;
                 }

@@ -102,7 +102,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aerodrom.cs" />
+    <Compile Include="Scripts\Missions\Aerodrom.cs" />
     <Compile Include="Avionika.cs" />
     <Compile Include="Avtopilot.cs" />
     <Compile Include="Scripts\Menu\Button.cs" />
@@ -121,8 +121,8 @@
     <Compile Include="GroundObjects\Ground_01.cs" />
     <Compile Include="Scripts\Helicopters\Hely.cs" />
     <Compile Include="HelyControl.cs" />
-    <Compile Include="HelyParts\RearRotor_UH1.cs" />
-    <Compile Include="HelyParts\TopRotor_UH1.cs" />
+    <Compile Include="Scripts\HelyParts\RearRotor_UH1.cs" />
+    <Compile Include="Scripts\HelyParts\TopRotor_UH1.cs" />
     <Compile Include="IMoovable.cs" />
     <Compile Include="Scripts\Service\LogWriter.cs" />
     <Compile Include="Magazin.cs" />
@@ -135,12 +135,13 @@
     <Compile Include="Scripts\Helicopters\Detal.cs" />
     <Compile Include="Scripts\Helicopters\OH_6.cs" />
     <Compile Include="Scripts\Helicopters\mi24.cs" />
-    <Compile Include="Missions\Hous.cs" />
-    <Compile Include="Missions\Mission1_Learning.cs" />
-    <Compile Include="Missions\Mission3_FreeFlight.cs" />
-    <Compile Include="Missions\MissionBase.cs" />
-    <Compile Include="Missions\MissionTest.cs" />
+    <Compile Include="Scripts\Missions\Hous.cs" />
+    <Compile Include="Scripts\Missions\Mission1_Learning.cs" />
+    <Compile Include="Scripts\Missions\Mission3_FreeFlight.cs" />
+    <Compile Include="Scripts\Missions\MissionBase.cs" />
+    <Compile Include="Scripts\Missions\MissionTest.cs" />
     <Compile Include="Mountains.cs" />
+    <Compile Include="Scripts\Service\MIxer.cs" />
     <Compile Include="Scripts\Service\MouseController.cs" />
     <Compile Include="PlanetSettings.cs" />
     <Compile Include="Player.cs" />

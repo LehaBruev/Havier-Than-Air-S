@@ -13,12 +13,17 @@ namespace Havier_Than_Air_S
         public int x;
         public int y;
         public bool LeftButtonIsPressed;
+        public bool IsButtonClicked = false;
         public bool RightButtonIsPressed;
         private Timer timer;
 
         //ПОЗИЦИЯ WINDOW
         public Vector2i currentMousePosInWindow;
         public Vector2i memMousePosition;
+
+        //ТАЙМЕР
+        public Clock ClickTimer = new Clock();
+        public float TimeToClick = 0.3f;
 
         public MouseController() 
         {
@@ -41,6 +46,9 @@ namespace Havier_Than_Air_S
             }
 
             LeftButtonIsPressed = Mouse.IsButtonPressed(Mouse.Button.Left);
+            if (LeftButtonIsPressed == false) IsButtonClicked = false;
+         
+
             RightButtonIsPressed = Mouse.IsButtonPressed(Mouse.Button.Left);
 
             x = Mouse.GetPosition(Program.window).X;
@@ -70,6 +78,12 @@ namespace Havier_Than_Air_S
             return true;
             else return false;
         }
+
+        public void CheckButton(int buttonCode)
+        {
+            IsButtonClicked = true;
+        }
+
 
     }
 }

@@ -14,7 +14,7 @@ namespace Havier_Than_Air_S.Missions
 {
     public class MissionTest : MissionBase
     {
-
+        //ФОН
         Texture background = new Texture("Images\\BackGroundLevel3.png");
         Texture background_01 = new Texture("Images\\BackGroundLevel1 - Копировать.png");
         Texture paralax = new Texture("Images\\Горы1.png");
@@ -24,17 +24,14 @@ namespace Havier_Than_Air_S.Missions
         Sprite paralaxSprite3;
         Sprite background_01_Sprite;
 
+        //ТАЙМЕРЫ
         Clock clock;
         Clock clock_preMission;
         float clock_preMission_timer = 2;
 
-        //мышка тест
-        private Vector2i mousPoint1;
-        private Vector2i mousPoint2;
-        private bool mouseIsPressed;
-
+        
         //Вертал
-        Hely m_Hely;
+        Hely Player_Hely;
 
 
         //Миссии
@@ -45,18 +42,18 @@ namespace Havier_Than_Air_S.Missions
         int basedurability = 10;
         int winpobeda = 0;
 
-        Tnk1 tank;
+        
 
-        // Houses
+        // ПОСТРОЙКИ СТРОЕНИЯ
 
         Vector2f[] housesPositions;
         Hous[] houses;
         Random rand;
-        int hCount = 100;
-        int hBeginX = 1000;
+        int hCount = 100; //КОЛИЧЕСТВО ДОМОВ
+        int hBeginX = 1000; //НАЧАЛО РАССТАНОВКИ ДОМОВ
         int hEndX = 3000;
         int hBeginY = 300;
-        int hEndY = 790;
+        int hEndY = 790; // КОНЕЦ РАССТАНОВКИ ДОМОВ
 
         //Mountains
         Mountains mounts;
@@ -66,17 +63,24 @@ namespace Havier_Than_Air_S.Missions
         BaseGroundObject[] gorundObjects;
 
 
+        // ГЕЙМПЛЕЙ
+        int tankCount = 19;
+
+        Random rnd;
+        Random rnd2;
+
+
+
         public MissionTest()
         {
 
             clock_preMission = new Clock();
             clock_preMission.Restart();
 
-            mounts = new Mountains();
-            gorundObjects = new BaseGroundObject[1];
-            //gorundObjects[0] = new Ground_01();
+            mounts = new Mountains(); // ГОРЫ
+            gorundObjects = new BaseGroundObject[1]; // НАЗЕМНЫЕ ОБЪЕКТЫ
 
-
+            // ОТРИСОВКА КАРТЫ
             backgroundSprite = new Sprite(background);
             backgroundSprite.Scale = new Vector2f(1.6f, 1.6f);
 
@@ -97,41 +101,46 @@ namespace Havier_Than_Air_S.Missions
             background_01_Sprite.Scale = new Vector2f(2f, 2f);
             background_01_Sprite.Position = new Vector2f(-500,260);
 
-            rand = new Random();
 
+            //СЕРВИСЫ
+            rnd = new Random();
+            rnd2 = new Random();
+            rand = new Random();
             clock = new Clock();
+
+            // houses
+            AddHouses();
+
 
         }
 
-        int tankCount = 19;
-
-        Random rnd;
-        Random rnd2;
+        
         public override void StartMiss()
         {
-            rnd = new Random();
-            rnd2 = new Random();
             
-            m_Hely = new Hely();
-            //m_Hely = new mi24();
-            //m_Hely = new OH_6();
-            //m_Hely = new AH_1();
-            m_Hely.SetPosition(new Vector2f(50, 50));
-            Program.gameState.currentPlayerHely = m_Hely;
-            Program.gameState.currentPlayerHely.SetPosition(new Vector2f(50, 50));
+
+            //ВЕРТОЛЕТ И ПОЗИЦИЯ
+            Player_Hely = Program.gameState.currentPlayerHely;
+            Player_Hely.SetPosition(new Vector2f(50, 500));
+
             Program.cameraController.SetCameraObject(Program.gameState.currentPlayerHely);
 
 
-            Program.cameraController.SetCameraObject(m_Hely);
-
-            // tanks
+            //ПРОТИВНИКИ ТАНКИ
             for (int i = 0; i < tankCount; i++)
             {
-                Program.m_PullObjects.StartObject(new Vector2f(rnd.Next(3500,3900) , 750), 0, new Vector2f(rnd2.Next(5, 75),0), TypeOfObject.enemy);
+                Program.m_PullObjects.StartObject(new Vector2f(rnd.Next(3500,3900), 750),
+                                                0, 
+                                                new Vector2f(rnd2.Next(5, 75),0), 
+                                                TypeOfObject.enemy);
             }
 
 
-            // houses
+            
+        }
+
+        private void AddHouses()
+        {
             housesPositions = new Vector2f[hCount];
 
             for (int i = 0; i < housesPositions.Length; i++)
@@ -142,11 +151,9 @@ namespace Havier_Than_Air_S.Missions
             {
                 Program.m_PullObjects.StartObject(housesPositions[i], 0, new Vector2f(0, 0), TypeOfObject.house);
             }
+
         }
 
-
-       
-        
         
         public override void Update()
         {
@@ -184,40 +191,42 @@ namespace Havier_Than_Air_S.Missions
             //МЫШЬ
             if (Program.m_MouseController.LeftButtonIsPressed == true)
             {
-                if (m_Hely!=null) SpawnRocket();
+                if (Player_Hely!=null) PlayerHelyFire();
             }
-            else if (mouseIsPressed == true)
-            {
-                mouseIsPressed = false;// по одному
-                mousPoint2 = Program.m_MouseController.currentMousePosInWindow;
+            //else 
+
+              //  if (mouseIsPressed == true)
+           // {
+                //mouseIsPressed = false;// по одному
+                //mousPoint2 = Program.m_MouseController.currentMousePosInWindow;
                 //SpawnRocket();
-                mousPoint1 = Program.m_MouseController.currentMousePosInWindow;
-            }
+                //mousPoint1 = Program.m_MouseController.currentMousePosInWindow;
+           // }
             // if (tank!=null) tank.Update();
 
             
 
             //СТОЛКНОВЕНИЯ collisions
-            m_Hely.DictionaryOfShapesReal.Clear();
+            Player_Hely.DictionaryOfShapesReal.Clear();
             for (int i = 0; i < mounts.MountColliders.Length; i++)
             {
                 //Проверка столкновений возвращает массив пересечений, двумерный массив номеров точек первой фигуры и второй
                 //0=вектор с двумя номерами грани первой фигуры, 1=вектор с номерами грани второй фигуры
-                Vector2f[,] m_2dmassiveNums = Program.collisions.CheckShapesForCollision(mounts.MountColliders[i], m_Hely.colliderConvexShape);
+                Vector2f[,] m_2dmassiveNums = Program.collisions.CheckShapesForCollision(mounts.MountColliders[i], Player_Hely.colliderConvexShape);
                 if (m_2dmassiveNums.GetLength(0) > 0)
                 {
                     //m_Hely.SetDamage(m_Hely);
                     // Если гора уже содержится в словаре
-                    if (m_Hely.DictionaryOfShapesReal.ContainsKey(mounts.MountColliders[i])) // Если содержится уже данная форма
+                    if (Player_Hely.DictionaryOfShapesReal.ContainsKey(mounts.MountColliders[i])) // Если содержится уже данная форма
                     {
-                        m_Hely.DictionaryOfShapesReal[mounts.MountColliders[i]] = m_2dmassiveNums;
+                        Player_Hely.DictionaryOfShapesReal[mounts.MountColliders[i]] = m_2dmassiveNums;
 
                     }
                     else //Если горы нет сейчас в словаре
                     {
                         //Добавляет форму горы в словарь +
                         //массив номеров точек граней с пересечениями (vector(точка1,точка2) vs vector(точка1, точка2))
-                        m_Hely.DictionaryOfShapesReal.Add(mounts.MountColliders[i], m_2dmassiveNums);
+                        Player_Hely.DictionaryOfShapesReal.Add(mounts.MountColliders[i], m_2dmassiveNums);
 
                     }
                     
@@ -227,16 +236,16 @@ namespace Havier_Than_Air_S.Missions
 
             if (clock_preMission_timer < clock_preMission.ElapsedTime.AsSeconds())
             {
-                if (m_Hely != null) m_Hely.Update();
+                if (Player_Hely != null) Player_Hely.Update();
             }
         }
 
 
-        private void SpawnRocket()
+        private void PlayerHelyFire()
         {
-                m_Hely.Fire();
-                Vector2f vectorMouse = new Vector2f((mousPoint2 - mousPoint1).X, (mousPoint2 - mousPoint1).Y);
-                float vectorAngle = Matematika.AngleOfVector(vectorMouse);
+                Player_Hely.Fire();
+                //Vector2f vectorMouse = new Vector2f((mousPoint2 - mousPoint1).X, (mousPoint2 - mousPoint1).Y);
+                //float vectorAngle = Matematika.AngleOfVector(vectorMouse);
            
                 clock.Restart();
            
