@@ -1,14 +1,8 @@
-﻿using Havier_Than_Air_S.Enemies;
+﻿
 using Havier_Than_Air_S.GroundObjects;
-using Havier_Than_Air_S.Weapon;
 using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S.Missions
 {

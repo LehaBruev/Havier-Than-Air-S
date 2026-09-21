@@ -105,8 +105,8 @@ namespace Havier_Than_Air_S
 
         // engine
         public int engineswitch = 1; // включение двигателя
-        public float currentRUDposition = 0; // текущее положение ручки газа
-        public float RPM; //Обороты двигателя
+        public float currentRUDposition = 50; // текущее положение ручки газа
+        public float RPM = 30000; //Обороты двигателя
 
         // angle
         public float angle = 0; //угол атаки верталета
@@ -1005,3 +1005,22 @@ namespace Havier_Than_Air_S
         #endregion
     }
 }
+
+/*
+ СТАРАЯ ВЕРСИЯ ПОВЕДЕНИЯ ВЕРТОЛЕТА
+if (helilife <= 0) DrawSprite(uh61, playerx - 41, playery - 17, 408, 101, 91, 43);
+else
+{
+    if (angle >= 0 && angle <= 10) DrawSprite(uh61, playerx - 95, playery - 26, 0, 0, 130, 57);
+    if (angle > 10 && angle <= 30) DrawSprite(uh61, playerx - 96, playery - 30, 0, 56, 127, 59);
+    if (angle > 30 && angle <= 45) DrawSprite(uh61, playerx - 75, playery - 68, 23, 184, 105, 106);
+    if (angle > 45 && angle <= 70) DrawSprite(uh61, playerx - 61, playery - 83, 150, 1, 93, 125);
+
+    if (angle >= -15 && angle < 0) DrawSprite(uh61, playerx - 98, playery - 23, 403, 28, 134, 53);
+    if (angle >= -30 && angle < -15) DrawSprite(uh61, playerx - 35, playery - 27, 272, 68, 127, 59);
+    if (angle >= -45 && angle < -30) DrawSprite(uh61, playerx - 29, playery - 66, 277, 163, 103, 105);
+    if (angle >= -70 && angle < -45) DrawSprite(uh61, playerx - 25, playery - 86, 160, 147, 79, 122);
+} //отрисовка спрайтов Вертолета
+
+
+*/

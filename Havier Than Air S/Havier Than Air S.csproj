@@ -103,22 +103,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Scripts\Missions\Aerodrom.cs" />
-    <Compile Include="Avionika.cs" />
-    <Compile Include="Avtopilot.cs" />
+    <Compile Include="Scripts\Service\Avionika.cs" />
+    <Compile Include="Scripts\Service\Avtopilot.cs" />
     <Compile Include="Scripts\Menu\Button.cs" />
     <Compile Include="Scripts\Service\CameraController.cs" />
-    <Compile Include="Collider.cs" />
-    <Compile Include="Collisions.cs" />
+    <Compile Include="Scripts\Service\Collider.cs" />
+    <Compile Include="Scripts\Service\Collisions.cs" />
     <Compile Include="Scripts\Service\DeltaTimer.cs" />
-    <Compile Include="Enemies\Tnk2.cs" />
-    <Compile Include="Enemies\Tnk1.cs" />
+    <Compile Include="Scripts\Enemies\Tnk2.cs" />
+    <Compile Include="Scripts\Enemies\Tnk1.cs" />
     <Compile Include="EnemiManager.cs" />
     <Compile Include="Scripts\Game\Game.cs" />
     <Compile Include="Scripts\Game\GameObject.cs" />
     <Compile Include="Scripts\Game\GameState.cs" />
     <Compile Include="Gita.cs" />
-    <Compile Include="GroundObjects\BaseGroundObject.cs" />
-    <Compile Include="GroundObjects\Ground_01.cs" />
+    <Compile Include="Scripts\GroundObjects\BaseGroundObject.cs" />
+    <Compile Include="Scripts\GroundObjects\Ground_01.cs" />
     <Compile Include="Scripts\Helicopters\Hely.cs" />
     <Compile Include="HelyControl.cs" />
     <Compile Include="Scripts\HelyParts\RearRotor_UH1.cs" />
@@ -144,7 +144,6 @@
     <Compile Include="Scripts\Service\MIxer.cs" />
     <Compile Include="Scripts\Service\MouseController.cs" />
     <Compile Include="PlanetSettings.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="Pogoda.cs" />
     <Compile Include="Prochee.cs" />
     <Compile Include="Havier Than Air 1.1\Program HTA отрезок.cs" />
@@ -157,8 +156,6 @@
     <Compile Include="Scripts\PauseMenu.cs" />
     <Compile Include="Spawn.cs" />
     <Compile Include="StatisticaOfLevel.cs" />
-    <Compile Include="Tehnika.cs" />
-    <Compile Include="TestBaseClass.cs" />
     <Compile Include="Scripts\Service\Vectora.cs" />
     <Compile Include="Scripts\Vehicle parts\Gun_Tank_1.cs" />
     <Compile Include="Scripts\Vehicle parts\Head_Tank_1.cs" />

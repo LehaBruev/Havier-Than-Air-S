@@ -112,11 +112,7 @@ namespace Havier_Than_Air_S
                 case 14:
                     StartGameEvent?.Invoke(missionCode, 14); break;
 
-
-
             }
-
-
 
         }
 

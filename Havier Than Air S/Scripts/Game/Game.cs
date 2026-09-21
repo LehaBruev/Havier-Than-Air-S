@@ -22,11 +22,7 @@ namespace Havier_Than_Air_S
         {
             MenuController = new MainMenuController();
             MenuController.StartGameEvent += StartGame;
-            
-           // Missions = new MissionBase[3];
-            //Missions[0] = new Mission1_Learning();
-           // Missions[1] = new MissionTest();
-           // Missions[2] = new Mission3_FreeFlight();
+           
             
         }
         bool mainMenuOn = true;

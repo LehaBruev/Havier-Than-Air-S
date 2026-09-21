@@ -100,6 +100,7 @@ namespace Havier_Than_Air_S.Weapon
             
            
             /*
+            //Червячки
             currentBulletGravity += bulletGravityShag * Program.deltaTimer.Delta(); //червячки
             currentProjectileAngle += currentBulletGravity;
             */

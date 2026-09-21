@@ -2,24 +2,23 @@
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Havier_Than_Air_S.Missions
 {
     internal class Mission3_FreeFlight : MissionBase
     {
-
+        //ФОН
         Texture background = new Texture("Images\\BackGroundLevel3_2.png");
         Texture trace = new Texture("Images\\Trace_03.png");
         Sprite backgroundSprite;
         Sprite traceSprite;
 
-        //
+        //ТАЙМЕРЫ
         Clock clock;
+
+        //Вертал
+        Hely Player_Hely;
 
 
         // Коллайдеры столкновения
@@ -28,7 +27,7 @@ namespace Havier_Than_Air_S.Missions
         //Спавн
         Spawn EnemySpawn;
 
-        Spawn currentSpawn;
+    
 
         public Mission3_FreeFlight()
         {
@@ -48,24 +47,7 @@ namespace Havier_Than_Air_S.Missions
             
         }
         
-        //Назначение маршрута для противников
-        public override void CallSpawner(IMoovable moovableEntity)
-        {
-            base.CallSpawner(moovableEntity);
-            
-            if (moovableEntity is Tnk1 )
-            {
-                //Загружает маршрут для техники из спавна
-                (moovableEntity as Tnk1).myMarshrut = currentSpawn.marsh;
-             }
-            if (moovableEntity is Tnk2)
-            {
-                //Загружает маршрут для техники из спавна
-                (moovableEntity as Tnk2).myMarshrut = currentSpawn.marsh;
-            }
-        }
         
-
 
         //Столкновения с объектами земли ВЕРТОЛЕТ
         private void Collisions()
@@ -103,8 +85,15 @@ namespace Havier_Than_Air_S.Missions
 
         public override void StartMiss()
         {
+            
+
             base.StartMiss();
             SetGround();
+
+            //ВЕРТОЛЕТ И ПОЗИЦИЯ
+            Player_Hely = Program.gameState.currentPlayerHely;
+            Player_Hely.SetPosition(new Vector2f(50, 500));
+            Program.cameraController.SetCameraObject(Program.gameState.currentPlayerHely);
         }
 
         public override void Update()
@@ -113,10 +102,26 @@ namespace Havier_Than_Air_S.Missions
             base.Update();
             
             Program.window.Draw(backgroundSprite);
-            Program.window.Draw(traceSprite);
+            //Program.window.Draw(traceSprite);
             Program.window.Draw(MountColliders[0]);
+
+
             Collisions();
+
             Program.gameState.currentPlayerHely.Update();
+            //МЫШЬ
+            if (Program.m_MouseController.LeftButtonIsPressed == true)
+            {
+                if (Player_Hely != null)
+                {
+                    Player_Hely.Fire();
+                    //Vector2f vectorMouse = new Vector2f((mousPoint2 - mousPoint1).X, (mousPoint2 - mousPoint1).Y);
+                    //float vectorAngle = Matematika.AngleOfVector(vectorMouse);
+
+                    clock.Restart();
+                }
+            }
+
 
             EnemySpawn.Update();
 
@@ -124,13 +129,15 @@ namespace Havier_Than_Air_S.Missions
 
         }
 
+
+
         private void CheckPlayerComands()
         {
             if (clock.ElapsedTime.AsSeconds() > 0.1f)
             {
                 if (Keyboard.IsKeyPressed(Keyboard.Key.P))
                 {
-                    currentSpawn = EnemySpawn;
+                    
                     EnemySpawn.SpawnEnemy();
                     Program.log.SaveCurrentGameLogFile("");
                 }

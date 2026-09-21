@@ -16,11 +16,11 @@ namespace Havier_Than_Air_S
         public Marshrut()
         {
 
-            marshrutPoints = new Vector2f[51];
+            marshrutPoints = new Vector2f[2];
 
-            marshrutPoints[0] = new Vector2f(2585, 798);
-            marshrutPoints[1] = new Vector2f(2504, 764);
-            marshrutPoints[2] = new Vector2f(2388, 756);
+            marshrutPoints[0] = new Vector2f(300, 700);
+            marshrutPoints[1] = new Vector2f(450, 700);
+            /*marshrutPoints[2] = new Vector2f(2388, 756);
             marshrutPoints[3] = new Vector2f(2052, 806);
             marshrutPoints[4] = new Vector2f(1916, 729);
             marshrutPoints[5] = new Vector2f(1862, 737);
@@ -69,7 +69,7 @@ namespace Havier_Than_Air_S
             marshrutPoints[48] = new Vector2f(-1393, 691);
             marshrutPoints[49] = new Vector2f(-1494, 660);
             marshrutPoints[50] = new Vector2f(-1594, 620);
-
+           */
             for (int i = 0; i < marshrutPoints.Length; i++)
             {
 

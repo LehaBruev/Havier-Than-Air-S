@@ -10,7 +10,7 @@ namespace Havier_Than_Air_S
     {
 
 
-
+        //DrawSprite(uh61, padx, pady, 147, 603, 137, 66); // Верталетная площадка
         /*
 
         // Верталетная площадка PAD STORE   PAD STORE           PAD STORE       PAD STORE

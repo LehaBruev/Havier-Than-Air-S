@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using Havier_Than_Air_S.Enemies;
+using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,23 @@ namespace Havier_Than_Air_S
 
             marsh = new Marshrut();
             LoadMarshrutToEnemy();
+        }
+
+        //Назначение маршрута для противников
+        public  void CallSpawner(IMoovable moovableEntity)
+        {
+            
+
+            if (moovableEntity is Tnk1)
+            {
+                //Загружает маршрут для техники из спавна
+                (moovableEntity as Tnk1).myMarshrut = marsh;
+            }
+            if (moovableEntity is Tnk2)
+            {
+                //Загружает маршрут для техники из спавна
+                (moovableEntity as Tnk2).myMarshrut = marsh;
+            }
         }
 
         private void LoadMarshrutToEnemy()
