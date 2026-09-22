@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 using Havier_Than_Air_S.HelyParts;
 using Havier_Than_Air_S.Weapon;
 using SFML.Audio;

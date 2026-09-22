@@ -27,7 +27,8 @@ namespace Havier_Than_Air_S.Missions
         //Спавн
         Spawn EnemySpawn;
 
-    
+        //AERODROM
+        Aerodrom aerodrom;
 
         public Mission3_FreeFlight()
         {
@@ -38,6 +39,10 @@ namespace Havier_Than_Air_S.Missions
             traceSprite = new Sprite(trace);
             traceSprite.Scale = new Vector2f(1.5f, 1.5f);
             traceSprite.Position = new Vector2f(-450, 700);
+
+            aerodrom = new Aerodrom();
+
+
 
             clock = new Clock();
 
@@ -105,7 +110,7 @@ namespace Havier_Than_Air_S.Missions
             //Program.window.Draw(traceSprite);
             Program.window.Draw(MountColliders[0]);
 
-
+            aerodrom.Update();
             Collisions();
 
             Program.gameState.currentPlayerHely.Update();

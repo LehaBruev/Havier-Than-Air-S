@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SFML.Graphics;
+using SFML.System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,24 @@ namespace Havier_Than_Air_S
 {
     internal class Aerodrom
     {
+        Vector2f position = new Vector2f(70,740);
+
+        Texture PadTexture = new Texture(Program.m_TextureManager.allImage, new IntRect(new Vector2i(147, 603), new Vector2i(137, 66)));
+        Sprite spr;
+
+        public Aerodrom() 
+        {
+            spr = new Sprite(PadTexture);
+            spr.Position = position;
+
+
+        }
+
+        public void Update()
+        {
+            Program.window.Draw(spr);
+
+        }
 
 
         //DrawSprite(uh61, padx, pady, 147, 603, 137, 66); // Верталетная площадка
