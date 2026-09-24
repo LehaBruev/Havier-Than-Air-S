@@ -82,7 +82,7 @@ namespace Havier_Than_Air_S
 
                 //updates
                 deltaTimer.CheckDelta();
-                m_MouseController.CheckMouse();
+                m_MouseController.Update();
                 
                 Game.Update();
                 

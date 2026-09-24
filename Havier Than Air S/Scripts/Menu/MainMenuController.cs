@@ -82,7 +82,7 @@ namespace Havier_Than_Air_S
             for (int i = 0; i < mainMenuButtons.Length; i++)
             {
                 mainMenuButtons[i].PRESS += ButtonActivity;
-                mainMenuButtons[i].PRESS += Program.m_MouseController.CheckButton;
+                mainMenuButtons[i].PRESS += Program.m_MouseController.CheckButtonClick;
             }
 
         }
@@ -139,7 +139,7 @@ namespace Havier_Than_Air_S
                 }
             }
 
-            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Escape) == true && helyChoiseTime == true)
+            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Escape, true) == true && helyChoiseTime == true)
             {
                 helyChoiseTime = false;
                 ButtonActivity(108);

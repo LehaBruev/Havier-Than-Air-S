@@ -32,7 +32,7 @@ namespace Havier_Than_Air_S
             timer = new Timer(200.0f);
         }
 
-        public void CheckMouse()
+        public void Update()
         {
             if (timer.timerOk == false)
             {
@@ -72,16 +72,29 @@ namespace Havier_Than_Air_S
 
         }
         //ПРОВЕРКА КЛАВИАТУРЫ НА НАЖАТУЮ КЛАВИШУ
-        public bool CheckKeyboardKey(Keyboard.Key key)
+        
+        Keyboard.Key lastKey;
+        Clock KeyPressTimer = new Clock();
+        float keyPressTimeOut = 0.25f;
+        public bool CheckKeyboardKey(Keyboard.Key key, bool checkTimer)
         {
-            if(Keyboard.IsKeyPressed(key))
-            return true;
+            if (Keyboard.IsKeyPressed(key) == true )
+            {
+                if (checkTimer == true && 
+                                KeyPressTimer.ElapsedTime.AsSeconds() > keyPressTimeOut)
+                {
+                    lastKey = key;
+                    KeyPressTimer.Restart();
+                    return true;
+                }
+                else return false;
+            }
             else return false;
         }
 
-        public void CheckButton(int buttonCode)
+        public void CheckButtonClick(int buttonCode)
         {
-            IsButtonClicked = true;
+                IsButtonClicked = true;
         }
 
 

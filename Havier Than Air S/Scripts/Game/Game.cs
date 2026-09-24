@@ -16,14 +16,17 @@ namespace Havier_Than_Air_S
 
         public MissionBase[] Missions;
         public MissionBase currentMission;
-        
+
+        Magazin Store;
 
        public Game()
         {
             MenuController = new MainMenuController();
             MenuController.StartGameEvent += StartGame;
-           
-            
+            Store = new Magazin();
+
+
+
         }
         bool mainMenuOn = true;
         public void StartGame(int missionCode, int helyCode)
@@ -47,14 +50,23 @@ namespace Havier_Than_Air_S
             currentMission.StartMiss();
         }
 
-        
+        bool StoreOn = false;
 
         public void Update()
         {
-          if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Escape) && mainMenuOn == false)
+          if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Escape, true))
             {
-                mainMenuOn = true;
+                bool b = mainMenuOn;
+                if (b)  mainMenuOn = false; else mainMenuOn = true;
             }
+
+            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.K, true))
+            {
+                bool b = StoreOn;
+                if (b) StoreOn = false; else StoreOn = true;
+                
+            }
+
 
 
             if (mainMenuOn == true)
@@ -68,9 +80,14 @@ namespace Havier_Than_Air_S
                 Program.m_PullObjects.Update();
                 Program.collisions.Update();
                 Program.m_Avionika.Update();
+
+               
             }
 
-
+            if (StoreOn == true)
+            {
+                Store.Update();
+            }
 
         }
     }

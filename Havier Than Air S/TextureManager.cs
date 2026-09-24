@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
+
 namespace Havier_Than_Air_S
 {
     public class TextureManager

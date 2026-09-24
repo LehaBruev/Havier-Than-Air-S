@@ -883,13 +883,13 @@ namespace Havier_Than_Air_S
        
         private void CheckGunMode()
         {
-            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num1)) currentWeapon = 0;
-            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num2))
+            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num1, true)) currentWeapon = 0;
+            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num2, true))
             {
                 currentWeapon = 1;
                 Program.window.SetMouseCursorVisible(true);
             }
-            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num3))
+            if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num3, true))
             {
                 currentWeapon = 2;
                 Program.window.SetMouseCursorVisible(false);

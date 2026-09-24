@@ -14,7 +14,6 @@ namespace Havier_Than_Air_S.Scripts.Menu
 
         //ОСНОВНЫЕ ПАРАМЕТРЫ КНОПКИ
         public Shape ButtonShape;
-        public Texture ButtonTexture;
         public Text ButtonText;
 
         //ОПЦИИ КНОПКИ
@@ -51,10 +50,10 @@ namespace Havier_Than_Air_S.Scripts.Menu
         }
         public void SetButtonTexture(Texture buttonTexture)
         {
-            ButtonTexture = buttonTexture;
+            ButtonShape.Texture = buttonTexture;
         }
 
-        public void SetButtonColors(Color buttonColor, Color buttonColor2, Color textColor, Color textColor2, int buttonCode)
+        public void SetButtonColors(Color buttonColor, Color buttonColor2, Color textColor, Color textColor2)
         {
             ButtonColor = buttonColor;
             ButtonColor2 = buttonColor2;
@@ -62,7 +61,6 @@ namespace Havier_Than_Air_S.Scripts.Menu
             TextColor = textColor;
             TextColor2 = textColor2;
             ButtonText.FillColor = TextColor;
-            CodeOfButton = buttonCode;
         }
 
         public void Update()
