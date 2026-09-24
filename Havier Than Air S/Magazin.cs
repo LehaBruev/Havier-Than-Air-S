@@ -30,7 +30,7 @@ namespace Havier_Than_Air_S
         //Бэкграунд
 
         Shape backShape;
-        Vector2f backGroundPos = new Vector2f(400,150);
+        Vector2f backGroundPos = new Vector2f(250,150);
 
         //Закупки
         int money = 0;
@@ -39,7 +39,7 @@ namespace Havier_Than_Air_S
         int rocketsInBag = 0;
         int bulletsInBag = 0;
 
-        
+        Sprite planshet;
         
 
         //Картинки и кнопки
@@ -57,8 +57,13 @@ namespace Havier_Than_Air_S
             ButtonActivateSound = new Sound(buttonActivateSoundBufer);
             ButtonActivateSound.Volume = Program.Mixer.MasterVolume / 100 * Program.Mixer.SoundsVolume / 100;
 
+            Image img = new Image("Images\\Planshet1.png");
+            img.CreateMaskFromColor(Color.White);
+            planshet = new Sprite(new Texture(img));
+            planshet.Position = new Vector2f(150, 55);
+            
 
-            backShape = new RectangleShape(new Vector2f(800,600));
+            backShape = new RectangleShape(new Vector2f(850,550));
             backShape.FillColor = new Color(47, 55, 68);
             backShape.Position = backGroundPos;
 
@@ -120,6 +125,9 @@ namespace Havier_Than_Air_S
         {
             
             Program.window.Draw(backShape);
+            Program.window.Draw(planshet);
+
+
             for (int i = 0;i< buttons.Length;i++)
             {
                 buttons[i].Update();
