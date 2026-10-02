@@ -18,7 +18,7 @@ namespace Havier_Than_Air_S.Weapon
         public Hely parentHely;
 
         public int currentAmmCount = 50;
-        public float ammWeight = 1; //вес ракеты
+        public float ammWeight = 1; //вес ракеты или снаряда
         public int weaponWeight = 50;
         public float AllWeight = 0;
         public float skorostrelnost; // скорострельность
@@ -31,11 +31,17 @@ namespace Havier_Than_Air_S.Weapon
         // Звуки
         protected Sound sound;
 
+        //Подписка
+        public delegate void FireEventDelegate();
+        public event FireEventDelegate fireEvent;
+
+
         public WeaponBase(TypeOfObject type)
         {
             weaponType = type;
             clock = new Clock();
             sound = new Sound();
+            CheckWeight();
         }
             
         virtual public void Fire()

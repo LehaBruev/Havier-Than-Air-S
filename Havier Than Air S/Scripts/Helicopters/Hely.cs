@@ -22,6 +22,8 @@ namespace Havier_Than_Air_S
         Максимальная взлётная масса: 4310 кг.
         Масса груза на внешней подвеске: 1759 кг.
         Внутренний запас топлива: 840 кг.
+        Объем баков 1250л по 850гр
+        Полезная нагрузка: 1360 - 1815 - 3000кг
         */
 
         float angleCorrectorForse = 10;
@@ -60,9 +62,9 @@ namespace Havier_Than_Air_S
         //Характеристики мотора и проч
         protected float helilifemax = 300;// максимальные жизни Вертолета
         public float currentEnginelife = 100; //исправность двигателя Вертолета
-        protected float fuelrashod = 1f; // расход топлива
+        protected float fuelrashod = 0.1f; // расход топлива
         protected float maxangle = 60; // Максимальный угол атаки
-        protected float helifuelmax = 840; // Максимальное топливо в баках
+        protected float helifuelmax = 1250; // Максимальное топливо в баках
         protected float engineMaxPower = 39250; // максимальное ускорение от двигателя //11250
         protected float holdRPM = 12000; // Холостые обороты мотора
 
@@ -76,7 +78,7 @@ namespace Havier_Than_Air_S
         //Переменные hely
         public float helylifeCurrent;// жизни
         public float altitude = 0; // высота
-        public float helifuelCurrent; // тек топливо
+        public float fuelCurrent; // тек топливо
         int bang1 = 0;
         public float currentWeight = 1; // текущий вес машины
         public Vector2f positionOfHely = new Vector2f(2200,50); // позиция в пространстве
@@ -107,8 +109,14 @@ namespace Havier_Than_Air_S
 
  
         // weapons
-        public int currentWeapon;
+        public int currentWeapon; // Номер текущего оружия
         float allWeaponsWeight = 100.0f; // Вес weapons
+        public int bulletsCount;
+        float bulletWeight = 0.2f;
+        public int NRrocketsCount;
+        float NRrocketWeight = 100;
+        public int SNRrocketsCount;
+        float SNRrocketWeight = 200;
 
         // animation
         Vector2f rearRotorPositionNewVector;
@@ -208,7 +216,7 @@ namespace Havier_Than_Air_S
         float ratioenginespeed = 1; //Пожар двигателя
         //Данные для учета столкновения с землей
         
-        float fuelWeight = 0.25f; //вес топл
+        float fuelWeight = 0.85f; //вес топл
 
 
 
@@ -228,8 +236,10 @@ namespace Havier_Than_Air_S
             engineswitch = 1;
             RPM = 30000;
             helistop = 0;
-            helifuelCurrent = helifuelmax;
+            fuelCurrent = helifuelmax;
             helylifeCurrent = helilifemax;
+
+            
         }
 
 
@@ -252,7 +262,11 @@ namespace Havier_Than_Air_S
             SpawnColliders();
             SpawnRotors();
             SpawnSounds();
-            
+
+            //weapons
+            bulletsCount = 100;
+            NRrocketsCount = 20;
+            SNRrocketsCount = 4;
 
         }
 
@@ -264,9 +278,9 @@ namespace Havier_Than_Air_S
         private void WeaponsInit()
         {
             //Оружие
-            m_Weapons = new WeaponBase[] { new GunLauncher(1000, this, TypeOfObject.gun,1),
-                                           new RocketNRLauncher(250, this, TypeOfObject.nr,0),
-                                           new RocketSNRLauncher(250, this, TypeOfObject.sr,0)};
+            m_Weapons = new WeaponBase[] { new GunLauncher(250, this, TypeOfObject.gun,1),
+                                           new RocketNRLauncher(40, this, TypeOfObject.nr,0),
+                                           new RocketSNRLauncher(6, this, TypeOfObject.sr,0)};
 
 
         }
@@ -379,7 +393,8 @@ namespace Havier_Than_Air_S
             currentCenterOfMassLoc = Matematika.LocalPointOfRotationObject(centerOfMass, angle);
             center2PosGlobal = currentCenterOfMassLoc + positionOfHely;
             // Текущий вес
-            currentWeight = Weight + helifuelCurrent * fuelWeight; 
+            currentWeight = Weight + fuelCurrent * fuelWeight + m_Weapons[0].AllWeight + m_Weapons[1].AllWeight + m_Weapons[2].AllWeight;
+                         
             //расчет высоты
             altitude = 700 - positionOfHely.Y;
 
@@ -449,7 +464,7 @@ namespace Havier_Than_Air_S
                     if (j == 1) engineswitch = 0;
                     if (j == 0) engineswitch = 1;
 
-                    if (engineswitch == 1 && helifuelCurrent > 0 && helidestroy != 1)
+                    if (engineswitch == 1 && fuelCurrent > 0 && helidestroy != 1)
                     {
                         // PlaySound(engineStartStopSound, engineStartSoundBuffer);
                     }
@@ -465,7 +480,7 @@ namespace Havier_Than_Air_S
             }
 
             // Отключение двигателя
-            if (engineswitch == 0 || helifuelCurrent <= 0 || helidestroy == 1)
+            if (engineswitch == 0 || fuelCurrent <= 0 || helidestroy == 1)
             {
                 if (RPM > 0)
                 {
@@ -480,7 +495,7 @@ namespace Havier_Than_Air_S
             }
 
             // Продолжение работы мотора
-            if (engineswitch == 1 && helifuelCurrent > 0 && helidestroy != 1)
+            if (engineswitch == 1 && fuelCurrent > 0 && helidestroy != 1)
             {
                 if (RPM < holdRPM)
                 {
@@ -497,11 +512,11 @@ namespace Havier_Than_Air_S
         {
 
             //Расход топлива
-            helifuelCurrent = helifuelCurrent - (RPM / 100) * (RPM / 100) / 1000000 * fuelrashod * delta;
+            fuelCurrent = fuelCurrent - (RPM / 100) * (RPM / 100) / 1000000 * fuelrashod * delta;
             fuelusedup = fuelusedup + (RPM / 100) * (RPM / 100) / 1000000 * fuelrashod * delta;
-            if (helifuelCurrent < 0) helifuelCurrent = 0;
-            if (helifuelCurrent < 510 && helifuelCurrent > 507) PlaySound(channelSoundRita, ostalos500kg);
-            if (helifuelCurrent < 810 && helifuelCurrent > 805) PlaySound(channelSoundRita, ostalos800kg);
+            if (fuelCurrent < 0) fuelCurrent = 0;
+            if (fuelCurrent < 510 && fuelCurrent > 507) PlaySound(channelSoundRita, ostalos500kg);
+            if (fuelCurrent < 810 && fuelCurrent > 805) PlaySound(channelSoundRita, ostalos800kg);
             //if (helifuel < 150 && helifuel > 145) PlaySound(rubejvozvrata); //рубеж возврата предупреждение голосовое
 
             //Обороты
@@ -878,7 +893,14 @@ namespace Havier_Than_Air_S
         public void Fire()
         {
             m_Weapons[currentWeapon].Fire();
+            switch (currentWeapon)
+            {
+                case 0: bulletsCount -= 1; break;
+                case 1: NRrocketsCount -= 1; break;
+                case 2: SNRrocketsCount -= 1; break;
+            }
         }
+
 
        
         private void CheckGunMode()

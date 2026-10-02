@@ -127,7 +127,8 @@ namespace Havier_Than_Air_S
                 
                 Panel1Check();
                 Panel2Check();
-                Panel3Check();
+                PanelFireArms();
+                //Panel3Check();
                 Panel4Check();
                 Panel5Check();
 
@@ -169,10 +170,25 @@ namespace Havier_Than_Air_S
             DrawText("Engine Life: " + (int)hely.currentEnginelife, new Vector2f(22, 49), engLifeColor, 2);
 
             Color fuelColor = Color.White;
-            if (hely.helifuelCurrent < 150) fuelColor = Color.Yellow;
-            DrawText("Fuel: " + (int)hely.helifuelCurrent, new Vector2f(22, 66), fuelColor, 2);
+            if (hely.fuelCurrent < 150) fuelColor = Color.Yellow;
+            DrawText("Fuel: " + (int)hely.fuelCurrent, new Vector2f(22, 66), fuelColor, 2);
 
             DrawText("LOG wr: " + logON, new Vector2f(22, 83), Color.White, 2);
+        }
+
+
+        public void PanelFireArms()
+        {
+            DrawText("Bullets: " + (int)hely.m_Weapons[0].currentAmmCount, new Vector2f(22, 15), Color.Green, 3);
+            DrawText("NR rockets: " + (int)hely.m_Weapons[1].currentAmmCount, new Vector2f(22, 32), Color.Green, 3);
+            DrawText("SNR rockets: " + (int)hely.m_Weapons[2].currentAmmCount, new Vector2f(22, 49), Color.Green, 3);
+            //DrawText("msW X: " + Mouse.GetPosition(Program.window).X + " Y: " + Mouse.GetPosition(Program.window).Y, new Vector2f(22, 66), Color.Yellow, 3);
+            // Положение относительно ротора (для коллайдеров и прочего)
+            //DrawText("colliders X: " + (Mouse.GetPosition(Program.window).X - hely.positionOfHely.X + Program.offset.X - Program.vMode.Width / 2) +
+             //   " Y: " + (Mouse.GetPosition(Program.window).Y - hely.positionOfHely.Y + Program.offset.Y - Program.vMode.Height / 2), new Vector2f(22, 83), Color.White, 3);
+            //DrawText("offset X: " + Program.offset.X + " Y: " + Program.offset.Y, new Vector2f(22, 130), Color.Green, 3);
+
+
         }
 
 

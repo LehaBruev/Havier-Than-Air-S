@@ -22,7 +22,7 @@ namespace Havier_Than_Air_S.Missions
 
 
         // Коллайдеры столкновения
-        public ConvexShape[] MountColliders;
+        public Shape[] MountColliders;
 
         //Спавн
         Spawn EnemySpawn;
@@ -154,7 +154,6 @@ namespace Havier_Than_Air_S.Missions
 
         private void SetGround()
         {
-            MountColliders = new ConvexShape[1];
             ConvexShape MountShape1 = new ConvexShape(17);
             MountShape1.SetPoint(0, new Vector2f(988, 884));
             MountShape1.SetPoint(1, new Vector2f(950, 751));
@@ -178,7 +177,9 @@ namespace Havier_Than_Air_S.Missions
             MountShape1.SetPoint(15, new Vector2f(-1909, 771));
             MountShape1.SetPoint(16, new Vector2f(-1915, 892));
 
+            MountColliders = new Shape[2];
             MountColliders[0] = MountShape1;
+            MountColliders[1] = aerodrom.padLandCollider.shape;
 
             SetMountain(MountShape1);
         }
@@ -189,7 +190,6 @@ namespace Havier_Than_Air_S.Missions
             shape.Texture = Program.m_TextureManager.MountainTexture_01;
             //shape.Texture.Smooth = true;
             shape.Position = new Vector2f(850, 0);
-            
 
         }
 

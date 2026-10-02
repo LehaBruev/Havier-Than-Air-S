@@ -24,7 +24,7 @@ namespace Havier_Than_Air_S
 
 
         int nrrocketsMaxquantity = 64; // максимальное количество NR неуправляемых ракет
-        float projectileWeight = 100;
+        float projectileWeight = 0.15f;
 
         //Sounds
         string shotSound = "Sounds\\Weapons\\gun2shot.wav";
@@ -105,6 +105,7 @@ namespace Havier_Than_Air_S
             parentHely = hely; // base
             currentAmmCount = ammo;
             ammWeight = projectileWeight;
+            CheckWeight();
             //+ тип передается в базу
             skorostrelnost = skorostrel;
 

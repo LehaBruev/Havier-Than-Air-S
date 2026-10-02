@@ -33,6 +33,8 @@ namespace Havier_Than_Air_S
             //+ тип передается в базу
             skorostrelnost = skorostrel;
             slotInHely = slot;
+            ammWeight = 15;
+            CheckWeight();
         }
 
         public override void Fire()

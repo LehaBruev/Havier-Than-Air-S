@@ -10,9 +10,10 @@ namespace Havier_Than_Air_S
 {
     internal class Aerodrom
     {
-        Vector2f position = new Vector2f(70,740);
+        Vector2f position = new Vector2f(70,720);
 
         Collider collider;
+        public Collider padLandCollider;
 
         Texture PadTexture = new Texture(Program.m_TextureManager.allImage, new IntRect(new Vector2i(147, 603), new Vector2i(137, 66)));
         Sprite spr;
@@ -23,6 +24,7 @@ namespace Havier_Than_Air_S
             spr.Position = position;
 
             collider = new Collider(new RectangleShape(new Vector2f(137,100)), new Color(0,255,0,150),position-new Vector2f(0,35)); //цвет коллайдера
+            padLandCollider = new Collider(new RectangleShape(new Vector2f(137,50)), new Color(255,255,0,175),position+new Vector2f(0,30)); //цвет коллайдера
             
         }
 
@@ -30,7 +32,7 @@ namespace Havier_Than_Air_S
         {
             Program.window.Draw(spr);
             collider.UpdateViewOfCollider();
-
+            padLandCollider.UpdateViewOfCollider();
         }
 
         /*
