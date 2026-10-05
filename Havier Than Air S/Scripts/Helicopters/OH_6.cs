@@ -21,9 +21,9 @@ namespace Havier_Than_Air_S
         protected override void SpawnHely()
         {
 
-            textureName = "Images\\OH-6_1.png";
-            spriteScale = new Vector2f(0.33f, 0.33f);
-
+            settings.textureName = "Images\\OH-6_1.png";
+            settings.spriteScale = new Vector2f(0.33f, 0.33f);
+            /*
             //Позиции деталей 
             spriteOrigin = new Vector2f(250,0);
             colliderOrigin = new Vector2f(0, 0);
@@ -55,7 +55,7 @@ namespace Havier_Than_Air_S
 
             weaponPositionsOrigins[0] = new Vector2f(-5, 20); //Позиция подвесок оружия
 
-           
+           */
             base.SpawnHely();
 
             /*

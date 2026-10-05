@@ -138,8 +138,8 @@ namespace Havier_Than_Air_S
                 //parentHely.positionOfHely
                 // Позиция оружия
                 Vector2f posOrujiya = Matematika.GlobalPointOfLocalPoint(parentHely.positionOfHely,
-                                                                     new Vector2f(parentHely.weaponPositionsOrigins[slotInHely].X * parentHely.flip,
-                                                                                    parentHely.weaponPositionsOrigins[slotInHely].Y),
+                                                                     new Vector2f(parentHely.settings.weaponPositionsOrigins[slotInHely].X * parentHely.flip,
+                                                                                    parentHely.settings.weaponPositionsOrigins[slotInHely].Y),
                                                                     parentHely.angle);
 
                 // Позиция кончика ствола
@@ -165,8 +165,8 @@ namespace Havier_Than_Air_S
         {
             TrunkAngleUpdate();
             Vector2f posOrujiya = Matematika.GlobalPointOfLocalPoint(parentHely.positionOfHely,
-                                                                     new Vector2f(parentHely.weaponPositionsOrigins[slotInHely].X * parentHely.flip, 
-                                                                                    parentHely.weaponPositionsOrigins[slotInHely].Y),
+                                                                     new Vector2f(parentHely.settings.weaponPositionsOrigins[slotInHely].X * parentHely.flip, 
+                                                                                    parentHely.settings.weaponPositionsOrigins[slotInHely].Y),
                                                                     parentHely.angle);
             trunkShape.Position = posOrujiya;
             trunkShape.Rotation = parentHely.angle + currentTrankAngle*parentHely.flip;

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S
 {
-    internal class Avionika
+    public class Avionika
     {
         int otladka = 1;
         
@@ -156,7 +156,7 @@ namespace Havier_Than_Air_S
         public void Panel2Check()
         {
             Color colorEngineSpeed = Color.White;
-            if (hely.RPM > hely.RPMLimit) colorEngineSpeed = Color.Red;
+            if (hely.RPM > hely.settings.RPMLimit) colorEngineSpeed = Color.Red;
             DrawText("Engine S.: " + (int)hely.RPM, new Vector2f(22, 15), colorEngineSpeed, 2);
 
             Color engSwithColor = Color.White;
@@ -428,8 +428,8 @@ private void DrawText(string txt, Vector2f pos, Color color, int panelNumber)
             if (hely.m_Weapons[hely.currentWeapon].weaponType == TypeOfObject.gun)
             {
                 Vector2f posOrujiya = Matematika.GlobalPointOfLocalPoint(hely.positionOfHely,
-                                                                    new Vector2f(hely.weaponPositionsOrigins[0].X * hely.flip,
-                                                                                   hely.weaponPositionsOrigins[0].Y),
+                                                                    new Vector2f(hely.settings.weaponPositionsOrigins[0].X * hely.flip,
+                                                                                   hely.settings.weaponPositionsOrigins[0].Y),
                                                                    hely.angle);
 
                 Vector2f pos = Matematika.GlobalPointOfLocalPoint(posOrujiya,

@@ -24,12 +24,12 @@ namespace Havier_Than_Air_S
         {
 
 
-            textureName = "Images\\AH1_1.png";
+            settings.textureName = "Images\\AH1_1.png";
             scaleMasterSize =  0.67f;
             scaleMasterSize = scaleMasterSize * Program.helyScale;
-            spriteScale = new Vector2f(0.27f, 0.27f)* scaleMasterSize;
+            settings.spriteScale = new Vector2f(0.27f, 0.27f)* scaleMasterSize;
 
-
+            /*
 
             //Позиции деталей 
             spriteOrigin = new Vector2f(500, 0);
@@ -58,7 +58,7 @@ namespace Havier_Than_Air_S
             maxRPM = 50000; //Максимальные обороты двигателя
             RPMLimit = 40000; //Предельные обороты двигателя
 
-
+            */
 
             //Верхний винт
             /*
@@ -69,7 +69,7 @@ namespace Havier_Than_Air_S
             */
 
             //Задний винт
-            rearVintPositionOrigin = new Vector2f(-130f, 12f) * scaleMasterSize;
+            //rearVintPositionOrigin = new Vector2f(-130f, 12f) * scaleMasterSize;
             /*
             rearRotorOrigin = new Vector2f(1.5f, 15f) * scaleMasterSize;
             rearRotorSize = new Vector2f(3f, 30) * scaleMasterSize;
@@ -78,8 +78,8 @@ namespace Havier_Than_Air_S
             */
 
             // weapons
-            weaponPositionsOrigins[0] = new Vector2f(0 , 22 ) * scaleMasterSize; //Позиция подвесок оружия
-            weaponPositionsOrigins[1] = new Vector2f(46, 44) * scaleMasterSize; //Позиция пушки
+            settings.weaponPositionsOrigins[0] = new Vector2f(0 , 22 ) * scaleMasterSize; //Позиция подвесок оружия
+            settings.weaponPositionsOrigins[1] = new Vector2f(46, 44) * scaleMasterSize; //Позиция пушки
 
             base.SpawnHely();
 

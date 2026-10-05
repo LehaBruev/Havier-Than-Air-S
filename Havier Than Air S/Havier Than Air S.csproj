@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Scripts\AerodromMenu.cs" />
+    <Compile Include="Scripts\Helicopters\HelySettings.cs" />
     <Compile Include="Scripts\Missions\Aerodrom.cs" />
     <Compile Include="Scripts\Service\Avionika.cs" />
     <Compile Include="Scripts\Service\Avtopilot.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Scripts\HelyParts\RearRotor_UH1.cs" />
     <Compile Include="Scripts\HelyParts\TopRotor_UH1.cs" />
     <Compile Include="IMoovable.cs" />
+    <Compile Include="Scripts\Service\Fizica.cs" />
     <Compile Include="Scripts\Service\LogWriter.cs" />
     <Compile Include="Magazin.cs" />
     <Compile Include="Scripts\Service\Magnitola.cs" />
@@ -427,7 +429,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\uh61.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\uh612.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

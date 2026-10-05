@@ -11,7 +11,25 @@ namespace Havier_Than_Air_S
     public class SoundManager
     {
 
+        SoundBuffer ostalos500kg = new SoundBuffer("Sounds\\Rita\\Fuel500.wav"); // Осталось 500 кг звук
+        SoundBuffer ostalos800kg = new SoundBuffer("Sounds\\Rita\\Fuel800.wav"); // Осталось 800 кг звук
+
+        //звуки доп
+        SoundBuffer metal1Sound = new SoundBuffer("Sounds\\metal1.wav"); // касание земли
+        SoundBuffer metal2Sound = new SoundBuffer("Sounds\\metal2.wav"); // касание земли 2
+        SoundBuffer bangsound = new SoundBuffer("Sounds\\Weapons\\explode4.wav"); //взрыв
+        SoundBuffer grass1 = new SoundBuffer("Sounds\\glass3.wav"); // стекло
+
+
         SoundBuffer rocket1;
+
+
+        string rotorSound1 = "Sounds\\Engine\\ap_rotorhigh.wav";
+        string rotorSound2 = "Sounds\\Engine\\ap_rotor2earth.wav";
+        string rotorSound3 = "Sounds\\Engine\\ap_rotor3down.wav";
+        string rotorSound4 = "Sounds\\Engine\\ap_rotor4on.wav";
+
+        Sound rotorSound = new Sound();
 
         public SoundManager()
         {
@@ -31,7 +49,20 @@ namespace Havier_Than_Air_S
          //   Music m = new SFML.Audio.Music("rocket1.wav");
 
         }
-        
+
+
+        private void SpawnSounds()
+        {
+            //Sounds
+           // engineStartStopSound = new Sound();
+            //channelSoundRita = new Sound();
+            //channelSoundTex = new Sound();
+        }
+
+
+
+
+
         /*
 
         //ЗВУКИ

@@ -18,9 +18,9 @@ namespace Havier_Than_Air_S
         protected override void SpawnHely()
         {
 
-            textureName = "Images\\ми24_1.png";
-            spriteScale = new Vector2f(0.3f, 0.3f);
-
+            settings.textureName = "Images\\ми24_1.png";
+            settings.spriteScale = new Vector2f(0.3f, 0.3f);
+            /*
             //Позиции деталей 
             spriteOrigin = new Vector2f(540,0);
             colliderOrigin = new Vector2f(0, 0);
@@ -53,7 +53,7 @@ namespace Havier_Than_Air_S
 
             weaponPositionsOrigins[0] = new Vector2f(-5, 50); //Позиция подвесок оружия
             base.SpawnHely();
-
+            */
             //Верхний винт
             /*
             topRotorRectShape.Size = new Vector2f(140, 2);
@@ -96,7 +96,7 @@ namespace Havier_Than_Air_S
             colliderConvexShape.FillColor = Color.Green;
 
             //marker = new Marker(collider, Color.Red, 3);
-
+            
         }
 
         public override void Update()

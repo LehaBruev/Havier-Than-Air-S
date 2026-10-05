@@ -9,73 +9,25 @@ using SFML.System;
 using SFML.Window;
 
 
-
-
-
 namespace Havier_Than_Air_S
 {
     public class Hely : GameObject, IMoovable
     {
-
-        /*
-        Пустой: 2363 кг.
-        Максимальная взлётная масса: 4310 кг.
-        Масса груза на внешней подвеске: 1759 кг.
-        Внутренний запас топлива: 840 кг.
-        Объем баков 1250л по 850гр
-        Полезная нагрузка: 1360 - 1815 - 3000кг
-        */
-
-        float angleCorrectorForse = 10;
-
         Marker marker;
+        Detal[] detaly; // Детали вертолета
 
-        Detal[] detaly;
 
-        public Vector2f centerOfMass = new Vector2f(0, 30);
-        public Vector2f currentCenterOfMassLoc = new Vector2f();
-
-        #region Параметры_Heli
-        
-        // Картинка верталета
-        
+        // Картинка вертолета
         protected Texture heliTexture;
         public Sprite helySprite;
-        protected string textureName = "Images\\uh61.png";
-        protected Vector2f spriteScale =  new Vector2f(0.6f,0.6f);
-        protected Vector2f spriteOrigin = new Vector2f(175, -10);
-
-        //Настройки верталета
-        protected float maxpowery = 300000; //Максимальная сила влияет на вертолет
-        protected float maxpowerx = 30000; // 
-        protected float shagRUD = 0.25f; // шаг увеличения мощности двигателя
-        protected float maxShagAngle = 1.5f; // шаг изменения угла атаки
-        protected float shagAngleSpeed = 10f; // отклик рукоятки угла
-        protected float maxspeedhor = 100;
-        protected float maxspeedvert = 500;
-        protected float maxheigh = 575; // потолок полета
-        protected Vector2f speedxmax = new Vector2f(6f,3);
-        protected Vector2f speedMin = new Vector2f(0.001f,0.015f);
-        protected float Weight = 2363; // вес машины
-        protected float bladesEffectiveness = 3f; // эффективность лопастей
-
-        //Характеристики мотора и проч
-        protected float helilifemax = 300;// максимальные жизни Вертолета
-        public float currentEnginelife = 100; //исправность двигателя Вертолета
-        protected float fuelrashod = 0.1f; // расход топлива
-        protected float maxangle = 60; // Максимальный угол атаки
-        protected float helifuelmax = 1250; // Максимальное топливо в баках
-        protected float engineMaxPower = 39250; // максимальное ускорение от двигателя //11250
-        protected float holdRPM = 12000; // Холостые обороты мотора
-
-        protected float maxRPM = 60000; //Максимальные обороты двигателя
-        public float RPMLimit = 45000; //Предельные обороты двигателя
-
-        #endregion
-
-        #region переменные
         
+        //Настройки вертолета
+        public HelySettings settings;
+
+        
+
         //Переменные hely
+        public Vector2f currentCenterOfMassLoc = new Vector2f(); // Центр масс текущий
         public float helylifeCurrent;// жизни
         public float altitude = 0; // высота
         public float fuelCurrent; // тек топливо
@@ -111,22 +63,15 @@ namespace Havier_Than_Air_S
         // weapons
         public int currentWeapon; // Номер текущего оружия
         float allWeaponsWeight = 100.0f; // Вес weapons
-        public int bulletsCount;
-        float bulletWeight = 0.2f;
-        public int NRrocketsCount;
-        float NRrocketWeight = 100;
-        public int SNRrocketsCount;
-        float SNRrocketWeight = 200;
+        
 
         // animation
         Vector2f rearRotorPositionNewVector;
         public int flip = 1;
 
-        // Knopki
+        // Knopki spin
         bool rPressed = false;
 
-
-        #endregion
 
         #region Sounds
         //SOUND
@@ -141,23 +86,9 @@ namespace Havier_Than_Air_S
 
         public int otkazpojardvig= 0;
 
-        
-        SoundBuffer ostalos500kg = new SoundBuffer("Sounds\\Rita\\Fuel500.wav"); // Осталось 500 кг звук
-        SoundBuffer ostalos800kg = new SoundBuffer("Sounds\\Rita\\Fuel800.wav"); // Осталось 800 кг звук
-
-        //звуки доп
-        SoundBuffer metal1Sound = new SoundBuffer("Sounds\\metal1.wav"); // касание земли
-        SoundBuffer metal2Sound = new SoundBuffer("Sounds\\metal2.wav"); // касание земли 2
-        SoundBuffer bangsound = new SoundBuffer("Sounds\\Weapons\\explode4.wav"); //взрыв
-        SoundBuffer grass1 = new SoundBuffer("Sounds\\glass3.wav"); // стекло
-
-
+       
         #endregion
 
-        #region Statistika
-        // Статистика
-        float fuelusedup = 0; //израсходовано топлива
-        #endregion
 
         #region Testirovanie
         //Точка крепления ротора
@@ -167,43 +98,17 @@ namespace Havier_Than_Air_S
 
         #endregion
 
-        #region Rotors
-        //Верхний винт
-        protected Vector2f topVintPositionOrigin = new Vector2f();
-        
 
-        //Задний винт
-        Sprite rearVintSprite;
-        protected Vector2f rearVintPositionOrigin = new Vector2f(-104,8);
-        
-
-
-
-        #endregion
-
-
-        #region Weapons
-        public Vector2f[] weaponPositionsOrigins = new Vector2f[2] 
-                                                                    { new Vector2f(-9, 35), // подвески
-                                                                      new Vector2f(-6, 35) }; // носовая пушка
         public WeaponBase[] m_Weapons;
         public Vector2f[] weaponPositionsCurrentPoints;
         
         //GUN
         protected RectangleShape GunTrunk;
-        protected Vector2f gunTrunkSize = new Vector2f(2,20);
-        protected Vector2f gunTrunkOrigin = new Vector2f(1, 10);
-        Color gunTrunkColor = Color.Yellow;
         
+        
+        public ConvexShape colliderConvexShape; //Форма коллайдера вертолета
 
-
-        #endregion
-
-        #region Colliders
-        protected Vector2f colliderOrigin = new Vector2f(0, 0);
-        public ConvexShape colliderConvexShape;
-
-        public Dictionary<Shape, Vector2f[,]> DictionaryOfShapesReal;
+        public Dictionary<Shape, Vector2f[,]> DictionaryOfShapesReal; // Справочник форм, с которыми есть соприкосновение
 
         //Ротор коллайдеры
         Vector2f rearColliderOrigin = new Vector2f(0, 0);
@@ -211,33 +116,31 @@ namespace Havier_Than_Air_S
         public ConvexShape rearColliderConvexShape;
         public ConvexShape topColliderConvexShape;
 
-        #endregion
-
-        float ratioenginespeed = 1; //Пожар двигателя
-        //Данные для учета столкновения с землей
-        
-        float fuelWeight = 0.85f; //вес топл
-
-
+      
 
         public Hely()
         {
-            //Коллайдеры гор для столкновения
+      
+            DictionaryOfShapesReal = new Dictionary<Shape, Vector2f[,]>(); // Новый справочник форм, с которыми есть соприкосновения
+            settings = new HelySettings();
+            //Спрайт
+            heliTexture = new Texture(settings.textureName);
+            helySprite = new Sprite(heliTexture);
+            helySprite.Scale = settings.spriteScale;
+            helySprite.Origin = settings.spriteOrigin;
 
-            DictionaryOfShapesReal = new Dictionary<Shape, Vector2f[,]>();
-            
             SpawnHely();
             //SpawnEngineSound();
             Program.m_Avionika.SetHely(this);
 
-            currentWeapon = 0;
+            
             //Начальные настройки верталета
             
             engineswitch = 1;
             RPM = 30000;
             helistop = 0;
-            fuelCurrent = helifuelmax;
-            helylifeCurrent = helilifemax;
+            fuelCurrent = settings.helifuelmax;
+            helylifeCurrent = settings.helilifemax;
 
             
         }
@@ -246,27 +149,16 @@ namespace Havier_Than_Air_S
         virtual protected void SpawnHely()
         {
 
-            //Спрайт
-            heliTexture  = new Texture(textureName);
-            helySprite = new Sprite(heliTexture);
-            helySprite.Scale = spriteScale;
-            helySprite.Origin = spriteOrigin; 
-
             //Точка для ротора
             CircleShapeRotorPoint = new CircleShape(2);
             CircleShapeRotorPoint.FillColor = new Color(Color.Yellow);
             CircleShapeRotorPoint.Origin = new Vector2f(2, 2);
 
-
             WeaponsInit();
             SpawnColliders();
             SpawnRotors();
-            SpawnSounds();
+            //SpawnSounds();
 
-            //weapons
-            bulletsCount = 100;
-            NRrocketsCount = 20;
-            SNRrocketsCount = 4;
 
         }
 
@@ -278,79 +170,50 @@ namespace Havier_Than_Air_S
         private void WeaponsInit()
         {
             //Оружие
-            m_Weapons = new WeaponBase[] { new GunLauncher(250, this, TypeOfObject.gun,1),
-                                           new RocketNRLauncher(40, this, TypeOfObject.nr,0),
-                                           new RocketSNRLauncher(6, this, TypeOfObject.sr,0)};
+            m_Weapons = new WeaponBase[] { new GunLauncher(settings.bulletsCount, this, TypeOfObject.gun,1),
+                                           new RocketNRLauncher(settings.NRrocketsCount, this, TypeOfObject.nr,0),
+                                           new RocketSNRLauncher(settings.SNRrocketsCount, this, TypeOfObject.sr,0)};
 
 
         }
 
         private void SpawnColliders()
         {
-
             //Коллайдер вертолета
-            colliderConvexShape = new ConvexShape(11);
-            colliderConvexShape.SetPoint(0, new Vector2f(-104, 4));
-            colliderConvexShape.SetPoint(1, new Vector2f(-87, 23));
-            colliderConvexShape.SetPoint(2, new Vector2f(-28, 24));
-            colliderConvexShape.SetPoint(3, new Vector2f(-24, 15));
-            colliderConvexShape.SetPoint(4, new Vector2f(26, 15));
-            colliderConvexShape.SetPoint(5, new Vector2f(40, 29));
-            colliderConvexShape.SetPoint(6, new Vector2f(27, 44));
-            colliderConvexShape.SetPoint(7, new Vector2f(-14, 45));
-            colliderConvexShape.SetPoint(8, new Vector2f(-21, 35));
-            colliderConvexShape.SetPoint(9, new Vector2f(-92, 27));
-            colliderConvexShape.SetPoint(10, new Vector2f(-108, 8));
-            colliderConvexShape.FillColor = Color.Yellow;
-            colliderConvexShape.Origin = colliderOrigin;
-
+            colliderConvexShape = settings.SpawnColliders();
+           
+            
             //Коллайдер винта
             topColliderConvexShape = new ConvexShape(2);
             topColliderConvexShape.SetPoint(0, new Vector2f(-79, -2));
             topColliderConvexShape.SetPoint(1, new Vector2f(75, -1));
             topColliderConvexShape.FillColor = Color.Yellow;
-
+            
             marker = new Marker(topColliderConvexShape, Color.Red, 3);
 
         } 
 
-
-        private void SpawnSounds()
-        {
-            //Sounds
-            engineStartStopSound = new Sound();
-            channelSoundRita = new Sound();
-            channelSoundTex = new Sound();
-        }
-
-
         private void SpawnRotors()
         {
-            
             detaly = new Detal[2];
             detaly[0] = new TopRotor_UH1();
             detaly[1] = new RearRotor_UH1();
             
-
             //GunTrunk
             GunTrunk = new RectangleShape();
-            GunTrunk.Origin = gunTrunkOrigin;
-            GunTrunk.Size = gunTrunkSize;
-            GunTrunk.FillColor = gunTrunkColor;
+            GunTrunk.Origin = settings.gunTrunkOrigin;
+            GunTrunk.Size = settings.gunTrunkSize;
+            GunTrunk.FillColor = settings.gunTrunkColor;
 
         }
 
-        Vector2f[] DetalyPos;
-
         public void RotorAnimatioUpdate()
         {
-            
-            (detaly[0] as TopRotor_UH1).Update(positionOfHely, angle, RPM / maxRPM);
+            (detaly[0] as TopRotor_UH1).Update(positionOfHely, angle, RPM / settings.maxRPM);
             (detaly[1] as RearRotor_UH1).Update(Matematika.GlobalPointOfLocalPoint(positionOfHely,
-               new Vector2f(rearVintPositionOrigin.X * flip, rearVintPositionOrigin.Y), angle), 
+               new Vector2f(settings.rearVintPositionOrigin.X * flip, settings.rearVintPositionOrigin.Y), angle), 
                angle, 
-               RPM / maxRPM);
-
+               RPM / settings.maxRPM);
         }
 
         private void FlipUpdate()
@@ -361,7 +224,6 @@ namespace Havier_Than_Air_S
                 { 
                 CheckFlip();
                 }
-
                 rPressed = true;
             }
             else
@@ -385,16 +247,18 @@ namespace Havier_Than_Air_S
             }
             flip *= -1;
         }
-
+        
         public virtual void Update()
         {
             delta = Program.deltaTimer.Delta() * Program.gameSpeed;
             
-            currentCenterOfMassLoc = Matematika.LocalPointOfRotationObject(centerOfMass, angle);
-            center2PosGlobal = currentCenterOfMassLoc + positionOfHely;
+            currentCenterOfMassLoc = Matematika.LocalPointOfRotationObject(settings.centerOfMass, angle); // Позиция центра масс от угла
+            center2PosGlobal = currentCenterOfMassLoc + positionOfHely; // Позиция центра масс в мире
             // Текущий вес
-            currentWeight = Weight + fuelCurrent * fuelWeight + m_Weapons[0].AllWeight + m_Weapons[1].AllWeight + m_Weapons[2].AllWeight;
-                         
+            currentWeight = settings.Weight + fuelCurrent * settings.fuelWeight + 
+                                                m_Weapons[0].AllWeight + 
+                                                m_Weapons[1].AllWeight + 
+                                                m_Weapons[2].AllWeight;
             //расчет высоты
             altitude = 700 - positionOfHely.Y;
 
@@ -417,9 +281,7 @@ namespace Havier_Than_Air_S
             }
 
             CircleShapeRotorPoint.Position = positionOfHely;
-
-            CheckGunMode();
-
+            ChangeGunMode();
             marker.Update();
 
         }
@@ -445,9 +307,9 @@ namespace Havier_Than_Air_S
 
         private void CheckRUD()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.W) == true) currentRUDposition = (currentRUDposition + shagRUD * delta);
+            if (Keyboard.IsKeyPressed(Keyboard.Key.W) == true) currentRUDposition = (currentRUDposition + settings.shagRUD * delta);
             if (currentRUDposition > 100) currentRUDposition = 100;
-            if (Keyboard.IsKeyPressed(Keyboard.Key.S) == true) currentRUDposition = (currentRUDposition - shagRUD * delta);
+            if (Keyboard.IsKeyPressed(Keyboard.Key.S) == true) currentRUDposition = (currentRUDposition - settings.shagRUD * delta);
             if (currentRUDposition < 0) currentRUDposition = 0;
         }
 
@@ -497,9 +359,9 @@ namespace Havier_Than_Air_S
             // Продолжение работы мотора
             if (engineswitch == 1 && fuelCurrent > 0 && helidestroy != 1)
             {
-                if (RPM < holdRPM)
+                if (RPM < settings.holdRPM)
                 {
-                    RPM = RPM + shagRUD / 2 * delta * 100;
+                    RPM = RPM + settings.shagRUD / 2 * delta * 100;
                     if (helistop == 1)
                     {
                         helistop = 0;
@@ -507,24 +369,24 @@ namespace Havier_Than_Air_S
                 }
             }
         }
-
+        public float currentEnginelife = 100; //исправность двигателя Вертолета
         private void EngineUpdate()
         {
 
             //Расход топлива
-            fuelCurrent = fuelCurrent - (RPM / 100) * (RPM / 100) / 1000000 * fuelrashod * delta;
-            fuelusedup = fuelusedup + (RPM / 100) * (RPM / 100) / 1000000 * fuelrashod * delta;
+            fuelCurrent = fuelCurrent - (RPM / 100) * (RPM / 100) / 1000000 * settings.fuelrashod * delta;
+           // fuelusedup = fuelusedup + (RPM / 100) * (RPM / 100) / 1000000 * settings.fuelrashod * delta;
             if (fuelCurrent < 0) fuelCurrent = 0;
-            if (fuelCurrent < 510 && fuelCurrent > 507) PlaySound(channelSoundRita, ostalos500kg);
-            if (fuelCurrent < 810 && fuelCurrent > 805) PlaySound(channelSoundRita, ostalos800kg);
+           // if (fuelCurrent < 510 && fuelCurrent > 507) PlaySound(channelSoundRita, ostalos500kg);
+           // if (fuelCurrent < 810 && fuelCurrent > 805) PlaySound(channelSoundRita, ostalos800kg);
             //if (helifuel < 150 && helifuel > 145) PlaySound(rubejvozvrata); //рубеж возврата предупреждение голосовое
 
             //Обороты
-            RPM = currentRUDposition / 100 * maxRPM;
-            if (RPM > maxRPM ) RPM = maxRPM;
+            RPM = currentRUDposition / 100 * settings.maxRPM;
+            if (RPM > settings.maxRPM ) RPM = settings.maxRPM;
 
             //Сила ротора
-            currentRotorPower = RPM / maxRPM * (currentEnginelife / 100) * engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);
+            currentRotorPower = RPM / settings.maxRPM * (currentEnginelife / 100) * settings.engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);
 
             powerRTR.X = currentRotorPower - (currentRotorPower - currentRotorPower / 2500 * (float)Math.Sqrt(angle * angle));
             powerRTR.X = powerRTR.X * Math.Sign(angle);
@@ -555,23 +417,23 @@ namespace Havier_Than_Air_S
                 //Управление углом атаки
                 if (Keyboard.IsKeyPressed(Keyboard.Key.D) == true)
                 {
-                    currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * delta;
-                    if (currentShagAngleSpeed > maxShagAngle)
-                        currentShagAngleSpeed = maxShagAngle;
+                    currentShagAngleSpeed = currentShagAngleSpeed + settings.shagAngleSpeed * delta;
+                    if (currentShagAngleSpeed > settings.maxShagAngle)
+                        currentShagAngleSpeed = settings.maxShagAngle;
 
                     angle = angle + currentShagAngleSpeed * delta* upravlyaemostAngle;
-                    if (angle > maxangle)
-                        angle = maxangle;
+                    if (angle > settings.maxangle)
+                        angle = settings.maxangle;
                 }
                 else if (Keyboard.IsKeyPressed(Keyboard.Key.A) == true)
                 {
-                    currentShagAngleSpeed = currentShagAngleSpeed + shagAngleSpeed * delta;
-                    if (currentShagAngleSpeed > maxShagAngle)
-                        currentShagAngleSpeed = maxShagAngle;
+                    currentShagAngleSpeed = currentShagAngleSpeed + settings.shagAngleSpeed * delta;
+                    if (currentShagAngleSpeed > settings.maxShagAngle)
+                        currentShagAngleSpeed = settings.maxShagAngle;
 
                     angle = angle - currentShagAngleSpeed * delta* upravlyaemostAngle;
-                    if (angle < -maxangle)
-                        angle = -maxangle;
+                    if (angle < - settings.maxangle)
+                        angle = - settings.maxangle;
                 }
                 else
                 {
@@ -616,10 +478,10 @@ namespace Havier_Than_Air_S
             ColliderPhisicsCompensation(); // Расчет вектора компенсатора при столкновениях
             
 
-            if (speed.X > speedxmax.X) speed.X = speedxmax.X;
-            if (speed.X < -speedxmax.X) speed.X = -speedxmax.X;
-            if (speed.Y > speedxmax.Y) speed.Y = speedxmax.Y;
-            if (speed.Y < -speedxmax.Y) speed.Y = -speedxmax.Y;
+            if (speed.X > settings.speedxmax.X) speed.X = settings.speedxmax.X;
+            if (speed.X < -settings.speedxmax.X) speed.X = -settings.speedxmax.X;
+            if (speed.Y > settings.speedxmax.Y) speed.Y = settings.speedxmax.Y;
+            if (speed.Y < -settings.speedxmax.Y) speed.Y = -settings.speedxmax.Y;
 
             
 
@@ -673,8 +535,8 @@ namespace Havier_Than_Air_S
                 speed.X = vectorKompensator.X * compensatorForce;
                 speed.Y = -vectorKompensator.Y * compensatorForce;
 
-                if (Math.Abs(speed.X) < speedMin.X) speed.X = 0;
-                if (Math.Abs(speed.Y) < speedMin.Y) speed.Y = 0;
+                if (Math.Abs(speed.X) < settings.speedMin.X) speed.X = 0;
+                if (Math.Abs(speed.Y) < settings.speedMin.Y) speed.Y = 0;
             }
 
             AddAngle();
@@ -744,7 +606,7 @@ namespace Havier_Than_Air_S
 
             //Построить новый вектор из листа
             summaVectorov = new Vector2f(summaVectorov.X, summaVectorov.Y)  / numOfVector;
-            summaVectorov =  summaVectorov - centerOfMass;
+            summaVectorov =  summaVectorov - settings.centerOfMass;
             
             return summaVectorov; 
         }
@@ -791,7 +653,8 @@ namespace Havier_Than_Air_S
 
             for (int f=0;f< shapeMatrix.GetLength(0); f++)
             {
-                if (!Points.Contains(shapeMatrix[f, 0])) Points.Add(shapeMatrix[f, 0]);
+                if (!Points.Contains(shapeMatrix[f, 0])) 
+                    Points.Add(shapeMatrix[f, 0]);
             }
 
            //Добавляем в лист все точки которые строят грани
@@ -827,7 +690,6 @@ namespace Havier_Than_Air_S
                 summaVectorov = new Vector2f(-summaVectorov.X, -summaVectorov.Y);
                 GranPregradaPosGlob = tochka_02 + shape.Position;
             }
-            
 
             return summaVectorov;
         }
@@ -884,7 +746,7 @@ namespace Havier_Than_Air_S
 
         }
 
-        void SpriteDraw() // отрисовка Верталета
+        void SpriteDraw() // отрисовка Вертолета
         {
             helySprite.Rotation = angle;
             Program.window.Draw(helySprite);
@@ -893,17 +755,11 @@ namespace Havier_Than_Air_S
         public void Fire()
         {
             m_Weapons[currentWeapon].Fire();
-            switch (currentWeapon)
-            {
-                case 0: bulletsCount -= 1; break;
-                case 1: NRrocketsCount -= 1; break;
-                case 2: SNRrocketsCount -= 1; break;
-            }
+         
         }
 
 
-       
-        private void CheckGunMode()
+        private void ChangeGunMode()
         {
             if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num1, true)) currentWeapon = 0;
             if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Num2, true))
@@ -920,62 +776,56 @@ namespace Havier_Than_Air_S
 
         }
 
-        string rotorSound1 = "Sounds\\Engine\\ap_rotorhigh.wav";
-        string rotorSound2 = "Sounds\\Engine\\ap_rotor2earth.wav";
-        string rotorSound3 = "Sounds\\Engine\\ap_rotor3down.wav";
-        string rotorSound4 = "Sounds\\Engine\\ap_rotor4on.wav";
-
-        Sound rotorSound = new Sound();
-        float prevAltitude = 100;
-
-        SoundBuffer rotorBufer;
+      
         Sound enginesound;
 
         private void SpawnEngineSound()
         {
+            /*
             enginesound = new Sound();
             enginesound.Volume = 0;
-            enginesound.SoundBuffer = new SoundBuffer(rotorSound2);
+           // enginesound.SoundBuffer = new SoundBuffer(rotorSound2);
             enginesound.Loop = true;
             enginesound.Play();
 
-            
+            */
         }
 
         private void ChechRotorSound()
         {
-            if (RPM / maxRPM * 1.1f + 0.5f < 1.2) 
-                enginesound.Pitch = RPM / maxRPM * 1.1f + 0.6f;
+            /*
+            if (RPM / settings.maxRPM * 1.1f + 0.5f < 1.2) 
+                enginesound.Pitch = RPM / settings.maxRPM * 1.1f + 0.6f;
             else enginesound.Pitch = 1.2f;
 
-            if (RPM / maxRPM * 100 + 0 < 25)
-                enginesound.Volume = RPM / maxRPM * 100 + 0;
+            if (RPM / settings.maxRPM * 100 + 0 < 25)
+                enginesound.Volume = RPM / settings.maxRPM * 100 + 0;
             else
                 enginesound.Volume = 25;
-
-            if (altitude <= 1 && prevAltitude > 1 ) ChangeSound(rotorSound3); // у земли
+            */
+           // if (altitude <= 1 && prevAltitude > 1 ) ChangeSound(rotorSound3); // у земли
           //  if (altitude > 70 && prevAltitude <= 70 ||
            //     altitude <= 150 && prevAltitude > 150) ChangeSound(rotorSound2); // второй слой 
-            if (altitude > 1 && prevAltitude <= 1 ||
-                altitude <= 500 && prevAltitude > 500) ChangeSound(rotorSound4); // третий слой 
-            if (altitude > 500 && prevAltitude <= 500) ChangeSound(rotorSound1); // третий слой 
+            //if (altitude > 1 && prevAltitude <= 1 ||
+            //    altitude <= 500 && prevAltitude > 500) ChangeSound(rotorSound4); // третий слой 
+           // if (altitude > 500 && prevAltitude <= 500) ChangeSound(rotorSound1); // третий слой 
 
-            if (RPM / holdRPM > 0.6f) rotorSound.Volume = 100;
-            else
-            rotorSound.Volume = RPM/holdRPM;
+           // if (RPM / settings.holdRPM > 0.6f) rotorSound.Volume = 100;
+            //else
+           // rotorSound.Volume = RPM/ settings.holdRPM;
             
 
-            prevAltitude = altitude;
+            //prevAltitude = altitude;
         }
 
         
         private void ChangeSound(string soundString)
         {
-            rotorSound.Stop();
-            rotorBufer = new SoundBuffer(soundString);
-            rotorSound.SoundBuffer = rotorBufer;
-            rotorSound.Loop = true;
-            rotorSound.Play();
+          //  rotorSound.Stop();
+           // rotorBufer = new SoundBuffer(soundString);
+           // rotorSound.SoundBuffer = rotorBufer;
+           // rotorSound.Loop = true;
+          //  rotorSound.Play();
         }
 
         #region objectives

@@ -52,7 +52,7 @@ namespace Havier_Than_Air_S.Weapon
                 if (parentHely.flip < 0) a += 179;
 
                 Vector2f posOrujiya = Matematika.GlobalPointOfLocalPoint(parentHely.positionOfHely,
-                                                                         parentHely.weaponPositionsOrigins[slotInHely],
+                                                                         parentHely.settings.weaponPositionsOrigins[slotInHely],
                                                                          parentHely.angle);
 
                 Program.m_PullObjects.StartObject(posOrujiya,
