@@ -1,6 +1,7 @@
 ﻿using Havier_Than_Air_S.Enemies;
 using Havier_Than_Air_S.Missions;
 using Havier_Than_Air_S.Weapon;
+using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace Havier_Than_Air_S
         sr,
         bang,
         enemy,
+        enemyPVO,
         house
         
     }
@@ -35,6 +37,7 @@ namespace Havier_Than_Air_S
         private int SNRcount = 8;
         private int BangCount = 8;
         private int TankCount = 20;
+        private int PVO1Count = 10;
         private int HousCount = 200;
         private int[] counts;
 
@@ -59,10 +62,11 @@ namespace Havier_Than_Air_S
                 SNRcount,
                 BangCount,
                 TankCount,
+                PVO1Count,
                 HousCount
             };
 
-            IMoovables = new IMoovable[ GunBulletCount + NRcount + SNRcount + BangCount + TankCount + HousCount];
+            IMoovables = new IMoovable[ GunBulletCount + NRcount + SNRcount + BangCount + TankCount + PVO1Count + HousCount];
 
             int n = 0;
             for (int m = 0; m < counts.Length; m++)
@@ -74,7 +78,8 @@ namespace Havier_Than_Air_S
                     if (m==2) IMoovables[n] = new SNRocket();
                     if (m==3) IMoovables[n] = new Bang(position);
                     if (m==4) IMoovables[n] = new Tnk1();
-                    if (m==5) IMoovables[n] = new Hous();
+                    if (m==5) IMoovables[n] = new PVO1();
+                    if (m==6) IMoovables[n] = new Hous();
                     n += 1;
                 }
             }
@@ -82,6 +87,25 @@ namespace Havier_Than_Air_S
 
             collisions = Program.collisions;
         }
+
+        public void ChangeMarshrutOfObject(Marshrut marsh)
+        {
+            for (int i = 0; i < IMoovables.Length; i++)
+            {
+                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.enemy )
+                {
+                    (IMoovables[i] as Tnk1).marshrut= marsh;
+
+                }
+                if ( IMoovables[i].GetTypeOfObject() == TypeOfObject.enemyPVO)
+                {
+                    (IMoovables[i] as PVO1).marshrut = marsh;
+
+                }
+
+            }
+        }
+
 
         public void StartObject(Vector2f position, float angle, Vector2f speed, TypeOfObject objectType)
         {
@@ -109,9 +133,31 @@ namespace Havier_Than_Air_S
             CheckCollisions();
         }
 
+        public void CheckCollisionsWithShape(Shape sh)
+        {
+
+            for (int i = 0; i < IMoovables.Length; i++)
+            {
+                if ((IMoovables[i].GetTypeOfObject() == TypeOfObject.gun ||
+                    IMoovables[i].GetTypeOfObject() == TypeOfObject.nr ||
+                    IMoovables[i].GetTypeOfObject() == TypeOfObject.sr) &&
+                    IMoovables[i].GetCurrentPullStatus() == PullStatus.inAir &&
+                    IMoovables[i].GetColliderStatus() == true)
+                {
+                    Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), sh);
+
+                    if (d.GetLength(0) > 0)
+                    {
+                        IMoovables[i].SetDamage(null);
+                    }
+
+                }
+
+            }
+        }
        
 
-        public void CheckCollisions()
+        public void CheckCollisions() // стандартная проверка столкновений
         {
 
             for (int i = 0; i < IMoovables.Length; i++)
@@ -125,7 +171,7 @@ namespace Havier_Than_Air_S
                 {
                     for (int k = 0; k < IMoovables.Length; k++)
                     {
-                        if (IMoovables[k].GetTypeOfObject() == TypeOfObject.enemy && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
+                        if ((IMoovables[k].GetTypeOfObject() == TypeOfObject.enemy || IMoovables[k].GetTypeOfObject() == TypeOfObject.enemyPVO) && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
                         {
                            Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
 

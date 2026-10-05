@@ -78,6 +78,17 @@ namespace Havier_Than_Air_S
 
         }
 
+        public void SetNewMarshrut(Vector2f[] marshrutPointsVector2f)
+        {
+            marshrutPoints = marshrutPointsVector2f;
+           // for (int i = 0; i < marshrutPoints.Length; i++)
+            //{
+
+              //  marshrutPoints[i].X += 850;
+           // }
+
+
+        }
 
 
         public void AddPointToMarshrut(Vector2f newPoint)

@@ -6,10 +6,10 @@ using System;
 
 namespace Havier_Than_Air_S.Enemies
 {
-    public class Tnk1: IMoovable
+    public class PVO1: IMoovable
     {
         //Тип объекта
-        TypeOfObject typeofObject = TypeOfObject.enemy;
+        TypeOfObject typeofObject = TypeOfObject.enemyPVO;
 
         bool colliderStatus;
 
@@ -17,7 +17,7 @@ namespace Havier_Than_Air_S.Enemies
         public Marshrut marshrut;
         int currentMarshrutPoint = 0;
         float minDistToMarshPoint = 5f;
-        Vector2f centerOfMass = new Vector2f(35,20);
+        Vector2f centerOfMass = new Vector2f(54,63);
         
         //Параметры формы коллайдера
         RectangleShape shape;
@@ -59,26 +59,26 @@ namespace Havier_Than_Air_S.Enemies
 
 
 
-        public Tnk1()
+        public PVO1()
         {
-
+            /*
             detaly = new Detal[2];
             detalyPoints = new Vector2f[detaly.Length];
             detaly[0] = new Head_Tank_1();
             detalyPoints[0] = headPosition;
             detaly[1] = new Gun_Tank_1();
             detalyPoints[1] = gunPosition;
-
+            */
 
             marshrut = new Marshrut();
 
-            body = new Texture(Program.m_TextureManager.allImage, new IntRect(39, 884, 85, 24));
+            body = new Texture(Program.m_TextureManager.allImage, new IntRect(20, 307, 107, 69));
 
             bodySprite = new Sprite(body);
             bodySprite.Origin = centerOfMass;
 
-            shape = new RectangleShape(new Vector2f(85, 24));
-            shape.Origin = centerOfMass;
+            shape = new RectangleShape(new Vector2f(104, 35));
+            shape.Origin = centerOfMass + new Vector2f(0,-30);
 
             marker = new Marker(shape, Color.Yellow, 3);
 
@@ -171,12 +171,14 @@ namespace Havier_Than_Air_S.Enemies
                         
            
             Program.window.Draw(bodySprite);
+            /*
             for (int i = 0; i < detaly.Length; i++)
             {
                 Vector2f tecPointPos = Matematika.LocalPointOfRotationObject(detalyPoints[i], angle);
                 detaly[i].setPosAndAngle(tecPointPos + position, angle);
                 detaly[i].Update();
             }
+            */
             marker.UpdatePoints(shape);
             marker.Update();
             

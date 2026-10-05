@@ -66,13 +66,10 @@ namespace Havier_Than_Air_S.Weapon
 
         public override void Start(Vector2f position, float angle, Vector2f speed)
         {
-            
             base.Start(position, angle, speed);
             currentProjectilefuel = rocketFuel;
             currentBulletGravity = 0;
             currentProjectileSpeed = rocketSpeed;
-
-           
         }
 
         
@@ -118,7 +115,7 @@ namespace Havier_Than_Air_S.Weapon
         public override void SetDamage(IMoovable obj)
         {
             int a = Program.Game.rnd.Next(0, 100);
-            if ((obj is Tnk1) && a>35)
+            if ((obj is Tnk1 || obj is PVO1) && a>35)
             {
                 colliderStatus = false;
                 currentProjectileAngle = Program.Game.rnd.Next(0, 360);

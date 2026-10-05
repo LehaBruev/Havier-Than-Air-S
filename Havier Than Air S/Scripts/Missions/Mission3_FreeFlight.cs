@@ -49,6 +49,24 @@ namespace Havier_Than_Air_S.Missions
             
             //Spawn
             EnemySpawn = new Spawn();
+
+            Marshrut mar = new Marshrut();
+
+
+            Vector2f[] marshrutPoints = new Vector2f[11];
+            marshrutPoints[0] = new Vector2f(1186, 751);
+            marshrutPoints[1] = new Vector2f(1021, 735);
+            marshrutPoints[2] = new Vector2f(802, 746);
+            marshrutPoints[3] = new Vector2f(683, 764);
+            marshrutPoints[4] = new Vector2f(592, 756);
+            marshrutPoints[5] = new Vector2f(512, 736);
+            marshrutPoints[6] = new Vector2f(340, 728);
+            marshrutPoints[7] = new Vector2f(229, 762);
+            marshrutPoints[8] = new Vector2f(112, 773);
+            marshrutPoints[9] = new Vector2f(6, 763);
+            marshrutPoints[10] = new Vector2f(-116, 747);
+            mar.SetNewMarshrut(marshrutPoints);
+            Program.m_PullObjects.ChangeMarshrutOfObject(mar);
             
         }
         
@@ -112,6 +130,10 @@ namespace Havier_Than_Air_S.Missions
 
             aerodrom.Update();
             Collisions();
+            for (int i = 0; i < MountColliders.Length; i++)
+            {
+                Program.m_PullObjects.CheckCollisionsWithShape(MountColliders[i]);
+             }
 
             Program.gameState.currentPlayerHely.Update();
             //МЫШЬ
@@ -192,9 +214,6 @@ namespace Havier_Than_Air_S.Missions
             shape.Position = new Vector2f(850, 0);
 
         }
-
-
-
 
 
 
