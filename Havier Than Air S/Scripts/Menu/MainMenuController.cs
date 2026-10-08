@@ -13,9 +13,9 @@ using SFML.Window;
 
 namespace Havier_Than_Air_S
 {
-   
 
-    public  class MainMenuController
+
+    public class MainMenuController
     {
 
         //ДЕЛЕГАТЫ
@@ -25,8 +25,10 @@ namespace Havier_Than_Air_S
         //Текстуры 
         //Спрайты
         private Texture mainmenutexture = new Texture("Images\\mainmenu.png");
-        private Sprite mainMenuSprite; //mainmenutexture);
-    
+        private Texture endMenuTexture = new Texture("Images\\score1back.png");
+        private Sprite mainMenuSprite; //mainmenutexture
+        private Sprite endMenuSprite;
+
         //Звуки
         SoundBuffer buttonActivateSoundBufer;
         Sound ButtonActitateSound;
@@ -34,6 +36,7 @@ namespace Havier_Than_Air_S
 
         //КНОПКИ
         Button[] mainMenuButtons;
+        Button[] endMenuButtons;
 
         //ВЫБОР ДЛЯ GAME
         int missionCode = 0;
@@ -41,22 +44,24 @@ namespace Havier_Than_Air_S
 
         public MainMenuController()
         {
-            
+
             buttonActivateSoundBufer = new SoundBuffer("Sounds\\buttonclick.wav");
             ButtonActitateSound = new Sound(buttonActivateSoundBufer);
-            ButtonActitateSound.Volume = Program.Mixer.MasterVolume/100 * Program.Mixer.SoundsVolume/100;
+            ButtonActitateSound.Volume = Program.Mixer.MasterVolume / 100 * Program.Mixer.SoundsVolume / 100;
 
 
 
             //Спрайты
             mainMenuSprite = new Sprite(mainmenutexture);
+            endMenuSprite = new Sprite(endMenuTexture);
+
             /*
 
             //Тексты
             ObuchenieText = new Text("1. Get pilot license", font);
             ObuchenieText.Position = new Vector2f(220, 330);
             SetTextSettings(ObuchenieText);
-            
+
 
             MissionsText = new Text("2. Mission Test", font);
             MissionsText.Position = new Vector2f(222, 370);
@@ -68,9 +73,9 @@ namespace Havier_Than_Air_S
             */
 
             mainMenuButtons = new Button[7];
-            mainMenuButtons[0] = new Button(new RectangleShape(new Vector2f(200, 25)), "1. Get pilot license", new Vector2f(220, 330), new Vector2f(10, -4),1); // 1-3 миссии
-            mainMenuButtons[1] = new Button(new RectangleShape(new Vector2f(200, 25)), "2. Mission Test", new Vector2f(220, 370), new Vector2f(10, -4),2);
-            mainMenuButtons[2] = new Button(new RectangleShape(new Vector2f(200, 25)), "3. Free flight", new Vector2f(220, 410), new Vector2f(10, -4),3);
+            mainMenuButtons[0] = new Button(new RectangleShape(new Vector2f(200, 25)), "1. Get pilot license", new Vector2f(220, 330), new Vector2f(10, -4), 1); // 1-3 миссии
+            mainMenuButtons[1] = new Button(new RectangleShape(new Vector2f(200, 25)), "2. Mission Test", new Vector2f(220, 370), new Vector2f(10, -4), 2);
+            mainMenuButtons[2] = new Button(new RectangleShape(new Vector2f(200, 25)), "3. Free flight", new Vector2f(220, 410), new Vector2f(10, -4), 3);
 
             mainMenuButtons[3] = new Button(new RectangleShape(new Vector2f(150, 25)), "1. UH-1", new Vector2f(220, 330), new Vector2f(10, -4), 11);            // 11-14 вертолеты
             mainMenuButtons[4] = new Button(new RectangleShape(new Vector2f(150, 25)), "2. AH-1 Cobra", new Vector2f(220, 370), new Vector2f(10, -4), 12);
@@ -85,6 +90,17 @@ namespace Havier_Than_Air_S
                 mainMenuButtons[i].PRESS += Program.m_MouseController.CheckButtonClick;
             }
 
+            //EndMenu
+            endMenuButtons = new Button[2];
+            endMenuButtons[0] = new Button(new RectangleShape(new Vector2f(200, 25)), "Выход", new Vector2f(370, 640), new Vector2f(10, -4), 1); // 1-3 миссии
+            endMenuButtons[1] = new Button(new RectangleShape(new Vector2f(200, 25)), "Продолжить", new Vector2f(720, 640), new Vector2f(10, -4), 2);
+            
+            for (int i = 0; i < endMenuButtons.Length; i++)
+            {
+                endMenuButtons[i].PRESS += ButtonActivity;
+                endMenuButtons[i].PRESS += Program.m_MouseController.CheckButtonClick;
+            }
+            
         }
 
 
@@ -92,7 +108,7 @@ namespace Havier_Than_Air_S
         bool helyChoiseTime = false;
         private void ButtonActivity(int code)
         {
-            switch(code)
+            switch (code)
             {
                 case 108:
                     ButtonActitateSound.Play(); break;
@@ -104,7 +120,7 @@ namespace Havier_Than_Air_S
                 case 3:
                     helyChoiseTime = true; missionCode = 3; helyChoiseTime = true; break;
                 case 11:
-                     StartGameEvent?.Invoke(missionCode,11); break;
+                    StartGameEvent?.Invoke(missionCode, 11); break;
                 case 12:
                     StartGameEvent?.Invoke(missionCode, 12); break;
                 case 13:
@@ -116,29 +132,52 @@ namespace Havier_Than_Air_S
 
         }
 
+        public bool endMenuOn = false;
 
         public void Update()
         {
-
-            Program.window.Draw(mainMenuSprite);
-
-            if (helyChoiseTime == false)
+            if (endMenuOn == true)
             {
-                for (int i = 0; i < 3; i++)
+                Program.window.Draw(endMenuSprite);
+
+                DrawText("Results", new Vector2f(500, 310),Color.Green,30);
+                DrawText("Score: ", new Vector2f(400, 345),Color.Green, 20);
+                DrawText("Flight Time: ", new Vector2f(400, 365),Color.Green,20);
+                DrawText("NR ракет запущено: ", new Vector2f(400, 385),Color.Green,20);
+                DrawText("Попаданий ракетами: ", new Vector2f(400, 405),Color.Green,20);
+                DrawText("Поражено ПВО: ", new Vector2f(400, 425),Color.Green,20);
+                DrawText("Поражено Танков: ", new Vector2f(400, 445),Color.Green,20);
+                DrawText("Израсходовано топлива: ", new Vector2f(400, 465),Color.Green,20);
+                DrawText("Получено повреждений: ", new Vector2f(400, 485),Color.Green,20);
+                
+                for (int i = 0; i < endMenuButtons.Length; i++)
                 {
-                    mainMenuButtons[i].Update();
+                    endMenuButtons[i].Update();
 
                 }
+                
             }
             else
             {
-                for (int i = 3; i < mainMenuButtons.Length; i++)
-                {
-                    mainMenuButtons[i].Update();
+                Program.window.Draw(mainMenuSprite);
 
+                if (helyChoiseTime == false)
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        mainMenuButtons[i].Update();
+
+                    }
+                }
+                else
+                {
+                    for (int i = 3; i < mainMenuButtons.Length; i++)
+                    {
+                        mainMenuButtons[i].Update();
+
+                    }
                 }
             }
-
             if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Escape, true) == true && helyChoiseTime == true)
             {
                 helyChoiseTime = false;
@@ -147,118 +186,18 @@ namespace Havier_Than_Air_S
 
         }
 
-
-
-        /*
-        private void CheckMousePosition()
+        Text aText;
+        private void DrawText(string txt, Vector2f pos, Color color, uint size)
         {
+            aText = new Text(txt, Program.font, size);
+            aText.Position = pos;
+            aText.FillColor = color;
+
             
-            float x = Program.m_MouseController.x;
-            float y = Program.m_MouseController.y;
-
-            if (x > 217 && x < 423 && y > 332 && y < 353 ) //1
-            {
-
-                if (currentButton != menuButtons.learning)
-                {
-                    ButtonMouseIn(ObuchenieText);
-                    currentButton = menuButtons.learning;
-                }
-
-                if(Program.m_MouseController.LeftButtonIsPressed == true)
-                {
-                    Program.Game.StartGame(0);
-                }
-            }
-            else if (x > 221 && x < 341 && y> 369 && y < 388) //2
-            {
-                if (currentButton != menuButtons.missionTest)
-                {
-                    ButtonMouseIn(MissionsText);
-                    currentButton = menuButtons.missionTest;
-                }
-                if (Program.m_MouseController.LeftButtonIsPressed == true)
-                {
-                    Program.Game.StartGame(1);
-                }
-            }
-
-            else if (x > 221 && x< 370 && y > 410 && y < 430) //3
-            {
-                if (currentButton != menuButtons.freeFlight)
-                {
-                    ButtonMouseIn(FreeFlightText);
-                    currentButton = menuButtons.freeFlight;
-                }
-                if (Program.m_MouseController.LeftButtonIsPressed == true)
-                {
-                    Program.Game.StartGame(2);
-                }
-            }
-
-            else if (currentButton != menuButtons.none)
-            {
-                ObuchenieText.FillColor = new Color(Color.Green);
-                currentButton = menuButtons.none;
-                SetTextSettings(ObuchenieText);
-                SetTextSettings(MissionsText);
-                SetTextSettings(FreeFlightText);
-            }
+            Program.window.Draw(aText);
         }
-
-
-
-        /*
 
       
-            DrawSprite(scoresprite, 0, 0);
-            SetFillColor(Color.White);
-
-            DrawText(500, 310, "Results", 30);
-            DrawText(400, 345, "Score: " + money, 20); //score
-            DrawText(400, 365, "Flight Time: " + flighttime, 20); //полетное время
-            DrawText(400, 385, "NR ракет запущено: " + NRrocketslaunched, 20);
-            DrawText(400, 405, "Попаданий ракетами: " + targetbingos, 20);
-            DrawText(400, 425, "Поражено ПВО: " + buk1destroyes, 20);
-            DrawText(400, 445, "Поражено Танков: " + tank1destroyes, 20);
-            DrawText(400, 465, "Израсходовано топлива: " + fuelusedup, 20);
-            DrawText(400, 485, "Получено повреждений: " + getdamages, 20);
-
-            DrawText(380, 644, "В МЕНЮ ", 24);
-            DrawText(725, 644, "ПОВТОРИТЬ", 24);
-
-            if (MouseX > 377 && MouseX < 495 && MouseY > 641 && MouseY < 673)  // в меню
-            {
-                if (resultmenuchoise != 1) PlaySound(click);
-
-                resultmenuchoise = 1;
-
-                SetFillColor(Color.Green);
-                DrawText(380, 644, "В МЕНЮ ", 24);
-            }
-
-            else
-            {
-                if (MouseX > 714 && MouseX < 878 && MouseY > 642 && MouseY < 673)  // переиграть
-                {
-                    if (resultmenuchoise != 2) PlaySound(click);
-
-                    resultmenuchoise = 2;
-                    SetFillColor(Color.Green);
-                    DrawText(725, 644, "ПОВТОРИТЬ", 24);
-
-
-
-                }
-                else resultmenuchoise = 0;
-
-            }
-        }
-
-
-
-        */
-
 
     }
 }

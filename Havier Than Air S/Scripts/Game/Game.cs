@@ -29,6 +29,7 @@ namespace Havier_Than_Air_S
 
         }
         bool mainMenuOn = true;
+        bool GameStarted = false;
         public void StartGame(int missionCode, int helyCode)
         {
             
@@ -47,6 +48,7 @@ namespace Havier_Than_Air_S
                 case 14: Program.gameState.currentPlayerHely = new OH_6(); break;
             }
             mainMenuOn = false;
+            GameStarted = true;
             currentMission.StartMiss();
         }
 
@@ -54,10 +56,19 @@ namespace Havier_Than_Air_S
 
         public void Update()
         {
-          if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Escape, true))
+            if (GameStarted == true && Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.Escape, true))
             {
                 bool b = mainMenuOn;
-                if (b)  mainMenuOn = false; else mainMenuOn = true;
+                if (b == true)
+                {
+                    mainMenuOn = false;
+                    
+                }
+                else
+                {
+                    mainMenuOn = true;
+                    MenuController.endMenuOn = true;
+                }
             }
 
             if (Program.m_MouseController.CheckKeyboardKey(Keyboard.Key.K, true))

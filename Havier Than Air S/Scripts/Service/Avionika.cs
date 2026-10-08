@@ -1,15 +1,7 @@
-﻿using Havier_Than_Air_S;
+﻿
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Havier_Than_Air_S
 {

@@ -93,9 +93,6 @@ namespace Havier_Than_Air_S.Enemies
             if (numberOfMarshrutPoint>marshrut.marshrutPoints.Length-1)
             {
                 currentMarshrutPoint = marshrut.marshrutPoints.Length - 1;
-                
-
-
             }
             int t = currentMarshrutPoint;
             if (currentMarshrutPoint == marshrut.marshrutPoints.Length) t -= 1;

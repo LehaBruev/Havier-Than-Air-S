@@ -150,9 +150,7 @@ namespace Havier_Than_Air_S
                     {
                         IMoovables[i].SetDamage(null);
                     }
-
                 }
-
             }
         }
        
@@ -162,7 +160,6 @@ namespace Havier_Than_Air_S
 
             for (int i = 0; i < IMoovables.Length; i++)
             {
-
                 if ( (IMoovables[i].GetTypeOfObject() == TypeOfObject.gun || 
                     IMoovables[i].GetTypeOfObject() == TypeOfObject.nr ||
                     IMoovables[i].GetTypeOfObject() == TypeOfObject.sr) && 
@@ -177,12 +174,9 @@ namespace Havier_Than_Air_S
 
                             if (d.GetLength(0)>0)
                             {
-
                                 IMoovables[i].SetDamage(IMoovables[k]);
                                 IMoovables[k].SetDamage(IMoovables[i]);
-
                             }
-
                         }
                         if (IMoovables[k].GetTypeOfObject() == TypeOfObject.house && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
                         {
@@ -190,7 +184,6 @@ namespace Havier_Than_Air_S
 
                             if (d.GetLength(0) > 0)
                             {
-
                                 IMoovables[i].SetDamage(IMoovables[k]);
                                 IMoovables[k].SetDamage(IMoovables[i]);
                             }
@@ -199,13 +192,6 @@ namespace Havier_Than_Air_S
                     }
                 }
             }
-
-
-
-
-
-
         }
-
     }
 }

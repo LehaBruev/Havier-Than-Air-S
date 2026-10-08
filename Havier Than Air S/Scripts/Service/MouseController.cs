@@ -80,14 +80,17 @@ namespace Havier_Than_Air_S
         {
             if (Keyboard.IsKeyPressed(key) == true )
             {
-                if (checkTimer == true && 
-                                KeyPressTimer.ElapsedTime.AsSeconds() > keyPressTimeOut)
+                if (checkTimer == true)
                 {
-                    lastKey = key;
-                    KeyPressTimer.Restart();
-                    return true;
+                    if (KeyPressTimer.ElapsedTime.AsSeconds() > keyPressTimeOut)
+                    {
+                        lastKey = key;
+                        KeyPressTimer.Restart();
+                        return true;
+                    }
+                    else return false;
                 }
-                else return false;
+                else return true;
             }
             else return false;
         }
