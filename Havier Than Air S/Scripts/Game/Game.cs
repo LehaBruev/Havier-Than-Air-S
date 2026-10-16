@@ -50,6 +50,7 @@ namespace Havier_Than_Air_S
             mainMenuOn = false;
             GameStarted = true;
             currentMission.StartMiss();
+            Program.statistica.ClearIndicators();
         }
 
         bool StoreOn = false;
@@ -91,8 +92,6 @@ namespace Havier_Than_Air_S
                 Program.m_PullObjects.Update();
                 Program.collisions.Update();
                 Program.m_Avionika.Update();
-
-               
             }
 
             if (StoreOn == true)

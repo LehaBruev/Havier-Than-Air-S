@@ -106,6 +106,9 @@
     <Compile Include="Scripts\Enemies\PVO1.cs" />
     <Compile Include="Scripts\Helicopters\HelySettings.cs" />
     <Compile Include="Scripts\Missions\Aerodrom.cs" />
+    <Compile Include="Scripts\Missions\Scenaries\EnemyCrest.cs" />
+    <Compile Include="Scripts\Missions\Scenaries\EnemyWave.cs" />
+    <Compile Include="Scripts\Missions\Scenaries\Scenariy_missFreeFlight.cs" />
     <Compile Include="Scripts\Service\Avionika.cs" />
     <Compile Include="Scripts\Service\Avtopilot.cs" />
     <Compile Include="Scripts\Menu\Button.cs" />

@@ -15,6 +15,7 @@ namespace Havier_Than_Air_S
         Sprite spawnSprite;
 
         Vector2f spawnPosition = new Vector2f(1300,750);
+        public Clock spawnClock = new Clock();
 
         public Spawn()
         {
@@ -36,6 +37,7 @@ namespace Havier_Than_Air_S
         public void SpawnEnemy()
         {
             Program.m_PullObjects.StartObject(spawnPosition, 0, new Vector2f(50,0), TypeOfObject.enemyPVO);
+            spawnClock.Restart();
         }
 
 

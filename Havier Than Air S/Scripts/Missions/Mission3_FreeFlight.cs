@@ -1,4 +1,5 @@
 ﻿using Havier_Than_Air_S.Enemies;
+using Havier_Than_Air_S.Scripts.Missions.Scenaries;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -30,6 +31,9 @@ namespace Havier_Than_Air_S.Missions
         //AERODROM
         Aerodrom aerodrom;
 
+        //Сценарий
+        Scenariy_missFreeFlight scenario;
+
         public Mission3_FreeFlight()
         {
             backgroundSprite = new Sprite(background);
@@ -49,6 +53,7 @@ namespace Havier_Than_Air_S.Missions
             
             //Spawn
             EnemySpawn = new Spawn();
+            scenario = new Scenariy_missFreeFlight(EnemySpawn);
 
             Marshrut mar = new Marshrut();
 
@@ -108,8 +113,6 @@ namespace Havier_Than_Air_S.Missions
 
         public override void StartMiss()
         {
-            
-
             base.StartMiss();
             SetGround();
 
@@ -151,6 +154,7 @@ namespace Havier_Than_Air_S.Missions
 
 
             EnemySpawn.Update();
+            scenario.Update();
 
             CheckPlayerComands();
 
