@@ -34,9 +34,9 @@ namespace Havier_Than_Air_S
             Program.window.Draw(spawnSprite);
         }
 
-        public void SpawnEnemy()
+        public void SpawnEnemy(TypeOfObject type)
         {
-            Program.m_PullObjects.StartObject(spawnPosition, 0, new Vector2f(50,0), TypeOfObject.enemyPVO);
+            Program.m_PullObjects.StartObject(spawnPosition, 0, new Vector2f(50,0), type);
             spawnClock.Restart();
         }
 

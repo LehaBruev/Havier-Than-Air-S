@@ -307,15 +307,31 @@ namespace Havier_Than_Air_S
 
         private void CheckRUD()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.W) == true) currentRUDposition = (currentRUDposition + settings.shagRUD * delta);
+            if (Keyboard.IsKeyPressed(Keyboard.Key.W) == true)
+            {
+                currentRUDposition = (currentRUDposition + settings.shagRUD * delta);
+            }
+            else
+            {
+                if (currentRUDposition > 90) currentRUDposition = (currentRUDposition - settings.shagRUD * delta/2);
+            }
             if (currentRUDposition > 100) currentRUDposition = 100;
             if (Keyboard.IsKeyPressed(Keyboard.Key.S) == true) currentRUDposition = (currentRUDposition - settings.shagRUD * delta);
             if (currentRUDposition < 0) currentRUDposition = 0;
         }
 
 
+
+        float rpmToRUD_changeSpeed = 100f;
+        float RPMTargetByRUD = 0;
+
         private void CheckEngineSwitch()
         {
+            //Расчетные обороты от ручки газа
+            RPMTargetByRUD = currentRUDposition / 100 * settings.maxRPM;
+            if (RPM > settings.maxRPM) RPM = settings.maxRPM;
+
+
             // вкл/выкл двигателя
             if (Keyboard.IsKeyPressed(Keyboard.Key.I) == true && keyStartIsPressed == false)
             {
@@ -346,14 +362,27 @@ namespace Havier_Than_Air_S
             {
                 if (RPM > 0)
                 {
-                    RPM = RPM - 150 * Program.deltaTimer.Delta() * 100;
+                    RPM = RPM - rpmToRUD_changeSpeed * Program.deltaTimer.Delta() * 100;
                     if (helistop != 1)
                     {
                         helistop = 1;
-                        //PlaySound(engineStartStopSound, engineStopSoundBuffer);
+                        PlaySound(engineStartStopSound, engineStopSoundBuffer);
                     }
                 }
                 if (RPM < 0) RPM = 0;
+            }
+            else
+            {
+                if (RPM > RPMTargetByRUD)
+                {
+                    RPM = RPM - rpmToRUD_changeSpeed * Program.deltaTimer.Delta() * 100;
+
+                }
+                if (RPM < RPMTargetByRUD)
+                {
+                    RPM = RPM + rpmToRUD_changeSpeed * Program.deltaTimer.Delta() * 100;
+
+                }
             }
 
             // Продолжение работы мотора
@@ -381,9 +410,7 @@ namespace Havier_Than_Air_S
            // if (fuelCurrent < 810 && fuelCurrent > 805) PlaySound(channelSoundRita, ostalos800kg);
             //if (helifuel < 150 && helifuel > 145) PlaySound(rubejvozvrata); //рубеж возврата предупреждение голосовое
 
-            //Обороты
-            RPM = currentRUDposition / 100 * settings.maxRPM;
-            if (RPM > settings.maxRPM ) RPM = settings.maxRPM;
+           
 
             //Сила ротора
             currentRotorPower = RPM / settings.maxRPM * (currentEnginelife / 100) * settings.engineMaxPower * Program.m_Pogoda.GetCurrentAirP(altitude);

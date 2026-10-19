@@ -169,8 +169,8 @@ namespace Havier_Than_Air_S.Missions
                 if (Keyboard.IsKeyPressed(Keyboard.Key.P))
                 {
                     
-                    EnemySpawn.SpawnEnemy();
-                    Program.log.SaveCurrentGameLogFile("");
+                    EnemySpawn.SpawnEnemy(TypeOfObject.tank1);
+                    Program.log.SaveCurrentGameLogFile("P tank spawned");
                 }
                 clock.Restart();
             }

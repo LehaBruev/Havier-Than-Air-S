@@ -28,15 +28,15 @@ namespace Havier_Than_Air_S.Scripts.Missions.Scenaries
 
             EnemyCrest[] crest1 = new EnemyCrest[]
             {
-            new EnemyCrest(TypeOfObject.enemy, 3, 0.5f),  // три танка через каждые 0.5 секунды
-            new EnemyCrest(TypeOfObject.enemyPVO, 1, 5f),
-            new EnemyCrest(TypeOfObject.enemyPVO, 1, 7f),
-            new EnemyCrest(TypeOfObject.enemy, 5,1f),
+            new EnemyCrest(TypeOfObject.tank1, 3, 0.5f),  // три танка через каждые 0.5 секунды
+            new EnemyCrest(TypeOfObject.enemyPVO, 1, 10f),
+            new EnemyCrest(TypeOfObject.enemyPVO, 1, 10f),
+            new EnemyCrest(TypeOfObject.tank1, 5, 1f),
              };
 
             EnemyCrest[] crest2 = new EnemyCrest[]
             {
-            new EnemyCrest(TypeOfObject.enemy, 10, 0.9f),  // три танка через каждые 0.5 секунды
+            new EnemyCrest(TypeOfObject.tank1, 10, 0.9f),  // три танка через каждые 0.5 секунды
             new EnemyCrest(TypeOfObject.enemyPVO, 3, 3f),
             new EnemyCrest(TypeOfObject.enemyPVO, 10, 5f)
              };
@@ -56,7 +56,7 @@ namespace Havier_Than_Air_S.Scripts.Missions.Scenaries
                 {
                     if (clock.ElapsedTime.AsSeconds()>= Waves[currentMegaWave].Crests[Waves[currentMegaWave].currentCrest].PrestartTimer) // Ждем таймер
                     {
-                        spawn.SpawnEnemy();
+                        spawn.SpawnEnemy(Waves[currentMegaWave].Crests[Waves[currentMegaWave].currentCrest].TypeOfEnemy);
                         Waves[currentMegaWave].Crests[Waves[currentMegaWave].currentCrest].CountInWave -= 1;
                         clock.Restart();
 

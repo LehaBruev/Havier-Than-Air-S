@@ -23,7 +23,7 @@ namespace Havier_Than_Air_S
         nr,
         sr,
         bang,
-        enemy,
+        tank1,
         enemyPVO,
         house
         
@@ -92,7 +92,7 @@ namespace Havier_Than_Air_S
         {
             for (int i = 0; i < IMoovables.Length; i++)
             {
-                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.enemy )
+                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.tank1 )
                 {
                     (IMoovables[i] as Tnk1).marshrut= marsh;
 
@@ -168,7 +168,7 @@ namespace Havier_Than_Air_S
                 {
                     for (int k = 0; k < IMoovables.Length; k++)
                     {
-                        if ((IMoovables[k].GetTypeOfObject() == TypeOfObject.enemy || IMoovables[k].GetTypeOfObject() == TypeOfObject.enemyPVO) && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
+                        if ((IMoovables[k].GetTypeOfObject() == TypeOfObject.tank1 || IMoovables[k].GetTypeOfObject() == TypeOfObject.enemyPVO) && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
                         {
                            Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
 

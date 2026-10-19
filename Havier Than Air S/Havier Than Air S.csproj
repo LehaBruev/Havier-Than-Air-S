@@ -390,6 +390,12 @@
     <Content Include="Sounds\ric_metal-2.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sounds\Weapons\Rikochets\bulletTarget_1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Weapons\Rikochets\rick1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\Weapons\rocket1.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

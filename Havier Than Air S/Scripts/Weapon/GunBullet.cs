@@ -119,11 +119,13 @@ namespace Havier_Than_Air_S.Weapon
             {
                 colliderStatus = false;
                 currentProjectileAngle = Program.Game.rnd.Next(0, 360);
-                currentProjectileSpeed /= (float)2*Program.Game.rnd.Next(4, 10)/10; 
+                currentProjectileSpeed /= (float)2*Program.Game.rnd.Next(4, 10)/10;
+                Program.soundManager.playSound(1);
             }
             else
             {
                 base.SetDamage(obj);
+                Program.soundManager.playSound(2);
             }
                 
         }

@@ -14,7 +14,7 @@ namespace Havier_Than_Air_S.Enemies
     public class Tnk2: IMoovable
     {
         //Тип объекта
-        TypeOfObject typeofObject = TypeOfObject.enemy;
+        TypeOfObject typeofObject = TypeOfObject.tank1;
 
         bool colliderStatus;
 

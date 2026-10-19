@@ -126,7 +126,7 @@ namespace Havier_Than_Air_S.Missions
                 Program.m_PullObjects.StartObject(new Vector2f(rnd.Next(3500,3900), 750),
                                                 0, 
                                                 new Vector2f(rnd2.Next(5, 75),0), 
-                                                TypeOfObject.enemy);
+                                                TypeOfObject.tank1);
             }
 
 
