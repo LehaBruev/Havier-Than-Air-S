@@ -394,7 +394,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\Weapons\Rikochets\rick1.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\Weapons\rocket1.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

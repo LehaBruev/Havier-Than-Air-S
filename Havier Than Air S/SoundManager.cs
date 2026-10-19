@@ -23,8 +23,8 @@ namespace Havier_Than_Air_S
 
         SoundBuffer rocket1;
         //Рикошет
-        SoundBuffer rikochet = new SoundBuffer("Sounds\\rick1.wav"); // стекло;
-        SoundBuffer probitieBullet = new SoundBuffer("Sounds\\bulletTarget_1"); // стекло;
+        SoundBuffer rikochet = new SoundBuffer("Sounds\\Weapons\\Rikochets\\rick1.wav"); // стекло;
+        SoundBuffer probitieBullet = new SoundBuffer("Sounds\\Weapons\\Rikochets\\bulletTarget_1"); // стекло;
 
 
         string rotorSound1 = "Sounds\\Engine\\ap_rotorhigh.wav";
