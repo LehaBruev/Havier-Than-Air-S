@@ -39,6 +39,8 @@ namespace Havier_Than_Air_S
         Sound rotorSound = new Sound();
 
         Sound masterSound;
+        Sound masterSound2;
+        Sound masterSound3;
 
         Random rnd = new Random();
 
@@ -56,27 +58,50 @@ namespace Havier_Than_Air_S
 
 
             masterSound = new Sound();
+            masterSound2 = new Sound();
+            masterSound3 = new Sound();
             //playSound(1);
         }
+
+        private void PlaySound(SoundBuffer soundBuf)
+        {
+            if (masterSound.Status == SoundStatus.Playing)
+            {
+                if (masterSound2.Status == SoundStatus.Playing)
+                {
+                    masterSound3.SoundBuffer = soundBuf;
+                    masterSound3.Play();
+                }
+                else
+                {
+                    masterSound2.SoundBuffer = soundBuf;
+                    masterSound2.Play();
+                }
+            }
+            else
+            {
+                masterSound.SoundBuffer = soundBuf;
+                masterSound.Play();
+            }
+
+        }
+
 
          public void playSound(int intSound)
         {
 
             if (intSound == 1) // рикошет
             {
-                
-                masterSound.SoundBuffer = rockets[rnd.Next(1, 3)] ;
-                masterSound.Play();
+                PlaySound(rockets[rnd.Next(1, 3)]);
             }
             if (intSound == 2) // попадание
             {
-                masterSound.SoundBuffer = bulletTargets[rnd.Next(1, 2)];
-                masterSound.Play();
+                PlaySound(bulletTargets[rnd.Next(1, 2)]);
+                
             }
             if (intSound == 3) // попадание в землю
             {
-                masterSound.SoundBuffer = udarVPesok[rnd.Next(1, 2)];
-                masterSound.Play();
+                PlaySound(udarVPesok[rnd.Next(1, 2)]);
             }
 
 
