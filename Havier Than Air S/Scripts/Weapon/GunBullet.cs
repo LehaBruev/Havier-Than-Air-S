@@ -125,7 +125,14 @@ namespace Havier_Than_Air_S.Weapon
             else
             {
                 base.SetDamage(obj);
-                Program.soundManager.playSound(2);
+                if (obj == null)
+                {
+                    Program.soundManager.playSound(3);
+                }
+                else
+                {
+                    Program.soundManager.playSound(2);
+                }
             }
                 
         }

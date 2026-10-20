@@ -24,7 +24,8 @@ namespace Havier_Than_Air_S
         SoundBuffer rocket1;
         //Рикошет
         SoundBuffer rikochet = new SoundBuffer("Sounds\\Weapons\\Rikochets\\rick1.wav"); // стекло;
-        SoundBuffer probitieBullet = new SoundBuffer("Sounds\\Weapons\\Rikochets\\bulletTarget_1"); // стекло;
+        SoundBuffer probitieBullet = new SoundBuffer("Sounds\\Weapons\\Rikochets\\bulletTarget_1.wav"); // стекло;
+        SoundBuffer zemlyaBullet = new SoundBuffer("Sounds\\Weapons\\Rikochets\\udarVPesok.wav"); // стекло;
 
 
         string rotorSound1 = "Sounds\\Engine\\ap_rotorhigh.wav";
@@ -39,7 +40,7 @@ namespace Havier_Than_Air_S
         public SoundManager()
         {
             masterSound = new Sound();
-            playSound(1);
+            //playSound(1);
         }
 
          public void playSound(int intSound)
@@ -53,6 +54,11 @@ namespace Havier_Than_Air_S
             if (intSound == 2)
             {
                 masterSound.SoundBuffer = probitieBullet;
+                masterSound.Play();
+            }
+            if (intSound == 3)
+            {
+                masterSound.SoundBuffer = zemlyaBullet;
                 masterSound.Play();
             }
 
