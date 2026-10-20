@@ -10,6 +10,11 @@ namespace Havier_Than_Air_S
 
     public class SoundManager
     {
+        // Пули 1 - рикошет от брони, 2 - пробитие брони, 3 - попадание в землю
+        //
+        //
+
+
 
         SoundBuffer ostalos500kg = new SoundBuffer("Sounds\\Rita\\Fuel500.wav"); // Осталось 500 кг звук
         SoundBuffer ostalos800kg = new SoundBuffer("Sounds\\Rita\\Fuel800.wav"); // Осталось 800 кг звук
@@ -21,11 +26,9 @@ namespace Havier_Than_Air_S
         SoundBuffer grass1 = new SoundBuffer("Sounds\\glass3.wav"); // стекло
 
 
-        SoundBuffer rocket1;
-        //Рикошет
-        SoundBuffer rikochet = new SoundBuffer("Sounds\\Weapons\\Rikochets\\rick1.wav"); // стекло;
-        SoundBuffer probitieBullet = new SoundBuffer("Sounds\\Weapons\\Rikochets\\bulletTarget_1.wav"); // стекло;
-        SoundBuffer zemlyaBullet = new SoundBuffer("Sounds\\Weapons\\Rikochets\\udarVPesok.wav"); // стекло;
+        SoundBuffer[] rockets; //Рикошет
+        SoundBuffer[] bulletTargets; //металлУдар
+        SoundBuffer[] udarVPesok; //песок
 
 
         string rotorSound1 = "Sounds\\Engine\\ap_rotorhigh.wav";
@@ -37,8 +40,21 @@ namespace Havier_Than_Air_S
 
         Sound masterSound;
 
+        Random rnd = new Random();
+
         public SoundManager()
         {
+            rockets = new SoundBuffer[] { new SoundBuffer("Sounds\\Weapons\\Rikochets\\rick0.wav"), 
+                                            new SoundBuffer("Sounds\\Weapons\\Rikochets\\rick2.wav"),
+                                                new SoundBuffer("Sounds\\Weapons\\Rikochets\\rick3.wav")};
+
+            bulletTargets = new SoundBuffer[] { new SoundBuffer("Sounds\\Weapons\\Rikochets\\bulletTarget_2.wav"),
+                                                new SoundBuffer("Sounds\\Weapons\\Rikochets\\bulletTarget_3.wav")};
+            
+            udarVPesok = new SoundBuffer[] { new SoundBuffer("Sounds\\Weapons\\Rikochets\\udarVPesok.wav"),
+                                                new SoundBuffer("Sounds\\Weapons\\Rikochets\\udarVPesok2long.wav")};
+
+
             masterSound = new Sound();
             //playSound(1);
         }
@@ -46,19 +62,20 @@ namespace Havier_Than_Air_S
          public void playSound(int intSound)
         {
 
-            if (intSound == 1)
+            if (intSound == 1) // рикошет
             {
-                masterSound.SoundBuffer = rikochet;
+                
+                masterSound.SoundBuffer = rockets[rnd.Next(1, 3)] ;
                 masterSound.Play();
             }
-            if (intSound == 2)
+            if (intSound == 2) // попадание
             {
-                masterSound.SoundBuffer = probitieBullet;
+                masterSound.SoundBuffer = bulletTargets[rnd.Next(1, 2)];
                 masterSound.Play();
             }
-            if (intSound == 3)
+            if (intSound == 3) // попадание в землю
             {
-                masterSound.SoundBuffer = zemlyaBullet;
+                masterSound.SoundBuffer = udarVPesok[rnd.Next(1, 2)];
                 masterSound.Play();
             }
 
