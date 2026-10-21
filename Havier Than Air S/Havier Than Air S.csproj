@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Scripts\AerodromMenu.cs" />
+    <Compile Include="Scripts\Enemies\Jeep.cs" />
     <Compile Include="Scripts\Enemies\PVO1.cs" />
     <Compile Include="Scripts\Helicopters\HelySettings.cs" />
     <Compile Include="Scripts\Missions\Aerodrom.cs" />
@@ -210,6 +211,9 @@
     </Content>
     <Content Include="Images\BackGroundLevel1 - Копировать.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Jeep1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Planshet1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -41,6 +41,7 @@ namespace Havier_Than_Air_S
         Sound masterSound;
         Sound masterSound2;
         Sound masterSound3;
+        Sound masterSound4;
 
         Random rnd = new Random();
 
@@ -58,9 +59,13 @@ namespace Havier_Than_Air_S
 
 
             masterSound = new Sound();
+            masterSound.Volume = Program.Mixer.MasterVolume * Program.Mixer.bulletVolume/100* Program.Mixer.SoundsVolume/100;
             masterSound2 = new Sound();
+            masterSound2.Volume = Program.Mixer.MasterVolume * Program.Mixer.bulletVolume / 100 * Program.Mixer.SoundsVolume / 100;
             masterSound3 = new Sound();
-            //playSound(1);
+            masterSound3.Volume = Program.Mixer.MasterVolume * Program.Mixer.bulletVolume / 100 * Program.Mixer.SoundsVolume / 100;
+            masterSound4 = new Sound();
+            masterSound4.Volume = Program.Mixer.MasterVolume * Program.Mixer.bulletVolume / 100 * Program.Mixer.SoundsVolume / 100;
         }
 
         private void PlaySound(SoundBuffer soundBuf)
@@ -69,8 +74,16 @@ namespace Havier_Than_Air_S
             {
                 if (masterSound2.Status == SoundStatus.Playing)
                 {
-                    masterSound3.SoundBuffer = soundBuf;
-                    masterSound3.Play();
+                    if (masterSound3.Status == SoundStatus.Playing)
+                    {
+                        masterSound4.SoundBuffer = soundBuf;
+                        masterSound4.Play();
+                    }
+                    else
+                    {
+                        masterSound3.SoundBuffer = soundBuf;
+                        masterSound3.Play();
+                    }
                 }
                 else
                 {
@@ -92,16 +105,16 @@ namespace Havier_Than_Air_S
 
             if (intSound == 1) // рикошет
             {
-                PlaySound(rockets[rnd.Next(1, 3)]);
+                PlaySound(rockets[rnd.Next(0, 3)]);
             }
             if (intSound == 2) // попадание
             {
-                PlaySound(bulletTargets[rnd.Next(1, 2)]);
+                PlaySound(bulletTargets[rnd.Next(0, 2)]);
                 
             }
             if (intSound == 3) // попадание в землю
             {
-                PlaySound(udarVPesok[rnd.Next(1, 2)]);
+                PlaySound(udarVPesok[rnd.Next(0, 2)]);
             }
 
 

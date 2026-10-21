@@ -10,10 +10,11 @@ namespace Havier_Than_Air_S.Scripts.Service
     {
 
 
-        public float MasterVolume = 40;
+        public float MasterVolume = 60;
 
         public float MusicVolume = 100;
         public float SoundsVolume = 100;
+        public float bulletVolume = 40;
 
 
 

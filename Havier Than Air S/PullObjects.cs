@@ -24,7 +24,9 @@ namespace Havier_Than_Air_S
         sr,
         bang,
         tank1,
+        tank2,
         enemyPVO,
+        Jeep_1,
         house
         
     }
@@ -37,7 +39,9 @@ namespace Havier_Than_Air_S
         private int SNRcount = 8;
         private int BangCount = 8;
         private int TankCount = 20;
+        private int Tank2Count = 20;
         private int PVO1Count = 10;
+        private int Jeep_1Count = 20;
         private int HousCount = 200;
         private int[] counts;
 
@@ -62,11 +66,13 @@ namespace Havier_Than_Air_S
                 SNRcount,
                 BangCount,
                 TankCount,
+                Tank2Count,
                 PVO1Count,
+                Jeep_1Count,
                 HousCount
             };
 
-            IMoovables = new IMoovable[ GunBulletCount + NRcount + SNRcount + BangCount + TankCount + PVO1Count + HousCount];
+            IMoovables = new IMoovable[ GunBulletCount + NRcount + SNRcount + BangCount + TankCount + Tank2Count + PVO1Count + +Jeep_1Count + HousCount];
 
             int n = 0;
             for (int m = 0; m < counts.Length; m++)
@@ -78,8 +84,10 @@ namespace Havier_Than_Air_S
                     if (m==2) IMoovables[n] = new SNRocket();
                     if (m==3) IMoovables[n] = new Bang(position);
                     if (m==4) IMoovables[n] = new Tnk1();
-                    if (m==5) IMoovables[n] = new PVO1();
-                    if (m==6) IMoovables[n] = new Hous();
+                    if (m==5) IMoovables[n] = new Tnk2();
+                    if (m==6) IMoovables[n] = new PVO1();
+                    if (m==7) IMoovables[n] = new Jeep_1();
+                    if (m==8) IMoovables[n] = new Hous();
                     n += 1;
                 }
             }
@@ -100,6 +108,16 @@ namespace Havier_Than_Air_S
                 if ( IMoovables[i].GetTypeOfObject() == TypeOfObject.enemyPVO)
                 {
                     (IMoovables[i] as PVO1).marshrut = marsh;
+
+                }
+                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.tank2)
+                {
+                    (IMoovables[i] as Tnk2).myMarshrut = marsh;
+
+                }
+                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.Jeep_1)
+                {
+                    (IMoovables[i] as Jeep_1).marshrut = marsh;
 
                 }
 
