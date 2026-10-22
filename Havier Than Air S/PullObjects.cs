@@ -57,7 +57,6 @@ namespace Havier_Than_Air_S
         
         public void StartPull()
         {
-            
 
             counts = new int[]
             {
@@ -186,7 +185,8 @@ namespace Havier_Than_Air_S
                 {
                     for (int k = 0; k < IMoovables.Length; k++)
                     {
-                        if ((IMoovables[k].GetTypeOfObject() == TypeOfObject.tank1 || IMoovables[k].GetTypeOfObject() == TypeOfObject.enemyPVO) && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
+                        if ((IMoovables[k].GetTypeOfObject() == TypeOfObject.tank1 || IMoovables[k].GetTypeOfObject() == TypeOfObject.enemyPVO || IMoovables[k].GetTypeOfObject() == TypeOfObject.Jeep_1 || IMoovables[k].GetTypeOfObject() == TypeOfObject.tank2) 
+                            && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
                         {
                            Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
 

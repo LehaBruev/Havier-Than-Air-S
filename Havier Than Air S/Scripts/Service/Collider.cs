@@ -11,6 +11,7 @@ namespace Havier_Than_Air_S
     public class Collider
     {
         public Shape shape;
+        Marker marker;
 
         public Collider(Shape sh, Color color, Vector2f pos) 
         
@@ -18,11 +19,14 @@ namespace Havier_Than_Air_S
             shape = sh;
             shape.FillColor = color;
             shape.Position = pos;
+
+            marker = new Marker(shape, color, 5);
         }
         
         public void UpdateViewOfCollider()
         {
             Program.window.Draw(shape);
+            marker.Update();
 
         }
 

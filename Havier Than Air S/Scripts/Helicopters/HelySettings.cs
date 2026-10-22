@@ -55,7 +55,7 @@ namespace Havier_Than_Air_S
         public Vector2f[] weaponPositionsOrigins = new Vector2f[2]
                         { new Vector2f(-9, 35), // подвески
                          new Vector2f(-6, 35) }; // носовая пушка
-        public int bulletsCount = 250;
+        public int bulletsCount = 450;
         float bulletWeight = 0.2f;
         public int NRrocketsCount = 16;
         float NRrocketWeight = 100;

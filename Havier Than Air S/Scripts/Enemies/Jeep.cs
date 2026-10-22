@@ -1,4 +1,5 @@
-﻿using Havier_Than_Air_S.Vehicle_parts;
+﻿using Havier_Than_Air_S.Scripts.Enemies;
+using Havier_Than_Air_S.Vehicle_parts;
 using Havier_Than_Air_S.Weapon;
 using SFML.Graphics;
 using SFML.System;
@@ -6,76 +7,32 @@ using System;
 
 namespace Havier_Than_Air_S.Enemies
 {
-    public class Jeep_1: IMoovable
+    public class Jeep_1: Base_Vehicle, IMoovable
     {
-        //Тип объекта
-        TypeOfObject typeofObject = TypeOfObject.Jeep_1;
 
         bool colliderStatus;
-
-        //Маршрут движения
-        public Marshrut marshrut;
-        int currentMarshrutPoint = 0;
-        float minDistToMarshPoint = 5f;
-        Vector2f centerOfMass = new Vector2f(54,63);
         
-        //Параметры формы коллайдера
-        RectangleShape shape;
         PullStatus status = PullStatus.inPool;
-
-        //Запчасти
-        Detal[] detaly;
-        Vector2f[] detalyPoints;
-
-
-        // Параметры Танка1
-        float maxLifes = 100;
-        float tank1speed = 15;
-
-        // Переменные 
-        float currentLifes = 0;
-        float angle = 0;
-        Vector2f position = new Vector2f(0,0);
-
-        Texture body;
-
-        Sprite bodySprite;
-
-        //Позиции
-        Vector2f headPosition = new Vector2f(0,-25); 
-        Vector2f gunPosition = new Vector2f(-4,-23);
-
-        Vector2f currentGunPosition = new Vector2f(5,8);
-        float gunAngle = 35;
-
-       
-        //marker
-        Marker marker;
-        Text lifeText;
-
-        //Наклон на кочках
-        float targetAngleNaklon = 0;
-        float angleNaklonSpeed = 1;
 
 
 
         public Jeep_1()
         {
-            
-
+            //Тип объекта
+            typeofObject = TypeOfObject.Jeep_1;
             marshrut = new Marshrut();
 
-            body = new Texture(new Image("Images\\Jeep1.png"));
+            textureBody = new Texture(new Image("Images\\Jeep1.png"));
             
 
-            bodySprite = new Sprite(body);
-            bodySprite.Scale = new Vector2f(100, 40);
-            bodySprite.Origin = centerOfMass;
+            spriteBody = new Sprite(textureBody);
+            spriteBody.Scale = new Vector2f(0.2f, 0.2f);
+            spriteBody.Origin = centerOfMass-new Vector2f(50,-50);
 
-            shape = new RectangleShape(new Vector2f(104, 35));
-            shape.Origin = centerOfMass + new Vector2f(0,-30);
+            colliderShape = new RectangleShape(new Vector2f(104, 35));
+            colliderShape.Origin = centerOfMass + new Vector2f(0,-30);
 
-            marker = new Marker(shape, Color.Yellow, 3);
+            marker = new Marker(colliderShape, Color.Yellow, 3);
 
             angleNaklonSpeed = new Random().Next(1,3);
         }
@@ -155,14 +112,14 @@ namespace Havier_Than_Air_S.Enemies
 
             //перемещение
             position = position + moveVector;
-            shape.Position = position;
-            shape.Rotation = angle;
-            bodySprite.Rotation = angle;
-            bodySprite.Position = position;
+            colliderShape.Position = position;
+            colliderShape.Rotation = angle;
+            spriteBody.Rotation = angle;
+            spriteBody.Position = position+new Vector2f(-50,-20);
 
                         
            
-            Program.window.Draw(bodySprite);
+            Program.window.Draw(spriteBody);
             /*
             for (int i = 0; i < detaly.Length; i++)
             {
@@ -171,7 +128,7 @@ namespace Havier_Than_Air_S.Enemies
                 detaly[i].Update();
             }
             */
-            marker.UpdatePoints(shape);
+            marker.UpdatePoints(colliderShape);
             marker.Update();
             
             lifeText = new Text(currentLifes.ToString(), Program.font, 10);
@@ -195,7 +152,7 @@ namespace Havier_Than_Air_S.Enemies
 
         public Shape GetShape()
         {
-            return shape;
+            return colliderShape;
         }
 
         public Vector2f GetPosition()

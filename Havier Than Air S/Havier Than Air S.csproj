@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Scripts\AerodromMenu.cs" />
+    <Compile Include="Scripts\Enemies\Base_Vehicle.cs" />
     <Compile Include="Scripts\Enemies\Jeep.cs" />
     <Compile Include="Scripts\Enemies\PVO1.cs" />
     <Compile Include="Scripts\Helicopters\HelySettings.cs" />
