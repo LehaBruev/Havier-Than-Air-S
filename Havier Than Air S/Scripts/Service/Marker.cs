@@ -13,7 +13,7 @@ namespace Havier_Than_Air_S
     {
 
         private Vector2f[] pointsPositions;
-        CircleShape markerPoint;
+        public CircleShape markerPoint;
         Shape m_Shape;
         float size;
 

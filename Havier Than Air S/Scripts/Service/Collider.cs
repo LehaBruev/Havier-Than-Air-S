@@ -11,22 +11,41 @@ namespace Havier_Than_Air_S
     public class Collider
     {
         public Shape shape;
-        Marker marker;
+        public Marker marker;
+        bool MarkerOn = false;
 
-        public Collider(Shape sh, Color color, Vector2f pos) 
-        
+        //Конструктор с Маркером
+        public Collider(Shape sh, Color markerColor) 
         {
             shape = sh;
-            shape.FillColor = color;
-            shape.Position = pos;
 
-            marker = new Marker(shape, color, 5);
+            MarkerOn = true;
+            marker = new Marker(shape, markerColor, 5);
         }
-        
-        public void UpdateViewOfCollider()
+        //конструктор без маркера
+        public Collider(Shape sh)
+
+        {
+            shape = sh;
+        }
+        //Конструктор с оригином
+        public Collider(Shape sh, Color markerColor, Vector2f origin)
+        {
+            shape = sh;
+
+            MarkerOn = true;
+            marker = new Marker(shape, markerColor, 5);
+            shape.Origin = origin;
+        }
+
+        public void Update()
         {
             Program.window.Draw(shape);
-            marker.Update();
+
+            if (MarkerOn)
+            {
+                marker.Update();
+            }
 
         }
 

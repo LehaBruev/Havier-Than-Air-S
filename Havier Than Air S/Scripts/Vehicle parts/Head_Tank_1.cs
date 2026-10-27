@@ -10,12 +10,11 @@ namespace Havier_Than_Air_S.Vehicle_parts
 
        public Head_Tank_1()
        {
-            _origin = new Vector2f(11,6);
-            _shape = new RectangleShape(new Vector2f(10, 10));
-            _texture  = new Texture(Program.m_TextureManager.allImage, new IntRect(159, 878, 45, 12));
-            _sprite = new Sprite(_texture);
-            _sprite.Origin = _origin;
 
+            Texture _texture  = new Texture(Program.m_TextureManager.allImage, new IntRect(159, 878, 45, 12));
+            _sprite = new Sprite(_texture);
+            _sprite.Origin = new Vector2f(11, 6);
+            _Collider = new Collider(new RectangleShape(new Vector2f(10, 10)));
         }
 
 

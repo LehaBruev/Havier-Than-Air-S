@@ -31,8 +31,8 @@ namespace Havier_Than_Air_S
         public void Update()
         {
             Program.window.Draw(spr);
-            collider.UpdateViewOfCollider();
-            padLandCollider.UpdateViewOfCollider();
+            collider.Update();
+            padLandCollider.Update();
         }
 
         /*

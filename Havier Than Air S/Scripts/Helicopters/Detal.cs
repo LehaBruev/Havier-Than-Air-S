@@ -10,27 +10,45 @@ namespace Havier_Than_Air_S
 {
     public class Detal
     {
-
-        protected Shape _shape;
-
-        protected Texture _texture;
+        //Параметры
+        public Collider _Collider;
         protected Sprite _sprite;
 
 
+        //Положение
         protected Vector2f _position;
         protected float _angle;
-        protected Vector2f _origin;
 
-        //Маркер
-        protected Marker marker;
-        Color color = new Color(Color.Green);
-        int markerON = 0;
+        //Крепление
+        public Vector2f[] AttachmentPoints;
 
-        public Detal()
+        //Переменные
+        public Vector2f[] CurrentAttachmentPointLocalPos;
+
+        void CheckAttachPointPositions()
         {
-            _shape = new RectangleShape(new Vector2f(5, 5));
-            marker = new Marker(_shape, color, 3);
+            for (int i = 0; i < AttachmentPoints.Length; i++)
+            {
+                CurrentAttachmentPointLocalPos[i] = Matematika.LocalPointOfRotationObject(AttachmentPoints[i], _angle);
+            }
 
+        }
+
+
+        public Detal(Collider collider, Sprite sprite, Vector2f[] attachPoints)
+        {
+            _Collider = collider;
+            _sprite = sprite;
+            AttachmentPoints = attachPoints;
+            CurrentAttachmentPointLocalPos = new Vector2f[AttachmentPoints.Length];
+        }
+        public Detal(Collider collider, Sprite sprite)
+        {
+            _Collider = collider;
+            _sprite = sprite;
+        }
+        public Detal()
+        { 
         }
 
         public virtual void setPosAndAngle(Vector2f pos, float ang)
@@ -41,13 +59,28 @@ namespace Havier_Than_Air_S
 
         public virtual void Update()
         {
-            _sprite.Position = _position;
-            _sprite.Rotation = _angle;
-            _shape.Position = _position;
-            _shape.Rotation = _angle;
-            Program.window.Draw(_sprite);
-            Program.window.Draw(_shape);
-            marker.Update();
+            if (AttachmentPoints != null)
+            {
+                CheckAttachPointPositions(); //Корректировка положений точек креплений
+            }
+
+            if (_sprite != null)
+            {
+                _sprite.Position = _position; //Обновление картинки
+                _sprite.Rotation = _angle;    //
+                Program.window.Draw(_sprite); //Отрисовка
+            }
+
+            if (_Collider != null)
+            {
+                _Collider.shape.Position = _position; //Обновление коллайдера
+                _Collider.shape.Rotation = _angle;    //
+                _Collider.Update();    //Отрисовка
+            }
+
+            
+            
+            
         }
 
 

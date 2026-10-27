@@ -21,27 +21,26 @@ namespace Havier_Than_Air_S.HelyParts
         public TopRotor_UH1()
         {
             //topVint
-            _shape = new RectangleShape(topVintSize);
+             Shape _shape = new RectangleShape(topVintSize);
             _shape.Origin = topVintOrigin;
             _shape.FillColor = topRotorColor;
-            marker = new Marker(_shape, Color.Green, 3);
+            _Collider = new Collider(_shape);
+            //_Collider = new Collider(_shape,Color.Green);
+            //_Collider.marker.markerPoint.Radius = 3;//радиус точки для маркера
         }
 
         public void Update(Vector2f pos, float ang, float RPM_procent)
         {
             setPosAndAngle(pos, ang);
             UpdateRotorSpeed(RPM_procent);
-            _shape.Position = _position;
-            _shape.Rotation = _angle;
-            Program.window.Draw(_shape);
-            marker.Update();
+            base.Update();
         }
 
 
         private void UpdateRotorSpeed(float RPM_procent)
         {
 
-            float RotorX = _shape.Scale.X + topVintSpeed * Program.deltaTimer.Delta()*Program.gameSpeed / 1000 *
+            float RotorX = _Collider.shape.Scale.X + topVintSpeed * Program.deltaTimer.Delta()*Program.gameSpeed / 1000 *
                                    RPM_procent;
             if (RotorX > 1)
             {
@@ -54,7 +53,7 @@ namespace Havier_Than_Air_S.HelyParts
                 topVintSpeed *= -1;
             }
 
-            _shape.Scale = new Vector2f(RotorX, _shape.Scale.Y);
+            _Collider.shape.Scale = new Vector2f(RotorX, _Collider.shape.Scale.Y);
             
 
 
