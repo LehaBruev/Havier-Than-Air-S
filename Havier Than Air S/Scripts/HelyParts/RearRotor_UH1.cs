@@ -25,7 +25,7 @@ namespace Havier_Than_Air_S.HelyParts
             _shape.Origin = rearRotorOrigin;
             _shape.FillColor = rearRotorColor;
             _Collider = new Collider(_shape);
-            
+            _Collider.ShapeOn_ColliderWiev = true;
         }
 
         public void Update(Vector2f pos, float ang, float RPM_procent)

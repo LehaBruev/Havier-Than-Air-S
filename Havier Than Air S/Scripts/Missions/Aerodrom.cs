@@ -23,8 +23,8 @@ namespace Havier_Than_Air_S
             spr = new Sprite(PadTexture);
             spr.Position = position;
 
-            collider = new Collider(new RectangleShape(new Vector2f(137,100)), new Color(0,255,0,150),position-new Vector2f(0,35)); //цвет коллайдера
-            padLandCollider = new Collider(new RectangleShape(new Vector2f(137,50)), new Color(255,255,0,175),position+new Vector2f(0,30)); //цвет коллайдера
+            collider = new Collider(new RectangleShape(new Vector2f(137,100))); //цвет коллайдера
+            padLandCollider = new Collider(new RectangleShape(new Vector2f(137,50))); //цвет коллайдера
             
         }
 

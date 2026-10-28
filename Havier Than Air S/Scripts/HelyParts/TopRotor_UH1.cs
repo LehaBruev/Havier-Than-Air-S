@@ -25,6 +25,7 @@ namespace Havier_Than_Air_S.HelyParts
             _shape.Origin = topVintOrigin;
             _shape.FillColor = topRotorColor;
             _Collider = new Collider(_shape);
+            _Collider.ShapeOn_ColliderWiev = true;
             //_Collider = new Collider(_shape,Color.Green);
             //_Collider.marker.markerPoint.Radius = 3;//радиус точки для маркера
         }
@@ -54,6 +55,7 @@ namespace Havier_Than_Air_S.HelyParts
             }
 
             _Collider.shape.Scale = new Vector2f(RotorX, _Collider.shape.Scale.Y);
+
             
 
 

@@ -122,7 +122,7 @@ namespace Havier_Than_Air_S.Weapon
             return pullStatus;
         }
 
-        public Shape GetShape()
+        public Shape GetColliderShape()
         {
 
             return m_Rectangleshape;
@@ -141,6 +141,16 @@ namespace Havier_Than_Air_S.Weapon
         public bool GetColliderStatus()
         {
             return colliderStatus;
+        }
+
+        public Shape GetColliderShape(int numOfDetal)
+        {
+            return m_Rectangleshape;
+        }
+
+        public void ReturnToPull()
+        {
+            throw new NotImplementedException();
         }
     }
 }

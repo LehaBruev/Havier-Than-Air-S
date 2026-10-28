@@ -15,12 +15,14 @@ namespace Havier_Than_Air_S
         void Update();
         TypeOfObject GetTypeOfObject();
         PullStatus GetCurrentPullStatus();
-        Shape GetShape();
+        Shape GetColliderShape(int numOfDetal);
 
         Vector2f GetPosition();
 
         void SetDamage(IMoovable obj);
 
         bool GetColliderStatus();
+
+        void ReturnToPull();
     }
 }

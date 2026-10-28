@@ -38,7 +38,7 @@ namespace Havier_Than_Air_S.Missions
             throw new NotImplementedException();
         }
 
-        public Shape GetShape()
+        public Shape GetColliderShape()
         {
             return rectShape;
         }
@@ -66,6 +66,14 @@ namespace Havier_Than_Air_S.Missions
 
         }
 
+        public Shape GetColliderShape(int numOfDetal)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void ReturnToPull()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

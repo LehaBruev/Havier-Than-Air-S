@@ -1,5 +1,6 @@
 ﻿using Havier_Than_Air_S.Enemies;
 using Havier_Than_Air_S.Missions;
+using Havier_Than_Air_S.Scripts.Enemies;
 using Havier_Than_Air_S.Weapon;
 using SFML.Graphics;
 using SFML.System;
@@ -99,11 +100,12 @@ namespace Havier_Than_Air_S
         {
             for (int i = 0; i < IMoovables.Length; i++)
             {
-                if (IMoovables[i].GetTypeOfObject() == TypeOfObject.tank1 )
+                if (IMoovables[i] is Base_Vehicle )
                 {
-                    (IMoovables[i] as Tnk1).marshrut= marsh;
+                    (IMoovables[i] as Base_Vehicle).marshrut= marsh;
 
                 }
+                /*
                 if ( IMoovables[i].GetTypeOfObject() == TypeOfObject.enemyPVO)
                 {
                     (IMoovables[i] as PVO1).marshrut = marsh;
@@ -111,7 +113,7 @@ namespace Havier_Than_Air_S
                 }
                 if (IMoovables[i].GetTypeOfObject() == TypeOfObject.tank2)
                 {
-                    (IMoovables[i] as Tnk2).myMarshrut = marsh;
+                    (IMoovables[i] as Tnk2).marshrut = marsh;
 
                 }
                 if (IMoovables[i].GetTypeOfObject() == TypeOfObject.Jeep_1)
@@ -119,6 +121,7 @@ namespace Havier_Than_Air_S
                     (IMoovables[i] as Jeep_1).marshrut = marsh;
 
                 }
+                */
 
             }
         }
@@ -150,7 +153,7 @@ namespace Havier_Than_Air_S
             CheckCollisions();
         }
 
-        public void CheckCollisionsWithShape(Shape sh)
+        public void CheckCollisionsWithShape(Shape sh) // урезанная проверка столкновений
         {
 
             for (int i = 0; i < IMoovables.Length; i++)
@@ -161,7 +164,13 @@ namespace Havier_Than_Air_S
                     IMoovables[i].GetCurrentPullStatus() == PullStatus.inAir &&
                     IMoovables[i].GetColliderStatus() == true)
                 {
-                    Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), sh);
+
+
+
+                    Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetColliderShape(0), sh);
+
+
+
 
                     if (d.GetLength(0) > 0)
                     {
@@ -188,17 +197,21 @@ namespace Havier_Than_Air_S
                         if ((IMoovables[k].GetTypeOfObject() == TypeOfObject.tank1 || IMoovables[k].GetTypeOfObject() == TypeOfObject.enemyPVO || IMoovables[k].GetTypeOfObject() == TypeOfObject.Jeep_1 || IMoovables[k].GetTypeOfObject() == TypeOfObject.tank2) 
                             && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
                         {
-                           Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
+                            
+                            
+                            Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetColliderShape(0), IMoovables[k].GetColliderShape(0));
 
                             if (d.GetLength(0)>0)
                             {
                                 IMoovables[i].SetDamage(IMoovables[k]);
                                 IMoovables[k].SetDamage(IMoovables[i]);
                             }
+
+
                         }
                         if (IMoovables[k].GetTypeOfObject() == TypeOfObject.house && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
                         {
-                            Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetShape(), IMoovables[k].GetShape());
+                            Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetColliderShape(1), IMoovables[k].GetColliderShape(1));
 
                             if (d.GetLength(0) > 0)
                             {

@@ -1,4 +1,6 @@
-﻿using Havier_Than_Air_S.Vehicle_parts;
+﻿using Havier_Than_Air_S.Scripts;
+using Havier_Than_Air_S.Scripts.Enemies;
+using Havier_Than_Air_S.Vehicle_parts;
 using Havier_Than_Air_S.Weapon;
 using SFML.Graphics;
 using SFML.System;
@@ -6,239 +8,93 @@ using System;
 
 namespace Havier_Than_Air_S.Enemies
 {
-    public class Tnk1: IMoovable
+    public class Tnk1: Base_Vehicle
     {
-        //Тип объекта
-        TypeOfObject typeofObject = TypeOfObject.tank1;
-
-        bool colliderStatus;
-
-        //Маршрут движения
-        public Marshrut marshrut;
-        int currentMarshrutPoint = 0;
-        float minDistToMarshPoint = 5f;
-        Vector2f centerOfMass = new Vector2f(35,20);
-        
-        //Параметры формы коллайдера
-        RectangleShape shape;
-        PullStatus status = PullStatus.inPool;
-
-        //Запчасти
-        Detal[] detaly;
-        Vector2f[] detalyPoints;
-
-
-        // Параметры Танка1
-        float maxLifes = 100;
-        float tank1speed = 5;
-
-        // Переменные 
-        float currentLifes = 0;
-        float angle = 0;
-        Vector2f position = new Vector2f(0,0);
-
-        Texture body;
-
-        Sprite bodySprite;
-
-        //Позиции
-        Vector2f headPosition = new Vector2f(0,-25); 
-        Vector2f gunPosition = new Vector2f(-4,-23);
-
         Vector2f currentGunPosition = new Vector2f(5,8);
         float gunAngle = 35;
 
-       
-        //marker
-        Marker marker;
-        Text lifeText;
-
-        //Наклон на кочках
-        float targetAngleNaklon = 0;
-        float angleNaklonSpeed = 1;
-
-
-
         public Tnk1()
         {
+            typeofObject = TypeOfObject.tank1;//тип объекта
 
-            detaly = new Detal[2];
-            detalyPoints = new Vector2f[detaly.Length];
-            detaly[0] = new Head_Tank_1();
-            detalyPoints[0] = headPosition;
-            detaly[1] = new Gun_Tank_1();
-            detalyPoints[1] = gunPosition;
+            detaly = new Detal[1];//массив деталей, прикрепленных к модели (0= корпус, 1=тестировочная)
+            detalyPoints = new Vector2f[detaly.Length];//позиции деталей, прикрепленных к модели
+            SetDetalKorpus(); // Корпус
+            SetDetalBashnya(); // Башня
+            SetDetalPushka(); // Ствол
+            //SetTestDetal(); //ОПЦИЯ. В случае отключения, понизь массив "detaly" на 1 !!!
 
-
-            marshrut = new Marshrut();
-
-            body = new Texture(Program.m_TextureManager.allImage, new IntRect(39, 884, 85, 24));
-
-            bodySprite = new Sprite(body);
-            bodySprite.Origin = centerOfMass;
-
-            shape = new RectangleShape(new Vector2f(85, 24));
-            shape.Origin = centerOfMass;
-
-            marker = new Marker(shape, Color.Yellow, 3);
-
-            angleNaklonSpeed = new Random().Next(1,3);
         }
 
-
-
-        public void ChangeMarshrutPoint(int numberOfMarshrutPoint)
+        //Корпус
+        private void SetDetalKorpus()
         {
-            currentMarshrutPoint = numberOfMarshrutPoint;
-            if (numberOfMarshrutPoint>marshrut.marshrutPoints.Length-1)
-            {
-                currentMarshrutPoint = marshrut.marshrutPoints.Length - 1;
-                
+            //Форма коллайдера
+            Shape shape = new RectangleShape(new Vector2f(85, 24));
+            shape.Origin = new Vector2f(45, 20);
+            //Спрайт корпуса
+            Texture body = new Texture(Program.m_TextureManager.allImage, new IntRect(39, 884, 85, 24));
+            Sprite bodySprite = new Sprite(body);
+            bodySprite.Origin = new Vector2f(45, 20);
 
 
-            }
-            int t = currentMarshrutPoint;
-            if (currentMarshrutPoint == marshrut.marshrutPoints.Length) t -= 1;
-            targetAngleNaklon = Matematika.AngleOfVector(marshrut.marshrutPoints[t-1 ] - marshrut.marshrutPoints[currentMarshrutPoint]);
+            detaly[0] = new Detal(new Collider(shape), bodySprite, false, false,false);//Корпус
+            detalyPoints[0] = new Vector2f(0, 0);
 
+            AddShapeToCoolidersShapes(shape);
+        }
+
+        //Башня
+        private void SetDetalBashnya()
+        {
+            //Создание башни
+            Shape shape = new RectangleShape(new Vector2f(44, 10));
+            shape.Origin = new Vector2f(12, 5);
+
+            Texture _texture = new Texture(Program.m_TextureManager.allImage, new IntRect(159, 878, 45, 12));
+            Sprite _sprite = new Sprite(_texture);
+            _sprite.Origin = new Vector2f(11, 6);
+
+            detaly[0].m_DetalyDaughters = new Detal[1];//Создание детали прикрепленной к корпусу
+            detaly[0].m_DetalyDaughtersPoints = new Vector2f[1];
+            detaly[0].m_DetalyDaughters[0] = new Detal(new Collider(shape), _sprite, false, false, false); //Башня
+            detaly[0].m_DetalyDaughtersPoints[0] = new Vector2f(-10,-20); //Точка установки башни на корпусе
+
+            AddShapeToCoolidersShapes(shape);
+
+        }
+
+        private void SetDetalPushka()
+        {
+            Shape shape = new RectangleShape(new Vector2f(58, 4));
+            shape.Origin = new Vector2f(58, 0);
+
+            Texture _texture = new Texture(Program.m_TextureManager.allImage, new IntRect(154, 857, 59, 6));
+            Sprite _sprite = new Sprite(_texture);
+            _sprite.Origin = new Vector2f(58, 2);
+            
             
 
+
+            //Создание пушки
+            detaly[0].m_DetalyDaughters[0].m_DetalyDaughters = new Detal[1]; // Создание детали прикрепленной к башне, прикрепленной к корпусу
+            detaly[0].m_DetalyDaughters[0].m_DetalyDaughtersPoints = new Vector2f[1];
+            detaly[0].m_DetalyDaughters[0].m_DetalyDaughters[0] = new Detal(new Collider(shape), _sprite,true,false,true); //Ствол
+            detaly[0].m_DetalyDaughters[0].m_DetalyDaughtersPoints[0] = new Vector2f();//Точка установки ствола на башне
+
+            detaly[0].m_DetalyDaughters[0].m_DetalyDaughters[0].DopAngle = 65;
+
+            AddShapeToCoolidersShapes(shape);
         }
 
-       
-
-        Random rand;
-        public void Start(Vector2f pos, float angle, Vector2f speed)
+        private void SetTestDetal()
         {
-            rand = new Random();
-            currentLifes = rand.Next(50,200);
-            position = pos;
-            tank1speed = speed.X;//speed.X;
-            status = PullStatus.inAir;
-            colliderStatus = true;
-
-            //Приписка спавну
-            //Program.Game.Missions[Program.Game.currentMissionNum].CallSpawner(this);
+            detaly[1] = new TestDetal(); //Test
+            detalyPoints[1] = new Vector2f(0, 0);
         }
 
-        public void Update()
-        {
-            //если дистанция до точки меньше чем
-            if (minDistToMarshPoint>Matematika.searchdistance(position, marshrut.marshrutPoints[currentMarshrutPoint]))
-            {
-                ChangeMarshrutPoint(currentMarshrutPoint+1);
-                if (currentMarshrutPoint == marshrut.marshrutPoints.Length-1)
-                {
-                    currentMarshrutPoint = 0;
-                    ReturnToPull();
+        
 
-                    return;
-                }
-            }
-
-            //пройденное расстояние
-            float distance = tank1speed * Program.deltaTimer.Delta();
-
-            //угол до цели
-            float angleToTarget = Matematika.AngleOfVector(marshrut.marshrutPoints[currentMarshrutPoint] - position );
-
-            //вектор до цели
-            Vector2f moveVector = Matematika.searchLocalVector(angleToTarget, distance);
-
-
-            if (angle != targetAngleNaklon)
-            {
-                if (angle > targetAngleNaklon)
-                {
-                    angle -= angleNaklonSpeed*Program.deltaTimer.Delta()*Program.gameSpeed;
-                }
-                if (angle < targetAngleNaklon)
-                {
-                    angle += angleNaklonSpeed * Program.deltaTimer.Delta() * Program.gameSpeed;
-                }
-
-                if (Math.Abs(angle - targetAngleNaklon) < 0.03f) angle = targetAngleNaklon;
-            }
-
-
-            //перемещение
-            position = position + moveVector;
-            shape.Position = position;
-            shape.Rotation = angle;
-            bodySprite.Rotation = angle;
-            bodySprite.Position = position;
-
-                        
-           
-            Program.window.Draw(bodySprite);
-            for (int i = 0; i < detaly.Length; i++)
-            {
-                Vector2f tecPointPos = Matematika.LocalPointOfRotationObject(detalyPoints[i], angle);
-                detaly[i].setPosAndAngle(tecPointPos + position, angle);
-                detaly[i].Update();
-            }
-            marker.UpdatePoints(shape);
-            marker.Update();
-            
-            lifeText = new Text(currentLifes.ToString(), Program.font, 10);
-            lifeText.Position = position + new Vector2f(50, -10);
-            lifeText.FillColor = Color.Yellow;
-            Program.window.Draw(lifeText);
-
-        }
-
-
-
-        public TypeOfObject GetTypeOfObject()
-        {
-            return typeofObject;
-        }
-
-        public PullStatus GetCurrentPullStatus()
-        {
-            return status;
-        }
-
-        public Shape GetShape()
-        {
-            return shape;
-        }
-
-        public Vector2f GetPosition()
-        {
-            return position;
-        }
-
-
-
-
-        public void SetDamage(IMoovable obj)
-        {
-            if (obj is Projectile)
-            {
-                currentLifes -= (obj as Projectile).projectileDamage;
-
-            }
-
-            if (currentLifes<=0)
-            {
-                currentMarshrutPoint = 0;
-                ReturnToPull();
-            }
-
-        }
-
-        private void ReturnToPull()
-        {
-            status = PullStatus.inPool;
-            position = Program.m_PullObjects.position;
-
-        }
-
-        public bool GetColliderStatus()
-        {
-            return colliderStatus;
-        }
 
 
     }

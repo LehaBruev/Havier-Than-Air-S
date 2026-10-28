@@ -9,7 +9,7 @@ using SFML.System;
 
 namespace Havier_Than_Air_S.Weapon
 {
-    public class Bang: IMoovable
+    public class Bang : IMoovable
     {
         CircleShape circleshape;
 
@@ -121,7 +121,7 @@ namespace Havier_Than_Air_S.Weapon
             return pullStatus;
         }
 
-        public Shape GetShape()
+        public Shape GetColliderShape()
         {
            return circleshape;
         }
@@ -137,6 +137,16 @@ namespace Havier_Than_Air_S.Weapon
         }
 
         public bool GetColliderStatus()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Shape GetColliderShape(int numOfDetal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReturnToPull()
         {
             throw new NotImplementedException();
         }

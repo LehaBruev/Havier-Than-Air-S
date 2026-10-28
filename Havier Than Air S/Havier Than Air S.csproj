@@ -164,6 +164,7 @@
     <Compile Include="Rita.cs" />
     <Compile Include="Scripts\Menu\Button_old.cs" />
     <Compile Include="Scripts\PauseMenu.cs" />
+    <Compile Include="Scripts\TestDetal.cs" />
     <Compile Include="Spawn.cs" />
     <Compile Include="StatisticaOfLevel.cs" />
     <Compile Include="Scripts\Service\Vectora.cs" />

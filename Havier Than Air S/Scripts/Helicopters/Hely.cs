@@ -871,7 +871,7 @@ namespace Havier_Than_Air_S
             throw new NotImplementedException();
         }
 
-        public Shape GetShape()
+        public Shape GetColliderShape()
         {
             throw new NotImplementedException();
         }
@@ -890,6 +890,16 @@ namespace Havier_Than_Air_S
         }
 
         public bool GetColliderStatus()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Shape GetColliderShape(int numOfDetal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReturnToPull()
         {
             throw new NotImplementedException();
         }
