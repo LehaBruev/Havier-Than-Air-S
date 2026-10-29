@@ -60,6 +60,14 @@ namespace Havier_Than_Air_S
                     Program.window.Draw(text_1);
 
                 }
+
+                float dist = Matematika.searchdistance(pointsPositions[0], pointsPositions[1]);
+                text_1 =    new Text(dist.ToString(), Program.font, 16);
+                text_1.FillColor = Color.White;
+                text_1.Position = pointsPositions[1] + new Vector2f(-20,-50);
+
+                Program.window.Draw(text_1);
+
             }
 
         }

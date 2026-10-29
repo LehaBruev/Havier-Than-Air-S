@@ -14,12 +14,7 @@ namespace Havier_Than_Air_S.Enemies
         {
             typeofObject = TypeOfObject.enemyPVO;
 
-            maxLifes = 100;
-            tank1speed = 5;
-            marshrut = new Marshrut();
-
-            
-
+    
 
             Shape shape = new RectangleShape(new Vector2f(104, 35));
             shape.Origin = centerOfMass + new Vector2f(0, -30);
@@ -32,19 +27,19 @@ namespace Havier_Than_Air_S.Enemies
             detaly[0] = new Detal(new Collider(shape,Color.Yellow), bodySprite);
             detalyPoints = new Vector2f[detaly.Length];
 
-
-
-            angleNaklonSpeed = new Random().Next(1,3);
+            AddShapeToCoolidersShapes(shape);
         }
 
-
-
-        public override void Update()
+        public override void Start(Vector2f p, float a, Vector2f s)
         {
-            base.Update();
+            base.Start(p, a, s);
+
+            maxLifes = 150;
+            currentLifes = 150;
+            speed = 65;
+            angleNaklonSpeed = 0.5f;
 
         }
-
 
 
 

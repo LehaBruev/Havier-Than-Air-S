@@ -24,8 +24,14 @@ namespace Havier_Than_Air_S
             spr.Position = position;
 
             collider = new Collider(new RectangleShape(new Vector2f(137,100))); //цвет коллайдера
-            padLandCollider = new Collider(new RectangleShape(new Vector2f(137,50))); //цвет коллайдера
-            
+            padLandCollider = new Collider(new RectangleShape(new Vector2f(137,50)), Color.Green); //цвет коллайдера
+            padLandCollider.marker.ShapeOn = true;
+            collider.shape.Position = position;
+            padLandCollider.shape.Position = position+new Vector2f(0,35);
+
+
+
+
         }
 
         public void Update()

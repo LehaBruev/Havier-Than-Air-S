@@ -34,18 +34,19 @@ namespace Havier_Than_Air_S.Enemies
             detaly[0] = new Detal(coll, spriteBody); //Кузов
             detalyPoints[0] = new Vector2f(0,0);
 
-           // detaly[1] = new TestDetal(); //test
-           // detalyPoints[1] = new Vector2f(0, 0);
+            AddShapeToCoolidersShapes(colliderShape);
 
-
-            angleNaklonSpeed = new Random().Next(1,3);
+            
         }
 
-
-
-        public override void Update()
+        public override void Start(Vector2f p, float a, Vector2f s)
         {
-           base.Update();
+            base.Start(p, a, s);
+
+            maxLifes = 50;
+            currentLifes = 50;
+            speed = 35;
+            angleNaklonSpeed = 20;
 
         }
 

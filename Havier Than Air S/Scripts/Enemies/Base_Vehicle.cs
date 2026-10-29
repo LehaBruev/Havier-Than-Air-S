@@ -28,7 +28,7 @@ namespace Havier_Than_Air_S.Scripts.Enemies
 
         // Параметры 
         public float maxLifes = 100;
-        public float tank1speed = 15;
+        public float speed = 15;
 
         // Переменные 
         public float currentLifes = 0;
@@ -42,7 +42,7 @@ namespace Havier_Than_Air_S.Scripts.Enemies
         public float targetAngleNaklon = 0;
         public float angleNaklonSpeed = 1;
 
-        public Vector2f centerOfMass = new Vector2f(54, 63);
+        public Vector2f centerOfMass = new Vector2f();
 
         public Random rand;
 
@@ -73,7 +73,7 @@ namespace Havier_Than_Air_S.Scripts.Enemies
 
 
             //пройденное расстояние
-            float distance = tank1speed * Program.deltaTimer.Delta();
+            float distance = speed * Program.deltaTimer.Delta();
 
             //угол до цели
             float angleToTarget = Matematika.AngleOfVector(marshrut.marshrutPoints[currentMarshrutPoint] - position);
@@ -136,12 +136,12 @@ namespace Havier_Than_Air_S.Scripts.Enemies
 
         }
 
-        public void Start(Vector2f pos, float angle, Vector2f speed)
+        public virtual void Start(Vector2f pos, float angle, Vector2f speed)
         {
             rand = new Random();
-            currentLifes = rand.Next(50, 200);
+            //currentLifes = rand.Next(50, 200);
             position = pos;
-            tank1speed = speed.X;//speed.X;
+            //this.speed = speed.X;//speed.X;
             status = PullStatus.inAir;
             colliderStatus = true;
         }

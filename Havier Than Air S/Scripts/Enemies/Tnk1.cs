@@ -10,8 +10,7 @@ namespace Havier_Than_Air_S.Enemies
 {
     public class Tnk1: Base_Vehicle
     {
-        Vector2f currentGunPosition = new Vector2f(5,8);
-        float gunAngle = 35;
+        
 
         public Tnk1()
         {
@@ -38,7 +37,7 @@ namespace Havier_Than_Air_S.Enemies
             bodySprite.Origin = new Vector2f(45, 20);
 
 
-            detaly[0] = new Detal(new Collider(shape), bodySprite, false, false,false);//Корпус
+            detaly[0] = new Detal(new Collider(shape), bodySprite, false, true,false);//Корпус
             detalyPoints[0] = new Vector2f(0, 0);
 
             AddShapeToCoolidersShapes(shape);
@@ -76,7 +75,7 @@ namespace Havier_Than_Air_S.Enemies
             
 
 
-            //Создание пушки
+            //Создание ствола пушки
             detaly[0].m_DetalyDaughters[0].m_DetalyDaughters = new Detal[1]; // Создание детали прикрепленной к башне, прикрепленной к корпусу
             detaly[0].m_DetalyDaughters[0].m_DetalyDaughtersPoints = new Vector2f[1];
             detaly[0].m_DetalyDaughters[0].m_DetalyDaughters[0] = new Detal(new Collider(shape), _sprite,true,false,true); //Ствол
@@ -87,13 +86,18 @@ namespace Havier_Than_Air_S.Enemies
             AddShapeToCoolidersShapes(shape);
         }
 
-        private void SetTestDetal()
+        public override void Start(Vector2f p, float a, Vector2f s)
         {
-            detaly[1] = new TestDetal(); //Test
-            detalyPoints[1] = new Vector2f(0, 0);
+            base.Start(p, a, s);
+
+            maxLifes = 125;
+            currentLifes = 125;
+            speed = 18;
+            angleNaklonSpeed = 2;
+
         }
 
-        
+
 
 
 
