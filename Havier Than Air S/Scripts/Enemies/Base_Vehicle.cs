@@ -161,14 +161,8 @@ namespace Havier_Than_Air_S.Scripts.Enemies
             AllCollidersShapes[AllCollidersShapes.Length - 1] = addShape;
 
         }
-
-
-
-
-
-        
+ 
         // Обязательные
-        
 
         public TypeOfObject GetTypeOfObject()
         {
@@ -184,8 +178,6 @@ namespace Havier_Than_Air_S.Scripts.Enemies
 
         public Shape GetColliderShape(int numOfdetal)
         {
-            
-
             return AllCollidersShapes[0];
         }
 
@@ -194,12 +186,11 @@ namespace Havier_Than_Air_S.Scripts.Enemies
             return position;
         }
 
-        public void SetDamage(IMoovable obj)
+        public virtual void SetDamage(IMoovable obj)
         {
             if (obj is Projectile)
             {
                 currentLifes -= (obj as Projectile).projectileDamage;
-
             }
 
             if (currentLifes <= 0)
@@ -218,7 +209,7 @@ namespace Havier_Than_Air_S.Scripts.Enemies
         {
             status = PullStatus.inPool;
             position = Program.m_PullObjects.position;
-
+            angle = 0;
         }
 
     }

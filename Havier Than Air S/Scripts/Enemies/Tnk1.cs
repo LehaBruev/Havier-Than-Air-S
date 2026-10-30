@@ -93,7 +93,7 @@ namespace Havier_Than_Air_S.Enemies
             maxLifes = 125;
             currentLifes = 125;
             speed = 18;
-            angleNaklonSpeed = 2;
+            angleNaklonSpeed = 0.3f;
 
         }
 

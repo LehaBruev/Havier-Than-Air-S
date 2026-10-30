@@ -43,6 +43,8 @@ namespace Havier_Than_Air_S
         Sound masterSound3;
         Sound masterSound4;
 
+        Sound glassSound;
+
         Random rnd = new Random();
 
         public SoundManager()
@@ -66,6 +68,15 @@ namespace Havier_Than_Air_S
             masterSound3.Volume = Program.Mixer.MasterVolume * Program.Mixer.bulletVolume / 100 * Program.Mixer.SoundsVolume / 100;
             masterSound4 = new Sound();
             masterSound4.Volume = Program.Mixer.MasterVolume * Program.Mixer.bulletVolume / 100 * Program.Mixer.SoundsVolume / 100;
+
+
+            //Стекло
+            
+            glassSound = new Sound(new SoundBuffer("Sounds\\Weapons\\Rikochets\\bullet-hit-glass-2.wav"));
+            glassSound.Volume = Program.Mixer.MasterVolume * Program.Mixer.bulletVolume / 100 * Program.Mixer.SoundsVolume / 100;
+
+
+
         }
 
         private void PlaySound(SoundBuffer soundBuf)
@@ -115,6 +126,10 @@ namespace Havier_Than_Air_S
             if (intSound == 3) // попадание в землю
             {
                 PlaySound(udarVPesok[rnd.Next(0, 2)]);
+            }
+            if (intSound == 4) // стекло
+            {
+                glassSound.Play();
             }
 
 

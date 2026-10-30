@@ -30,12 +30,20 @@ namespace Havier_Than_Air_S
         //Переменные
         public Vector2f[] CurrentDaughterPointsLocalPos;
 
-        
+
+        public bool DetalOFF = false;
+
         public Detal(Collider collider, Sprite sprite)
         {
             _Collider = collider;
             _sprite = sprite;
         }
+
+        public Detal(Sprite sprite)
+        {
+            _sprite = sprite;
+        }
+
         public Detal()
         { 
         }
@@ -70,37 +78,40 @@ namespace Havier_Than_Air_S
 
         public virtual void Update()
         {
-            if (_sprite != null)
+            if (!DetalOFF)
             {
-                _sprite.Position = _position; //Обновление картинки
-                _sprite.Rotation = _angle;    //
-                Program.window.Draw(_sprite); //Отрисовка
-            }
-
-            if (_Collider != null)
-            {
-                _Collider.shape.Position = _position; //Обновление коллайдера
-                _Collider.shape.Rotation = _angle;    //
-                _Collider.Update();    //Отрисовка
-            }
-
-            //Работа с дочерними деталями
-            if (m_DetalyDaughters != null)
-            {
-                for (int i = 0;i<m_DetalyDaughters.Length;i++)
+                if (_sprite != null)
                 {
-                    Vector2f texPointPos = Matematika.LocalPointOfRotationObject(m_DetalyDaughtersPoints[i], _angle);
-                    m_DetalyDaughters[i].setPosAndAngle(texPointPos + _position,_angle);
-                    m_DetalyDaughters[i].Update();
+                    _sprite.Position = _position; //Обновление картинки
+                    _sprite.Rotation = _angle;    //
+                    Program.window.Draw(_sprite); //Отрисовка
                 }
 
-            }
+                if (_Collider != null)
+                {
+                    _Collider.shape.Position = _position; //Обновление коллайдера
+                    _Collider.shape.Rotation = _angle;    //
+                    _Collider.Update();    //Отрисовка
+                }
 
-            //отображение маркера центра детали
-            if (positionMarkerOn)
-            {
-                _circleShape.Position = _position;
-                Program.window.Draw(_circleShape);
+                //Работа с дочерними деталями
+                if (m_DetalyDaughters != null)
+                {
+                    for (int i = 0; i < m_DetalyDaughters.Length; i++)
+                    {
+                        Vector2f texPointPos = Matematika.LocalPointOfRotationObject(m_DetalyDaughtersPoints[i], _angle);
+                        m_DetalyDaughters[i].setPosAndAngle(texPointPos + _position, _angle);
+                        m_DetalyDaughters[i].Update();
+                    }
+
+                }
+
+                //отображение маркера центра детали
+                if (positionMarkerOn)
+                {
+                    _circleShape.Position = _position;
+                    Program.window.Draw(_circleShape);
+                }
             }
 
         }
