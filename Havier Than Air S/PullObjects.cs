@@ -87,7 +87,7 @@ namespace Havier_Than_Air_S
                     if (m==5) IMoovables[n] = new Tnk2();
                     if (m==6) IMoovables[n] = new PVO1();
                     if (m==7) IMoovables[n] = new Jeep_1();
-                    if (m==8) IMoovables[n] = new Hous();
+                    if (m==8) IMoovables[n] = new Damaged_Jeep1();
                     n += 1;
                 }
             }
@@ -211,6 +211,7 @@ namespace Havier_Than_Air_S
                         }
                         if (IMoovables[k].GetTypeOfObject() == TypeOfObject.house && IMoovables[k].GetCurrentPullStatus() == PullStatus.inAir && IMoovables[i].GetColliderStatus() == true)
                         {
+                            if (IMoovables[k].GetColliderShape(1) == null) return;
                             Vector2f[,] d = collisions.CheckShapesForCollision(IMoovables[i].GetColliderShape(1), IMoovables[k].GetColliderShape(1));
 
                             if (d.GetLength(0) > 0)

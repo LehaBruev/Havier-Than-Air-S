@@ -90,7 +90,9 @@ namespace Havier_Than_Air_S.Enemies
                 currentMarshrutPoint = 0;
                 detaly[1].DetalOFF = false;
                 glasssLifes = 4;
+                Program.m_PullObjects.StartObject(position, angle, new Vector2f(), TypeOfObject.house);
                 ReturnToPull();
+                
             }
 
 
