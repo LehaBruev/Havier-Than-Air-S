@@ -22,7 +22,7 @@ namespace Havier_Than_Air_S.Scripts.Enemies
             //Collider coll = new Collider(colliderShape, Color.Green);
             Collider coll = new Collider(colliderShape);
 
-            Texture textureBody = new Texture(new Image("Images\\DamagedObjectsImages\\Jeep1_windowv.png"));
+            Texture textureBody = new Texture(new Image("Images\\DamagedObjectsImages\\Jeep1_damaged2.png"));
             spriteBody = new Sprite(textureBody);
             spriteBody.Scale = new Vector2f(0.2f, 0.2f);
             spriteBody.Origin = new Vector2f(180, 200);

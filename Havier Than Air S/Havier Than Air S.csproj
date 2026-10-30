@@ -220,6 +220,9 @@
     <Content Include="Images\BackGroundLevel1 - Копировать.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\DamagedObjectsImages\Jeep1_damaged2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\DamagedObjectsImages\Jeep1_damaged.png" />
     <Content Include="Images\DamagedObjectsImages\Jeep1_windowv.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

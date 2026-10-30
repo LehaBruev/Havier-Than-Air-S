@@ -29,16 +29,16 @@ namespace Havier_Than_Air_S.Scripts.Missions.Scenaries
             EnemyCrest[] crest1 = new EnemyCrest[]
             {
            new EnemyCrest(TypeOfObject.Jeep_1, 5, 3f),  // три танка через каждые 0.5 секунды
-            new EnemyCrest(TypeOfObject.tank2, 2, 4f),
-            new EnemyCrest(TypeOfObject.tank2, 2, 4f),
-            new EnemyCrest(TypeOfObject.enemyPVO, 3, 2f),
+            new EnemyCrest(TypeOfObject.tank1, 2, 7f),
+            new EnemyCrest(TypeOfObject.tank2, 1, 8f),
+            new EnemyCrest(TypeOfObject.enemyPVO, 1, 7f),
              };
 
             EnemyCrest[] crest2 = new EnemyCrest[]
             {
-            new EnemyCrest(TypeOfObject.tank1, 10, 0.9f),  // три танка через каждые 0.5 секунды
-            new EnemyCrest(TypeOfObject.enemyPVO, 3, 3f),
-            new EnemyCrest(TypeOfObject.Jeep_1, 10, 2f),
+            new EnemyCrest(TypeOfObject.tank1, 4, 5.5f),  // три танка через каждые 0.5 секунды
+            new EnemyCrest(TypeOfObject.enemyPVO, 2, 4f),
+            new EnemyCrest(TypeOfObject.Jeep_1, 10, 2.8f),
             new EnemyCrest(TypeOfObject.tank2, 3, 8f)
              };
 

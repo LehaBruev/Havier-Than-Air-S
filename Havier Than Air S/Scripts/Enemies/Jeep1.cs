@@ -72,7 +72,7 @@ namespace Havier_Than_Air_S.Enemies
 
                 if (detaly[1].DetalOFF == false)
                 {
-                    if (rand.Next(1, 101) > 80)
+                    if (rand.Next(1, 101) > 85)
                     {
                         Program.soundManager.playSound(4);
                         glasssLifes -= (obj as Projectile).projectileDamage;
@@ -90,7 +90,7 @@ namespace Havier_Than_Air_S.Enemies
                 currentMarshrutPoint = 0;
                 detaly[1].DetalOFF = false;
                 glasssLifes = 4;
-                Program.m_PullObjects.StartObject(position, angle, new Vector2f(), TypeOfObject.house);
+                Program.m_PullObjects.StartObject(position+new Vector2f(0,15), angle, new Vector2f(), TypeOfObject.house);
                 ReturnToPull();
                 
             }
